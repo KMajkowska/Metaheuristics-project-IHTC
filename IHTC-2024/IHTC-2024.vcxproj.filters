@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\DTOs">
+      <UniqueIdentifier>{e22b674e-d5c3-4ac5-bff2-7af85a16d429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\DTOs\care">
+      <UniqueIdentifier>{aa23f840-38c2-430c-9ce8-f238842d564f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\DTOs\surgery">
+      <UniqueIdentifier>{54ceb372-0607-4249-9f59-e287f4f339d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\DTOs\patients">
+      <UniqueIdentifier>{c3fd8a8f-7411-4036-9e72-d9c61633e541}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IHTC-2024.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IncomingPatientDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="OccupantDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\surgery</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\surgery</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemData.h">
+      <Filter>Pliki nagłówkowe\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightsDTO.h">
+      <Filter>Pliki nagłówkowe\DTOs</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
