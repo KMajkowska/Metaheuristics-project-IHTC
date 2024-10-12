@@ -14,13 +14,24 @@ class ProblemData
 public:
 	int getDays() const;
 	int getSkillLevels() const;
-	std::vector<std::string> getShiftTypes();
-	std::vector<std::string> getAgeGroups();
-	WeightsDTO getWeights();
-	std::vector<NurseDTO> getNurses();
-	std::vector<RoomDTO> getRooms();
-	std::vector<OccupantDTO> getOccupants();
-	std::vector<IncomingPatientDTO> getPatients();
+	std::vector<std::string> getShiftTypes() const;
+	std::vector<std::string> getAgeGroups() const ;
+	WeightsDTO getWeights() const;
+	std::vector<NurseDTO> getNurses() const;
+	std::vector<RoomDTO> getRooms() const;
+	std::vector<OccupantDTO> getOccupants() const;
+	std::vector<IncomingPatientDTO> getPatients() const;
+
+	void setDays(int newDays);
+	void setSkillLevels(int newSkillLevels);
+	void setShiftTypes(std::vector<std::string> newShiftTypes);
+	void setAgeGroups(std::vector<std::string> newAgeGroups);
+	void setWeights(WeightsDTO& newWeights);
+	void setNurses(std::vector<NurseDTO> newNurses);
+	void setRooms(std::vector<RoomDTO> newRooms);
+	void setOccupants(std::vector<OccupantDTO> newOccupants);
+	void setPatients(std::vector<IncomingPatientDTO> newIncomingPatients);
+
 private:
 	int days;
 	int skill_levels;

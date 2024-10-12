@@ -5,9 +5,9 @@ int WeightsDTO::getRoomMixedAge() const
     return room_mixed_age;
 }
 
-int WeightsDTO::getRoomNurseSkil() const
+int WeightsDTO::getRoomNurseSkill() const
 {
-    return room_nurse_skil;
+    return room_nurse_skill;
 }
 
 int WeightsDTO::getContinuityOfCare() const
@@ -38,4 +38,44 @@ int WeightsDTO::getPatientDelay() const
 int WeightsDTO::getUnscheduledOptional() const
 {
     return unscheduled_optional;
+}
+
+void WeightsDTO::setRoomMixedAge(int newRoomMixedAge)
+{
+    room_mixed_age = newRoomMixedAge;
+}
+
+void WeightsDTO::setRoomNurseSkill(int newRoomNurseSkill)
+{
+    room_nurse_skill = newRoomNurseSkill;
+}
+
+void WeightsDTO::setContinuityOfCare(int newContinuityOfCare)
+{
+    continuity_of_care = newContinuityOfCare;
+}
+
+void WeightsDTO::setNurseEccesiveWorkload(int newNurseEccesiveWorkload)
+{
+    nurse_eccesive_workload = newNurseEccesiveWorkload;
+}
+
+void WeightsDTO::setOpenOperatingTheater(int newOpenOperatingTheater)
+{
+    open_operating_theater = newOpenOperatingTheater;
+}
+
+void WeightsDTO::setSurgeonTransfer(int newSurgeonTransfer)
+{
+    surgeon_transfer = newSurgeonTransfer;
+}
+
+void WeightsDTO::setPatientDelay(int newPatientDelay)
+{
+    patient_delay = newPatientDelay;
+}
+
+void WeightsDTO::setUnscheduledOptional(int newUnscheduledOptional)
+{
+    unscheduled_optional = newUnscheduledOptional;
 }
