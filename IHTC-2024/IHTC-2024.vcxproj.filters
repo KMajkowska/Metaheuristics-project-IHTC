@@ -72,6 +72,12 @@
     <ClCompile Include="SurgeonDTO.cpp">
       <Filter>Pliki źródłowe\DTOs\surgery</Filter>
     </ClCompile>
+    <ClCompile Include="IHTCProblemReader.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCProblemReader.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">

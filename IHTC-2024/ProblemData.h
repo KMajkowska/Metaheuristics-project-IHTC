@@ -46,4 +46,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);
-void to_json(const nlohmann::json& j, ProblemData& data);
+void from_json(const nlohmann::json& j, ProblemData& data);

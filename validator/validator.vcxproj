@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{6036224a-3b36-48da-81f9-d021d5d5da45}</ProjectGuid>
-    <RootNamespace>IHTC2024</RootNamespace>
+    <ProjectGuid>{434e47b6-4e6b-4373-905f-a5149f38b3c1}</ProjectGuid>
+    <RootNamespace>validator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -130,31 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IHTC-2024.cpp" />
-    <ClCompile Include="IHTCProblemReader.cpp" />
-    <ClCompile Include="IHTCProblemReader.h" />
-    <ClCompile Include="IncomingPatientDTO.cpp" />
-    <ClCompile Include="NurseDTO.cpp" />
-    <ClCompile Include="OccupantDTO.cpp" />
-    <ClCompile Include="OperatingTheaterDTO.cpp" />
-    <ClCompile Include="PatientDTO.cpp" />
-    <ClCompile Include="ProblemData.cpp" />
-    <ClCompile Include="RoomDTO.cpp" />
-    <ClCompile Include="ShiftDTO.cpp" />
-    <ClCompile Include="SurgeonDTO.cpp" />
-    <ClCompile Include="WeightsDTO.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="IncomingPatientDTO.h" />
-    <ClInclude Include="NurseDTO.h" />
-    <ClInclude Include="OccupantDTO.h" />
-    <ClInclude Include="OperatingTheaterDTO.h" />
-    <ClInclude Include="PatientDTO.h" />
-    <ClInclude Include="ProblemData.h" />
-    <ClInclude Include="RoomDTO.h" />
-    <ClInclude Include="ShiftDTO.h" />
-    <ClInclude Include="SurgeonDTO.h" />
-    <ClInclude Include="WeightsDTO.h" />
+    <ClCompile Include="IHTP_Validator.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
