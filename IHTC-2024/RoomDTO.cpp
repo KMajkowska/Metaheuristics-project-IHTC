@@ -10,7 +10,17 @@ int RoomDTO::getCapacity() const
     return capacity;
 }
 
-void to_json(nlohmann::json& j, const RoomDTO& room)
+void RoomDTO::setId(std::string newId)
+{
+    id = newId;
+}
+
+void RoomDTO::setCapacity(int newCapacity)
+{
+	capacity = newCapacity;
+}
+
+void to_json(nlohmann::json & j, const RoomDTO & room)
 {
 	j = nlohmann::json
 	{

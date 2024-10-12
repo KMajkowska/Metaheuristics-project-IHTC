@@ -14,6 +14,13 @@ public:
 	std::vector<int> getWorkloadProduced() const;
 	std::vector<int> getSkillLevelRequired() const;
 
+	void setId(std::string newId);
+	void setGender(std::string newGender);
+	void setAgeGroup(std::string newAgeGroup);
+	void setLengthOfStay(int newLengthOfStay);
+	void setWorkloadProduced(std::vector<int> newWorkloadProduced);
+	void setSkillLevelRequired(std::vector<int> newSkillLevelsRequired);
+
 protected:
 	std::string id;
 	std::string gender;

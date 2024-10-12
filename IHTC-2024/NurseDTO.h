@@ -13,6 +13,10 @@ public:
 	std::vector<ShiftDTO> getWorkingShifts() const;
 	int getSkillLevel() const;
 
+	void setId(std::string newId);
+	void setWorkingShifts(std::vector<ShiftDTO> newWorkingShifts);
+	void setSkillLevel(int newSkillLevel);
+
 private:
 	std::string id;
 	std::vector<ShiftDTO> working_shifts;

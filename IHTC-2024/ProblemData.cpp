@@ -45,18 +45,63 @@ std::vector<IncomingPatientDTO> ProblemData::getPatients() const
     return patients;
 }
 
+void ProblemData::setDays(int newDays)
+{
+    days = newDays;
+}
+
+void ProblemData::setSkillLevels(int newSkillLevels)
+{
+    skill_levels = newSkillLevels;
+}
+
+void ProblemData::setShiftTypes(std::vector<std::string> newShiftTypes)
+{
+    shift_types = newShiftTypes;
+}
+
+void ProblemData::setAgeGroups(std::vector<std::string> newAgeGroups)
+{
+    age_groups = newAgeGroups;
+}
+
+void ProblemData::setWeights(WeightsDTO& newWeights)
+{
+    weights = newWeights;
+}
+
+void ProblemData::setNurses(std::vector<NurseDTO> newNurses)
+{
+    nurses = newNurses;
+}
+
+void ProblemData::setRooms(std::vector<RoomDTO> newRooms)
+{
+    rooms = newRooms;
+}
+
+void ProblemData::setOccupants(std::vector<OccupantDTO> newOccupants)
+{
+    occupants = newOccupants;
+}
+
+void ProblemData::setPatients(std::vector<IncomingPatientDTO> newPatients)
+{
+    patients = newPatients;
+}
+
 void to_json(nlohmann::json& j, const ProblemData& data)
 {
-	j = nlohmann::json
-	{
-		{"days", data.getDays()},
-		{"skill_levels", data.getSkillLevels()},
-		{"shift_types", data.getShiftTypes()},
-		{"age_groups", data.getAgeGroups()},
-		{"weights", data.getWeights()},
-		{"nurses", data.getNurses()},
-		{"rooms", data.getRooms()},
-		{"occupants", data.getOccupants()},
-		{"patients", data.getPatients()}
-	};
+    j = nlohmann::json
+    {
+        {"days", data.getDays()},
+        {"skill_levels", data.getSkillLevels()},
+        {"shift_types", data.getShiftTypes()},
+        {"age_groups", data.getAgeGroups()},
+        {"weights", data.getWeights()},
+        {"nurses", data.getNurses()},
+        {"rooms", data.getRooms()},
+        {"occupants", data.getOccupants()},
+        {"patients", data.getPatients()}
+    };
 }

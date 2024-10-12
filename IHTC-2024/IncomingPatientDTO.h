@@ -12,6 +12,13 @@ public:
 	std::string getSurgeonId() const;
 	std::vector<std::string> getIncompatibleRoomIds() const;
 
+	void changeMandatorinnes();
+	void setSurgeryReleaseDay(int newSurgeryReleaseDay);
+	void setSurgeruDueDay(int newSurgeryDueDay);
+	void setSurgeryDuration(int newSurgeryDuration);
+	void setSurgeonId(std::string newSurgeonId);
+	void setIncompatibleRooms(std::vector<std::string> newIncompatibleRooms);
+
 private:
 	bool mandatory;
 	int surgery_release_day;

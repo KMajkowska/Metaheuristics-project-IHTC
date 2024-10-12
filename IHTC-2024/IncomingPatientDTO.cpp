@@ -30,18 +30,48 @@ std::vector<std::string> IncomingPatientDTO::getIncompatibleRoomIds() const
     return incompatible_room_ids;
 }
 
+void IncomingPatientDTO::changeMandatorinnes()
+{
+    mandatory = !mandatory;
+}
+
+void IncomingPatientDTO::setSurgeryReleaseDay(int newSurgeryReleaseDay)
+{
+    surgery_release_day = newSurgeryReleaseDay;
+}
+
+void IncomingPatientDTO::setSurgeruDueDay(int newSurgeryDueDay) 
+{
+    surgery_due_day = newSurgeryDueDay;
+}
+
+void IncomingPatientDTO::setSurgeryDuration(int newSurgeryDuration)
+{
+    surgery_duration = newSurgeryDuration;
+}
+
+void IncomingPatientDTO::setSurgeonId(std::string newSurgeonId)
+{
+    surgeon_id = newSurgeonId;
+}
+
+void IncomingPatientDTO::setIncompatibleRooms(std::vector<std::string> newIncompatibleRooms)
+{
+    incompatible_room_ids = newIncompatibleRooms;
+}
+
 void to_json(nlohmann::json& j, const IncomingPatientDTO& incomingPatient)
 {
-	nlohmann::to_json(j, static_cast<PatientDTO>(incomingPatient));
+    nlohmann::to_json(j, static_cast<PatientDTO>(incomingPatient));
 
-	j.update(
-		{
-			{"mandatory", incomingPatient.isMandatory()},
-			{"surgery_release_day", incomingPatient.getSurgeryReleaseDay()},
-			{"surgery_due_day", incomingPatient.getSurgeryDueDay()},
-			{"surgery_duration", incomingPatient.getSurgeryDuration()},
-			{"surgeon_id", incomingPatient.getSurgeonId()},
-			{"incompatible_room_ids", incomingPatient.getIncompatibleRoomIds()}
-		}
-	);
+    j.update(
+        {
+            {"mandatory", incomingPatient.isMandatory()},
+            {"surgery_release_day", incomingPatient.getSurgeryReleaseDay()},
+            {"surgery_due_day", incomingPatient.getSurgeryDueDay()},
+            {"surgery_duration", incomingPatient.getSurgeryDuration()},
+            {"surgeon_id", incomingPatient.getSurgeonId()},
+            {"incompatible_room_ids", incomingPatient.getIncompatibleRoomIds()}
+        }
+    );
 }
