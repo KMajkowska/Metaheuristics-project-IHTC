@@ -72,3 +72,13 @@ void to_json(nlohmann::json& j, const PatientDTO& patient)
         {"skill_level_required", patient.getSkillLevelRequired()}
     };
 }
+
+void from_json(const nlohmann::json& j, PatientDTO& patient)
+{
+    patient.setId(j.at("id").get<std::string>());
+    patient.setGender(j.at("gender").get<std::string>());
+    patient.setAgeGroup(j.at("age_group").get<std::string>());
+    patient.setLengthOfStay(j.at("length_of_stay").get<int>());
+    patient.setWorkloadProduced(j.at("workload_produced").get<std::vector<int>>());
+    patient.setSkillLevelRequired(j.at("skill_level_required").get<std::vector<int>>());
+}

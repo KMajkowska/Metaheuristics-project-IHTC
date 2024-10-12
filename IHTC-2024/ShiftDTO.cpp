@@ -39,3 +39,11 @@ void to_json(nlohmann::json& j, const ShiftDTO& shift)
 		{"max_load", shift.getMaxLoad()}
 	};
 }
+
+void from_json(const nlohmann::json& j, ShiftDTO& shift)
+{
+	shift.setDay(j.at("day").get<int>());
+	shift.setShift(j.at("shift").get<std::string>());
+	shift.setMaxLoad(j.at("max_load").get<int>());
+
+}

@@ -39,3 +39,11 @@ void to_json(nlohmann::json& j, const NurseDTO& nurse)
 		{"skill_level", nurse.getSkillLevel()}
 	};
 }
+
+void from_json(const nlohmann::json& j, NurseDTO& nurse)
+{
+	nurse.setId(j.at("id").get<std::string>());
+	nurse.setWorkingShifts(j.at("working_shifts").get<std::vector<ShiftDTO>>());
+	nurse.setSkillLevel(j.at("skill_level").get<int>());
+
+}

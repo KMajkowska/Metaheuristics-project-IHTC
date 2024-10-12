@@ -24,3 +24,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const NurseDTO& nurse);
+void from_json(const nlohmann::json& j, NurseDTO& nurse);
