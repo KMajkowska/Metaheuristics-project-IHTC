@@ -10,7 +10,7 @@ std::vector<int> OperatingTheaterDTO::getAvailability() const
     return availability;
 }
 
-void OperatingTheaterDTO::setId(std::string newId)
+void OperatingTheaterDTO::setId(const std::string& newId)
 {
     id = newId;
 }

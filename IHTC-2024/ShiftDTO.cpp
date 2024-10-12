@@ -20,7 +20,7 @@ void ShiftDTO::setDay(int newDay)
     day = newDay;
 }
 
-void ShiftDTO::setShift(std::string newShift)
+void ShiftDTO::setShift(const std::string& newShift)
 {
     shift = newShift;
 }

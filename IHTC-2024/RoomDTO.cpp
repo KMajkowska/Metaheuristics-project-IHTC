@@ -10,7 +10,7 @@ int RoomDTO::getCapacity() const
     return capacity;
 }
 
-void RoomDTO::setId(std::string newId)
+void RoomDTO::setId(const std::string& newId)
 {
     id = newId;
 }

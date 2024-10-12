@@ -15,7 +15,7 @@ int NurseDTO::getSkillLevel() const
     return skill_level;
 }
 
-void NurseDTO::setId(std::string newId)
+void NurseDTO::setId(const std::string& newId)
 {
     id = newId;
 }

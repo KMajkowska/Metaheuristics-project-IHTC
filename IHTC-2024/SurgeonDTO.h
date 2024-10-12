@@ -10,7 +10,7 @@ public:
 	std::string getId() const;
 	std::vector<int> getMaxSurgeryTime() const;
 
-	void setId(std::string newId);
+	void setId(const std::string& newId);
 	void setMaxSurgeryTime(std::vector<int> newMaxSurgeryTime);
 
 private:

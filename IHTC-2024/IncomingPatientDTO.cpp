@@ -50,7 +50,7 @@ void IncomingPatientDTO::setSurgeryDuration(int newSurgeryDuration)
     surgery_duration = newSurgeryDuration;
 }
 
-void IncomingPatientDTO::setSurgeonId(std::string newSurgeonId)
+void IncomingPatientDTO::setSurgeonId(const std::string& newSurgeonId)
 {
     surgeon_id = newSurgeonId;
 }

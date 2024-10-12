@@ -16,7 +16,7 @@ public:
 	void setSurgeryReleaseDay(int newSurgeryReleaseDay);
 	void setSurgeruDueDay(int newSurgeryDueDay);
 	void setSurgeryDuration(int newSurgeryDuration);
-	void setSurgeonId(std::string newSurgeonId);
+	void setSurgeonId(const std::string& newSurgeonId);
 	void setIncompatibleRooms(std::vector<std::string> newIncompatibleRooms);
 
 private:
