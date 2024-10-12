@@ -21,3 +21,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const ShiftDTO& shift);
+void from_json(const nlohmann::json& j, ShiftDTO& shift);

@@ -28,3 +28,10 @@ void to_json(nlohmann::json & j, const RoomDTO & room)
 		{"capacity", room.getCapacity()}
 	};
 }
+
+void from_json(const nlohmann::json& j, RoomDTO& room)
+{
+	room.setId(j.at("id").get<std::string>());
+	room.setCapacity(j.at("capacity").get<int>());
+
+}

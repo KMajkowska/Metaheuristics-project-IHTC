@@ -12,7 +12,7 @@ public:
 	std::string getSurgeonId() const;
 	std::vector<std::string> getIncompatibleRoomIds() const;
 
-	void changeMandatorinnes();
+	void setMandatory(bool mandatory);
 	void setSurgeryReleaseDay(int newSurgeryReleaseDay);
 	void setSurgeruDueDay(int newSurgeryDueDay);
 	void setSurgeryDuration(int newSurgeryDuration);
@@ -29,3 +29,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const IncomingPatientDTO& incomingPatient);
+void from_json(const nlohmann::json& j, IncomingPatientDTO& incomingPatient);
