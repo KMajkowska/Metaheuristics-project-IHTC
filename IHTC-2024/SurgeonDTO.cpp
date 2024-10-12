@@ -10,7 +10,7 @@ std::vector<int> SurgeonDTO::getMaxSurgeryTime() const
     return max_surgery_time;
 }
 
-void SurgeonDTO::setId(std::string newId)
+void SurgeonDTO::setId(const std::string& newId)
 {
     id = newId;
 }

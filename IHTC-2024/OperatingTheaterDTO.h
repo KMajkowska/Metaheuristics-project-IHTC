@@ -10,7 +10,7 @@ public:
 	std::string getId() const;
 	std::vector<int> getAvailability() const;
 
-	void setId(std::string newId);
+	void setId(const std::string& newId);
 	void setAvailability(std::vector<int> newAvailabilty);
 
 private:

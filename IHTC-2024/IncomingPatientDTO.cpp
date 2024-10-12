@@ -50,7 +50,7 @@ void IncomingPatientDTO::setSurgeryDuration(int newSurgeryDuration)
     surgery_duration = newSurgeryDuration;
 }
 
-void IncomingPatientDTO::setSurgeonId(std::string newSurgeonId)
+void IncomingPatientDTO::setSurgeonId(const std::string& newSurgeonId)
 {
     surgeon_id = newSurgeonId;
 }
@@ -82,8 +82,14 @@ void from_json(const nlohmann::json& j, IncomingPatientDTO& incomingPatient)
 
     incomingPatient.setMandatory(j.at("mandatory").get<bool>());
     incomingPatient.setSurgeryReleaseDay(j.at("surgery_release_day").get<int>());
-    incomingPatient.setSurgeruDueDay(j.at("surgery_due_day").get<int>());
     incomingPatient.setSurgeryDuration(j.at("surgery_duration").get<int>());
     incomingPatient.setSurgeonId(j.at("surgeon_id").get<std::string>());
     incomingPatient.setIncompatibleRooms(j.at("incompatible_room_ids").get<std::vector<std::string>>());
+
+    if (j.contains("surgery_due_day")) {
+        incomingPatient.setSurgeruDueDay(j.at("surgery_due_day").get<int>());
+    }
+    else {
+        incomingPatient.setSurgeruDueDay(INT_MAX);
+    }
 }

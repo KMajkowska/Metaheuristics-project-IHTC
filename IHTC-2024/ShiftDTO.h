@@ -11,7 +11,7 @@ public:
 	int getMaxLoad() const;
 
 	void setDay(int newDay);
-	void setShift(std::string newShift);
+	void setShift(const std::string& newShift);
 	void setMaxLoad(int newMaxLoad);
 
 private:

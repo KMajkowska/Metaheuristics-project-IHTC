@@ -8,7 +8,7 @@ public:
 	int getRoomMixedAge() const;
 	int getRoomNurseSkill() const;
 	int getContinuityOfCare() const;
-	int getNurseEccesiveWorkload() const;
+	int getNurseEccessiveWorkload() const;
 	int getOpenOperatingTheater() const;
 	int getSurgeonTransfer() const;
 	int getPatientDelay() const;
@@ -17,7 +17,7 @@ public:
 	void setRoomMixedAge(int newRoomMixedAge);
 	void setRoomNurseSkill(int newRoomNurseSkill);
 	void setContinuityOfCare(int newContinuityOfCare);
-	void setNurseEccesiveWorkload(int newNurseEccesiveWorkload);
+	void setNurseEccessiveWorkload(int newNurseEccessiveWorkload);
 	void setOpenOperatingTheater(int newOpenOperatingTheater);
 	void setSurgeonTransfer(int newSurgeonTransfer);
 	void setPatientDelay(int newPatientDelay);
@@ -27,7 +27,7 @@ private:
 	int room_mixed_age;
 	int room_nurse_skill;
 	int continuity_of_care;
-	int nurse_eccesive_workload;	// typo in excessive - exists in file
+	int nurse_eccessive_workload;	// typo in excessive - exists in file
 	int open_operating_theater;
 	int surgeon_transfer;
 	int patient_delay;

@@ -30,17 +30,17 @@ std::vector<int> PatientDTO::getSkillLevelRequired() const
     return skill_level_required;
 }
 
-void PatientDTO::setId(std::string newId)
+void PatientDTO::setId(const std::string& newId)
 {
     id = newId;
 }
 
-void PatientDTO::setGender(std::string newGender)
+void PatientDTO::setGender(const std::string& newGender)
 {
     gender = newGender;
 }
 
-void PatientDTO::setAgeGroup(std::string newAgeGroup)
+void PatientDTO::setAgeGroup(const std::string& newAgeGroup)
 {
     age_group = newAgeGroup;
 }

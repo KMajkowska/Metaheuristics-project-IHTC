@@ -1,20 +1,42 @@
-﻿// IHTC-2024.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
+﻿#include <iostream>
+#include <vector>
+#include "IHTCProblemReader.h"
 
-#include <iostream>
+static const std::string PROBLEM_FILE = "../toy/toy.json";
 
-int main()
+template<typename T>
+static std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
 {
-    std::cout << "Hello World!\n";
+	os << "{";
+
+	for (size_t i = 0; i < vec.size(); ++i)
+	{
+		os << vec[i];
+
+		if (i != vec.size() - 1)
+		{
+			os << ", ";
+		}
+	}
+
+	os << "}\n";
+
+	return os;
 }
 
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
+int main(int argc, char* argv[])
+{
+	const std::string problemFilepath = argc > 1 ? argv[0] : PROBLEM_FILE;
 
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
+	IHTCProblemReader problemReader;
+
+	try
+	{
+		ProblemData problemData = problemReader.parseFromJSON(problemFilepath);
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+
+}

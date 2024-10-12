@@ -5,7 +5,7 @@ std::string OccupantDTO::getRoomId() const
     return room_id;
 }
 
-void OccupantDTO::setRoomId(std::string newRoomId)
+void OccupantDTO::setRoomId(const std::string& newRoomId)
 {
     room_id = newRoomId;
 }
