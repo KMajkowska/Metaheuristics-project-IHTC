@@ -131,10 +131,12 @@
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="NurseDTO.cpp" />
     <ClCompile Include="OccupantDTO.cpp" />
+    <ClCompile Include="OperatingTheaterDTO.cpp" />
     <ClCompile Include="PatientDTO.cpp" />
     <ClCompile Include="ProblemData.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
     <ClCompile Include="ShiftDTO.cpp" />
+    <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>

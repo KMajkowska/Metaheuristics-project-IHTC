@@ -1,12 +1,13 @@
 #pragma once
-#include<string>
-#include<vector>
+
+#include <string>
+#include <vector>
 
 class OperatingTheaterDTO
 {
 public:
-	int getId();
-	std::vector<int> getAvailability;
+	std::string getId() const;
+	std::vector<int> getAvailability();
 private:
 	std::string id;
 	std::vector<int> availability;

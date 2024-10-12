@@ -61,6 +61,12 @@
       <Filter>Pliki źródłowe\DTOs</Filter>
     </ClCompile>
     <ClCompile Include="WeightsDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonDTO.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterDTO.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>

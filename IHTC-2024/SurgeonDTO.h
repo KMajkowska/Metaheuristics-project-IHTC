@@ -1,11 +1,12 @@
 #pragma once
-#include<string>
-#include<vector>
+
+#include <string>
+#include <vector>
 
 class SurgeonDTO
 {
 public:
-	int getId();
+	std::string getId() const;
 	std::vector<int> getMaxSurgeryTime();
 private:
 	std::string id;
