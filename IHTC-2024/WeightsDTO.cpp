@@ -39,3 +39,19 @@ int WeightsDTO::getUnscheduledOptional() const
 {
     return unscheduled_optional;
 }
+
+void to_json(nlohmann::json& j, const WeightsDTO& weights)
+{
+	j = nlohmann::json
+	{
+		{"room_mixed_age", weights.getRoomMixedAge()},
+		{"room_nurse_skil", weights.getRoomNurseSkil()},
+		{"continuity_of_care", weights.getContinuityOfCare()},
+		{"nurse_eccesive_workload", weights.getNurseEccesiveWorkload()},
+		{"open_operating_theater", weights.getOpenOperatingTheater()},
+		{"surgeon_transfer", weights.getSurgeonTransfer()},
+		{"patient_delay", weights.getPatientDelay()},
+		{"unscheduled_optional", weights.getUnscheduledOptional()},
+
+	};
+}

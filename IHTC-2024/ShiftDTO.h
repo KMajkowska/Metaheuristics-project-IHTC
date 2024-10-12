@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <nlohmann/json.hpp>
 
 class ShiftDTO
 {
@@ -14,3 +15,5 @@ private:
 	std::string shift;
 	int max_load;
 };
+
+void to_json(nlohmann::json& j, const ShiftDTO& shift);

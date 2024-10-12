@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 #include "WeightsDTO.h"
 #include "NurseDTO.h"
@@ -14,13 +15,13 @@ class ProblemData
 public:
 	int getDays() const;
 	int getSkillLevels() const;
-	std::vector<std::string> getShiftTypes();
-	std::vector<std::string> getAgeGroups();
-	WeightsDTO getWeights();
-	std::vector<NurseDTO> getNurses();
-	std::vector<RoomDTO> getRooms();
-	std::vector<OccupantDTO> getOccupants();
-	std::vector<IncomingPatientDTO> getPatients();
+	std::vector<std::string> getShiftTypes() const;
+	std::vector<std::string> getAgeGroups() const;
+	WeightsDTO getWeights() const;
+	std::vector<NurseDTO> getNurses() const;
+	std::vector<RoomDTO> getRooms() const;
+	std::vector<OccupantDTO> getOccupants() const;
+	std::vector<IncomingPatientDTO> getPatients() const;
 private:
 	int days;
 	int skill_levels;
@@ -31,5 +32,6 @@ private:
 	std::vector<RoomDTO> rooms;
 	std::vector<OccupantDTO> occupants;
 	std::vector<IncomingPatientDTO> patients;
-
 };
+
+void to_json(nlohmann::json& j, const ProblemData& data);

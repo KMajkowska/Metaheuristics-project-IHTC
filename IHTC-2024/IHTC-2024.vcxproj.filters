@@ -34,6 +34,9 @@
     <Filter Include="Pliki źródłowe\DTOs\patients">
       <UniqueIdentifier>{fd7718c9-5153-41c7-afa2-71646bfa3e4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\DTOs\surgery">
+      <UniqueIdentifier>{f9ca15d0-275f-4ecf-a4eb-3563ff56d21c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -63,11 +66,11 @@
     <ClCompile Include="WeightsDTO.cpp">
       <Filter>Pliki źródłowe\DTOs</Filter>
     </ClCompile>
-    <ClCompile Include="SurgeonDTO.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="OperatingTheaterDTO.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\DTOs\surgery</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\surgery</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

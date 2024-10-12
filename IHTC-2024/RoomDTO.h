@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <nlohmann/json.hpp>
 
 class RoomDTO
 {
@@ -12,3 +13,5 @@ private:
 	std::string id;
 	int capacity;
 };
+
+void to_json(nlohmann::json& j, const RoomDTO& room);

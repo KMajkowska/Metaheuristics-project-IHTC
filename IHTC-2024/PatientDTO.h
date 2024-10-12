@@ -1,15 +1,18 @@
 #pragma once
+
 #include <string>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 class PatientDTO
 {
+public:
 	std::string getId() const;
 	std::string getGender() const;
 	std::string getAgeGroup() const;
 	int getLengthOfStay() const;
-	std::vector<int> getWorkloadProduced();
-	std::vector<int> getSkillLevelRequired();
+	std::vector<int> getWorkloadProduced() const;
+	std::vector<int> getSkillLevelRequired() const;
 
 protected:
 	std::string id;
@@ -19,3 +22,5 @@ protected:
 	std::vector<int> workload_produced;
 	std::vector<int> skill_level_required;
 };
+
+void to_json(nlohmann::json& j, const PatientDTO& patient);
