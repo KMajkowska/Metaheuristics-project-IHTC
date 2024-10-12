@@ -65,7 +65,7 @@ void ProblemData::setAgeGroups(std::vector<std::string> newAgeGroups)
     age_groups = newAgeGroups;
 }
 
-void ProblemData::setWeights(WeightsDTO& newWeights)
+void ProblemData::setWeights(WeightsDTO newWeights)
 {
     weights = newWeights;
 }

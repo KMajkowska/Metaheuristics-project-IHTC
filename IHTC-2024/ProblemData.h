@@ -27,7 +27,7 @@ public:
 	void setSkillLevels(int newSkillLevels);
 	void setShiftTypes(std::vector<std::string> newShiftTypes);
 	void setAgeGroups(std::vector<std::string> newAgeGroups);
-	void setWeights(WeightsDTO& newWeights);
+	void setWeights(WeightsDTO newWeights);
 	void setNurses(std::vector<NurseDTO> newNurses);
 	void setRooms(std::vector<RoomDTO> newRooms);
 	void setOccupants(std::vector<OccupantDTO> newOccupants);
