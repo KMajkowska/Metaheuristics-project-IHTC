@@ -128,6 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp" />
+    <ClCompile Include="IncomingPatientDTO.cpp" />
+    <ClCompile Include="NurseDTO.cpp" />
+    <ClCompile Include="OccupantDTO.cpp" />
+    <ClCompile Include="PatientDTO.cpp" />
+    <ClCompile Include="ProblemData.cpp" />
+    <ClCompile Include="RoomDTO.cpp" />
+    <ClCompile Include="ShiftDTO.cpp" />
+    <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h" />

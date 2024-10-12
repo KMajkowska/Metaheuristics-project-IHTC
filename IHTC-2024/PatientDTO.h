@@ -4,6 +4,13 @@
 
 class PatientDTO
 {
+	std::string getId() const;
+	std::string getGender() const;
+	std::string getAgeGroup() const;
+	int getLengthOfStay() const;
+	std::vector<int> getWorkloadProduced();
+	std::vector<int> getSkillLevelRequired();
+
 protected:
 	std::string id;
 	std::string gender;

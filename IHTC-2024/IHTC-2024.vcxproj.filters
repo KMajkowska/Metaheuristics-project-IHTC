@@ -25,9 +25,42 @@
     <Filter Include="Pliki nagłówkowe\DTOs\patients">
       <UniqueIdentifier>{c3fd8a8f-7411-4036-9e72-d9c61633e541}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\DTOs">
+      <UniqueIdentifier>{415af4e2-a8fa-43e7-b572-d0c5b964d4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\DTOs\care">
+      <UniqueIdentifier>{652cf0b7-2d5a-4ff2-a71c-2bfb8b68b87a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\DTOs\patients">
+      <UniqueIdentifier>{fd7718c9-5153-41c7-afa2-71646bfa3e4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="OccupantDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomingPatientDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientDTO.cpp">
+      <Filter>Pliki źródłowe\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemData.cpp">
+      <Filter>Pliki źródłowe\DTOs</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightsDTO.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
