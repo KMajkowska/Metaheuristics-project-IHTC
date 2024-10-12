@@ -35,3 +35,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const WeightsDTO& weights);
+void from_json(const nlohmann::json& j, WeightsDTO& weights);

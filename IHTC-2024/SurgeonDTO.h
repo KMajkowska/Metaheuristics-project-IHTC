@@ -19,3 +19,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const SurgeonDTO& surgeon);
+void from_json(const nlohmann::json& j, const SurgeonDTO& surgeon);

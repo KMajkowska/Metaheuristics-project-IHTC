@@ -28,3 +28,9 @@ void to_json(nlohmann::json& j, const SurgeonDTO& surgeon)
 		{"max_surgery_time", surgeon.getMaxSurgeryTime()}
 	};
 }
+
+void from_json(const nlohmann::json& j, SurgeonDTO& surgeon)
+{
+	surgeon.setId(j.at("id").get<std::string>());
+	surgeon.setMaxSurgeryTime(j.at("max_surgery_time").get<std::vector<int>>());
+}

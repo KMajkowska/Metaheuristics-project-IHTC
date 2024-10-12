@@ -105,3 +105,17 @@ void to_json(nlohmann::json& j, const ProblemData& data)
         {"patients", data.getPatients()}
     };
 }
+
+void from_json(const nlohmann::json& j, ProblemData& data)
+{
+    data.setDays(j.at("days").get<int>());
+    data.setSkillLevels(j.at("skill_levels").get<int>());
+    data.setShiftTypes(j.at("shift_types").get<std::vector<std::string>>());
+    data.setAgeGroups(j.at("age_groups").get<std::vector<std::string>>());
+    data.setWeights(j.at("weights").get<WeightsDTO>());
+    data.setNurses(j.at("nurses").get<std::vector<NurseDTO>>());
+    data.setRooms(j.at("rooms").get<std::vector<RoomDTO>>());
+    data.setOccupants(j.at("occupants").get<std::vector<OccupantDTO>>());
+    data.setPatients(j.at("patients").get<std::vector<IncomingPatientDTO >>());
+}
+

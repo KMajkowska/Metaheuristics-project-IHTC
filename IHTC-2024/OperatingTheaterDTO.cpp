@@ -28,3 +28,9 @@ void to_json(nlohmann::json& j, const OperatingTheaterDTO& ot)
 		{"availability", ot.getAvailability()}
 	};
 }
+
+void from_json(const nlohmann::json& j, OperatingTheaterDTO& ot)
+{
+	ot.setId(j.at("id").get<std::string>());
+	ot.setAvailability(j.at("availability").get<std::vector<int>>());
+}

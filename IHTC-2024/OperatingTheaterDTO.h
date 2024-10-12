@@ -19,3 +19,4 @@ private:
 };
 
 void to_json(nlohmann::json& j, const OperatingTheaterDTO& ot);
+void from_json(const nlohmann::json& j, OperatingTheaterDTO& ot);
