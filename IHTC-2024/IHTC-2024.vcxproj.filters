@@ -37,6 +37,48 @@
     <Filter Include="Pliki źródłowe\DTOs\surgery">
       <UniqueIdentifier>{f9ca15d0-275f-4ecf-a4eb-3563ff56d21c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm">
+      <UniqueIdentifier>{1145bb9c-e781-4ded-8a8f-4a5a142ce979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\Individual">
+      <UniqueIdentifier>{91fedd6c-45c9-4207-b068-4ccb243c0604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm">
+      <UniqueIdentifier>{866f71ef-9666-43f8-8d9d-2417c68a7959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\Individual">
+      <UniqueIdentifier>{f2e9c320-57f6-4dd4-97a9-22ba30e9bf94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\IndividualOperators">
+      <UniqueIdentifier>{d6e3c4f4-9f1b-4412-a995-010a997d51d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\IndividualOperators">
+      <UniqueIdentifier>{f20b775d-dfba-4d59-bf78-d7bafbe01d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\Problem">
+      <UniqueIdentifier>{3c90c120-677c-4913-92a0-f2a0b894a57b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\IndividualOperators\Mutators">
+      <UniqueIdentifier>{c7bb0568-aa6d-4817-ab4a-c91c4aa0cd5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\IndividualOperators\Crossers">
+      <UniqueIdentifier>{7bc05925-9d17-443e-bfa1-b1b719d2ae42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithm\IndividualOperators\Selectors">
+      <UniqueIdentifier>{bb5a4201-2cfb-4136-a7f2-aa6ea72ee6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\IndividualOperators\Crossers">
+      <UniqueIdentifier>{d2fed974-f4e7-41e8-a962-73fa088333b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\IndividualOperators\Mutators">
+      <UniqueIdentifier>{e4e87d44-1797-477d-aa9f-bf60c72d47b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\IndividualOperators\Selectors">
+      <UniqueIdentifier>{bcb77d28-76cb-425b-a94a-d14dfa665a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithm\Problem">
+      <UniqueIdentifier>{8561a5ae-b882-4345-b512-5bca249d8fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -72,6 +114,30 @@
     <ClCompile Include="SurgeonDTO.cpp">
       <Filter>Pliki źródłowe\DTOs\surgery</Filter>
     </ClCompile>
+    <ClCompile Include="CIndividual.cpp">
+      <Filter>Pliki źródłowe\Algorithm\Individual</Filter>
+    </ClCompile>
+    <ClCompile Include="Patient.cpp">
+      <Filter>Pliki źródłowe\Algorithm\Individual</Filter>
+    </ClCompile>
+    <ClCompile Include="Assignment.cpp">
+      <Filter>Pliki źródłowe\Algorithm\Individual</Filter>
+    </ClCompile>
+    <ClCompile Include="ICrosser.cpp">
+      <Filter>Pliki źródłowe\Algorithm\IndividualOperators\Crossers</Filter>
+    </ClCompile>
+    <ClCompile Include="IMutator.cpp">
+      <Filter>Pliki źródłowe\Algorithm\IndividualOperators\Mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="Problem.cpp">
+      <Filter>Pliki źródłowe\Algorithm\Problem</Filter>
+    </ClCompile>
+    <ClCompile Include="ISelector.cpp">
+      <Filter>Pliki źródłowe\Algorithm\IndividualOperators\Selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Pliki źródłowe\Algorithm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -103,6 +169,30 @@
     </ClInclude>
     <ClInclude Include="WeightsDTO.h">
       <Filter>Pliki nagłówkowe\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndividual.h">
+      <Filter>Pliki nagłówkowe\Algorithm\Individual</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Pliki nagłówkowe\Algorithm\Individual</Filter>
+    </ClInclude>
+    <ClInclude Include="Assignment.h">
+      <Filter>Pliki nagłówkowe\Algorithm\Individual</Filter>
+    </ClInclude>
+    <ClInclude Include="Problem.h">
+      <Filter>Pliki nagłówkowe\Algorithm\Problem</Filter>
+    </ClInclude>
+    <ClInclude Include="IMutator.h">
+      <Filter>Pliki nagłówkowe\Algorithm\IndividualOperators\Mutators</Filter>
+    </ClInclude>
+    <ClInclude Include="ICrosser.h">
+      <Filter>Pliki nagłówkowe\Algorithm\IndividualOperators\Crossers</Filter>
+    </ClInclude>
+    <ClInclude Include="ISelector.h">
+      <Filter>Pliki nagłówkowe\Algorithm\IndividualOperators\Selectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Pliki nagłówkowe\Algorithm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
