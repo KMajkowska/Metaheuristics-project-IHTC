@@ -9,6 +9,8 @@
 #include "RoomDTO.h"
 #include "OccupantDTO.h"
 #include "IncomingPatientDTO.h"
+#include "SurgeonDTO.h"
+#include "OperatingTheaterDTO.h"
 
 class ProblemData
 {
@@ -22,6 +24,8 @@ public:
 	std::vector<RoomDTO> getRooms() const;
 	std::vector<OccupantDTO> getOccupants() const;
 	std::vector<IncomingPatientDTO> getPatients() const;
+	std::vector<SurgeonDTO> getSurgeons() const;
+	std::vector<OperatingTheaterDTO> getOperatingTheaters() const;
 
 	void setDays(int newDays);
 	void setSkillLevels(int newSkillLevels);
@@ -32,6 +36,8 @@ public:
 	void setRooms(std::vector<RoomDTO> newRooms);
 	void setOccupants(std::vector<OccupantDTO> newOccupants);
 	void setPatients(std::vector<IncomingPatientDTO> newIncomingPatients);
+	void setSurgeons(std::vector<SurgeonDTO> newSurgeons);
+	void setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters);
 
 private:
 	int days;
@@ -43,6 +49,8 @@ private:
 	std::vector<RoomDTO> rooms;
 	std::vector<OccupantDTO> occupants;
 	std::vector<IncomingPatientDTO> patients;
+	std::vector<SurgeonDTO> surgeons;
+	std::vector<OperatingTheaterDTO> operating_theaters;
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

@@ -1,5 +1,10 @@
 #include "CIndividual.h"
 
+CIndividual::CIndividual(std::vector<Patient> patients, std::vector<std::vector<Assignment>> assignments) :
+	patients(patients),
+	assignments(assignments)
+{}
+
 std::vector<Patient> CIndividual::getPatients() const
 {
 	return patients;

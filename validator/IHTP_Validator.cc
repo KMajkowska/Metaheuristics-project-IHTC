@@ -1140,17 +1140,28 @@ void IHTP_Output::PrintCosts() const
 
 int main(int argc, const char *argv[])
 {
+  /*
   if (argc != 3 && argc != 4)
   {
     cerr << "Usage: " << argv[0] << " <instance_file> <solution_file> [verbose]" << endl;
     exit(1);
   }
-  string instance_file_name = argv[1];
-  string solution_file_name = argv[2];
-  bool verbose = (argc == 4); // any word passed as fourth argument is interpreted as "verbose"
+  */
 
-  IHTP_Input in(instance_file_name);
-  IHTP_Output out(in, solution_file_name, verbose); 
-  out.PrintCosts();
+   try
+   {
+       string instance_file_name = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\toy\\toy.json"; // argv[1];
+       string solution_file_name = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\toy\\toy_solution.json"; // argv[2];
+       bool verbose = (argc == 4); // any word passed as fourth argument is interpreted as "verbose"
+
+       IHTP_Input in(instance_file_name);
+       IHTP_Output out(in, solution_file_name, verbose);
+       out.PrintCosts();
+   }
+   catch (const std::exception& e)
+   {
+       std::cerr << e.what();
+   }
+  
   return 0;
 }

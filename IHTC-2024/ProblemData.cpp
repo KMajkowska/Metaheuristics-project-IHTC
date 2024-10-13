@@ -45,6 +45,16 @@ std::vector<IncomingPatientDTO> ProblemData::getPatients() const
     return patients;
 }
 
+std::vector<SurgeonDTO> ProblemData::getSurgeons() const
+{
+    return surgeons;
+}
+
+std::vector<OperatingTheaterDTO> ProblemData::getOperatingTheaters() const
+{
+    return operating_theaters;
+}
+
 void ProblemData::setDays(int newDays)
 {
     days = newDays;
@@ -90,6 +100,16 @@ void ProblemData::setPatients(std::vector<IncomingPatientDTO> newPatients)
     patients = newPatients;
 }
 
+void ProblemData::setSurgeons(std::vector<SurgeonDTO> newSurgeons)
+{
+    surgeons = newSurgeons;
+}
+
+void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters)
+{
+    operating_theaters = newTheaters;
+}
+
 void to_json(nlohmann::json& j, const ProblemData& data)
 {
     j = nlohmann::json
@@ -102,7 +122,9 @@ void to_json(nlohmann::json& j, const ProblemData& data)
         {"nurses", data.getNurses()},
         {"rooms", data.getRooms()},
         {"occupants", data.getOccupants()},
-        {"patients", data.getPatients()}
+        {"patients", data.getPatients()},
+        {"surgeons", data.getSurgeons()},
+        {"operating_theaters", data.getOperatingTheaters()}
     };
 }
 
@@ -117,5 +139,7 @@ void from_json(const nlohmann::json& j, ProblemData& data)
     data.setRooms(j.at("rooms").get<std::vector<RoomDTO>>());
     data.setOccupants(j.at("occupants").get<std::vector<OccupantDTO>>());
     data.setPatients(j.at("patients").get<std::vector<IncomingPatientDTO>>());
+    data.setSurgeons(j.at("surgeons").get<std::vector<SurgeonDTO>>());
+    data.setOperatingTheaters(j.at("operating_theaters").get<std::vector<OperatingTheaterDTO>>());
 }
 

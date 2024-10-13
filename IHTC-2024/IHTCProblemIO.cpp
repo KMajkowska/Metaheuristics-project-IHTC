@@ -24,16 +24,11 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
     SolutionData solutionData;
 
     const std::vector<IncomingPatientDTO>& patients = problemData.getPatients();
-    const std::vector<OccupantDTO>& occupants = problemData.getOccupants();
     const auto& solutionPatients = individual.getPatients();
-    std::vector<std::string> patientIds(patients.size());
+    std::vector<std::string> patientIds;
+    patientIds.reserve((patients.size()));
 
     for (const auto& patient : patients)
-    {
-        patientIds.push_back(patient.getId());
-    }
-
-    for (const auto& patient : occupants)
     {
         patientIds.push_back(patient.getId());
     }
@@ -80,6 +75,12 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
 
     solutionData.setNurses(outputNurses);
 
-
     return solutionData;
+}
+
+std::string IHTCProblemIO::parseSolutionToJSON(const SolutionData& solution) const
+{
+    nlohmann::json jsonObject = solution;
+
+    return jsonObject.dump(JSON_INDENT);
 }

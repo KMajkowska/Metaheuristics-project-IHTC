@@ -6,7 +6,7 @@
 class Patient
 {
 public:
-	Patient() = default;
+	Patient();
 	Patient(int admissionDay, const std::string& roomId, const std::string& operationTheater);
 
 	int getAdmissionDay() const;

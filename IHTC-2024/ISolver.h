@@ -2,12 +2,12 @@
 #include <vector>
 #include <random>
 
-#include "Problem.h"
+#include "IProblem.h"
 #include "ProblemData.h"
 #include "CIndividual.h"
 
 class ISolver
 {
 public:
-	virtual std::vector<CIndividual> solve(const ProblemData& problemData, const Problem& problem) const = 0;
+	virtual CIndividual solve(const ProblemData& problemData, const IProblem& problem) const = 0;
 };

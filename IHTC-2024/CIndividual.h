@@ -8,7 +8,11 @@
 class CIndividual
 {
 public:
-	std::vector <Patient> getPatients() const;
+	CIndividual() = default;
+
+	CIndividual(std::vector<Patient> patients, std::vector<std::vector<Assignment>> assignments);
+
+	std::vector<Patient> getPatients() const;
 	std::vector<std::vector<Assignment>> getAssignments() const;
 
 	void setAssignments(std::vector<std::vector<Assignment>> newNurses);

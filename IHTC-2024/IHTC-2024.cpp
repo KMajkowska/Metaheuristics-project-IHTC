@@ -1,42 +1,37 @@
 ﻿#include <iostream>
-#include <vector>
+#include <random>
+
 #include "IHTCProblemIO.h"
+#include "RandomSolver.h"
+#include "RandomProblem.h"
+#include "other.h"
 
 static const std::string PROBLEM_FILE = "../toy/toy.json";
-
-template<typename T>
-static std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
-{
-	os << "{";
-
-	for (size_t i = 0; i < vec.size(); ++i)
-	{
-		os << vec[i];
-
-		if (i != vec.size() - 1)
-		{
-			os << ", ";
-		}
-	}
-
-	os << "}\n";
-
-	return os;
-}
+static const std::string OUTPUT_FILE = "../solution.json";
 
 int main(int argc, char* argv[])
 {
-	const std::string problemFilepath = argc > 1 ? argv[0] : PROBLEM_FILE;
+	std::mt19937& mt = createRandomGenerator();
+	RandomProblem problem(mt);
 
-	IHTCProblemIO problemReader;
+	RandomSolver solver(mt);
+
+	IHTCProblemIO problemIO;
 
 	try
 	{
-		ProblemData problemData = problemReader.parseFromJSON(problemFilepath);
+		ProblemData problemData = problemIO.parseFromJSON(argc > 1 ? argv[0] : PROBLEM_FILE);
+
+		const CIndividual& individual = solver.solve(problemData, problem);
+
+		SolutionData solutionData = problemIO.parseToSolution(individual, problemData);
+
+		std::string solutionJson = problemIO.parseSolutionToJSON(solutionData);
+
+		writeToFile(OUTPUT_FILE, solutionJson);
 	}
 	catch (const std::exception& e)
 	{
 		std::cerr << e.what();
 	}
-
 }
