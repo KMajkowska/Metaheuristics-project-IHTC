@@ -1,5 +1,7 @@
 #pragma once
-#include<string>
+
+#include <string>
+#include <nlohmann/json.hpp>
 
 class Assignment
 {
@@ -10,7 +12,7 @@ public:
 	std::string getShift() const;
 	void setShift(const std::string& newShift);
 
-	std::string getRoom() const;
+	std::string getRoomId() const;
 	void setRoomId(const std::string& newRoomId);
 
 private:
@@ -18,3 +20,7 @@ private:
 	std::string shift;
 	std::string roomId;
 };
+
+
+void to_json(nlohmann::json& j, const Assignment& data);
+void from_json(const nlohmann::json& j, Assignment& data);

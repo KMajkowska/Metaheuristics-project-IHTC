@@ -1,16 +1,16 @@
 #include "CIndividual.h"
 
-std::vector <Patient> CIndividual::getPatients()
+std::vector<Patient> CIndividual::getPatients() const
 {
 	return patients;
 }
 
-std::vector<Assignment> CIndividual::getAssignments()
+std::vector<std::vector<Assignment>> CIndividual::getAssignments() const
 {
 	return assignments;
 }
 
-void CIndividual::setAssignments(std::vector<Assignment> newAssignments)
+void CIndividual::setAssignments(std::vector<std::vector<Assignment>> newAssignments)
 {
 	assignments = newAssignments;
 }
@@ -20,12 +20,12 @@ void CIndividual::setPatients(std::vector<Patient> newPatients)
 	patients = newPatients;
 }
 
-void CIndividual::crossover(const CIndividual& otherIndividual, const ICrosser crosser)
+std::vector<CIndividual> CIndividual::crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const
 {
-
+	return crosser.crossover(*this, otherIndividual);
 }
 
-void CIndividual::mute(const IMutator mutator)
+void CIndividual::mute(const IMutator& mutator)
 {
-
+	mutator.mutate(*this);
 }

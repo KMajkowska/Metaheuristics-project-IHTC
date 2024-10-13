@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
-#include "IHTCProblemReader.h"
+#include "IHTCProblemIO.h"
 
 static const std::string PROBLEM_FILE = "../toy/toy.json";
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 {
 	const std::string problemFilepath = argc > 1 ? argv[0] : PROBLEM_FILE;
 
-	IHTCProblemReader problemReader;
+	IHTCProblemIO problemReader;
 
 	try
 	{

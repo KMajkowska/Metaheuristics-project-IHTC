@@ -1,9 +1,14 @@
 #pragma once
-#include<string>
+
+#include <string>
+#include <nlohmann/json.hpp>
 
 class Patient
 {
 public:
+	Patient() = default;
+	Patient(int admissionDay, const std::string& roomId, const std::string& operationTheater);
+
 	int getAdmissionDay() const;
 	void setAdmissionDay(int newAdmissionDay);
 
@@ -18,3 +23,6 @@ protected:
 	std::string roomId;
 	std::string operationTheater;
 };
+
+void to_json(nlohmann::json& j, const Patient& data);
+void from_json(const nlohmann::json& j, Patient& data);

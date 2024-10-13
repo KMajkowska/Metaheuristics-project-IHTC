@@ -1,11 +1,7 @@
 #include "Problem.h"
 
-void Problem::select(ISelector selector)
+
+double Problem::eval(const CIndividual& individual)
 {
-
-}
-
-void Problem::eval()
-{
-
+	return 0.0;
 }

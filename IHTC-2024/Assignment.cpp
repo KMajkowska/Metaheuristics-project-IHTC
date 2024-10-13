@@ -20,7 +20,7 @@ void Assignment::setShift(const std::string& newShift)
 	shift = newShift;
 }
 
-std::string Assignment::getRoom() const
+std::string Assignment::getRoomId() const
 {
 	return roomId;
 }
@@ -28,4 +28,21 @@ std::string Assignment::getRoom() const
 void Assignment::setRoomId(const std::string& newRoomId)
 {
 	roomId = newRoomId;
+}
+
+void to_json(nlohmann::json& j, const Assignment& data)
+{
+	j = nlohmann::json
+	{
+		{"day", data.getDay()},
+		{"shift", data.getShift()},
+		{"room_id", data.getRoomId()},
+	};
+}
+
+void from_json(const nlohmann::json& j, Assignment& data)
+{
+	data.setDay(j.at("day").get<int>());
+	data.setShift(j.at("shift").get<std::string>());
+	data.setRoomId(j.at("room_id").get<std::string>());
 }

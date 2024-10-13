@@ -8,16 +8,16 @@
 class CIndividual
 {
 public:
-	std::vector <Patient> getPatients();
-	std::vector<Assignment> getAssignments();
-	void setAssignments(std::vector<Assignment> newNurses);
+	std::vector <Patient> getPatients() const;
+	std::vector<std::vector<Assignment>> getAssignments() const;
+
+	void setAssignments(std::vector<std::vector<Assignment>> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
-	void crossover(const CIndividual& otherIndividual, const ICrosser crosser);
-	void mute(const IMutator mutator);
+
+	std::vector<CIndividual> crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const;
+	void mute(const IMutator& mutator);
 
 private:
 	std::vector<Patient> patients;
-	std::vector<Assignment> assignments;
-	ICrosser crosser;
-	IMutator mutator;
+	std::vector<std::vector<Assignment>> assignments;
 };

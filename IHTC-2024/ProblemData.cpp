@@ -116,6 +116,6 @@ void from_json(const nlohmann::json& j, ProblemData& data)
     data.setNurses(j.at("nurses").get<std::vector<NurseDTO>>());
     data.setRooms(j.at("rooms").get<std::vector<RoomDTO>>());
     data.setOccupants(j.at("occupants").get<std::vector<OccupantDTO>>());
-    data.setPatients(j.at("patients").get<std::vector<IncomingPatientDTO >>());
+    data.setPatients(j.at("patients").get<std::vector<IncomingPatientDTO>>());
 }
 
