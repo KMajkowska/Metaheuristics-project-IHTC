@@ -5,7 +5,8 @@ void writeToFile(const std::string& filename, const std::string& data)
 {
     std::ofstream file(filename);
 
-    if (!file) {
+    if (!file) 
+    {
         return;
     }
 
