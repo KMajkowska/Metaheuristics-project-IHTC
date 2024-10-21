@@ -1150,8 +1150,8 @@ int main(int argc, const char *argv[])
 
    try
    {
-       string instance_file_name = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\toy\\toy.json"; // argv[1];
-       string solution_file_name = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\solution.json"; // argv[2];
+       string instance_file_name = "C:\\Users\\karol\\OneDrive\\Desktop\\projekt\\toy\\toy.json"; // argv[1];
+       string solution_file_name = "C:\\Users\\karol\\OneDrive\\Desktop\\projekt\\solution_good_one.json"; // argv[2];
        bool verbose = (argc == 4); // any word passed as fourth argument is interpreted as "verbose"
 
        IHTP_Input in(instance_file_name);

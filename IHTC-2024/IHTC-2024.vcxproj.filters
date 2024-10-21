@@ -180,6 +180,15 @@
     <ClCompile Include="other.cpp">
       <Filter>Pliki źródłowe\utils</Filter>
     </ClCompile>
+    <ClCompile Include="PatientRoomAdmissionDayIndividual.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseRoomIndividual.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomHeuristic.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -259,6 +268,15 @@
     </ClInclude>
     <ClInclude Include="other.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomAdmissionDayIndividual.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseRoomIndividual.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomHeuristic.h">
+      <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -138,6 +138,7 @@
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="CIndividual.cpp" />
     <ClCompile Include="IMutator.cpp" />
+    <ClCompile Include="NurseRoomIndividual.cpp" />
     <ClCompile Include="other.cpp" />
     <ClCompile Include="ISelector.cpp" />
     <ClCompile Include="Assignment.cpp" />
@@ -150,22 +151,26 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientDTO.cpp" />
     <ClCompile Include="PatientOutputDTO.cpp" />
+    <ClCompile Include="PatientRoomAdmissionDayIndividual.cpp" />
     <ClCompile Include="printers.cpp" />
     <ClCompile Include="ProblemData.cpp" />
     <ClCompile Include="RandomProblem.cpp" />
     <ClCompile Include="RandomSolver.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
+    <ClCompile Include="RoomHeuristic.cpp" />
     <ClCompile Include="ShiftDTO.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PatientRoomAdmissionDayIndividual.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
     <ClInclude Include="IMutator.h" />
+    <ClInclude Include="NurseRoomIndividual.h" />
     <ClInclude Include="other.h" />
     <ClInclude Include="ISelector.h" />
     <ClInclude Include="Assignment.h" />
@@ -183,6 +188,7 @@
     <ClInclude Include="RandomProblem.h" />
     <ClInclude Include="RandomSolver.h" />
     <ClInclude Include="RoomDTO.h" />
+    <ClInclude Include="RoomHeuristic.h" />
     <ClInclude Include="ShiftDTO.h" />
     <ClInclude Include="SolutionData.h" />
     <ClInclude Include="SurgeonDTO.h" />
