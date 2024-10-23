@@ -128,8 +128,9 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
 
         for (const auto& room : rooms)
         {
-            roomInfos[i][room.getId()] = RoomInfo(room.getCapacity(), room.getCapacity());
+            roomInfos[i][room.getId()] = PatientRoomInfo(room.getCapacity(), room.getCapacity());
         }
+
     }
 
     for (const auto& occupant : occupants)
@@ -160,7 +161,7 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
         {
             for (int j = 0; j < days; ++j)
             {
-                roomInfos[j].at(incompatibleRoom).unallowedPatients.push_back(patient.getId());
+                roomInfos[j].at(incompatibleRoom).unallowedPatients.insert(patient.getId());
             }
         }
     }

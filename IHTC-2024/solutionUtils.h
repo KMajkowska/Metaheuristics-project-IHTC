@@ -5,8 +5,8 @@
 #include "ProblemData.h"
 #include "RoomInfo.h"
 #include "SurgeonOTInfo.h"
-#include <set>
 #include "NurseWorkload.h"
-#include<iostream>
+
+#include <set>
 
 ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution);

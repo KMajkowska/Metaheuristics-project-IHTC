@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 struct PatientRoomInfo
 {
@@ -17,7 +18,7 @@ struct PatientRoomInfo
 	int maxCapacity;
 	int currentCapacity;
 	std::unordered_map<std::string, int> ageGroups;
-	std::vector<std::string> unallowedPatients;
+	std::set<std::string> unallowedPatients;
 	std::unordered_map<std::string, int> skillLevelRequired;
 	std::unordered_map<std::string, int> shiftNameToProducedWorkload;
 };
