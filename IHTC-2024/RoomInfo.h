@@ -22,7 +22,7 @@ struct RoomInfo : public PatientRoomInfo
 		shiftNameToProducedWorkload = pri.shiftNameToProducedWorkload;
 	}
 
-	std::vector<std::string> patientIds;
+	std::set<std::string> patientIds;
 	std::map<std::string, std::string> nurseIdToShift;
 	std::map<std::string, std::string> shiftToNurseId;
 };

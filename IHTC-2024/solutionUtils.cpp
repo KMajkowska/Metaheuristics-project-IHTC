@@ -11,7 +11,6 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     std::vector<std::unordered_map<std::string, std::set<std::string>>> surgeonToOTPerDay;
     std::unordered_map<std::string, NurseWorkload> nurseIdsToWorloads;
 
-
     const auto& days = problemData.getDays();
     const auto& allShiftTypes = problemData.getShiftTypes();
     const auto& operationTheathers = problemData.getOperatingTheaters();
@@ -23,6 +22,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     surgeonToOTPerDay.reserve(days);
     nurseIdsToWorloads.reserve(problemData.getNurses().size());
 
+    
     std::transform(
         patientroomInfos.begin(), 
         patientroomInfos.end(),
@@ -57,11 +57,10 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     {
         const auto& admissionDay = solutionPatients.getAdmissionDay();
         const auto patient = problemData.getPatientMap().at(solutionPatients.getId());
-        std::cout << patient.getId();
 
-        for (int i = admissionDay; i < admissionDay + patient.getLengthOfStay(); ++i)
+        for (int i = 0; i < patient.getLengthOfStay(); ++i)
         {
-            auto& room = roomInfos[admissionDay].at(solutionPatients.getRoomId());
+            auto& room = roomInfos[i + admissionDay].at(solutionPatients.getRoomId());
 
             ++room.ageGroups[patient.getAgeGroup()];
             ++room.genders[patient.getGender()];
@@ -71,13 +70,13 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
             for (int j = 0; j < allShiftTypes.size(); ++j)
             {
                 const auto& shiftType = allShiftTypes[j];
-                const auto& offset = (i - admissionDay) * allShiftTypes.size() + j;
+                const auto& offset = i * allShiftTypes.size() + j;
 
                 room.skillLevelRequired[shiftType] = std::max(room.skillLevelRequired[shiftType], patient.getSkillLevelRequired()[offset]);
                 room.shiftNameToProducedWorkload[shiftType] += patient.getSkillLevelRequired()[offset];
             }
 
-            room.patientIds.push_back(patient.getId());
+            room.patientIds.insert(patient.getId());
 
             for (const auto& nursePair : room.nurseIdToShift)
             {
