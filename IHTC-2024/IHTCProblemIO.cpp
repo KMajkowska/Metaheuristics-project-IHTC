@@ -19,6 +19,26 @@ ProblemData IHTCProblemIO::parseFromJSON(const std::string& problemFilepath) con
     return problem;
 }
 
+SolutionData IHTCProblemIO::parseFromJSONSolution(const std::string& problemFilepath) const
+{
+    std::ifstream inputFile(problemFilepath);
+
+    if (!inputFile) {
+        inputFile.close();
+
+        throw std::invalid_argument("JSON solution file cannot be opened");
+    }
+
+    nlohmann::json jsonData;
+    inputFile >> jsonData;
+
+    SolutionData solution;
+    nlohmann::from_json(jsonData, solution);
+
+    return solution;
+}
+
+
 SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const ProblemData& problemData) const
 {
     SolutionData solutionData;

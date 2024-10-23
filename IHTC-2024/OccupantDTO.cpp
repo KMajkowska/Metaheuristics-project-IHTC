@@ -21,5 +21,5 @@ void from_json(const nlohmann::json& j, OccupantDTO& occupant)
 {
 	nlohmann::from_json(j, static_cast<PatientDTO&>(occupant));
 
-	occupant.setId(j.at("id").get<std::string>());
+	occupant.setRoomId(j.at("room_id").get<std::string>());
 }

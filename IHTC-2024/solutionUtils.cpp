@@ -1,7 +1,4 @@
 #include "solutionUtils.h"
-#include "SurgeonOTInfo.h"
-#include <set>
-#include "NurseWorkload.h"
 
 ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution)
 {
@@ -59,7 +56,8 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     for (const auto& solutionPatients : solution.getPatients())
     {
         const auto& admissionDay = solutionPatients.getAdmissionDay();
-        const auto& patient = problemData.getPatientMap().at(solutionPatients.getId());
+        const auto patient = problemData.getPatientMap().at(solutionPatients.getId());
+        std::cout << patient.getId();
 
         for (int i = admissionDay; i < admissionDay + patient.getLengthOfStay(); ++i)
         {
@@ -73,7 +71,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
             for (int j = 0; j < allShiftTypes.size(); ++j)
             {
                 const auto& shiftType = allShiftTypes[j];
-                const auto& offset = i * allShiftTypes.size() + j;
+                const auto& offset = (i - admissionDay) * allShiftTypes.size() + j;
 
                 room.skillLevelRequired[shiftType] = std::max(room.skillLevelRequired[shiftType], patient.getSkillLevelRequired()[offset]);
                 room.shiftNameToProducedWorkload[shiftType] += patient.getSkillLevelRequired()[offset];
@@ -104,9 +102,9 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     for (const auto& solutionPatient : solution.getPatients())
     {
         const auto& admissionDay = solutionPatient.getAdmissionDay();
-        const auto& patient = problemData.getPatientMap().at(solutionPatient.getId());
+        const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
         const auto& operatingTheater = solutionPatient.getOperationTheater();
-        const auto& surgeon = problemData.getSurgeonMap().at(patient.getSurgeonId());
+        const auto surgeon = problemData.getSurgeonMap()[patient.getSurgeonId()];
 
         auto& workingTime = surgeonsOTInfo[admissionDay][operatingTheater].surgeonsOperations[surgeon.getId()];
 
@@ -156,7 +154,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
                 if (it != roomValue.shiftToNurseId.end())
                 {
-                    const auto& nurse = problemData.getNursesMap()[it->second];
+                    const auto nurse = problemData.getNursesMap()[it->second];
                     const auto& nurseSkillLevel = nurse.getSkillLevel();
 
                     if (skillReq.second > nurseSkillLevel) 
@@ -172,7 +170,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
                 if (it != roomValue.shiftToNurseId.end())
                 {
-                    const auto& nurse = problemData.getNursesMap()[it->second];
+                    const auto nurse = problemData.getNursesMap()[it->second];
                     const auto& nurseWorkload = nurse.getWorkloadByDayAndShift(i, it->first);
 
                     if (shiftWorkloadPair.second > nurseWorkload)
@@ -187,7 +185,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 auto it = roomValue.nurseIdToShift.find(nurse.getId());
                 bool isNurseFound  = it != roomValue.nurseIdToShift.end();
 
-                if (nurse.getWorkingShifts()[i].getMaxLoad() <= 0 && isNurseFound)
+                if (isNurseFound && nurse.getWorkloadByDayAndShift(i, it->second) <= 0)
                 {
                     ++res.countNursePresentOnWrongDayHard;
                 }
@@ -197,7 +195,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
     for (const auto& patient : solution.getPatients())
     {
-        const auto& patientFromProblem = problemData.getPatientMap().at(patient.getId());
+        const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
 
         if (patient.getAdmissionDay() < 0)
         {

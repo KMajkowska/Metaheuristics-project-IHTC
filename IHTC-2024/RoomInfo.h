@@ -4,6 +4,8 @@
 
 struct RoomInfo : public PatientRoomInfo
 {
+	RoomInfo() = default;
+
 	RoomInfo(int maxCapacity, int currentCapacity) : 
 		PatientRoomInfo(maxCapacity, currentCapacity)
 	{}

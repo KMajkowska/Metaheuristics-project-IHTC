@@ -15,6 +15,7 @@ public:
 
 	ProblemData parseFromJSON(const std::string& problemFilepath) const;
 	SolutionData parseToSolution(const CIndividual& individual, const ProblemData& problemData) const;
+	SolutionData parseFromJSONSolution(const std::string& problemFilepath) const;
 	std::string parseSolutionToJSON(const SolutionData& solution) const;
 
 private:

@@ -7,6 +7,7 @@
 
 struct PatientRoomInfo
 {
+	PatientRoomInfo() = default;
 	PatientRoomInfo(int maxCapacity, int currentCapacity) :
 		maxCapacity(maxCapacity),
 		currentCapacity(currentCapacity)

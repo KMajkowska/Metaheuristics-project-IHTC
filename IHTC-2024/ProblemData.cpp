@@ -121,7 +121,7 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
 
     for (int i = 0; i < days; ++i)
     {
-        auto newMap = std::unordered_map<std::string, PatientRoomInfo>();
+        std::unordered_map<std::string, PatientRoomInfo> newMap;
         newMap.reserve(days);
 
         roomInfos.push_back(newMap);

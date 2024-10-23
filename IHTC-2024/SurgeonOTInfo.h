@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include "SurgeonsTime.h"
 
 struct SurgeonOTInfo
 {
@@ -11,10 +12,4 @@ struct SurgeonOTInfo
 
 	int maxOTCapacity;
 	std::map<std::string, SurgeonsTime> surgeonsOperations;
-};
-
-struct SurgeonsTime
-{
-	int maxSurgeonCapacity = 0;
-	int actualWorkingTime = 0;
 };

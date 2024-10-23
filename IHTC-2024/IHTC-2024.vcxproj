@@ -199,6 +199,7 @@
     <ClInclude Include="SolutionData.h" />
     <ClInclude Include="solutionUtils.h" />
     <ClInclude Include="SurgeonDTO.h" />
+    <ClInclude Include="SurgeonsTime.h" />
     <ClInclude Include="ViolatedRestrictions.h" />
     <ClInclude Include="WeightsDTO.h" />
   </ItemGroup>

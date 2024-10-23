@@ -5,9 +5,12 @@
 #include "RandomSolver.h"
 #include "RandomProblem.h"
 #include "other.h"
+#include "solutionUtils.h"
 
 static const std::string PROBLEM_FILE = "../toy/toy.json";
 static const std::string OUTPUT_FILE = "../solution.json";
+static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
+
 
 CIndividual getToyCIndividual()
 {
@@ -125,6 +128,10 @@ int main(int argc, char* argv[])
 	try
 	{
 		ProblemData problemData = problemIO.parseFromJSON(argc > 1 ? argv[0] : PROBLEM_FILE);
+
+		SolutionData solutionDataTest = problemIO.parseFromJSONSolution(argc > 1 ? argv[0] : SOLUTION_FILE);
+
+		ViolatedRestrictions res = getViolatedFromSolution(problemData, solutionDataTest);
 
 		const CIndividual& individual = solver.solve(problemData, problem);
 
