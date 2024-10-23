@@ -11,6 +11,7 @@
 #include "IncomingPatientDTO.h"
 #include "SurgeonDTO.h"
 #include "OperatingTheaterDTO.h"
+#include "RoomInfo.h"
 
 class ProblemData
 {
@@ -39,6 +40,12 @@ public:
 	void setSurgeons(std::vector<SurgeonDTO> newSurgeons);
 	void setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters);
 
+	std::vector<std::unordered_map<std::string, PatientRoomInfo>> getPreprocessedRooms();
+	std::unordered_map<std::string, SurgeonDTO> getSurgeonMap();
+	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap();
+	std::unordered_map<std::string, NurseDTO> getNursesMap();
+	int getOffsetOfShiftTypes(std::string shiftType);
+
 private:
 	int days;
 	int skill_levels;
@@ -51,6 +58,13 @@ private:
 	std::vector<IncomingPatientDTO> patients;
 	std::vector<SurgeonDTO> surgeons;
 	std::vector<OperatingTheaterDTO> operating_theaters;
+
+	std::vector<std::unordered_map<std::string, PatientRoomInfo>> roomInfos;
+	std::unordered_map<std::string, SurgeonDTO> surgeonMap;
+	std::unordered_map<std::string, IncomingPatientDTO> patientMap;
+	std::unordered_map<std::string, NurseDTO> nursesMap;
+	std::unordered_map<std::string, int> shiftTypeToIndexMap;
+
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

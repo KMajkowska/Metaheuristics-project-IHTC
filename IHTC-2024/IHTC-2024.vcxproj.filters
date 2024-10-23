@@ -91,6 +91,9 @@
     <Filter Include="Pliki źródłowe\utils">
       <UniqueIdentifier>{cb7f889b-b62b-4b48-ba67-e858a7ea5157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\problem\ihtc">
+      <UniqueIdentifier>{bf674511-75d8-416f-acdc-cd97a2c5ee64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -180,13 +183,25 @@
     <ClCompile Include="other.cpp">
       <Filter>Pliki źródłowe\utils</Filter>
     </ClCompile>
-    <ClCompile Include="PatientRoomAdmissionDayIndividual.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="NurseRoomIndividual.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="RoomHeuristic.cpp">
+    <ClCompile Include="heuristicParams.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCProblem.cpp">
+      <Filter>Pliki źródłowe\algorithm\problem</Filter>
+    </ClCompile>
+    <ClCompile Include="solutionUtils.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,14 +284,26 @@
     <ClInclude Include="other.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
-    <ClInclude Include="PatientRoomAdmissionDayIndividual.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="NurseRoomIndividual.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="RoomHeuristic.h">
+    <ClInclude Include="heuristicParams.h">
       <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ViolatedRestrictions.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCProblem.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem\ihtc</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem\ihtc</Filter>
+    </ClInclude>
+    <ClInclude Include="solutionUtils.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseWorkload.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

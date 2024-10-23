@@ -80,6 +80,22 @@ void WeightsDTO::setUnscheduledOptional(int newUnscheduledOptional)
     unscheduled_optional = newUnscheduledOptional;
 }
 
+int WeightsDTO::getMaxWeight() const
+{
+    return std::max(
+        {
+            room_mixed_age,
+            room_nurse_skill,
+            continuity_of_care,
+            nurse_eccessive_workload,
+            open_operating_theater,
+            surgeon_transfer,
+            patient_delay,
+            unscheduled_optional
+        }
+    );
+}
+
 void to_json(nlohmann::json& j, const WeightsDTO& weights)
 {
     j = nlohmann::json

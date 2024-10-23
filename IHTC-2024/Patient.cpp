@@ -1,6 +1,6 @@
 #include "Patient.h"
 
-Patient::Patient() : Patient(0, "", "")
+Patient::Patient() : Patient(-1, "", "")
 {
 }
 

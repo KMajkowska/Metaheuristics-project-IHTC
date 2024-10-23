@@ -30,6 +30,19 @@ void NurseDTO::setSkillLevel(int newSkillLevel)
     skill_level = newSkillLevel;
 }
 
+int NurseDTO::getWorkloadByDayAndShift(int workingDay, std::string shiftStr) const
+{
+	for (const auto& shift : working_shifts)
+	{
+		if (shift.getDay() == workingDay && shiftStr == shift.getShift())
+		{
+			return shift.getMaxLoad();
+		}
+	}
+
+	return 0;
+}
+
 void to_json(nlohmann::json& j, const NurseDTO& nurse)
 {
 	j = nlohmann::json

@@ -110,6 +110,128 @@ void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheat
     operating_theaters = newTheaters;
 }
 
+std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPreprocessedRooms()
+{
+    if (roomInfos.size() > 0)
+    {
+        return roomInfos;
+    }
+
+    roomInfos.reserve(days);
+
+    for (int i = 0; i < days; ++i)
+    {
+        auto newMap = std::unordered_map<std::string, PatientRoomInfo>();
+        newMap.reserve(days);
+
+        roomInfos.push_back(newMap);
+
+        for (const auto& room : rooms)
+        {
+            roomInfos[i][room.getId()] = RoomInfo(room.getCapacity(), room.getCapacity());
+        }
+    }
+
+    for (const auto& occupant : occupants)
+    {
+        for (int i = 0; i < occupant.getLengthOfStay(); ++i)
+        {
+            auto& roomInfo = roomInfos[i].at(occupant.getRoomId());
+
+            ++roomInfo.ageGroups[occupant.getAgeGroup()];
+            ++roomInfo.genders[occupant.getGender()];
+
+            --roomInfo.currentCapacity;
+            --roomInfo.maxCapacity;
+
+            for (int j = 0; j < shift_types.size(); ++j)
+            {
+                const auto& shiftType = shift_types[j];
+
+                roomInfo.skillLevelRequired[shiftType] = std::max(roomInfo.skillLevelRequired[shiftType], occupant.getSkillLevelRequired()[i * shift_types.size() + j]);
+                roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[i * shift_types.size() + j];
+            }
+        }
+    }
+
+    for (const auto& patient : patients)
+    {
+        for (const auto& incompatibleRoom : patient.getIncompatibleRoomIds())
+        {
+            for (int j = 0; j < days; ++j)
+            {
+                roomInfos[j].at(incompatibleRoom).unallowedPatients.push_back(patient.getId());
+            }
+        }
+    }
+
+    return roomInfos;
+}
+
+std::unordered_map<std::string, SurgeonDTO> ProblemData::getSurgeonMap()
+{
+    if (surgeonMap.size() > 0)
+    {
+        return surgeonMap;
+    }
+
+    surgeonMap.reserve(surgeons.size());
+    for (const auto& surgeon : surgeons)
+    {
+        surgeonMap[surgeon.getId()] = surgeon;
+    }
+
+    return surgeonMap;
+}
+
+std::unordered_map<std::string, IncomingPatientDTO> ProblemData::getPatientMap()
+{
+    if (patientMap.size() > 0)
+    {
+        return patientMap;
+    }
+
+    patientMap.reserve(patients.size());
+    for (const auto& patient : patients)
+    {
+        patientMap[patient.getId()] = patient;
+    }
+
+    return patientMap;
+}
+
+std::unordered_map<std::string, NurseDTO> ProblemData::getNursesMap()
+{
+    if (nursesMap.size() > 0)
+    {
+        return nursesMap;
+    }
+
+    nursesMap.reserve(nurses.size());
+    for (const auto& nurse : nurses)
+    {
+        nursesMap[nurse.getId()] = nurse;
+    }
+
+    return nursesMap;
+}
+
+int ProblemData::getOffsetOfShiftTypes(std::string shiftType)
+{
+    if (shiftTypeToIndexMap.size() > 0)
+    {
+        return shiftTypeToIndexMap[shiftType];
+    }
+
+    shiftTypeToIndexMap.reserve(shift_types.size());
+    for (int i = 0; i < shift_types.size(); ++i)
+    {
+        shiftTypeToIndexMap[shift_types[i]] = i;
+    }
+
+    return shiftTypeToIndexMap[shiftType];
+}
+
 void to_json(nlohmann::json& j, const ProblemData& data)
 {
     j = nlohmann::json

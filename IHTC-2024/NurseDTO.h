@@ -17,6 +17,8 @@ public:
 	void setWorkingShifts(std::vector<ShiftDTO> newWorkingShifts);
 	void setSkillLevel(int newSkillLevel);
 
+	int getWorkloadByDayAndShift(int workingDay, std::string shift) const;
+
 private:
 	std::string id;
 	std::vector<ShiftDTO> working_shifts;

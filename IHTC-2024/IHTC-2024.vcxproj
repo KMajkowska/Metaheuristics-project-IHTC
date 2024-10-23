@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EASolver.cpp" />
+    <ClCompile Include="heuristicParams.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
@@ -151,26 +152,30 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientDTO.cpp" />
     <ClCompile Include="PatientOutputDTO.cpp" />
-    <ClCompile Include="PatientRoomAdmissionDayIndividual.cpp" />
     <ClCompile Include="printers.cpp" />
     <ClCompile Include="ProblemData.cpp" />
     <ClCompile Include="RandomProblem.cpp" />
     <ClCompile Include="RandomSolver.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
-    <ClCompile Include="RoomHeuristic.cpp" />
+    <ClCompile Include="IHTCProblem.cpp" />
+    <ClCompile Include="RoomInfo.h" />
     <ClCompile Include="ShiftDTO.cpp" />
     <ClCompile Include="SolutionData.cpp" />
+    <ClCompile Include="solutionUtils.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
+    <ClCompile Include="SurgeonOTInfo.cpp" />
+    <ClCompile Include="SurgeonOTInfo.h" />
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PatientRoomAdmissionDayIndividual.h" />
+    <ClInclude Include="heuristicParams.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
     <ClInclude Include="IMutator.h" />
     <ClInclude Include="NurseRoomIndividual.h" />
+    <ClInclude Include="NurseWorkload.h" />
     <ClInclude Include="other.h" />
     <ClInclude Include="ISelector.h" />
     <ClInclude Include="Assignment.h" />
@@ -188,10 +193,13 @@
     <ClInclude Include="RandomProblem.h" />
     <ClInclude Include="RandomSolver.h" />
     <ClInclude Include="RoomDTO.h" />
-    <ClInclude Include="RoomHeuristic.h" />
+    <ClInclude Include="IHTCProblem.h" />
+    <ClInclude Include="PatientRoomInfo.h" />
     <ClInclude Include="ShiftDTO.h" />
     <ClInclude Include="SolutionData.h" />
+    <ClInclude Include="solutionUtils.h" />
     <ClInclude Include="SurgeonDTO.h" />
+    <ClInclude Include="ViolatedRestrictions.h" />
     <ClInclude Include="WeightsDTO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -23,15 +23,17 @@ public:
 	void setPatientDelay(int newPatientDelay);
 	void setUnscheduledOptional(int newUnscheduledOptional);
 
+	int getMaxWeight() const;
+
 private:
-	int room_mixed_age;
-	int room_nurse_skill;
-	int continuity_of_care;
-	int nurse_eccessive_workload;	// typo in excessive - exists in file
-	int open_operating_theater;
-	int surgeon_transfer;
-	int patient_delay;
-	int unscheduled_optional;
+	int room_mixed_age = 0;
+	int room_nurse_skill = 0;
+	int continuity_of_care = 0;
+	int nurse_eccessive_workload = 0;	// typo in excessive - exists in file
+	int open_operating_theater = 0;
+	int surgeon_transfer = 0;
+	int patient_delay = 0;
+	int unscheduled_optional = 0;
 };
 
 void to_json(nlohmann::json& j, const WeightsDTO& weights);
