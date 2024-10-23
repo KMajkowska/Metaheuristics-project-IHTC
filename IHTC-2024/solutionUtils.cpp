@@ -41,6 +41,18 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         }
     );
 
+    for (const auto& nurse : problemData.getNurses())
+    {
+         NurseWorkload res(std::vector<int>(days * allShiftTypes.size(), 0), std::vector<int>(days * allShiftTypes.size(), 0));
+
+         for (const auto& workingShift : nurse.getWorkingShifts())
+         {
+             res.maximumWorkload[workingShift.getDay() * allShiftTypes.size() + problemData.getOffsetOfShiftTypes(workingShift.getShift())] = workingShift.getMaxLoad();
+         }
+
+        nurseIdsToWorloads[nurse.getId()] = res;
+    }
+
     for (const auto& nurse : solution.getNurses())
     {
         for (const auto& assignment : nurse.getAssignments())
@@ -73,7 +85,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 const auto& offset = (i - admissionDay) * allShiftTypes.size() + j;
 
                 room.skillLevelRequired[shiftType] = std::max(room.skillLevelRequired[shiftType], patient.getSkillLevelRequired()[offset]);
-                room.shiftNameToProducedWorkload[shiftType] += patient.getSkillLevelRequired()[offset];
+                room.shiftNameToProducedWorkload[shiftType] += patient.getWorkloadProduced()[offset];
             }
 
             room.patientIds.insert(patient.getId());
@@ -172,10 +184,9 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                     const auto nurse = problemData.getNursesMap()[it->second];
                     const auto& nurseWorkload = nurse.getWorkloadByDayAndShift(i, it->first);
 
-                    if (shiftWorkloadPair.second > nurseWorkload)
-                    {
-                        res.countMaximumWorkloadExcceeded += shiftWorkloadPair.second - nurseWorkload;
-                    }
+                    const int idx = i * problemData.getShiftTypes().size() + problemData.getOffsetOfShiftTypes(it->first);
+
+                    nurseIdsToWorloads[nurse.getId()].actualWorkload[idx] += shiftWorkloadPair.second;
                 }
             }
 
@@ -190,6 +201,17 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 }
             }
         } 
+    }
+
+    for (const auto& nurse : nurseIdsToWorloads)
+    {
+        for (int i = 0; i < nurse.second.actualWorkload.size(); ++i)
+        {
+            if (nurse.second.actualWorkload[i] > nurse.second.maximumWorkload[i])
+            {
+                res.countMaximumWorkloadExcceeded += nurse.second.actualWorkload[i] - nurse.second.maximumWorkload[i];
+            }
+        }
     }
 
     for (const auto& patient : solution.getPatients())
@@ -213,7 +235,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         }
         else if (patient.getAdmissionDay() > patientFromProblem.getSurgeryReleaseDay())
         {
-            ++res.countAdmissionDelay;
+            res.countAdmissionDelay += patient.getAdmissionDay() - patientFromProblem.getSurgeryReleaseDay();
         }
     }
 
