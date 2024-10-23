@@ -2,6 +2,11 @@
 
 ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution)
 {
+    const auto& days = problemData.getDays();
+    const auto& allShiftTypes = problemData.getShiftTypes();
+    const auto& operationTheathers = problemData.getOperatingTheaters();
+    const auto& problemSurgeons = problemData.getSurgeons();
+
     ViolatedRestrictions res;
 	std::vector<std::unordered_map<std::string, PatientRoomInfo>> patientroomInfos = problemData.getPreprocessedRooms();
 
@@ -10,11 +15,8 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     std::unordered_map<std::string, std::set<std::string>> patientToNurses;
     std::vector<std::unordered_map<std::string, std::set<std::string>>> surgeonToOTPerDay;
     std::unordered_map<std::string, NurseWorkload> nurseIdsToWorloads;
+    std::vector<std::set<std::string>> openOTs(days);
 
-    const auto& days = problemData.getDays();
-    const auto& allShiftTypes = problemData.getShiftTypes();
-    const auto& operationTheathers = problemData.getOperatingTheaters();
-    const auto& problemSurgeons = problemData.getSurgeons();
 
     roomInfos.reserve(days);
     surgeonsOTInfo.reserve(days);
@@ -58,7 +60,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         const auto& admissionDay = solutionPatients.getAdmissionDay();
         const auto patient = problemData.getPatientMap().at(solutionPatients.getId());
 
-        for (int i = 0; i < patient.getLengthOfStay(); ++i)
+        for (int i = 0; i < patient.getLengthOfStay() && i + admissionDay < days; ++i)
         {
             auto& room = roomInfos[i + admissionDay].at(solutionPatients.getRoomId());
 
@@ -104,6 +106,8 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
         const auto& operatingTheater = solutionPatient.getOperationTheater();
         const auto surgeon = problemData.getSurgeonMap()[patient.getSurgeonId()];
+
+        openOTs[solutionPatient.getAdmissionDay()].insert(solutionPatient.getOperationTheater());
 
         auto& workingTime = surgeonsOTInfo[admissionDay][operatingTheater].surgeonsOperations[surgeon.getId()];
 
@@ -224,11 +228,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
         for (const auto& pair : surgeonsOTInfo[i])
         {
-            const auto& ot = pair.second;
-
-            ++res.countOpenOTs;
-
-            if (ot.isOTOvercrowded())
+            if (pair.second.isOTOvercrowded())
             {
                 ++res.countOTOvertimeHard;
             }
@@ -274,6 +274,11 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 ++res.countSurgeonTransfer;
             }
         }
+    }
+
+    for (auto const& days : openOTs)
+    {
+        res.countOpenOTs += days.size();
     }
 
     return res;
