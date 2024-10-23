@@ -57,11 +57,10 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     {
         const auto& admissionDay = solutionPatients.getAdmissionDay();
         const auto patient = problemData.getPatientMap().at(solutionPatients.getId());
-        std::cout << patient.getId();
 
-        for (int i = admissionDay; i < admissionDay + patient.getLengthOfStay(); ++i)
+        for (int i = admissionDay; i < admissionDay + patient.getLengthOfStay() &&  i < days; ++i)
         {
-            auto& room = roomInfos[admissionDay].at(solutionPatients.getRoomId());
+            auto& room = roomInfos[i].at(solutionPatients.getRoomId());
 
             ++room.ageGroups[patient.getAgeGroup()];
             ++room.genders[patient.getGender()];
@@ -77,7 +76,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 room.shiftNameToProducedWorkload[shiftType] += patient.getSkillLevelRequired()[offset];
             }
 
-            room.patientIds.push_back(patient.getId());
+            room.patientIds.insert(patient.getId());
 
             for (const auto& nursePair : room.nurseIdToShift)
             {
