@@ -138,6 +138,8 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
         {
             auto& roomInfo = roomInfos[i].at(occupant.getRoomId());
 
+            roomInfo.occupantIds.insert(occupant.getId());
+
             ++roomInfo.ageGroups[occupant.getAgeGroup()];
             ++roomInfo.genders[occupant.getGender()];
 

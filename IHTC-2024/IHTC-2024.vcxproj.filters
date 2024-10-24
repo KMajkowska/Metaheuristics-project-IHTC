@@ -91,9 +91,6 @@
     <Filter Include="Pliki źródłowe\utils">
       <UniqueIdentifier>{cb7f889b-b62b-4b48-ba67-e858a7ea5157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki nagłówkowe\algorithm\problem\ihtc">
-      <UniqueIdentifier>{bf674511-75d8-416f-acdc-cd97a2c5ee64}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -186,9 +183,6 @@
     <ClCompile Include="NurseRoomIndividual.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="heuristicParams.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="IHTCProblem.cpp">
       <Filter>Pliki źródłowe\algorithm\problem</Filter>
     </ClCompile>
@@ -203,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="SurgeonOTInfo.cpp">
       <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCSimulatedAnnealing.cpp">
+      <Filter>Pliki źródłowe\algorithm\problem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,32 +275,35 @@
     <ClInclude Include="printers.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
-    <ClInclude Include="RandomProblem.h">
-      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
-    </ClInclude>
     <ClInclude Include="other.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
     <ClInclude Include="NurseRoomIndividual.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="heuristicParams.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="ViolatedRestrictions.h">
       <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="IHTCProblem.h">
-      <Filter>Pliki nagłówkowe\algorithm\problem\ihtc</Filter>
-    </ClInclude>
-    <ClInclude Include="PatientRoomInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm\problem\ihtc</Filter>
     </ClInclude>
     <ClInclude Include="solutionUtils.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
     <ClInclude Include="NurseWorkload.h">
       <Filter>Pliki nagłówkowe\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonsTime.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCProblem.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCSimulatedAnnealing.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomProblem.h">
+      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,7 +12,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
     std::vector<std::unordered_map<std::string, RoomInfo>> roomInfos;
     std::vector<std::unordered_map<std::string, SurgeonOTInfo>> surgeonsOTInfo;
-    std::unordered_map<std::string, std::set<std::string>> patientToNurses;
+    std::unordered_map<std::string, std::set<std::string>> occupantsAndPatientToNurses;
     std::vector<std::unordered_map<std::string, std::set<std::string>>> surgeonToOTPerDay;
     std::unordered_map<std::string, NurseWorkload> nurseIdsToWorloads;
     std::vector<std::set<std::string>> openOTs(days);
@@ -20,7 +20,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
     roomInfos.reserve(days);
     surgeonsOTInfo.reserve(days);
-    patientToNurses.reserve(problemData.getPatients().size());
+    occupantsAndPatientToNurses.reserve(problemData.getPatients().size());
     surgeonToOTPerDay.reserve(days);
     nurseIdsToWorloads.reserve(problemData.getNurses().size());
 
@@ -94,7 +94,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
             for (const auto& nursePair : room.nurseIdToShift)
             {
-                patientToNurses[patient.getId()].insert(nursePair.first);
+                occupantsAndPatientToNurses[patient.getId()].insert(nursePair.first);
             }
         }
     }
@@ -133,6 +133,14 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         {
             const auto& roomValue = room.second;
 
+            for (const auto& occupantId : roomValue.occupantIds)
+            {
+                for (const auto& nursePair : roomValue.nurseIdToShift)
+                {
+                    occupantsAndPatientToNurses[occupantId].insert(nursePair.first);
+                }
+            }
+
             if (roomValue.genders.size() > 1)
             {
                 ++res.countGenderMixHard;
@@ -165,7 +173,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
 
             for (const auto& shiftPair : roomValue.shiftToNurseId)
             {
-                const auto nurseSkillLevel = problemData.getNursesMap()[shiftPair.second].getSkillLevel();
+                const auto nurseSkillLevel = problemData.getNursesMap()[shiftPair.second].getSkillLevel(); 
 
                 auto it = roomValue.skillLevelsRequired.find(shiftPair.first);
 
@@ -284,7 +292,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
         surgeonToOTPerDay.push_back(surgeonsToOTs);
     }
 
-    for (const auto& patientToNurse : patientToNurses)
+    for (const auto& patientToNurse : occupantsAndPatientToNurses)
     {
         res.countUncontinuousCare += patientToNurse.second.size();
     }
@@ -306,4 +314,32 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     }
 
     return res;
+}
+
+double calculateWeights(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
+{
+    int maxWeight = weights.getMaxWeight() * hRestrictionModifier;
+
+    return restrictions.countGenderMixHard * maxWeight
+        + restrictions.countIncompatibleRoomsHard * maxWeight
+        + restrictions.countOvercrowdedCapacityHard * maxWeight
+        + restrictions.countUnadmittedMandatoryHard * maxWeight
+        + restrictions.countLateAdmittedMandatoryHard * maxWeight
+        + restrictions.countSurgeonOvertimeHard * maxWeight
+        + restrictions.countOTOvertimeHard * maxWeight
+        + restrictions.countUncoveredRoomHard * maxWeight
+        + restrictions.countNursePresentOnWrongDayHard * maxWeight
+        + restrictions.countMixedAgeGroups * weights.getRoomMixedAge()
+        + restrictions.countMinimumSkillLevelExceeded * weights.getRoomNurseSkill()
+        + restrictions.countUncontinuousCare * weights.getContinuityOfCare()
+        + restrictions.countMaximumWorkloadExcceeded * weights.getNurseEccessiveWorkload()
+        + restrictions.countOpenOTs * weights.getOpenOperatingTheater()
+        + restrictions.countSurgeonTransfer * weights.getSurgeonTransfer()
+        + restrictions.countAdmissionDelay * weights.getPatientDelay()
+        + restrictions.countUncheduledOptional * weights.getUnscheduledOptional();
+}
+
+double calculateNewTemp(double currTemp, int iteration)
+{
+    return 0.99 * currTemp;
 }

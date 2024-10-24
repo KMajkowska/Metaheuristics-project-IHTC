@@ -10,14 +10,15 @@
 class IHTCProblemIO
 {
 public:
-	IHTCProblemIO() = default;
 	~IHTCProblemIO() = default;
 
-	ProblemData parseFromJSON(const std::string& problemFilepath) const;
-	SolutionData parseToSolution(const CIndividual& individual, const ProblemData& problemData) const;
-	SolutionData parseFromJSONSolution(const std::string& problemFilepath) const;
-	std::string parseSolutionToJSON(const SolutionData& solution) const;
+	static ProblemData parseFromJSON(const std::string& problemFilepath);
+	static SolutionData parseToSolution(const CIndividual& individual, const ProblemData& problemData);
+	static SolutionData parseFromJSONSolution(const std::string& problemFilepath);
+	static std::string parseSolutionToJSON(const SolutionData& solution);
 
 private:
+	IHTCProblemIO() = default;
+
 	static constexpr int JSON_INDENT = 4;
 };

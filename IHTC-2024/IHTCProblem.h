@@ -1,5 +1,4 @@
 #pragma once
-#include <functional>
 
 #include "Patient.h"
 #include "RoomDTO.h"
@@ -7,6 +6,10 @@
 #include "ProblemData.h"
 #include "RoomInfo.h"
 #include "ViolatedRestrictions.h"
+#include "CIndividual.h"
+#include "IProblem.h"
+#include "IHTCProblemIO.h"
+#include "solutionUtils.h"
 
 /*
 	macierz timeslot/pacjent
@@ -14,23 +17,28 @@
 	potem bedzie heurystycznie sprawdzane, czy da siê go w ten dany dzien przypisac w odpowiedni dzien
  */
 
-class IHTCProblem
+class IHTCProblem : public IProblem
 {
 public:
-	IHTCProblem(ProblemData& problemData);
+	IHTCProblem(ProblemData& problemData, const std::function<double(const WeightsDTO&, const ViolatedRestrictions&)>& evalFn);
 
+	virtual CIndividual solve() const = 0;
 
-private:
+	double eval(const CIndividual& individual) const;
 
-	// double startingTemp, std::function<double(double, int)> coolingFn, std::function<double(const WeightsDTO&)> eval
-	void preprocessPatientsToRooms();
-
+protected:
 	ProblemData& problemData;
 
 	std::vector<std::vector<int>> patientsInRoom;
 	std::vector<std::unordered_map<std::string, PatientRoomInfo>> roomInfos;
 
+	const std::function<double(const WeightsDTO&, const ViolatedRestrictions&)>& evalFn;
+
 	static constexpr int UNOCCUPIABLE = -INT_MAX;
 	static constexpr int ASSIGNABLE = -1;
+	static constexpr int UNDESIRED = -2;
+
+private: 
+	void preprocessPatientsToRooms();
 
 };

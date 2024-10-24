@@ -131,11 +131,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EASolver.cpp" />
-    <ClCompile Include="heuristicParams.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
+    <ClCompile Include="IHTCSimulatedAnnealing.cpp" />
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="CIndividual.cpp" />
     <ClCompile Include="IMutator.cpp" />
@@ -168,9 +168,9 @@
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="heuristicParams.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
+    <ClInclude Include="IHTCSimulatedAnnealing.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
     <ClInclude Include="IMutator.h" />

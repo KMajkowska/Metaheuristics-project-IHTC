@@ -9,4 +9,8 @@
 
 #include <set>
 
-ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution);
+static ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution);
+
+static double calculateWeights(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions);
+
+static double calculateNewTemp(double currTemp, int iteration);

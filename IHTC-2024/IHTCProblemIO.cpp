@@ -1,6 +1,6 @@
 #include "IHTCProblemIO.h"
 
-ProblemData IHTCProblemIO::parseFromJSON(const std::string& problemFilepath) const
+ProblemData IHTCProblemIO::parseFromJSON(const std::string& problemFilepath)
 {
     std::ifstream inputFile(problemFilepath);
 
@@ -19,7 +19,7 @@ ProblemData IHTCProblemIO::parseFromJSON(const std::string& problemFilepath) con
     return problem;
 }
 
-SolutionData IHTCProblemIO::parseFromJSONSolution(const std::string& problemFilepath) const
+SolutionData IHTCProblemIO::parseFromJSONSolution(const std::string& problemFilepath)
 {
     std::ifstream inputFile(problemFilepath);
 
@@ -39,7 +39,7 @@ SolutionData IHTCProblemIO::parseFromJSONSolution(const std::string& problemFile
 }
 
 
-SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const ProblemData& problemData) const
+SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const ProblemData& problemData)
 {
     SolutionData solutionData;
 
@@ -98,7 +98,7 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
     return solutionData;
 }
 
-std::string IHTCProblemIO::parseSolutionToJSON(const SolutionData& solution) const
+std::string IHTCProblemIO::parseSolutionToJSON(const SolutionData& solution)
 {
     nlohmann::json jsonObject = solution;
 

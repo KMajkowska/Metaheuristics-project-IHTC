@@ -21,4 +21,5 @@ struct PatientRoomInfo
 	std::set<std::string> unallowedPatients;
 	std::unordered_map<std::string, std::vector<int>> skillLevelsRequired;
 	std::unordered_map<std::string, int> shiftNameToProducedWorkload;
+	std::set<std::string> occupantIds;
 };

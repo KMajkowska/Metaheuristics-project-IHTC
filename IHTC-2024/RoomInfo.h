@@ -21,6 +21,7 @@ struct RoomInfo : public PatientRoomInfo
 		unallowedPatients = pri.unallowedPatients;
 		skillLevelsRequired = pri.skillLevelsRequired;
 		shiftNameToProducedWorkload = pri.shiftNameToProducedWorkload;
+		occupantIds = pri.occupantIds;
 	}
 
 	std::set<std::string> patientIds;
