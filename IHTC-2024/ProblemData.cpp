@@ -130,7 +130,6 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
         {
             roomInfos[i][room.getId()] = PatientRoomInfo(room.getCapacity(), room.getCapacity());
         }
-
     }
 
     for (const auto& occupant : occupants)
@@ -148,9 +147,10 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
             for (int j = 0; j < shift_types.size(); ++j)
             {
                 const auto& shiftType = shift_types[j];
+                const auto& offset = i * shift_types.size() + j;
 
-                roomInfo.skillLevelRequired[shiftType] = std::max(roomInfo.skillLevelRequired[shiftType], occupant.getSkillLevelRequired()[i * shift_types.size() + j]);
-                roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[i * shift_types.size() + j];
+                roomInfo.skillLevelsRequired[shiftType].push_back(occupant.getSkillLevelRequired()[offset]);
+                roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[offset];
             }
         }
     }

@@ -19,6 +19,6 @@ struct PatientRoomInfo
 	int currentCapacity;
 	std::unordered_map<std::string, int> ageGroups;
 	std::set<std::string> unallowedPatients;
-	std::unordered_map<std::string, int> skillLevelRequired;
+	std::unordered_map<std::string, std::vector<int>> skillLevelsRequired;
 	std::unordered_map<std::string, int> shiftNameToProducedWorkload;
 };

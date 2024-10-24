@@ -19,7 +19,7 @@ struct RoomInfo : public PatientRoomInfo
 		currentCapacity = pri.currentCapacity;
 		ageGroups = pri.ageGroups;
 		unallowedPatients = pri.unallowedPatients;
-		skillLevelRequired = pri.skillLevelRequired;
+		skillLevelsRequired = pri.skillLevelsRequired;
 		shiftNameToProducedWorkload = pri.shiftNameToProducedWorkload;
 	}
 

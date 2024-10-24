@@ -86,7 +86,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 const auto& shiftType = allShiftTypes[j];
                 const auto& offset = i * allShiftTypes.size() + j;
 
-                room.skillLevelRequired[shiftType] = std::max(room.skillLevelRequired[shiftType], patient.getSkillLevelRequired()[offset]);
+                room.skillLevelsRequired[shiftType].push_back(patient.getSkillLevelRequired()[offset]);
                 room.shiftNameToProducedWorkload[shiftType] += patient.getWorkloadProduced()[offset];
             }
 
@@ -163,18 +163,20 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
                 res.countUncoveredRoomHard += allShiftTypes.size() - roomValue.shiftToNurseId.size();
             }
 
-            for (const auto& skillReq : roomValue.skillLevelRequired)
+            for (const auto& shiftPair : roomValue.shiftToNurseId)
             {
-                auto it = roomValue.shiftToNurseId.find(skillReq.first);
+                const auto nurseSkillLevel = problemData.getNursesMap()[shiftPair.second].getSkillLevel();
 
-                if (it != roomValue.shiftToNurseId.end())
+                auto it = roomValue.skillLevelsRequired.find(shiftPair.first);
+
+                if (it != roomValue.skillLevelsRequired.end())
                 {
-                    const auto nurse = problemData.getNursesMap()[it->second];
-                    const auto& nurseSkillLevel = nurse.getSkillLevel();
-
-                    if (skillReq.second > nurseSkillLevel) 
+                    for (const auto& reqSkillLevel : it->second)
                     {
-                        res.countMinimumSkillLevelExceeded += skillReq.second - nurseSkillLevel;
+                        if (reqSkillLevel > nurseSkillLevel)
+                        {
+                            res.countMinimumSkillLevelExceeded += reqSkillLevel - nurseSkillLevel;
+                        }
                     }
                 }
             }
