@@ -299,11 +299,11 @@
     <ClInclude Include="IHTCSimulatedAnnealing.h">
       <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
     </ClInclude>
-    <ClInclude Include="PatientRoomInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
-    </ClInclude>
     <ClInclude Include="RandomProblem.h">
       <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
