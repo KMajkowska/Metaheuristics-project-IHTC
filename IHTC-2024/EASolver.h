@@ -2,20 +2,19 @@
 
 #include <random>
 
-#include "ISolver.h"
+#include "IHTCSolver.h"
 #include "ISelector.h"
 #include "IProblem.h"
 
-class EASolver : public ISolver
+class EASolver : public IHTCSolver
 {
 public:
-	EASolver(const ISelector& selector, const IMutator& mutator, const ICrosser& crosser, std::mt19937& randGenerator);
+	EASolver(ProblemData& problemData, const ISelector& selector, const IMutator& mutator, const ICrosser& crosser, std::mt19937& randGenerator);
 
-	CIndividual solve(const ProblemData& problemData, const IProblem& problem) const;
+	CIndividual solve(const IProblem& problem) const;
 
 private:
 	const ISelector& selector;
 	const IMutator& mutator;
 	const ICrosser& crosser;
-	std::mt19937& randGenerator;
 };

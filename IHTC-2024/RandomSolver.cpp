@@ -1,11 +1,10 @@
 #include "RandomSolver.h"
 
-RandomSolver::RandomSolver(std::mt19937& randGenerator) : 
-    randGenerator(randGenerator)
-{
-}
+RandomSolver::RandomSolver(ProblemData& problemData, std::mt19937& randGenerator) :
+    ISolver(problemData, randGenerator)
+{}
 
-CIndividual RandomSolver::solve(const ProblemData& problemData, const IProblem& problem) const
+CIndividual RandomSolver::solve(const IProblem& problem) const
 {
     const auto& problemPatients = problemData.getPatients();
     const auto& problemRooms = problemData.getRooms();
@@ -44,19 +43,19 @@ CIndividual RandomSolver::solve(const ProblemData& problemData, const IProblem& 
 
         for (const auto& shift : nurse.getWorkingShifts())
         {
-            std::vector<std::string> assignedRooms;
+            std::set<std::string> assignedRooms;
 
             while (_0to100Distrib(randGenerator) >= 50)
             {
                 int i = roomDistrib(randGenerator);
-                assignedRooms.push_back(problemRooms[i].getId());
+                assignedRooms.insert(problemRooms[i].getId());
             }
 
             assignments.push_back(
                 Assignment(
                     shift.getDay(),
                     shift.getShift(),
-                    assignedRooms
+                    std::vector<std::string>(assignedRooms.begin(), assignedRooms.end())
                 )
             );
         }

@@ -8,13 +8,16 @@
 class CIndividual
 {
 public:
-	CIndividual() = default;
+	CIndividual();
 
 	CIndividual(std::vector<Patient> patients, std::vector<std::vector<Assignment>> assignments);
 
 	std::vector<Patient> getPatients() const;
 	std::vector<std::vector<Assignment>> getAssignments() const;
+	double getFitness() const;
+	bool isFitnessUpToDate() const;
 
+	void setFitness(double newFitness);
 	void setAssignments(std::vector<std::vector<Assignment>> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
 
@@ -24,4 +27,7 @@ public:
 private:
 	std::vector<Patient> patients;
 	std::vector<std::vector<Assignment>> assignments;
+
+	double fitness;
+	bool fitnessUpToDate;
 };

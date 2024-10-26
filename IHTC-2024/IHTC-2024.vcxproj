@@ -135,7 +135,9 @@
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
-    <ClCompile Include="IHTCSimulatedAnnealing.cpp" />
+    <ClCompile Include="IHTCSolver.cpp" />
+    <ClCompile Include="ISolver.cpp" />
+    <ClCompile Include="SASolver.cpp" />
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="CIndividual.cpp" />
     <ClCompile Include="IMutator.cpp" />
@@ -152,9 +154,7 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientDTO.cpp" />
     <ClCompile Include="PatientOutputDTO.cpp" />
-    <ClCompile Include="printers.cpp" />
     <ClCompile Include="ProblemData.cpp" />
-    <ClCompile Include="RandomProblem.cpp" />
     <ClCompile Include="RandomSolver.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
     <ClCompile Include="IHTCProblem.cpp" />
@@ -170,7 +170,8 @@
   <ItemGroup>
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
-    <ClInclude Include="IHTCSimulatedAnnealing.h" />
+    <ClInclude Include="IHTCSolver.h" />
+    <ClInclude Include="SASolver.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
     <ClInclude Include="IMutator.h" />
@@ -187,10 +188,8 @@
     <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientDTO.h" />
     <ClInclude Include="PatientOutputDTO.h" />
-    <ClInclude Include="printers.h" />
     <ClInclude Include="IProblem.h" />
     <ClInclude Include="ProblemData.h" />
-    <ClInclude Include="RandomProblem.h" />
     <ClInclude Include="RandomSolver.h" />
     <ClInclude Include="RoomDTO.h" />
     <ClInclude Include="IHTCProblem.h" />

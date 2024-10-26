@@ -20,25 +20,16 @@
 class IHTCProblem : public IProblem
 {
 public:
-	IHTCProblem(ProblemData& problemData, const std::function<double(const WeightsDTO&, const ViolatedRestrictions&)>& evalFn);
-
-	virtual CIndividual solve() const = 0;
+	IHTCProblem(
+		ProblemData& problemData, 
+		std::function<ViolatedRestrictions(ProblemData& problemData, const SolutionData& solution)> calculateRestrictions,
+		std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn);
 
 	double eval(const CIndividual& individual) const;
 
 protected:
 	ProblemData& problemData;
 
-	std::vector<std::vector<int>> patientsInRoom;
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> roomInfos;
-
-	const std::function<double(const WeightsDTO&, const ViolatedRestrictions&)>& evalFn;
-
-	static constexpr int UNOCCUPIABLE = -INT_MAX;
-	static constexpr int ASSIGNABLE = -1;
-	static constexpr int UNDESIRED = -2;
-
-private: 
-	void preprocessPatientsToRooms();
-
+	std::function<ViolatedRestrictions(ProblemData& problemData, const SolutionData& solution)> calculateRestrictions;
+	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn;
 };

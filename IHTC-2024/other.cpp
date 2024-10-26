@@ -15,7 +15,7 @@ void writeToFile(const std::string& filename, const std::string& data)
     file.close();
 }
 
-std::mt19937& createRandomGenerator()
+std::mt19937 createRandomGenerator()
 {
     std::random_device r;
     std::seed_seq seed{ r(), r(), r(), r(), r(), r(), r(), r() };
