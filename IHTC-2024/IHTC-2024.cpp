@@ -13,7 +13,7 @@ static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 
-static constexpr int REPETITIONS = 100;
+static constexpr int REPETITIONS = 10000;
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)

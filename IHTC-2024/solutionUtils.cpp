@@ -115,16 +115,19 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     for (const auto& solutionPatient : solution.getPatients())
     {
         const auto& admissionDay = solutionPatient.getAdmissionDay();
-        const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
-        const auto& operatingTheater = solutionPatient.getOperationTheater();
-        const auto surgeon = problemData.getSurgeonMap()[patient.getSurgeonId()];
+        if (admissionDay < openOTs.size())
+        {
+            const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
+            const auto& operatingTheater = solutionPatient.getOperationTheater();
+            const auto surgeon = problemData.getSurgeonMap()[patient.getSurgeonId()];
 
-        openOTs[solutionPatient.getAdmissionDay()].insert(solutionPatient.getOperationTheater());
+            openOTs[solutionPatient.getAdmissionDay()].insert(solutionPatient.getOperationTheater());
 
-        auto& workingTime = surgeonsOTInfo[admissionDay][operatingTheater].surgeonsOperations[surgeon.getId()];
+            auto& workingTime = surgeonsOTInfo[admissionDay][operatingTheater].surgeonsOperations[surgeon.getId()];
 
-        workingTime.actualWorkingTime += patient.getSurgeryDuration();
-        workingTime.maxSurgeonCapacity = surgeon.getMaxSurgeryTime()[admissionDay];
+            workingTime.actualWorkingTime += patient.getSurgeryDuration();
+            workingTime.maxSurgeonCapacity = surgeon.getMaxSurgeryTime()[admissionDay];
+        }
     }
 
     for (int i = 0; i < days; i++)
@@ -232,7 +235,7 @@ ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const Sol
     {
         const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
 
-        if (patient.getAdmissionDay() < 0)
+        if (patient.getAdmissionDay() < 0 || patient.getAdmissionDay() >= days)
         {
             if (patientFromProblem.getSurgeryDueDay() <= days)
             {
