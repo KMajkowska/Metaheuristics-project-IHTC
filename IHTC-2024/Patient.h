@@ -7,7 +7,11 @@ class Patient
 {
 public:
 	Patient();
-	Patient(int admissionDay, const std::string& roomId, const std::string& operationTheater);
+	Patient(const std::string& id, int admissionDay, const std::string& roomId, const std::string& operationTheater);
+	Patient(const Patient& patient) = default;
+
+	std::string getId() const;
+	void setId(const std::string& newId);
 
 	int getAdmissionDay() const;
 	void setAdmissionDay(int newAdmissionDay);
@@ -19,6 +23,7 @@ public:
 	void setOperationTheater(const std::string& newOperatingTheater);
 
 protected:
+	std::string id;
 	int admissionDay;
 	std::string roomId;
 	std::string operationTheater;

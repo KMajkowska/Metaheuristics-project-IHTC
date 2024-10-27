@@ -8,6 +8,7 @@ class Assignment
 public:
 	Assignment();
 	Assignment(int day, std::string shift, std::vector<std::string> rooms);
+	Assignment(const Assignment& other) = default;
 
 	int getDay() const;
 	void setDay(int newDay);

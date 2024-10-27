@@ -111,6 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,16 +128,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
+    <ClCompile Include="IHTCMutator.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="ISolver.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="SASolver.cpp" />
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="CIndividual.cpp" />
@@ -153,7 +157,6 @@
     <ClCompile Include="OperatingTheaterDTO.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientDTO.cpp" />
-    <ClCompile Include="PatientOutputDTO.cpp" />
     <ClCompile Include="ProblemData.cpp" />
     <ClCompile Include="RandomSolver.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
@@ -165,12 +168,14 @@
     <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="SurgeonOTInfo.cpp" />
     <ClCompile Include="SurgeonOTInfo.h" />
+    <ClCompile Include="ViolatedRestrictions.cpp" />
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IHTCSolver.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="SASolver.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
@@ -187,7 +192,6 @@
     <ClInclude Include="OperatingTheaterDTO.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientDTO.h" />
-    <ClInclude Include="PatientOutputDTO.h" />
     <ClInclude Include="IProblem.h" />
     <ClInclude Include="ProblemData.h" />
     <ClInclude Include="RandomSolver.h" />
@@ -199,6 +203,7 @@
     <ClInclude Include="solutionUtils.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
+    <ClInclude Include="IHTCMutator.h" />
     <ClInclude Include="ViolatedRestrictions.h" />
     <ClInclude Include="WeightsDTO.h" />
   </ItemGroup>

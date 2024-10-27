@@ -1,4 +1,5 @@
 #include "CIndividual.h"
+#include "IMutator.h"
 
 CIndividual::CIndividual() : 
 	fitness(0),
@@ -64,4 +65,19 @@ void CIndividual::mute(const IMutator& mutator)
 	fitnessUpToDate = false;
 
 	mutator.mutate(*this);
+}
+
+std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber)
+{
+	std::vector<CIndividual> neighbours;
+	neighbours.reserve(neighbourhoodNumber);
+
+	for (int i = 0; i < neighbourhoodNumber; ++i)
+	{
+		CIndividual individual(*this);
+		individual.mute(mutator);
+		neighbours.push_back(individual);
+	}
+
+	return neighbours;
 }

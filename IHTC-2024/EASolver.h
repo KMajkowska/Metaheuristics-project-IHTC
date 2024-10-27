@@ -9,9 +9,9 @@
 class EASolver : public IHTCSolver
 {
 public:
-	EASolver(ProblemData& problemData, const ISelector& selector, const IMutator& mutator, const ICrosser& crosser, std::mt19937& randGenerator);
+	EASolver(const ProblemData& problemData, const ISelector& selector, const IMutator& mutator, const ICrosser& crosser, std::mt19937& randGenerator);
 
-	CIndividual solve(const IProblem& problem) const;
+	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 
 private:
 	const ISelector& selector;

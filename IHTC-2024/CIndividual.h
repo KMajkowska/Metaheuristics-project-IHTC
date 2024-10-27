@@ -1,9 +1,11 @@
 #pragma once
 #include "Patient.h"
 #include "Assignment.h"
-#include "IMutator.h"
 #include "ICrosser.h"
+
 #include<vector>
+
+class IMutator;
 
 class CIndividual
 {
@@ -11,6 +13,7 @@ public:
 	CIndividual();
 
 	CIndividual(std::vector<Patient> patients, std::vector<std::vector<Assignment>> assignments);
+	CIndividual(const CIndividual& otherIndividual) = default;
 
 	std::vector<Patient> getPatients() const;
 	std::vector<std::vector<Assignment>> getAssignments() const;
@@ -23,6 +26,7 @@ public:
 
 	std::vector<CIndividual> crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const;
 	void mute(const IMutator& mutator);
+	std::vector<CIndividual> createNeighbours(const IMutator& mutator, int neighbourhoodNumber);
 
 private:
 	std::vector<Patient> patients;

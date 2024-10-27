@@ -1,7 +1,7 @@
 #include "EASolver.h"
 
 EASolver::EASolver(
-	ProblemData& problemData,
+	const ProblemData& problemData,
 	const ISelector& selector, 
 	const IMutator& mutator, 
 	const ICrosser& crosser, 
@@ -13,7 +13,7 @@ EASolver::EASolver(
 	crosser(crosser)
 {}
 
-CIndividual EASolver::solve(const IProblem & problem) const
+CIndividual EASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
 	return CIndividual();
 }

@@ -43,35 +43,9 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
 {
     SolutionData solutionData;
 
-    const std::vector<IncomingPatientDTO>& patients = problemData.getPatients();
-    const auto& solutionPatients = individual.getPatients();
-    std::vector<std::string> patientIds;
-    patientIds.reserve((patients.size()));
+    const auto solutionPatients = individual.getPatients();
 
-    for (const auto& patient : patients)
-    {
-        patientIds.push_back(patient.getId());
-    }
-
-    if (patientIds.size() != solutionPatients.size())
-    {
-        throw std::invalid_argument("Representation of population is incorrect, something went wrong");
-    }
-
-    std::vector<PatientOutputDTO> outputPatients;
-    outputPatients.reserve(patientIds.size());
-
-    std::size_t counter = 0;
-    for (const auto& patientId : patientIds)
-    {
-        const auto& patient = solutionPatients[counter];
-
-        outputPatients.push_back(PatientOutputDTO(patientId, patient.getAdmissionDay(), patient.getRoomId(), patient.getOperationTheater()));
-
-        ++counter;
-    }
-
-    solutionData.setPatients(outputPatients);
+    solutionData.setPatients(solutionPatients);
 
     const auto& nurses = problemData.getNurses();
     const auto& solutionAssignments = individual.getAssignments();
@@ -83,7 +57,7 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
         throw std::invalid_argument("Representation of nurses is incorrect, something went wrong");
     }
 
-    counter = 0;
+    std::size_t counter = 0;
     for (const auto& nurse : nurses)
     {
         const auto& assignments = solutionAssignments[counter];

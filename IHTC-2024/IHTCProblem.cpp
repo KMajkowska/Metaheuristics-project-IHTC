@@ -1,22 +1,28 @@
 #include "IHTCProblem.h"
+#include <iostream>
 
 IHTCProblem::IHTCProblem(
-	ProblemData& problemData,
-	std::function<ViolatedRestrictions(ProblemData& problemData, const SolutionData& solution)> calculateRestrictions, 
-	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn
+	const ProblemData& problemData,
+	std::function<ViolatedRestrictions(const ProblemData&, const SolutionData&)> calculateRestrictions, 
+	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn,
+	Logger& logger
 ) :
 	problemData(problemData),
 	calculateRestrictions(calculateRestrictions),
-	evalFn(evalFn)
+	evalFn(evalFn),
+	logger(logger)
 {}
 
 double IHTCProblem::eval(const CIndividual& individual) const
 {
-	return evalFn(
-		problemData.getWeights(), 
-		calculateRestrictions(
-			problemData, 
-			IHTCProblemIO::parseToSolution(individual, problemData)
-		)
+	const auto& restrictions = calculateRestrictions(
+		problemData,
+		IHTCProblemIO::parseToSolution(individual, problemData)
 	);
+
+	const double res = evalFn(problemData.getWeights(), restrictions);
+
+	logger.log(restrictions.getCSVData() + "," + std::to_string(res));
+
+	return res;
 }

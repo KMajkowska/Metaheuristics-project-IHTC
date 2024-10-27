@@ -9,11 +9,10 @@
 class ISolver
 {
 public:
-	ISolver(ProblemData& problemData, std::mt19937& randGenerator);
-	virtual CIndividual solve(const IProblem& problem) const = 0;
+	ISolver(const ProblemData& problemData, std::mt19937& randGenerator);
+	virtual CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const = 0;
 
 protected:
-	ProblemData& problemData;
-
+	const ProblemData& problemData;
 	std::mt19937& randGenerator;
 };

@@ -68,6 +68,14 @@ void ProblemData::setSkillLevels(int newSkillLevels)
 void ProblemData::setShiftTypes(std::vector<std::string> newShiftTypes)
 {
     shift_types = newShiftTypes;
+
+    shiftTypeToIndexMap.clear();
+
+    shiftTypeToIndexMap.reserve(shift_types.size());
+    for (int i = 0; i < shift_types.size(); ++i)
+    {
+        shiftTypeToIndexMap[shift_types[i]] = i;
+    }
 }
 
 void ProblemData::setAgeGroups(std::vector<std::string> newAgeGroups)
@@ -83,26 +91,56 @@ void ProblemData::setWeights(WeightsDTO newWeights)
 void ProblemData::setNurses(std::vector<NurseDTO> newNurses)
 {
     nurses = newNurses;
+
+    nursesMap.clear();
+
+    nursesMap.reserve(nurses.size());
+    for (const auto& nurse : nurses)
+    {
+        nursesMap[nurse.getId()] = nurse;
+    }
 }
 
 void ProblemData::setRooms(std::vector<RoomDTO> newRooms)
 {
     rooms = newRooms;
+
+    runPreprocessing();
 }
 
 void ProblemData::setOccupants(std::vector<OccupantDTO> newOccupants)
 {
     occupants = newOccupants;
+
+    runPreprocessing();
 }
 
 void ProblemData::setPatients(std::vector<IncomingPatientDTO> newPatients)
 {
     patients = newPatients;
+
+    patientMap.clear();
+
+    patientMap.reserve(patients.size());
+    for (const auto& patient : patients)
+    {
+        patientMap[patient.getId()] = patient;
+    }
+
+    runPreprocessing();
 }
 
 void ProblemData::setSurgeons(std::vector<SurgeonDTO> newSurgeons)
 {
     surgeons = newSurgeons;
+
+    surgeonMap.clear();
+
+    surgeonMap.reserve(surgeons.size());
+    for (const auto& surgeon : surgeons)
+    {
+        surgeonMap[surgeon.getId()] = surgeon;
+    }
 }
 
 void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters)
@@ -110,13 +148,34 @@ void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheat
     operating_theaters = newTheaters;
 }
 
-std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPreprocessedRooms()
+std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPreprocessedRooms() const
 {
-    if (roomInfos.size() > 0)
-    {
-        return roomInfos;
-    }
+    return roomInfos;
+}
 
+std::unordered_map<std::string, SurgeonDTO> ProblemData::getSurgeonMap() const
+{
+    return surgeonMap;
+}
+
+std::unordered_map<std::string, IncomingPatientDTO> ProblemData::getPatientMap() const
+{
+    return patientMap;
+}
+
+std::unordered_map<std::string, NurseDTO> ProblemData::getNursesMap() const
+{
+    return nursesMap;
+}
+
+int ProblemData::getOffsetOfShiftTypes(std::string shiftType) const
+{
+    return shiftTypeToIndexMap.at(shiftType);
+}
+
+void ProblemData::runPreprocessing()
+{
+    roomInfos.clear();
     roomInfos.reserve(days);
 
     for (int i = 0; i < days; ++i)
@@ -167,72 +226,6 @@ std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPr
             }
         }
     }
-
-    return roomInfos;
-}
-
-std::unordered_map<std::string, SurgeonDTO> ProblemData::getSurgeonMap()
-{
-    if (surgeonMap.size() > 0)
-    {
-        return surgeonMap;
-    }
-
-    surgeonMap.reserve(surgeons.size());
-    for (const auto& surgeon : surgeons)
-    {
-        surgeonMap[surgeon.getId()] = surgeon;
-    }
-
-    return surgeonMap;
-}
-
-std::unordered_map<std::string, IncomingPatientDTO> ProblemData::getPatientMap()
-{
-    if (patientMap.size() > 0)
-    {
-        return patientMap;
-    }
-
-    patientMap.reserve(patients.size());
-    for (const auto& patient : patients)
-    {
-        patientMap[patient.getId()] = patient;
-    }
-
-    return patientMap;
-}
-
-std::unordered_map<std::string, NurseDTO> ProblemData::getNursesMap()
-{
-    if (nursesMap.size() > 0)
-    {
-        return nursesMap;
-    }
-
-    nursesMap.reserve(nurses.size());
-    for (const auto& nurse : nurses)
-    {
-        nursesMap[nurse.getId()] = nurse;
-    }
-
-    return nursesMap;
-}
-
-int ProblemData::getOffsetOfShiftTypes(std::string shiftType)
-{
-    if (shiftTypeToIndexMap.size() > 0)
-    {
-        return shiftTypeToIndexMap[shiftType];
-    }
-
-    shiftTypeToIndexMap.reserve(shift_types.size());
-    for (int i = 0; i < shift_types.size(); ++i)
-    {
-        shiftTypeToIndexMap[shift_types[i]] = i;
-    }
-
-    return shiftTypeToIndexMap[shiftType];
 }
 
 void to_json(nlohmann::json& j, const ProblemData& data)

@@ -16,6 +16,9 @@
 class ProblemData
 {
 public:
+	ProblemData() = default;
+	ProblemData(const ProblemData& other) = default;
+
 	int getDays() const;
 	int getSkillLevels() const;
 	std::vector<std::string> getShiftTypes() const;
@@ -40,11 +43,11 @@ public:
 	void setSurgeons(std::vector<SurgeonDTO> newSurgeons);
 	void setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters);
 
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> getPreprocessedRooms();
-	std::unordered_map<std::string, SurgeonDTO> getSurgeonMap();
-	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap();
-	std::unordered_map<std::string, NurseDTO> getNursesMap();
-	int getOffsetOfShiftTypes(std::string shiftType);
+	std::vector<std::unordered_map<std::string, PatientRoomInfo>> getPreprocessedRooms() const;
+	std::unordered_map<std::string, SurgeonDTO> getSurgeonMap() const;
+	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap() const;
+	std::unordered_map<std::string, NurseDTO> getNursesMap() const;
+	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:
 	int days;
@@ -65,6 +68,7 @@ private:
 	std::unordered_map<std::string, NurseDTO> nursesMap;
 	std::unordered_map<std::string, int> shiftTypeToIndexMap;
 
+	void runPreprocessing();
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

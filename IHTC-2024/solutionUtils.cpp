@@ -1,6 +1,6 @@
 #include "solutionUtils.h"
 
-ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution)
+ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, const SolutionData& solution)
 {
     const auto& days = problemData.getDays();
     const auto& allShiftTypes = problemData.getShiftTypes();
@@ -347,14 +347,14 @@ double calculateNewTemp(double currTemp, int iteration)
     return 0.99 * currTemp;
 }
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver)
+std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const CIndividual& startingIndividual)
 {
     std::vector<double> fitnesses;
     fitnesses.reserve(amountOfRepetitions);
 
     for (int i = 0; i < amountOfRepetitions; ++i)
     {
-        const CIndividual& individual = solver.solve(problem);
+        const CIndividual& individual = solver.solve(problem, startingIndividual);
 
         fitnesses.push_back(
             individual.isFitnessUpToDate() 

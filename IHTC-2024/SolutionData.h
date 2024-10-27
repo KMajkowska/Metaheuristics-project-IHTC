@@ -3,20 +3,20 @@
 #include <nlohmann/json.hpp>
 
 #include "NurseOutputDTO.h"
-#include "PatientOutputDTO.h"
+#include "Patient.h"
 
 class SolutionData
 {
 public:
 	std::vector<NurseOutputDTO> getNurses() const;
-	std::vector<PatientOutputDTO> getPatients() const;
+	std::vector<Patient> getPatients() const;
 
 	void setNurses(std::vector<NurseOutputDTO> newNurses);
-	void setPatients(std::vector<PatientOutputDTO> newPatients);
+	void setPatients(std::vector<Patient> newPatients);
 
 private:
 	std::vector<NurseOutputDTO> nurses;
-	std::vector<PatientOutputDTO> patients;
+	std::vector<Patient> patients;
 };
 
 void to_json(nlohmann::json& j, const SolutionData& data);

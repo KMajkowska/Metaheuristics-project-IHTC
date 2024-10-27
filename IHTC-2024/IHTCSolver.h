@@ -7,7 +7,7 @@
 class IHTCSolver : public ISolver
 {
 public:
-	IHTCSolver(ProblemData& problemData, std::mt19937& randGenerator);
+	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator);
 
 protected:
 	std::vector<std::vector<int>> patientsInRoom;

@@ -11,10 +11,10 @@
 #include "IProblem.h"
 #include "ISolver.h"
 
-ViolatedRestrictions getViolatedFromSolution(ProblemData& problemData, const SolutionData& solution);
+ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, const SolutionData& solution);
 
 double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions);
 
 double calculateNewTemp(double currTemp, int iteration);
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver);
+std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solverm, const CIndividual& startingIndividual );

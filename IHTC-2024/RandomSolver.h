@@ -5,7 +5,7 @@
 class RandomSolver : public ISolver
 {
 public:
-	RandomSolver(ProblemData& problemData, std::mt19937& randGenerator);
+	RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator);
 
-	CIndividual solve(const IProblem& problem) const;
+	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 };

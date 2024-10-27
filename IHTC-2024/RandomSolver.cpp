@@ -1,10 +1,10 @@
 #include "RandomSolver.h"
 
-RandomSolver::RandomSolver(ProblemData& problemData, std::mt19937& randGenerator) :
+RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator) :
     ISolver(problemData, randGenerator)
 {}
 
-CIndividual RandomSolver::solve(const IProblem& problem) const
+CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
     const auto& problemPatients = problemData.getPatients();
     const auto& problemRooms = problemData.getRooms();
@@ -27,6 +27,7 @@ CIndividual RandomSolver::solve(const IProblem& problem) const
 
         solutionPatients.push_back(
             Patient(
+                patient.getId(),
                 distrib(randGenerator), 
                 problemRooms[roomDistrib(randGenerator)].getId(), 
                 problemOperatingTheaters[otDistrib(randGenerator)].getId()

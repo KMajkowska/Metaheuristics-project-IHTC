@@ -1,5 +1,8 @@
 #pragma once
 
+#include <ostream>
+#include <sstream>
+
 struct ViolatedRestrictions
 {
 	// begin :: hard restrictions
@@ -26,4 +29,12 @@ struct ViolatedRestrictions
 	int countAdmissionDelay = 0;
 	int countUncheduledOptional = 0;
 	// end :: soft restrictions
+
+	int countTotalHard() const;
+	int countTotalSoft() const;
+
+	std::string getCSVColumns() const;
+	std::string getCSVData() const;
 };
+
+std::ostream& operator<<(std::ostream& os, const ViolatedRestrictions& data);
