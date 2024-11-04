@@ -47,6 +47,7 @@ public:
 	std::unordered_map<std::string, SurgeonDTO> getSurgeonMap() const;
 	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap() const;
 	std::unordered_map<std::string, NurseDTO> getNursesMap() const;
+	std::vector<std::unordered_map<std::string, std::vector<std::string>>> getEmptyOperatingTheaters() const;
 	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:
@@ -66,9 +67,11 @@ private:
 	std::unordered_map<std::string, SurgeonDTO> surgeonMap;
 	std::unordered_map<std::string, IncomingPatientDTO> patientMap;
 	std::unordered_map<std::string, NurseDTO> nursesMap;
+	std::vector<std::unordered_map<std::string, std::vector<std::string>>> empty_operating_theaters;
 	std::unordered_map<std::string, int> shiftTypeToIndexMap;
 
 	void runPreprocessing();
+	void runOperatingTheatersPreprocessing();
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

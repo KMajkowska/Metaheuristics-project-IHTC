@@ -135,7 +135,11 @@
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
-    <ClCompile Include="IHTCMutator.cpp" />
+    <ClCompile Include="IHTCMutatorDay.cpp" />
+    <ClCompile Include="IHTCMutatorOperatingTheaters.cpp" />
+    <ClCompile Include="IHTCMutatorOTInversion.cpp" />
+    <ClCompile Include="IHTCMutatorOTSwap.cpp" />
+    <ClCompile Include="IHTCMutatorRoom.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
     <ClCompile Include="IHTCSolver.cpp" />
@@ -174,6 +178,10 @@
   <ItemGroup>
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="ICrosser.h" />
+    <ClInclude Include="IHTCMutatorDay.h" />
+    <ClInclude Include="IHTCMutatorOperatingTheaters.h" />
+    <ClInclude Include="IHTCMutatorOTInversion.h" />
+    <ClInclude Include="IHTCMutatorOTSwap.h" />
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="SASolver.h" />
@@ -203,7 +211,7 @@
     <ClInclude Include="solutionUtils.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
-    <ClInclude Include="IHTCMutator.h" />
+    <ClInclude Include="IHTCMutatorRoom.h" />
     <ClInclude Include="ViolatedRestrictions.h" />
     <ClInclude Include="WeightsDTO.h" />
   </ItemGroup>

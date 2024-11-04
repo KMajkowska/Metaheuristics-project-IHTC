@@ -342,18 +342,30 @@ double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, 
         + restrictions.countUncheduledOptional * weights.getUnscheduledOptional();
 }
 
-double calculateNewTemp(double currTemp, int iteration)
+double simplexCoolingScheme(double startingTemp, double currTemp, int iteration)
 {
     return 0.99 * currTemp;
 }
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const CIndividual& startingIndividual)
+double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration)
+{
+    return startingTemp / log(1 + iteration);
+}
+
+double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber)
+{
+    return currTemp * 1.0 / (1.0 + 1.0 / sqrt(iteration * (maxIterationNumber + 1) + maxIterationNumber));
+}
+
+std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
 {
     std::vector<double> fitnesses;
     fitnesses.reserve(amountOfRepetitions);
 
     for (int i = 0; i < amountOfRepetitions; ++i)
     {
+        CIndividual startingIndividual = initializeSolver.solve(problem, CIndividual());
+
         const CIndividual& individual = solver.solve(problem, startingIndividual);
 
         fitnesses.push_back(

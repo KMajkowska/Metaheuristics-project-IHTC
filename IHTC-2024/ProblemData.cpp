@@ -58,6 +58,8 @@ std::vector<OperatingTheaterDTO> ProblemData::getOperatingTheaters() const
 void ProblemData::setDays(int newDays)
 {
     days = newDays;
+
+    runOperatingTheatersPreprocessing();
 }
 
 void ProblemData::setSkillLevels(int newSkillLevels)
@@ -146,6 +148,8 @@ void ProblemData::setSurgeons(std::vector<SurgeonDTO> newSurgeons)
 void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters)
 {
     operating_theaters = newTheaters;
+
+    runOperatingTheatersPreprocessing();
 }
 
 std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPreprocessedRooms() const
@@ -166,6 +170,11 @@ std::unordered_map<std::string, IncomingPatientDTO> ProblemData::getPatientMap()
 std::unordered_map<std::string, NurseDTO> ProblemData::getNursesMap() const
 {
     return nursesMap;
+}
+
+std::vector<std::unordered_map<std::string, std::vector<std::string>>> ProblemData::getEmptyOperatingTheaters() const
+{
+    return empty_operating_theaters;
 }
 
 int ProblemData::getOffsetOfShiftTypes(std::string shiftType) const
@@ -223,6 +232,29 @@ void ProblemData::runPreprocessing()
             for (int j = 0; j < days; ++j)
             {
                 roomInfos[j].at(incompatibleRoom).unallowedPatients.insert(patient.getId());
+            }
+        }
+    }
+}
+
+void ProblemData::runOperatingTheatersPreprocessing()
+{
+    empty_operating_theaters.clear();
+    empty_operating_theaters.reserve(days);
+
+    for (int i = 0; i < days; ++i)
+    {
+        std::unordered_map<std::string, std::vector<std::string>> newMap;
+        newMap.reserve(operating_theaters.size());
+
+        empty_operating_theaters.push_back(newMap);
+
+        for (const auto& ot : operating_theaters)
+        {
+            if (ot.getAvailability()[i] > 0)
+            {
+                std::vector<std::string> patients;
+                empty_operating_theaters[i][ot.getId()] = patients;
             }
         }
     }

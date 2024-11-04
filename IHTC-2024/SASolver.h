@@ -11,7 +11,7 @@ public:
 	SASolver(
 		const ProblemData& problemData,
 		double startingTemp, 
-		std::function<double(double, int)> coolingFn, 
+		std::function<double(double, double, int)> coolingFn, 
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)> stopCriterium, 
 		int neighbourhoodNumber, 
@@ -22,7 +22,7 @@ public:
 
 private:
 	double startingTemp;
-	std::function<double(double, int)> coolingFn;
+	std::function<double(double, double, int)> coolingFn;
 	std::function<bool(double, int)> stopCriterium;
 	int neighbourhoodNumber;
 	const IMutator& mutator;

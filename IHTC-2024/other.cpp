@@ -23,3 +23,24 @@ std::mt19937 createRandomGenerator()
 
     return mt;
 }
+
+std::pair<int, int> findTwoDifferentNumbersBetween(int lowLimit, int highLimit, std::mt19937& generator)
+{
+    std::uniform_int_distribution<int> distrib(lowLimit, highLimit);
+
+    int firstIndex = distrib(generator);
+    int secondIndex;
+    do
+    {
+        secondIndex = distrib(generator);
+    } while (secondIndex == firstIndex);
+
+    if (secondIndex < firstIndex)
+    {
+        int temp = firstIndex;
+        firstIndex = secondIndex;
+        secondIndex = temp;
+    }
+
+    return std::make_pair(firstIndex, secondIndex);
+}
