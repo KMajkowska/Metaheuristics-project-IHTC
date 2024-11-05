@@ -219,6 +219,24 @@
     <ClCompile Include="IHTCMutatorOTSwap.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
+    <ClCompile Include="PatientWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="GreedySolver.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeryActualToMax.cpp">
+      <Filter>Pliki źródłowe\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterInfo.cpp">
+      <Filter>Pliki źródłowe\algorithm\individual</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -335,5 +353,28 @@
     <ClInclude Include="IHTCMutatorOTSwap.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
+    <ClInclude Include="GreedySolver.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeryTimeActualToMax.h">
+      <Filter>Pliki nagłówkowe\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\individual</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assign.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
   </ItemGroup>
 </Project>

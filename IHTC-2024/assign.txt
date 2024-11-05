@@ -1,0 +1,16 @@
+pacjent - admission day:
+kolejka: mandatory - release day - length of stay
+// 1. czy mandatory
+1. czy jest tego dnia jego chirurg
+2. czy jest wolne OT
+
+pacjent - pokój:
+kolejka: liczba miejsc - liczba ró¿nych p³ci
+1. wyfiltruj pokoje zabronione
+2. pokój po p³ci
+3. min capacity
+
+pielêgniarka - pokój:
+kolejka: max - min skill level
+1. czy jest danego dnia
+2. sort po karze i tak sprawdzane
