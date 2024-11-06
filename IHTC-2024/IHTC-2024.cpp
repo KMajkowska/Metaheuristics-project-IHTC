@@ -10,9 +10,9 @@
 #include "IHTCMutator.h"
 #include "Logger.h"
 
-static const std::string PROBLEM_FILE = "../toy/toy.json";
-static const std::string OUTPUT_FILE = "../solution.json";
-static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
+static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
+//static const std::string OUTPUT_FILE = "../solution.json";
+//static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
