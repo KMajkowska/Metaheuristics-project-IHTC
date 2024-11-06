@@ -11,7 +11,7 @@ public:
 
 protected:
 	std::vector<std::vector<int>> patientsInRoom;
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> roomInfos;
+	RoomWithOccupancyRepresentation roomInfos;
 
 	static constexpr int UNOCCUPIABLE = -INT_MAX;
 	static constexpr int ASSIGNABLE = -1;

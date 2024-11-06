@@ -5,7 +5,7 @@ PatientWrapper::PatientWrapper(const IncomingPatientDTO& newPatient,const Proble
 	problemData(newProblemData)
 {}
 
-int PatientWrapper::operator<=>(const PatientWrapper& other) const
+auto PatientWrapper::operator<=>(const PatientWrapper& other) const
 {
 
 	if (patient.isMandatory() != other.patient.isMandatory())

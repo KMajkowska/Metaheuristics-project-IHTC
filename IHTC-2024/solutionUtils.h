@@ -11,6 +11,8 @@
 #include "NurseWorkload.h"
 #include "IProblem.h"
 #include "ISolver.h"
+#include "RoomWithOccupancyRepresentation.h"
+#include "PatientNurses.h"
 
 ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, const SolutionData& solution);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PatientRoomInfo.h"
+
 #include <set>
 
 struct RoomInfo : public PatientRoomInfo

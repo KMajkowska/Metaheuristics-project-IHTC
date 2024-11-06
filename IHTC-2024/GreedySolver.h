@@ -4,10 +4,12 @@
 
 #include"IHTCSolver.h"
 #include "PatientWrapper.h"
-#include "RoomWrapper.h"
 #include "SurgeonOTInfo.h"
 #include "SurgeryTimeActualToMax.h"
 #include "OperatingTheaterWrapper.h"
+#include "RoomBrokenAgeGender.h"
+#include "RoomWithOccupancyRepresentation.h"
+#include "ShiftNurses.h"
 
 class GreedySolver : public IHTCSolver
 {
@@ -16,11 +18,23 @@ public:
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 
 private:
-	void bestNextMove(CIndividual& individual);
+	std::string chooseNurse(
+		ShiftNurses& shiftNurses,
+		RoomWithOccupancyRepresentation& roomWithOccupancy,
+		const std::vector<NurseDTO> nurses,
+		const std::string& roomId
+	) const;
+
 	std::pair<int, std::string> chooseAdmissionDayAndOt(
 		const IncomingPatientDTO& patient,
 		std::vector<std::vector<OperatingTheaterWrapper>>& operatingTheaters,
-		std::unordered_map<std::string, SurgeryTimeActualToMax>& surgeons
-	);
-	std::string chooseRoomId(CIndividual& individual);
+		std::unordered_map<std::string, SurgeryTimeActualToMax>& surgeons,
+		std::vector<int>& dissallowedAdmissionDays
+	) const;
+
+	std::string chooseRoomId(
+		const IncomingPatientDTO& patient,
+		RoomWithOccupancyRepresentation& preprocessedRooms,
+		int admissionDay
+	) const;
 };

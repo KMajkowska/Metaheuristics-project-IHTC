@@ -152,7 +152,7 @@ void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheat
     runOperatingTheatersPreprocessing();
 }
 
-std::vector<std::unordered_map<std::string, PatientRoomInfo>> ProblemData::getPreprocessedRooms() const
+RoomWithOccupancyRepresentation ProblemData::getPreprocessedRooms() const
 {
     return roomInfos;
 }
@@ -184,57 +184,7 @@ int ProblemData::getOffsetOfShiftTypes(std::string shiftType) const
 
 void ProblemData::runPreprocessing()
 {
-    roomInfos.clear();
-    roomInfos.reserve(days);
-
-    for (int i = 0; i < days; ++i)
-    {
-        std::unordered_map<std::string, PatientRoomInfo> newMap;
-        newMap.reserve(days);
-
-        roomInfos.push_back(newMap);
-
-        for (const auto& room : rooms)
-        {
-            roomInfos[i][room.getId()] = PatientRoomInfo(room.getCapacity(), room.getCapacity());
-        }
-    }
-
-    for (const auto& occupant : occupants)
-    {
-        for (int i = 0; i < occupant.getLengthOfStay(); ++i)
-        {
-            auto& roomInfo = roomInfos[i].at(occupant.getRoomId());
-
-            roomInfo.occupantIds.insert(occupant.getId());
-
-            ++roomInfo.ageGroups[occupant.getAgeGroup()];
-            ++roomInfo.genders[occupant.getGender()];
-
-            --roomInfo.currentCapacity;
-            --roomInfo.maxCapacity;
-
-            for (int j = 0; j < shift_types.size(); ++j)
-            {
-                const auto& shiftType = shift_types[j];
-                const auto& offset = i * shift_types.size() + j;
-
-                roomInfo.skillLevelsRequired[shiftType].push_back(occupant.getSkillLevelRequired()[offset]);
-                roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[offset];
-            }
-        }
-    }
-
-    for (const auto& patient : patients)
-    {
-        for (const auto& incompatibleRoom : patient.getIncompatibleRoomIds())
-        {
-            for (int j = 0; j < days; ++j)
-            {
-                roomInfos[j].at(incompatibleRoom).unallowedPatients.insert(patient.getId());
-            }
-        }
-    }
+    roomInfos = RoomWithOccupancyRepresentation(rooms, occupants, patients, shift_types, days);
 }
 
 void ProblemData::runOperatingTheatersPreprocessing()
