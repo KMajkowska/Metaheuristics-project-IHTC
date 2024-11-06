@@ -13,6 +13,8 @@ Logger::~Logger()
 
 void Logger::log(const std::string& logStr)
 {
+	std::cout << logStr << std::endl;
+
 	std::lock_guard<std::mutex> lock(mutex);
 	buffer.push_back(logStr);
 }

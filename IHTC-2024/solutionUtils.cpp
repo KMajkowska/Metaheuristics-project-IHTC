@@ -8,40 +8,17 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
     const auto& problemSurgeons = problemData.getSurgeons();
 
     ViolatedRestrictions res;
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> patientroomInfos = problemData.getPreprocessedRooms();
+	RoomWithOccupancyRepresentation roomInfos = problemData.getPreprocessedRooms();
+    PatientNurses patientNurses(problemData);
 
-    std::vector<std::unordered_map<std::string, RoomInfo>> roomInfos;
     std::vector<std::unordered_map<std::string, SurgeonOTInfo>> surgeonsOTInfo;
-    std::unordered_map<std::string, std::set<std::string>> occupantsAndPatientToNurses;
     std::vector<std::unordered_map<std::string, std::set<std::string>>> surgeonToOTPerDay;
     std::unordered_map<std::string, NurseWorkload> nurseIdsToWorloads;
     std::vector<std::set<std::string>> openOTs(days);
 
-
-    roomInfos.reserve(days);
     surgeonsOTInfo.reserve(days);
-    occupantsAndPatientToNurses.reserve(problemData.getPatients().size());
     surgeonToOTPerDay.reserve(days);
     nurseIdsToWorloads.reserve(problemData.getNurses().size());
-
-    
-    std::transform(
-        patientroomInfos.begin(), 
-        patientroomInfos.end(),
-        std::back_inserter(roomInfos),
-        [](const std::unordered_map<std::string, PatientRoomInfo>& originalMap)
-        {
-            std::unordered_map<std::string, RoomInfo> newMap;
-            newMap.reserve(originalMap.size());
-
-            for (const auto& pair : originalMap) 
-            {
-                newMap[pair.first] = RoomInfo(pair.second);
-            }
-
-            return newMap;
-        }
-    );
 
     for (const auto& nurse : problemData.getNurses())
     {
@@ -61,8 +38,8 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
         {
             for (const auto& room : assignment.getRooms())
             {
-                roomInfos[assignment.getDay()][room].nurseIdToShift[nurse.getId()] = assignment.getShift();
-                roomInfos[assignment.getDay()][room].shiftToNurseId[assignment.getShift()] = nurse.getId();
+                roomInfos.getPatientRoomInfoRef(assignment.getDay(), room).nurseIdToShift[nurse.getId()] = assignment.getShift();
+                roomInfos.getPatientRoomInfoRef(assignment.getDay(), room).shiftToNurseId[assignment.getShift()] = nurse.getId();
             }
         }
     }
@@ -74,27 +51,13 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
         for (int i = 0; i < patient.getLengthOfStay() && i + admissionDay < days; ++i)
         {
-            auto& room = roomInfos[i + admissionDay].at(solutionPatients.getRoomId());
+            roomInfos.addIncomingPatient(admissionDay, solutionPatients.getRoomId(), patient);
 
-            ++room.ageGroups[patient.getAgeGroup()];
-            ++room.genders[patient.getGender()];
+            const auto& roomRef = roomInfos.getPatientRoomInfoRef(i + admissionDay, solutionPatients.getRoomId());
 
-            --room.currentCapacity;
-
-            for (int j = 0; j < allShiftTypes.size(); ++j)
+            for (const auto& [nurseId, shift] : roomRef.nurseIdToShift)
             {
-                const auto& shiftType = allShiftTypes[j];
-                const auto& offset = i * allShiftTypes.size() + j;
-
-                room.skillLevelsRequired[shiftType].push_back(patient.getSkillLevelRequired()[offset]);
-                room.shiftNameToProducedWorkload[shiftType] += patient.getWorkloadProduced()[offset];
-            }
-
-            room.patientIds.insert(patient.getId());
-
-            for (const auto& nursePair : room.nurseIdToShift)
-            {
-                occupantsAndPatientToNurses[patient.getId()].insert(nursePair.first);
+                patientNurses.addNurse(patient.getId(), nurseId);
             }
         }
     }
@@ -132,15 +95,13 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
     for (int i = 0; i < days; i++)
     {
-        for (const auto& room : roomInfos[i])
+        for (const auto& [id, roomValue] : roomInfos.getRoomsForGivenDayRef(i))
         {
-            const auto& roomValue = room.second;
-
             for (const auto& occupantId : roomValue.occupantIds)
             {
-                for (const auto& nursePair : roomValue.nurseIdToShift)
+                for (const auto& [nurseId, shift] : roomValue.nurseIdToShift)
                 {
-                    occupantsAndPatientToNurses[occupantId].insert(nursePair.first);
+                    patientNurses.addNurse(occupantId, nurseId);
                 }
             }
 
@@ -342,18 +303,30 @@ double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, 
         + restrictions.countUncheduledOptional * weights.getUnscheduledOptional();
 }
 
-double calculateNewTemp(double currTemp, int iteration)
+double simplexCoolingScheme(double startingTemp, double currTemp, int iteration)
 {
     return 0.99 * currTemp;
 }
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const CIndividual& startingIndividual)
+double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration)
+{
+    return startingTemp / log(1 + iteration);
+}
+
+double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber)
+{
+    return currTemp * 1.0 / (1.0 + 1.0 / sqrt(iteration * (maxIterationNumber + 1) + maxIterationNumber));
+}
+
+std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
 {
     std::vector<double> fitnesses;
     fitnesses.reserve(amountOfRepetitions);
 
     for (int i = 0; i < amountOfRepetitions; ++i)
     {
+        CIndividual startingIndividual = initializeSolver.solve(problem, CIndividual());
+
         const CIndividual& individual = solver.solve(problem, startingIndividual);
 
         fitnesses.push_back(

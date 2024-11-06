@@ -7,8 +7,10 @@
 #include "solutionUtils.h"
 #include "IHTCProblem.h"
 #include "SASolver.h"
-#include "IHTCMutator.h"
 #include "Logger.h"
+#include "IHTCMutatorRoom.h"
+#include "IHTCMutatorOTInversion.h"
+#include "IHTCMutatorOTSwap.h"
 
 static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
 //static const std::string OUTPUT_FILE = "../solution.json";
@@ -19,10 +21,11 @@ static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 
 static constexpr int REPETITIONS = 100;
 
-static constexpr double STARTING_TEMP = 3000;
-static constexpr int NEIGHBOURHOOD_NUMBER = 5;
-static constexpr double DAY_CHANGE_PROB = 0.5;
-static constexpr double ROOM_CHANGE_PROB = 0.2;
+static constexpr int MAX_ITER = 250;
+static constexpr double STARTING_TEMP = 150;  // 150 for VCF, 9 for GG, simplex is whatever
+static constexpr int NEIGHBOURHOOD_NUMBER = 15;
+
+static constexpr double NEIGHBOUR_PROB = 1;
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
@@ -54,6 +57,16 @@ static bool stopCriteriumSA(double currTemp, int iteration)
 	return currTemp < 1.0;
 }
 
+static bool stopCriteriumSAIter(double currTemp, int iteration)
+{
+	return iteration >= MAX_ITER;
+}
+
+static double variableCoolingFactorCoolingSchemeParam(double startingTemp, double currTemp, int iteration)
+{
+	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, MAX_ITER);
+}
+
 int main(int argc, char* argv[])
 {
 	std::mt19937 mt = createRandomGenerator();
@@ -70,22 +83,19 @@ int main(int argc, char* argv[])
 
 		RandomSolver randSolver(problemData, mt);
 
-		IHTCMutator ihtcMutator(mt, problemData, DAY_CHANGE_PROB, ROOM_CHANGE_PROB);
+		IHTCMutatorOTSwap ihtcMutator(mt, problemData, NEIGHBOUR_PROB);
 
 		SASolver saSolver(
 			problemData,
 			STARTING_TEMP,
-			calculateNewTemp,
+			variableCoolingFactorCoolingSchemeParam,
 			mt,
-			stopCriteriumSA,
+			stopCriteriumSAIter,
 			NEIGHBOURHOOD_NUMBER,
 			ihtcMutator
 		);
 
-		// Random does not need an initialized Individual
-		CIndividual startingIndividual = randSolver.solve(problem, CIndividual());
-
-		std::cout << evaluateProblem(REPETITIONS, problem, randSolver, startingIndividual) << std::endl;
+		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, randSolver) << std::endl;
 	}
 	catch (const std::exception& e)
 	{

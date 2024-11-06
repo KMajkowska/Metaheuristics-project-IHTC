@@ -122,6 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,14 +134,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EASolver.cpp" />
+    <ClCompile Include="GreedySolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
-    <ClCompile Include="IHTCMutator.cpp" />
+    <ClCompile Include="IHTCMutatorDay.cpp" />
+    <ClCompile Include="IHTCMutatorOperatingTheaters.cpp" />
+    <ClCompile Include="IHTCMutatorOTInversion.cpp" />
+    <ClCompile Include="IHTCMutatorOTSwap.cpp" />
+    <ClCompile Include="IHTCMutatorRoom.cpp" />
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="PatientNurses.cpp" />
+    <ClCompile Include="ShiftNurses.cpp" />
+    <ClCompile Include="OperatingTheaterInfo.cpp" />
+    <ClCompile Include="OperatingTheaterWrapper.cpp" />
+    <ClCompile Include="PatientWrapper.cpp" />
+    <ClCompile Include="RoomBrokenAgeGender.cpp" />
+    <ClCompile Include="RoomWithOccupancyRepresentation.cpp" />
     <ClCompile Include="SASolver.cpp" />
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="CIndividual.cpp" />
@@ -165,6 +178,7 @@
     <ClCompile Include="ShiftDTO.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="solutionUtils.cpp" />
+    <ClCompile Include="SurgeryActualToMax.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="SurgeonOTInfo.cpp" />
     <ClCompile Include="SurgeonOTInfo.h" />
@@ -173,9 +187,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EASolver.h" />
+    <ClInclude Include="GreedySolver.h" />
     <ClInclude Include="ICrosser.h" />
+    <ClInclude Include="IHTCMutatorDay.h" />
+    <ClInclude Include="IHTCMutatorOperatingTheaters.h" />
+    <ClInclude Include="IHTCMutatorOTInversion.h" />
+    <ClInclude Include="IHTCMutatorOTSwap.h" />
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="PatientNurses.h" />
+    <ClInclude Include="ShiftNurses.h" />
+    <ClInclude Include="OperatingTheaterInfo.h" />
+    <ClInclude Include="OperatingTheaterWrapper.h" />
+    <ClInclude Include="RoomBrokenAgeGender.h" />
+    <ClInclude Include="RoomWithOccupancyRepresentation.h" />
+    <ClInclude Include="PatientWrapper.h" />
     <ClInclude Include="SASolver.h" />
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="CIndividual.h" />
@@ -201,11 +227,15 @@
     <ClInclude Include="ShiftDTO.h" />
     <ClInclude Include="SolutionData.h" />
     <ClInclude Include="solutionUtils.h" />
+    <ClInclude Include="SurgeryTimeActualToMax.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
-    <ClInclude Include="IHTCMutator.h" />
+    <ClInclude Include="IHTCMutatorRoom.h" />
     <ClInclude Include="ViolatedRestrictions.h" />
     <ClInclude Include="WeightsDTO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assign.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

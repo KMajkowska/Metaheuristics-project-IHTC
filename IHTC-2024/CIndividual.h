@@ -1,9 +1,10 @@
 #pragma once
+
 #include "Patient.h"
 #include "Assignment.h"
 #include "ICrosser.h"
 
-#include<vector>
+#include <vector>
 
 class IMutator;
 

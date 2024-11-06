@@ -1,0 +1,15 @@
+#pragma once
+
+#include "IHTCMutatorOperatingTheaters.h"
+#include "other.h"
+
+class IHTCMutatorOTSwap : public IHTCMutatorOperatingTheaters
+{
+public:
+	IHTCMutatorOTSwap(std::mt19937& randGenerator, const ProblemData& problemData, double newMutationProbability);
+
+	void mutate(CIndividual& individual) const;
+
+private:
+	double mutationProbability;
+};

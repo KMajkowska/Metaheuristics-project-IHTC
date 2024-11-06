@@ -12,6 +12,7 @@
 #include "SurgeonDTO.h"
 #include "OperatingTheaterDTO.h"
 #include "RoomInfo.h"
+#include "RoomWithOccupancyRepresentation.h"
 
 class ProblemData
 {
@@ -43,10 +44,11 @@ public:
 	void setSurgeons(std::vector<SurgeonDTO> newSurgeons);
 	void setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters);
 
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> getPreprocessedRooms() const;
+	RoomWithOccupancyRepresentation getPreprocessedRooms() const;
 	std::unordered_map<std::string, SurgeonDTO> getSurgeonMap() const;
 	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap() const;
 	std::unordered_map<std::string, NurseDTO> getNursesMap() const;
+	std::vector<std::unordered_map<std::string, std::vector<std::string>>> getEmptyOperatingTheaters() const;
 	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:
@@ -62,13 +64,15 @@ private:
 	std::vector<SurgeonDTO> surgeons;
 	std::vector<OperatingTheaterDTO> operating_theaters;
 
-	std::vector<std::unordered_map<std::string, PatientRoomInfo>> roomInfos;
+	RoomWithOccupancyRepresentation roomInfos;
 	std::unordered_map<std::string, SurgeonDTO> surgeonMap;
 	std::unordered_map<std::string, IncomingPatientDTO> patientMap;
 	std::unordered_map<std::string, NurseDTO> nursesMap;
+	std::vector<std::unordered_map<std::string, std::vector<std::string>>> empty_operating_theaters;
 	std::unordered_map<std::string, int> shiftTypeToIndexMap;
 
 	void runPreprocessing();
+	void runOperatingTheatersPreprocessing();
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

@@ -3,7 +3,7 @@
 SASolver::SASolver(
 		const ProblemData& problemData,
 		double startingTemp, 
-		std::function<double(double, int)> coolingFn, 
+		std::function<double(double, double, int)> coolingFn, 
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)>  stopCriterium, 
 		int neighbourhoodNumber, 
@@ -23,6 +23,7 @@ CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startin
 	int iteration = 0;
 
 	CIndividual individual = startingIndividual;
+	CIndividual best = startingIndividual;
 	individual.setFitness(problem.eval(individual));
 
 	while (!stopCriterium(actualTemp, iteration))
@@ -35,17 +36,22 @@ CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startin
 
 		for (auto& neighbour : neighbours)
 		{
-			if (neighbour.getFitness() > individual.getFitness() || checkIfAcceptNeighbour(individual, neighbour, actualTemp))
+			if (neighbour.getFitness() < individual.getFitness() || checkIfAcceptNeighbour(individual, neighbour, actualTemp))
 			{
 				individual = std::move(neighbour);
 			}
+
+			if (individual.getFitness() < best.getFitness())
+			{
+				best = individual;
+			}
 		}
 
-		actualTemp = coolingFn(actualTemp, iteration);
+		actualTemp = coolingFn(startingTemp, actualTemp, iteration);
 		++iteration;
 	}
 	
-	return individual;
+	return best;
 }
 
 bool SASolver::checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const

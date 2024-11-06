@@ -1,6 +1,7 @@
 #pragma once
 
 #include <set>
+#include <iostream>
 
 #include "ViolatedRestrictions.h"
 #include "SolutionData.h"
@@ -10,11 +11,17 @@
 #include "NurseWorkload.h"
 #include "IProblem.h"
 #include "ISolver.h"
+#include "RoomWithOccupancyRepresentation.h"
+#include "PatientNurses.h"
 
 ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, const SolutionData& solution);
 
 double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions);
 
-double calculateNewTemp(double currTemp, int iteration);
+double simplexCoolingScheme(double startingTemp, double currTemp, int iteration);
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solverm, const CIndividual& startingIndividual );
+double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration);
+
+double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber);
+
+std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initSolver);

@@ -49,15 +49,6 @@
     <Filter Include="Pliki źródłowe\algorithm\individualOperators">
       <UniqueIdentifier>{d6e3c4f4-9f1b-4412-a995-010a997d51d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\algorithm\individualOperators\Crossers">
-      <UniqueIdentifier>{d2fed974-f4e7-41e8-a962-73fa088333b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\algorithm\individualOperators\Mutators">
-      <UniqueIdentifier>{e4e87d44-1797-477d-aa9f-bf60c72d47b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki źródłowe\algorithm\individualOperators\Selectors">
-      <UniqueIdentifier>{bcb77d28-76cb-425b-a94a-d14dfa665a1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki źródłowe\algorithm\problem">
       <UniqueIdentifier>{8561a5ae-b882-4345-b512-5bca249d8fb3}</UniqueIdentifier>
     </Filter>
@@ -70,15 +61,6 @@
     <Filter Include="Pliki nagłówkowe\algorithm\individualOperators">
       <UniqueIdentifier>{f20b775d-dfba-4d59-bf78-d7bafbe01d20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\Mutators">
-      <UniqueIdentifier>{c7bb0568-aa6d-4817-ab4a-c91c4aa0cd5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\Crossers">
-      <UniqueIdentifier>{7bc05925-9d17-443e-bfa1-b1b719d2ae42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\Selectors">
-      <UniqueIdentifier>{bb5a4201-2cfb-4136-a7f2-aa6ea72ee6f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki nagłówkowe\algorithm\problem">
       <UniqueIdentifier>{3c90c120-677c-4913-92a0-f2a0b894a57b}</UniqueIdentifier>
     </Filter>
@@ -90,6 +72,36 @@
     </Filter>
     <Filter Include="Pliki źródłowe\utils">
       <UniqueIdentifier>{cb7f889b-b62b-4b48-ba67-e858a7ea5157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\crosser">
+      <UniqueIdentifier>{7bc05925-9d17-443e-bfa1-b1b719d2ae42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\mutator">
+      <UniqueIdentifier>{c7bb0568-aa6d-4817-ab4a-c91c4aa0cd5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\selectors">
+      <UniqueIdentifier>{bb5a4201-2cfb-4136-a7f2-aa6ea72ee6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\individualOperators\mutators">
+      <UniqueIdentifier>{e4e87d44-1797-477d-aa9f-bf60c72d47b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\individualOperators\crossers">
+      <UniqueIdentifier>{d2fed974-f4e7-41e8-a962-73fa088333b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\individualOperators\selectors">
+      <UniqueIdentifier>{bcb77d28-76cb-425b-a94a-d14dfa665a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\solvers\greedy">
+      <UniqueIdentifier>{052d4d94-e2ea-4bcc-b029-087177749398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\solvers\greedy">
+      <UniqueIdentifier>{0dc8197e-976d-4c64-bc6f-e09524aaa732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\other">
+      <UniqueIdentifier>{a5ec56d1-b0bb-4a8c-b820-5c5ee0bc5ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\other">
+      <UniqueIdentifier>{9854e6ba-e7ee-49b3-ad97-4f66a715600f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,13 +148,13 @@
       <Filter>Pliki źródłowe\algorithm\individual</Filter>
     </ClCompile>
     <ClCompile Include="ICrosser.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\Crossers</Filter>
+      <Filter>Pliki źródłowe\algorithm\individualOperators\crossers</Filter>
     </ClCompile>
     <ClCompile Include="IMutator.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\Mutators</Filter>
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
     <ClCompile Include="ISelector.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\Selectors</Filter>
+      <Filter>Pliki źródłowe\algorithm\individualOperators\selectors</Filter>
     </ClCompile>
     <ClCompile Include="EASolver.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers</Filter>
@@ -177,12 +189,6 @@
     <ClCompile Include="solutionUtils.cpp">
       <Filter>Pliki źródłowe\utils</Filter>
     </ClCompile>
-    <ClCompile Include="RoomInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClCompile>
-    <ClCompile Include="SurgeonOTInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClCompile>
     <ClCompile Include="IHTCSolver.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers</Filter>
     </ClCompile>
@@ -192,20 +198,65 @@
     <ClCompile Include="SASolver.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers</Filter>
     </ClCompile>
-    <ClCompile Include="NurseRoomIndividual.cpp">
-      <Filter>Pliki źródłowe\algorithm</Filter>
-    </ClCompile>
-    <ClCompile Include="SurgeonOTInfo.cpp">
-      <Filter>Pliki źródłowe\algorithm</Filter>
-    </ClCompile>
-    <ClCompile Include="IHTCMutator.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\Mutators</Filter>
-    </ClCompile>
-    <ClCompile Include="ViolatedRestrictions.cpp">
-      <Filter>Pliki źródłowe\algorithm</Filter>
+    <ClCompile Include="IHTCMutatorRoom.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorDay.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOperatingTheaters.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOTInversion.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOTSwap.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="GreedySolver.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomBrokenAgeGender.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomWithOccupancyRepresentation.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeryActualToMax.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterInfo.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseRoomIndividual.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="ViolatedRestrictions.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftNurses.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientNurses.cpp">
+      <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,13 +303,13 @@
       <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
     </ClInclude>
     <ClInclude Include="IMutator.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\Mutators</Filter>
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
     <ClInclude Include="ICrosser.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\Crossers</Filter>
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\crosser</Filter>
     </ClInclude>
     <ClInclude Include="ISelector.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\Selectors</Filter>
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\selectors</Filter>
     </ClInclude>
     <ClInclude Include="NurseOutputDTO.h">
       <Filter>Pliki nagłówkowe\DTOs\care</Filter>
@@ -281,14 +332,8 @@
     <ClInclude Include="solutionUtils.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
-    <ClInclude Include="NurseWorkload.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClInclude>
     <ClInclude Include="IHTCProblem.h">
       <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
-    </ClInclude>
-    <ClInclude Include="PatientRoomInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
     </ClInclude>
     <ClInclude Include="IHTCSolver.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
@@ -296,20 +341,70 @@
     <ClInclude Include="SASolver.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
     </ClInclude>
-    <ClInclude Include="NurseRoomIndividual.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="SurgeonsTime.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="ViolatedRestrictions.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="IHTCMutator.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\Mutators</Filter>
+    <ClInclude Include="IHTCMutatorRoom.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
+    <ClInclude Include="IHTCMutatorOperatingTheaters.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorDay.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOTInversion.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOTSwap.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="GreedySolver.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomBrokenAgeGender.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomWithOccupancyRepresentation.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeryTimeActualToMax.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseRoomIndividual.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseWorkload.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonsTime.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="ViolatedRestrictions.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftNurses.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientNurses.h">
+      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assign.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
   </ItemGroup>
 </Project>

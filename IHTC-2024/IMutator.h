@@ -2,7 +2,7 @@
 
 #include <random>
 
-#include"CIndividual.h"
+#include "CIndividual.h"
 #include "ProblemData.h"
 
 class IMutator
