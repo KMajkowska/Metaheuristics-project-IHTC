@@ -1,6 +1,6 @@
 #include "OperatingTheaterWrapper.h"
 
-OperatingTheaterWrapper::OperatingTheaterWrapper(const OperatingTheaterInfo& ot) :
+OperatingTheaterWrapper::OperatingTheaterWrapper(OperatingTheaterInfo&& ot) :
 	operatingTheater(ot)
 {
 }

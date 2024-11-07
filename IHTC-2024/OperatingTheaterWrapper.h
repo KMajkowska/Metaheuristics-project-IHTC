@@ -4,7 +4,7 @@
 
 struct OperatingTheaterWrapper
 {
-	OperatingTheaterWrapper(const OperatingTheaterInfo& ot);
+	OperatingTheaterWrapper(OperatingTheaterInfo&& ot);
 
 	OperatingTheaterInfo& operatingTheater;
 

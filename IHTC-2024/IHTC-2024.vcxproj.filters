@@ -103,6 +103,12 @@
     <Filter Include="Pliki źródłowe\algorithm\other">
       <UniqueIdentifier>{9854e6ba-e7ee-49b3-ad97-4f66a715600f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\comparisonWrappers">
+      <UniqueIdentifier>{675fec06-4c5f-44e4-aa10-030699bdc5c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\comparisonWrappers">
+      <UniqueIdentifier>{5b0a0e4c-6d27-45ee-9845-8c731ff82adf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -222,16 +228,10 @@
     <ClCompile Include="RoomBrokenAgeGender.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers\greedy</Filter>
     </ClCompile>
-    <ClCompile Include="PatientWrapper.cpp">
-      <Filter>Pliki źródłowe\algorithm\other</Filter>
-    </ClCompile>
     <ClCompile Include="RoomWithOccupancyRepresentation.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
     <ClCompile Include="SurgeryActualToMax.cpp">
-      <Filter>Pliki źródłowe\algorithm\other</Filter>
-    </ClCompile>
-    <ClCompile Include="OperatingTheaterWrapper.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
     <ClCompile Include="OperatingTheaterInfo.cpp">
@@ -257,6 +257,15 @@
     </ClCompile>
     <ClCompile Include="PatientNurses.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\comparisonWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\comparisonWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientWrapper.cpp">
+      <Filter>Pliki źródłowe\algorithm\comparisonWrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,12 +377,6 @@
     <ClInclude Include="OperatingTheaterInfo.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClInclude>
-    <ClInclude Include="OperatingTheaterWrapper.h">
-      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
-    </ClInclude>
-    <ClInclude Include="PatientWrapper.h">
-      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
-    </ClInclude>
     <ClInclude Include="RoomWithOccupancyRepresentation.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClInclude>
@@ -400,6 +403,15 @@
     </ClInclude>
     <ClInclude Include="PatientNurses.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterWrapper.h">
+      <Filter>Pliki nagłówkowe\algorithm\comparisonWrappers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -256,7 +256,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
         surgeonToOTPerDay.push_back(surgeonsToOTs);
     }
 
-    for (const auto& patientToNurse : occupantsAndPatientToNurses)
+    for (const auto& patientToNurse : patientNurses.getMap())
     {
         res.countUncontinuousCare += patientToNurse.second.size();
     }

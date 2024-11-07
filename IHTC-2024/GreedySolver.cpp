@@ -26,7 +26,7 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 		{
 			operatingTheaters[i].push_back(
 				OperatingTheaterWrapper(
-					OperatingTheaterInfo(operatingTheater.getAvailability()[i], 0, operatingTheater.getId())
+					std::move(OperatingTheaterInfo(operatingTheater.getAvailability()[i], 0, operatingTheater.getId()))
 				)
 			);
 		}
@@ -49,7 +49,7 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 
 	for (const auto& patient : problemData.getPatients())
 	{
-		patientQueue.push(PatientWrapper(patient, problemData));	
+		patientQueue.push(PatientWrapper(patient, problemData));
 	}
 
 	while (!patientQueue.empty())
@@ -98,17 +98,59 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 	return CIndividual(patients, assignments);
 }
 
-std::string GreedySolver::chooseNurse(
-	ShiftNurses& shiftNurses, 
-	RoomWithOccupancyRepresentation& roomWithOccupancy, 
-	const std::vector<NurseDTO> nurses, 
+std::vector<std::string> GreedySolver::chooseNurse(
+	ShiftNurses& shiftNurses,
+	RoomWithOccupancyRepresentation& roomWithOccupancy,
+	const std::vector<NurseDTO> nurses,
 	const std::string& roomId
 ) const
 {
+	std::vector<std::string> nursesPerShiftAndDayToRoom;
+	nursesPerShiftAndDayToRoom.reserve(problemData.getDays() * problemData.getShiftTypes().size());
+
 	for (int i = 0; i < problemData.getDays() * problemData.getShiftTypes().size(); ++i)
 	{
+		std::priority_queue<NurseWrapper> nursePrio;
+
+		const auto& room = roomWithOccupancy.getPatientRoomInfoRef(i, roomId);
 		const auto& nurses = shiftNurses.getNursesByDayShiftOffset(i);
+
+		const int day = i / problemData.getShiftTypes().size();
+		const int shiftOffset = i % problemData.getShiftTypes().size();
+
+		const auto& shiftType = problemData.getShiftTypes()[i % problemData.getShiftTypes().size()];
+
+		for (const auto& nurse : nurses)
+		{
+			int currentSkillLevelsOverload = 0;
+			int currWorkloadOverload = 0;
+
+			for (const auto& skillLevel : room.skillLevelsRequired.at(shiftType))
+			{
+				if (skillLevel > nurse.getSkillLevel())
+				{
+					currentSkillLevelsOverload += skillLevel - nurse.getSkillLevel();
+				}
+			}
+
+			const auto& actualWorkload = room.shiftNameToProducedWorkload.at(shiftType);
+			const auto& nurseWorkload = nurse.getWorkloadByDayAndShift(day, shiftType);
+
+			if (actualWorkload > nurseWorkload)
+			{
+				currWorkloadOverload += actualWorkload - nurseWorkload;
+			}
+
+			// any other ?
+
+			nursePrio.push(NurseWrapper(problemData.getWeights(), nurse, day, shiftType));
+		}
+
+		// ADD WORKLOADS!!!
+		nursesPerShiftAndDayToRoom.push_back(nursePrio.top().nurse.getId());
 	}
+
+	return nursesPerShiftAndDayToRoom;
 }
 
 std::pair<int, std::string> GreedySolver::chooseAdmissionDayAndOt(

@@ -10,6 +10,7 @@
 #include "RoomBrokenAgeGender.h"
 #include "RoomWithOccupancyRepresentation.h"
 #include "ShiftNurses.h"
+#include "NurseWrapper.h"
 
 class GreedySolver : public IHTCSolver
 {
@@ -18,7 +19,7 @@ public:
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 
 private:
-	std::string chooseNurse(
+	std::vector<std::string> chooseNurse(
 		ShiftNurses& shiftNurses,
 		RoomWithOccupancyRepresentation& roomWithOccupancy,
 		const std::vector<NurseDTO> nurses,
