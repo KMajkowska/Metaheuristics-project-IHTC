@@ -26,7 +26,7 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 		{
 			operatingTheaters[i].push_back(
 				OperatingTheaterWrapper(
-					std::move(OperatingTheaterInfo(operatingTheater.getAvailability()[i], 0, operatingTheater.getId()))
+					OperatingTheaterInfo(operatingTheater.getAvailability()[i], 0, operatingTheater.getId())
 				)
 			);
 		}
@@ -49,7 +49,7 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 
 	for (const auto& patient : problemData.getPatients())
 	{
-		patientQueue.push(PatientWrapper(patient, problemData));
+		patientQueue.push(PatientWrapper(patient));
 	}
 
 	while (!patientQueue.empty())
@@ -183,7 +183,7 @@ std::pair<int, std::string> GreedySolver::chooseAdmissionDayAndOt(
 			{
 				surgeons.at(patient.getSurgeonId()).current.at(i) += patient.getSurgeryDuration();
 				operatingTheater.current += patient.getSurgeryDuration();
-
+				//TODO: INCREASE CURRENT WORKLOAD
 				std::sort(operatingTheaters.at(i).begin(), operatingTheaters.at(i).begin(), std::greater<OperatingTheaterWrapper>());
 
 				return std::make_pair(i, operatingTheater.id);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <compare>
 
 struct RoomBrokenAgeGender
 {
@@ -11,5 +12,5 @@ struct RoomBrokenAgeGender
 
 	std::string id;
 
-	auto operator<=>(const RoomBrokenAgeGender& other);
+	std::strong_ordering operator<=>(const RoomBrokenAgeGender& other) const;
 };

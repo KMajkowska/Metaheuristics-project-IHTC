@@ -1,8 +1,7 @@
 #include "PatientWrapper.h"
 
-PatientWrapper::PatientWrapper(const IncomingPatientDTO& newPatient,const ProblemData& newProblemData) :
-	patient(newPatient),
-	problemData(newProblemData)
+PatientWrapper::PatientWrapper(const IncomingPatientDTO& newPatient) :
+	patient(newPatient)
 {}
 
 std::strong_ordering PatientWrapper::operator<=>(const PatientWrapper& other) const

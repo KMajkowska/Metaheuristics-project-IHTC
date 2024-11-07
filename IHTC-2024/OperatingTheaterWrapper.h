@@ -6,9 +6,9 @@
 
 struct OperatingTheaterWrapper
 {
-	OperatingTheaterWrapper(OperatingTheaterInfo&& ot);
+	OperatingTheaterWrapper(const OperatingTheaterInfo& ot);
 
-	OperatingTheaterInfo& operatingTheater;
+	OperatingTheaterInfo operatingTheater;
 
 	std::strong_ordering operator<=>(const OperatingTheaterWrapper&) const;
 };

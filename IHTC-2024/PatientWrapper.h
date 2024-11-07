@@ -7,13 +7,9 @@
 
 struct PatientWrapper
 {
-public:
-	PatientWrapper(const IncomingPatientDTO& newPatient, const ProblemData& newProblemData);
+	PatientWrapper(const IncomingPatientDTO& newPatient);
 
-	std::strong_ordering operator<=>(const PatientWrapper& other) const;
+	std::strong_ordering operator<=>(const PatientWrapper&) const;
 
-	const IncomingPatientDTO& patient;
-
-private:
-	const ProblemData& problemData;
+	IncomingPatientDTO patient;
 };

@@ -6,6 +6,7 @@
 
 struct SurgeryTimeActualToMax
 {
+	SurgeryTimeActualToMax() = default;
 	SurgeryTimeActualToMax(const std::vector<int>& max);
 	SurgeryTimeActualToMax(const SurgeonDTO& surgeon);
 	SurgeryTimeActualToMax(const OperatingTheaterDTO& ot);

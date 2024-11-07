@@ -6,17 +6,12 @@ RoomBrokenAgeGender::RoomBrokenAgeGender(int brokenAge, int brokenGender, const 
 	id(id)
 {}
 
-auto RoomBrokenAgeGender::operator<=>(const RoomBrokenAgeGender& other)
-{
-	if (brokenGender != other.brokenGender)
-	{
-		return brokenGender < other.brokenGender ? 1 : -1;
-	}
+std::strong_ordering RoomBrokenAgeGender::operator<=>(const RoomBrokenAgeGender& other) const
+{ 
+    if (auto cmp = brokenGender <=> other.brokenGender; cmp != 0) {
+        return cmp;
+    }
 
-	if (brokenAge != other.brokenAge)
-	{
-		return brokenAge < other.brokenAge ? 1 : -1;
-	}
-
-	return 0;
+    return brokenAge <=> other.brokenAge;
 }
+
