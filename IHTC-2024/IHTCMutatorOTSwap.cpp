@@ -58,7 +58,7 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 	const auto& patientId01 = ots[otId1][ots1Distrib(randGenerator)];
 
 	auto it0 = std::find_if(patients.begin(), patients.end(), [otId0](const Patient& obj) {
-		return obj.getId() == otId0;
+		return obj.getOperationTheater() == otId0;
 	});
 
 	if (it0 != patients.end())
@@ -67,7 +67,7 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 	}
 
 	auto it1 = std::find_if(patients.begin(), patients.end(), [otId1](const Patient& obj) {
-		return obj.getId() == otId1;
+		return obj.getOperationTheater() == otId1;
 	});
 
 	if (it1 != patients.end())

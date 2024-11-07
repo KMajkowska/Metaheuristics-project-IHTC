@@ -85,6 +85,8 @@ int main(int argc, char* argv[])
 
 		IHTCMutatorOTSwap ihtcMutator(mt, problemData, NEIGHBOUR_PROB);
 
+		IHTCMutatorOTInversion ihtMutatorOTInversion(mt, problemData, NEIGHBOUR_PROB);
+
 		SASolver saSolver(
 			problemData,
 			STARTING_TEMP,
@@ -92,7 +94,7 @@ int main(int argc, char* argv[])
 			mt,
 			stopCriteriumSAIter,
 			NEIGHBOURHOOD_NUMBER,
-			ihtcMutator
+			ihtMutatorOTInversion
 		);
 
 		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, randSolver) << std::endl;

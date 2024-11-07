@@ -14,7 +14,7 @@ std::vector<std::unordered_map<std::string, std::vector<std::string>>> IHTCMutat
 	// begin :: fill in structure
 	for (const auto& patient : individual.getPatients())
 	{
-		if (patient.getAdmissionDay() < days) 
+		if (patient.getAdmissionDay() < days && !patient.getOperationTheater().empty()) 
 		{
 			copiedDaysToPatientsPerRoomMap
 				.at(patient.getAdmissionDay())
