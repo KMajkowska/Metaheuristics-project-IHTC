@@ -1,7 +1,11 @@
 #include "RoomWithOccupancyRepresentation.h"
 
-
-RoomWithOccupancyRepresentation::RoomWithOccupancyRepresentation(const std::vector<RoomDTO>& rooms, const std::vector<OccupantDTO>& occupants, const std::vector<IncomingPatientDTO>& patients, std::vector<std::string> shiftTypes, int days) :
+RoomWithOccupancyRepresentation::RoomWithOccupancyRepresentation(
+	const std::vector<RoomDTO>& rooms, const std::vector<OccupantDTO>& occupants, 
+	const std::vector<IncomingPatientDTO>& patients, 
+	std::vector<std::string> shiftTypes,
+	int days
+) :
 	shiftTypes(shiftTypes)
 {
 

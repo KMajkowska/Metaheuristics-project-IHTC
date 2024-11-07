@@ -1,5 +1,7 @@
 #pragma once
 
+#include <compare>
+
 #include "OperatingTheaterInfo.h"
 
 struct OperatingTheaterWrapper
@@ -8,5 +10,5 @@ struct OperatingTheaterWrapper
 
 	OperatingTheaterInfo& operatingTheater;
 
-	int operator<=>(const OperatingTheaterWrapper&) const;
+	std::strong_ordering operator<=>(const OperatingTheaterWrapper&) const;
 };

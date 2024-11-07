@@ -1,11 +1,15 @@
 #pragma once
 
 #include "CIndividual.h"
-#include "ProblemData.h"
+#include "RoomInfo.h"
+#include "IncomingPatientDTO.h"
+#include "OccupantDTO.h"
+#include "RoomDTO.h"
 
 class RoomWithOccupancyRepresentation
 {
 public:
+	RoomWithOccupancyRepresentation() = default;
 	RoomWithOccupancyRepresentation(const std::vector<RoomDTO>& rooms, const std::vector<OccupantDTO>& occupants, const std::vector<IncomingPatientDTO>& patients, std::vector<std::string> shiftTypes, int days);
 	RoomWithOccupancyRepresentation(const RoomWithOccupancyRepresentation& other) = default;
 

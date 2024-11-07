@@ -6,6 +6,11 @@ NurseWrapper::NurseWrapper(const WeightsDTO& weights, const NurseDTO& nurse, int
 	maxWorkload(nurse.getWorkloadByDayAndShift(day, shiftType))
 {}
 
+std::strong_ordering NurseWrapper::operator<=>(const NurseWrapper& other) const
+{
+	return getWeightedRestriction() <=> other.getWeightedRestriction();
+}
+
 void NurseWrapper::addWorkload(int workload)
 {
 	usedWorkloads.push_back(workload);
@@ -38,9 +43,4 @@ int NurseWrapper::getWeightedRestriction() const
 
 	return weights.getRoomNurseSkill() * sumOfSkillLevelOverload
 		+ weights.getNurseEccessiveWorkload() * sumOfWorkload;
-}
-
-auto NurseWrapper::operator<=>(const NurseWrapper& other) const
-{
-	return getWeightedRestriction() - other.getWeightedRestriction();
 }

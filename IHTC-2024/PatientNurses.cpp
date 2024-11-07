@@ -41,5 +41,5 @@ std::unordered_map<std::string, std::set<std::string>> PatientNurses::processOcc
         res[occupant.getId()] = newSet;
     }
 
-    return res
+    return res;
 }
