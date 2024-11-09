@@ -11,6 +11,7 @@
 #include "IHTCMutatorRoom.h"
 #include "IHTCMutatorOTInversion.h"
 #include "IHTCMutatorOTSwap.h"
+#include "mutators.h"
 
 static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
 //static const std::string OUTPUT_FILE = "../solution.json";
@@ -83,9 +84,13 @@ int main(int argc, char* argv[])
 
 		RandomSolver randSolver(problemData, mt);
 
-		IHTCMutatorOTSwap ihtcMutator(mt, problemData, NEIGHBOUR_PROB);
+		const std::vector<IMutator> mutators = 
+		{
+			IHTCMutatorOTSwap(mt, problemData, NEIGHBOUR_PROB),
+			IHTCMutatorOTInversion (mt, problemData, NEIGHBOUR_PROB)
+		};
 
-		IHTCMutatorOTInversion ihtMutatorOTInversion(mt, problemData, NEIGHBOUR_PROB);
+		auto orchestrator = mutatorOrchestratorQueue(mutators);
 
 		SASolver saSolver(
 			problemData,
@@ -94,7 +99,7 @@ int main(int argc, char* argv[])
 			mt,
 			stopCriteriumSAIter,
 			NEIGHBOURHOOD_NUMBER,
-			ihtMutatorOTInversion
+			orchestrator
 		);
 
 		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, randSolver) << std::endl;

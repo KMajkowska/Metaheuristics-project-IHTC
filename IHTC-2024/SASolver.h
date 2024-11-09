@@ -15,7 +15,7 @@ public:
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)> stopCriterium, 
 		int neighbourhoodNumber, 
-		const IMutator& mutator
+		std::function<const IMutator& (int iteration, int numberOfNeigbours)> mutatorOrchestrator
 	);
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
@@ -25,7 +25,7 @@ private:
 	std::function<double(double, double, int)> coolingFn;
 	std::function<bool(double, int)> stopCriterium;
 	int neighbourhoodNumber;
-	const IMutator& mutator;
+	std::function<const IMutator& (int iteration, int numberOfNeigbours)> mutatorOrchestrator;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 };

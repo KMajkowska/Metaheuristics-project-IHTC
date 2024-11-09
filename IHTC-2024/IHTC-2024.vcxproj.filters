@@ -267,6 +267,9 @@
     <ClCompile Include="PatientWrapper.cpp">
       <Filter>Pliki źródłowe\algorithm\comparisonWrappers</Filter>
     </ClCompile>
+    <ClCompile Include="mutators.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="OperatingTheaterWrapper.h">
       <Filter>Pliki nagłówkowe\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="mutators.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

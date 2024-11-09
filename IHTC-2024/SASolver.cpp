@@ -7,14 +7,14 @@ SASolver::SASolver(
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)>  stopCriterium, 
 		int neighbourhoodNumber, 
-		const IMutator& mutator
+		std::function<const IMutator&(int, int)> mutatorOrchestrator
 ):
 		IHTCSolver(problemData, randGenerator),
 		startingTemp(startingTemp),
 		coolingFn(coolingFn),
 		stopCriterium(stopCriterium),
 		neighbourhoodNumber(neighbourhoodNumber),
-		mutator(mutator)
+		mutatorOrchestrator(mutatorOrchestrator)
 {}
 
 CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startingIndividual) const
@@ -28,7 +28,11 @@ CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startin
 
 	while (!stopCriterium(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = individual.createNeighbours(mutator, neighbourhoodNumber);
+		std::vector<CIndividual> neighbours = individual.createNeighbours(
+			mutatorOrchestrator(iteration, neighbourhoodNumber),
+			neighbourhoodNumber
+		);
+
 		for (auto& neighbour : neighbours) 
 		{
 			neighbour.setFitness(problem.eval(neighbour));

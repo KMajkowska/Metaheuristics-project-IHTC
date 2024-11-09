@@ -148,6 +148,7 @@
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="mutators.cpp" />
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
     <ClCompile Include="ShiftNurses.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="IHTCMutatorOTSwap.h" />
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="mutators.h" />
     <ClInclude Include="NurseWrapper.h" />
     <ClInclude Include="PatientNurses.h" />
     <ClInclude Include="ShiftNurses.h" />
