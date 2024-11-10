@@ -27,7 +27,7 @@ public:
 
 	std::vector<CIndividual> crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const;
 	void mute(const IMutator& mutator);
-	std::vector<CIndividual> createNeighbours(const IMutator& mutator, int neighbourhoodNumber);
+	std::vector<CIndividual> createNeighbours(const IMutator& mutator, int neighbourhoodNumber) const;
 
 private:
 	std::vector<Patient> patients;

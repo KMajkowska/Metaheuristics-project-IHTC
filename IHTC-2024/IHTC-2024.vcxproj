@@ -146,9 +146,11 @@
     <ClCompile Include="IHTCProblemIO.cpp" />
     <ClCompile Include="IHTCProblemIO.h" />
     <ClCompile Include="IHTCSolver.cpp" />
+    <ClCompile Include="INeighbourGenerator.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="mutators.cpp" />
+    <ClCompile Include="NeighbourGeneratorQueue.cpp" />
+    <ClCompile Include="NeighbourGeneratorTournament.cpp" />
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
     <ClCompile Include="ShiftNurses.cpp" />
@@ -197,8 +199,10 @@
     <ClInclude Include="IHTCMutatorOTInversion.h" />
     <ClInclude Include="IHTCMutatorOTSwap.h" />
     <ClInclude Include="IHTCSolver.h" />
+    <ClInclude Include="INeighbourGenerator.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="mutators.h" />
+    <ClInclude Include="NeighbourGeneratorQueue.h" />
+    <ClInclude Include="NeighbourGeneratorTournament.h" />
     <ClInclude Include="NurseWrapper.h" />
     <ClInclude Include="PatientNurses.h" />
     <ClInclude Include="ShiftNurses.h" />

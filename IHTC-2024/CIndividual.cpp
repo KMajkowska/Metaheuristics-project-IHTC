@@ -67,12 +67,12 @@ void CIndividual::mute(const IMutator& mutator)
 	mutator.mutate(*this);
 }
 
-std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber)
+std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber) const
 {
 	std::vector<CIndividual> neighbours;
 	neighbours.reserve(neighbourhoodNumber);
 
-	for (int i = 0; i < neighbourhoodNumber; ++i)
+	for (size_t i = 0; i < neighbourhoodNumber; ++i)
 	{
 		CIndividual individual(*this);
 		individual.mute(mutator);

@@ -109,6 +109,12 @@
     <Filter Include="Pliki nagłówkowe\algorithm\comparisonWrappers">
       <UniqueIdentifier>{5b0a0e4c-6d27-45ee-9845-8c731ff82adf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators">
+      <UniqueIdentifier>{ac5d8f3b-aa82-4601-a0b5-fb5f9079bed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators">
+      <UniqueIdentifier>{da435957-fb09-47a1-9b4b-b0ad38a56d0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -267,8 +273,14 @@
     <ClCompile Include="PatientWrapper.cpp">
       <Filter>Pliki źródłowe\algorithm\comparisonWrappers</Filter>
     </ClCompile>
-    <ClCompile Include="mutators.cpp">
-      <Filter>Pliki źródłowe\utils</Filter>
+    <ClCompile Include="NeighbourGeneratorTournament.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="INeighbourGenerator.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorQueue.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -416,8 +428,14 @@
     <ClInclude Include="OperatingTheaterWrapper.h">
       <Filter>Pliki nagłówkowe\algorithm\comparisonWrappers</Filter>
     </ClInclude>
-    <ClInclude Include="mutators.h">
-      <Filter>Pliki nagłówkowe\utils</Filter>
+    <ClInclude Include="INeighbourGenerator.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorQueue.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorTournament.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

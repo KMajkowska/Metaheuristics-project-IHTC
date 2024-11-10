@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "IHTCSolver.h"
+#include "INeighbourGenerator.h"
 
 class SASolver : public IHTCSolver
 {
@@ -15,7 +16,7 @@ public:
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)> stopCriterium, 
 		int neighbourhoodNumber, 
-		std::function<const IMutator& (int iteration, int numberOfNeigbours)> mutatorOrchestrator
+		INeighbourGenerator& neighbourGenerator
 	);
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
@@ -25,7 +26,7 @@ private:
 	std::function<double(double, double, int)> coolingFn;
 	std::function<bool(double, int)> stopCriterium;
 	int neighbourhoodNumber;
-	std::function<const IMutator& (int iteration, int numberOfNeigbours)> mutatorOrchestrator;
+	INeighbourGenerator& neighbourGenerator;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 };
