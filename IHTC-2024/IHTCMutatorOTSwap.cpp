@@ -59,7 +59,7 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 
 	auto it0 = std::find_if(patients.begin(), patients.end(), [otId0](const Patient& obj) {
 		return obj.getOperationTheater() == otId0;
-	});
+		});
 
 	if (it0 != patients.end())
 	{
@@ -68,7 +68,7 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 
 	auto it1 = std::find_if(patients.begin(), patients.end(), [otId1](const Patient& obj) {
 		return obj.getOperationTheater() == otId1;
-	});
+		});
 
 	if (it1 != patients.end())
 	{
@@ -76,4 +76,5 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 	}
 
 	individual.setPatients(patients);
+
 }

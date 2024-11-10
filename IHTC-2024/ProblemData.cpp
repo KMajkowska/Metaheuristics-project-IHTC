@@ -1,4 +1,5 @@
 #include "ProblemData.h"
+#include "OperatingTheaterWrapper.h"
 
 int ProblemData::getDays() const
 {
@@ -55,11 +56,17 @@ std::vector<OperatingTheaterDTO> ProblemData::getOperatingTheaters() const
     return operating_theaters;
 }
 
+std::vector<std::vector<OperatingTheaterWrapper>> ProblemData::getOperatingTheatersAvailability() const
+{
+    return operating_theaters_availability;
+}
+
 void ProblemData::setDays(int newDays)
 {
     days = newDays;
 
     runOperatingTheatersPreprocessing();
+    runOperatingTheatersAvailibility();
 }
 
 void ProblemData::setSkillLevels(int newSkillLevels)
@@ -150,6 +157,7 @@ void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheat
     operating_theaters = newTheaters;
 
     runOperatingTheatersPreprocessing();
+    runOperatingTheatersAvailibility();
 }
 
 RoomWithOccupancyRepresentation ProblemData::getPreprocessedRooms() const
@@ -207,6 +215,28 @@ void ProblemData::runOperatingTheatersPreprocessing()
                 empty_operating_theaters[i][ot.getId()] = patients;
             }
         }
+    }
+}
+
+void ProblemData::runOperatingTheatersAvailibility()
+{
+    operating_theaters_availability.clear();
+    operating_theaters_availability.reserve(operating_theaters.size());
+
+    for (int i = 0; i < days; ++i)
+    {
+        std::vector<OperatingTheaterWrapper> ots;
+
+        for (const auto& operatingTheater : operating_theaters)
+        {
+            ots.push_back(
+                OperatingTheaterWrapper(
+                    OperatingTheaterInfo(operatingTheater.getAvailability().at(i), 0, operatingTheater.getId())
+                )
+            );
+        }
+
+        operating_theaters_availability.push_back(ots);
     }
 }
 

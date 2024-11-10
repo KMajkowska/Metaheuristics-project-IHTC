@@ -17,20 +17,10 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 	RoomWithOccupancyRepresentation roomWithOccupancy = problemData.getPreprocessedRooms();
 	ShiftNurses shiftNurses(problemData);
 	// begin :: ots
-	std::vector<std::vector<OperatingTheaterWrapper>> operatingTheaters;
-	operatingTheaters.reserve(problemData.getOperatingTheaters().size());
+	std::vector<std::vector<OperatingTheaterWrapper>> operatingTheaters = problemData.getOperatingTheatersAvailability();
 
 	for (int i = 0; i < days; ++i)
 	{
-		for (const auto& operatingTheater : problemData.getOperatingTheaters())
-		{
-			operatingTheaters[i].push_back(
-				OperatingTheaterWrapper(
-					OperatingTheaterInfo(operatingTheater.getAvailability()[i], 0, operatingTheater.getId())
-				)
-			);
-		}
-
 		std::sort(operatingTheaters[i].begin(), operatingTheaters[i].end(), std::greater<OperatingTheaterWrapper>());
 	}
 	// end :: ots
@@ -208,12 +198,14 @@ std::string GreedySolver::chooseRoomId(
 
 	const auto& weight = problemData.getWeights();
 	std::priority_queue<RoomBrokenAgeGender> roomPrioQueue;
+	
+	const auto& incompatibleRooms = patient.getIncompatibleRoomIds();
 
 	for (const auto& room : problemData.getRooms())
 	{
-		auto it = std::find(patient.getIncompatibleRoomIds().begin(), patient.getIncompatibleRoomIds().end(), room.getId());
+		auto it = std::find(incompatibleRooms.begin(), incompatibleRooms.end(), room.getId());
 
-		if (it == patient.getIncompatibleRoomIds().end())
+		if (it == incompatibleRooms.end())
 		{
 			continue;
 		}

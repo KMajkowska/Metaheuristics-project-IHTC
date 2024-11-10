@@ -20,16 +20,26 @@ void IHTCMutatorDay::mutate(CIndividual& individual) const
 	}
 
 	auto patients = individual.getPatients();
-	const auto& patientMap = problemData.getPatientMap();
 	const auto& rooms = problemData.getRooms();
 	int days = problemData.getDays();
 
 	std::uniform_int_distribution<int> patientDistribution(0, patients.size() - 1);
 
 	Patient& patient = patients.at(patientDistribution(randGenerator));
-	const auto patientFromProblem = patientMap.at(patient.getId());
+	const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
 
-	int newAdmissionDay = randomDay(patientFromProblem.getSurgeryReleaseDay(), patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay());
+	int newAdmissionDay = randomDay(
+		patientFromProblem.getSurgeryReleaseDay(), 
+		patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay()
+	);
+
+	while (!checkCorrectAdmissionDay(newAdmissionDay, patientFromProblem.getSurgeonId(), patient.getOperationTheater()))
+	{
+		newAdmissionDay = randomDay(
+			patientFromProblem.getSurgeryReleaseDay(),
+			patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay()
+		);
+	}
 
 	patient.setAdmissionDay(newAdmissionDay);
 
@@ -54,7 +64,28 @@ int IHTCMutatorDay::randomDay(int min, int max) const
 		day = distribution(randGenerator);
 	} while (day < min);
 
-
 	return static_cast<int>(day);
+}
+
+bool IHTCMutatorDay::checkCorrectAdmissionDay(int admissionDay, const std::string& surgeonId, const std::string& otId) const
+{
+	if (admissionDay >= problemData.getDays())
+	{
+		return true;
+	}
+
+	const auto& otAvails = problemData.getOperatingTheatersAvailability();
+
+	const auto& otAvail = otAvails.at(admissionDay);
+
+	auto it = std::find_if(otAvail.begin(), otAvail.end(), [otId](const OperatingTheaterWrapper& wrapper)
+		{
+			return wrapper.operatingTheater.id == otId;
+		}
+	);
+
+	bool isSurgeonAvailible = problemData.getSurgeonMap().at(surgeonId).getMaxSurgeryTime().at(admissionDay) > 0;
+
+	return isSurgeonAvailible && it != otAvail.end();
 }
 

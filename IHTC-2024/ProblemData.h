@@ -13,6 +13,7 @@
 #include "OperatingTheaterDTO.h"
 #include "RoomInfo.h"
 #include "RoomWithOccupancyRepresentation.h"
+#include "OperatingTheaterWrapper.h"
 
 class ProblemData
 {
@@ -31,6 +32,7 @@ public:
 	std::vector<IncomingPatientDTO> getPatients() const;
 	std::vector<SurgeonDTO> getSurgeons() const;
 	std::vector<OperatingTheaterDTO> getOperatingTheaters() const;
+	std::vector<std::vector<OperatingTheaterWrapper>> getOperatingTheatersAvailability() const;
 
 	void setDays(int newDays);
 	void setSkillLevels(int newSkillLevels);
@@ -69,10 +71,12 @@ private:
 	std::unordered_map<std::string, IncomingPatientDTO> patientMap;
 	std::unordered_map<std::string, NurseDTO> nursesMap;
 	std::vector<std::unordered_map<std::string, std::vector<std::string>>> empty_operating_theaters;
+	std::vector<std::vector<OperatingTheaterWrapper>> operating_theaters_availability;
 	std::unordered_map<std::string, int> shiftTypeToIndexMap;
 
 	void runPreprocessing();
 	void runOperatingTheatersPreprocessing();
+	void runOperatingTheatersAvailibility();
 };
 
 void to_json(nlohmann::json& j, const ProblemData& data);

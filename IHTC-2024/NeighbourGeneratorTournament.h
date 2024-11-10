@@ -2,13 +2,13 @@
 
 #include "INeighbourGenerator.h"
 
-class MutatorOrchestratorTournament : public INeighbourGenerator
+class NeighbourGeneratorTournament : public INeighbourGenerator
 {
 public:
-	MutatorOrchestratorTournament(const std::vector<IMutator>& mutators);
+	NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>>& mutators);
 
 	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, const CIndividual& currIndiv);
 
 private:
-	const std::vector<IMutator>& mutators;
+	std::vector<std::shared_ptr<IMutator>> mutators;
 };

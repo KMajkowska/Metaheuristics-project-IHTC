@@ -1,6 +1,6 @@
 #include "IHTCMutatorOperatingTheaters.h"
 
-IHTCMutatorOperatingTheaters::IHTCMutatorOperatingTheaters(std::mt19937& randGenerator, const ProblemData& problemData) : 
+IHTCMutatorOperatingTheaters::IHTCMutatorOperatingTheaters(std::mt19937& randGenerator, const ProblemData& problemData) :
 	IMutator(randGenerator, problemData)
 {}
 
@@ -14,12 +14,17 @@ std::vector<std::unordered_map<std::string, std::vector<std::string>>> IHTCMutat
 	// begin :: fill in structure
 	for (const auto& patient : individual.getPatients())
 	{
-		if (patient.getAdmissionDay() < days && !patient.getOperationTheater().empty()) 
+
+		if (patient.getAdmissionDay() < days)
 		{
-			copiedDaysToPatientsPerRoomMap
-				.at(patient.getAdmissionDay())
-				.at(patient.getOperationTheater())
-				.push_back(patient.getId());
+			auto& patientsPerRoom = copiedDaysToPatientsPerRoomMap.at(patient.getAdmissionDay());
+
+			auto it = patientsPerRoom.find(patient.getOperationTheater());
+
+			if (it != patientsPerRoom.end())
+			{
+				patientsPerRoom.at(patient.getOperationTheater()).push_back(patient.getId());
+			}
 		}
 	}
 	// end :: fill in structure

@@ -1,6 +1,6 @@
 #include "INeighbourGenerator.h"
 
-INeighbourGenerator::INeighbourGenerator(const std::vector<IMutator>& mutators)
+INeighbourGenerator::INeighbourGenerator(const std::vector<std::shared_ptr<IMutator>>& mutators)
 {
 	if (mutators.size() <= 0)
 	{

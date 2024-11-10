@@ -11,11 +11,13 @@
 #include "IHTCMutatorRoom.h"
 #include "IHTCMutatorOTInversion.h"
 #include "IHTCMutatorOTSwap.h"
-#include "mutators.h"
+#include "IHTCMutatorDay.h"
+#include "NeighbourGeneratorQueue.h"
+#include "NeighbourGeneratorTournament.h"
 
 static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
-//static const std::string OUTPUT_FILE = "../solution.json";
-//static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
+// static const std::string OUTPUT_FILE = "../solution.json";
+// static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
@@ -79,18 +81,20 @@ int main(int argc, char* argv[])
 	try
 	{
 		ProblemData problemData = IHTCProblemIO::parseFromJSON(argc > 1 ? argv[0] : PROBLEM_FILE);
-		
+
 		IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht, logger);
 
 		RandomSolver randSolver(problemData, mt);
 
-		const std::vector<IMutator> mutators = 
+		std::vector<std::shared_ptr<IMutator>> mutators =
 		{
-			IHTCMutatorOTSwap(mt, problemData, NEIGHBOUR_PROB),
-			IHTCMutatorOTInversion (mt, problemData, NEIGHBOUR_PROB)
+			std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
+			std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
+			std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
+			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB) // causes invalid ordered map key
 		};
 
-		auto orchestrator = mutatorOrchestratorQueue(mutators);
+		NeighbourGeneratorTournament neighbourGen(mutators);
 
 		SASolver saSolver(
 			problemData,
@@ -99,7 +103,7 @@ int main(int argc, char* argv[])
 			mt,
 			stopCriteriumSAIter,
 			NEIGHBOURHOOD_NUMBER,
-			orchestrator
+			neighbourGen
 		);
 
 		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, randSolver) << std::endl;

@@ -12,5 +12,7 @@ public:
 private:
 	int randomDay(int min, int max) const;
 
+	bool checkCorrectAdmissionDay(int admissionDay, const std::string& surgeonId, const std::string& otId) const;
+
 	double dayShuffleProbability;
 };

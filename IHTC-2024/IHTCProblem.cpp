@@ -1,5 +1,4 @@
 #include "IHTCProblem.h"
-#include <iostream>
 
 IHTCProblem::IHTCProblem(
 	const ProblemData& problemData,
