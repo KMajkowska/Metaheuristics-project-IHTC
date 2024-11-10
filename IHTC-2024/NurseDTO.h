@@ -19,6 +19,8 @@ public:
 
 	int getWorkloadByDayAndShift(int workingDay, std::string shift) const;
 
+	std::vector<int> getWorkloadConverted(int day, const std::unordered_map<std::string, int> shiftNameToPos) const;
+
 private:
 	std::string id;
 	std::vector<ShiftDTO> working_shifts;

@@ -43,6 +43,20 @@ int NurseDTO::getWorkloadByDayAndShift(int workingDay, std::string shiftStr) con
 	return 0;
 }
 
+std::vector<int> NurseDTO::getWorkloadConverted(int days, const std::unordered_map<std::string, int> shiftNameToPos) const
+{
+	std::vector<int> workload(days * shiftNameToPos.size(), 0);
+
+	for (const auto& shift : working_shifts)
+	{
+		int iter = shift.getDay() + shiftNameToPos.at(shift.getShift());
+
+		workload[iter] = shift.getMaxLoad();
+	}
+
+	return workload;
+}
+
 void to_json(nlohmann::json& j, const NurseDTO& nurse)
 {
 	j = nlohmann::json

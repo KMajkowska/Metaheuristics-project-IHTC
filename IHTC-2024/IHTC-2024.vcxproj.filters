@@ -237,7 +237,7 @@
     <ClCompile Include="RoomWithOccupancyRepresentation.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
-    <ClCompile Include="SurgeryActualToMax.cpp">
+    <ClCompile Include="Workload.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
     <ClCompile Include="OperatingTheaterInfo.cpp">
@@ -395,7 +395,7 @@
     <ClInclude Include="RoomWithOccupancyRepresentation.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClInclude>
-    <ClInclude Include="SurgeryTimeActualToMax.h">
+    <ClInclude Include="Workload.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClInclude>
     <ClInclude Include="NurseRoomIndividual.h">

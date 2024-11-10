@@ -54,7 +54,7 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
         }
     }
 
-    std::vector<std::vector<Assignment>> solutionAssignments;
+    std::unordered_map<std::string, std::vector<Assignment>> solutionAssignments;
     solutionAssignments.reserve(problemNurses.size());
 
     for (const auto& nurse : problemNurses)
@@ -80,7 +80,7 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
             );
         }
 
-        solutionAssignments.push_back(assignments);
+        solutionAssignments[nurse.getId()] = assignments;
     }
 
     return CIndividual(solutionPatients, solutionAssignments);

@@ -7,6 +7,7 @@ class Assignment
 {
 public:
 	Assignment();
+	Assignment(int day, std::string shift);
 	Assignment(int day, std::string shift, std::vector<std::string> rooms);
 	Assignment(const Assignment& other) = default;
 
@@ -18,6 +19,8 @@ public:
 
 	std::vector<std::string> getRooms() const;
 	void setRooms(std::vector<std::string> newRooms);
+
+	void appendRoom(const std::string& roomId);
 
 private:
 	int day;

@@ -14,6 +14,7 @@
 #include "IHTCMutatorDay.h"
 #include "NeighbourGeneratorQueue.h"
 #include "NeighbourGeneratorTournament.h"
+#include "GreedySolver.h"
 
 static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
@@ -86,6 +87,8 @@ int main(int argc, char* argv[])
 
 		RandomSolver randSolver(problemData, mt);
 
+		GreedySolver greedySolver(problemData, mt);
+
 		std::vector<std::shared_ptr<IMutator>> mutators =
 		{
 			std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
@@ -106,7 +109,7 @@ int main(int argc, char* argv[])
 			neighbourGen
 		);
 
-		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, randSolver) << std::endl;
+		std::cout << evaluateProblem(REPETITIONS, problem, greedySolver, randSolver) << std::endl;
 	}
 	catch (const std::exception& e)
 	{

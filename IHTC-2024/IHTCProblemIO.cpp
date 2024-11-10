@@ -60,7 +60,7 @@ SolutionData IHTCProblemIO::parseToSolution(const CIndividual& individual, const
     std::size_t counter = 0;
     for (const auto& nurse : nurses)
     {
-        const auto& assignments = solutionAssignments[counter];
+        const auto& assignments = solutionAssignments.at(nurse.getId());
 
         outputNurses.push_back(NurseOutputDTO(nurse.getId(), assignments));
 

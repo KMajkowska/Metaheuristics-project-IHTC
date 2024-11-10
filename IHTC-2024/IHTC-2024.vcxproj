@@ -183,7 +183,7 @@
     <ClCompile Include="ShiftDTO.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="solutionUtils.cpp" />
-    <ClCompile Include="SurgeryActualToMax.cpp" />
+    <ClCompile Include="Workload.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="SurgeonOTInfo.cpp" />
     <ClCompile Include="SurgeonOTInfo.h" />
@@ -236,7 +236,7 @@
     <ClInclude Include="ShiftDTO.h" />
     <ClInclude Include="SolutionData.h" />
     <ClInclude Include="solutionUtils.h" />
-    <ClInclude Include="SurgeryTimeActualToMax.h" />
+    <ClInclude Include="Workload.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
     <ClInclude Include="IHTCMutatorRoom.h" />

@@ -5,7 +5,7 @@
 #include"IHTCSolver.h"
 #include "PatientWrapper.h"
 #include "SurgeonOTInfo.h"
-#include "SurgeryTimeActualToMax.h"
+#include "Workload.h"
 #include "OperatingTheaterWrapper.h"
 #include "RoomBrokenAgeGender.h"
 #include "RoomWithOccupancyRepresentation.h"
@@ -20,6 +20,7 @@ public:
 
 private:
 	std::vector<std::string> chooseNurse(
+		std::unordered_map<std::string, Workload>& nurseWorkloads,
 		ShiftNurses& shiftNurses,
 		RoomWithOccupancyRepresentation& roomWithOccupancy,
 		const std::vector<NurseDTO> nurses,
@@ -29,7 +30,7 @@ private:
 	std::pair<int, std::string> chooseAdmissionDayAndOt(
 		const IncomingPatientDTO& patient,
 		std::vector<std::vector<OperatingTheaterWrapper>>& operatingTheaters,
-		std::unordered_map<std::string, SurgeryTimeActualToMax>& surgeons,
+		std::unordered_map<std::string, Workload>& surgeons,
 		std::vector<int>& dissallowedAdmissionDays
 	) const;
 

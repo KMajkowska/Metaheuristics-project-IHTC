@@ -190,6 +190,11 @@ int ProblemData::getOffsetOfShiftTypes(std::string shiftType) const
     return shiftTypeToIndexMap.at(shiftType);
 }
 
+std::unordered_map<std::string, int> ProblemData::getShiftTypeToIndexMap() const
+{
+    return shiftTypeToIndexMap;
+}
+
 void ProblemData::runPreprocessing()
 {
     roomInfos = RoomWithOccupancyRepresentation(rooms, occupants, patients, shift_types, days);

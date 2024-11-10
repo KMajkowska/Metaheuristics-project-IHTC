@@ -5,10 +5,11 @@
 
 struct RoomBrokenAgeGender
 {
-	RoomBrokenAgeGender(int brokenAge, int brokenGender, const std::string& id);
+	RoomBrokenAgeGender(int brokenAge, int brokenGender, int brokenCapacity, const std::string& id);
 
 	int brokenAge;
 	int brokenGender;
+	int brokenCapacity;
 
 	std::string id;
 

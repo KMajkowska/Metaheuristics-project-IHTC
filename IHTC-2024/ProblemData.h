@@ -51,6 +51,7 @@ public:
 	std::unordered_map<std::string, IncomingPatientDTO> getPatientMap() const;
 	std::unordered_map<std::string, NurseDTO> getNursesMap() const;
 	std::vector<std::unordered_map<std::string, std::vector<std::string>>> getEmptyOperatingTheaters() const;
+	std::unordered_map<std::string, int> getShiftTypeToIndexMap() const;
 	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:

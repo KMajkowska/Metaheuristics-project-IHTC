@@ -7,7 +7,7 @@ CIndividual::CIndividual() :
 {
 }
 
-CIndividual::CIndividual(std::vector<Patient> patients, std::vector<std::vector<Assignment>> assignments) :
+CIndividual::CIndividual(std::vector<Patient> patients, std::unordered_map<std::string, std::vector<Assignment>> assignments) :
 	patients(patients),
 	assignments(assignments),
 	fitness(0),
@@ -19,7 +19,7 @@ std::vector<Patient> CIndividual::getPatients() const
 	return patients;
 }
 
-std::vector<std::vector<Assignment>> CIndividual::getAssignments() const
+std::unordered_map<std::string, std::vector<Assignment>> CIndividual::getAssignments() const
 {
 	return assignments;
 }
@@ -39,7 +39,7 @@ bool CIndividual::isFitnessUpToDate() const
 	return fitnessUpToDate;
 }
 
-void CIndividual::setAssignments(std::vector<std::vector<Assignment>> newAssignments)
+void CIndividual::setAssignments(std::unordered_map<std::string, std::vector<Assignment>> newAssignments)
 {
 	assignments = newAssignments;
 }
