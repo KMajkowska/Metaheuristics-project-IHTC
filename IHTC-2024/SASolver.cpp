@@ -1,22 +1,21 @@
 ﻿#include "SASolver.h"
-#include <iostream>
 
 SASolver::SASolver(
-		const ProblemData& problemData,
-		double startingTemp, 
-		std::function<double(double, double, int)> coolingFn, 
-		std::mt19937& randGenerator, 
-		std::function<bool(double, int)>  stopCriterium, 
-		int neighbourhoodNumber, 
-		INeighbourGenerator& neighbourGenerator, 
-		Logger& logger
-):
-		IHTCSolver(problemData, randGenerator, logger),
-		startingTemp(startingTemp),
-		coolingFn(coolingFn),
-		stopCriterium(stopCriterium),
-		neighbourhoodNumber(neighbourhoodNumber),
-		neighbourGenerator(neighbourGenerator)
+	const ProblemData& problemData,
+	double startingTemp,
+	std::function<double(double, double, int)> coolingFn,
+	std::mt19937& randGenerator,
+	std::function<bool(double, int)>  stopCriterium,
+	int neighbourhoodNumber,
+	INeighbourGenerator& neighbourGenerator,
+	Logger& logger
+) :
+	IHTCSolver(problemData, randGenerator, logger),
+	startingTemp(startingTemp),
+	coolingFn(coolingFn),
+	stopCriterium(stopCriterium),
+	neighbourhoodNumber(neighbourhoodNumber),
+	neighbourGenerator(neighbourGenerator)
 {}
 
 CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
@@ -36,7 +35,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 	{
 		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
 
-		for (auto& neighbour : neighbours) 
+		for (auto& neighbour : neighbours)
 		{
 			neighbour.setFitness(problem.eval(neighbour));
 		}
@@ -62,7 +61,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 			best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first)
 		);
 	}
-	
+
 	return best;
 }
 

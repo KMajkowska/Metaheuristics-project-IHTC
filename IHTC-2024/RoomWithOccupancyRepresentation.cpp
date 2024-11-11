@@ -1,4 +1,5 @@
 #include "RoomWithOccupancyRepresentation.h"
+#include <iostream>
 
 RoomWithOccupancyRepresentation::RoomWithOccupancyRepresentation(
 	const std::vector<RoomDTO>& rooms, const std::vector<OccupantDTO>& occupants, 

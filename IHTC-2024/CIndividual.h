@@ -22,7 +22,7 @@ public:
 	std::pair<double, ViolatedRestrictions> getFitness() const;
 	bool isFitnessUpToDate() const;
 
-	void setFitness(std::pair<double, ViolatedRestrictions> newFitness);
+	void setFitness(const std::pair<double, ViolatedRestrictions>& newFitness);
 	void setAssignments(std::unordered_map<std::string, std::vector<Assignment>> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
 

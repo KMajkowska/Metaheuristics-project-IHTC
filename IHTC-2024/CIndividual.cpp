@@ -49,7 +49,7 @@ void CIndividual::setPatients(std::vector<Patient> newPatients)
 	patients = newPatients;
 }
 
-void CIndividual::setFitness(std::pair<double, ViolatedRestrictions> newFitness)
+void CIndividual::setFitness(const std::pair<double, ViolatedRestrictions>& newFitness)
 {
 	fitnessUpToDate = true;
 	fitness = newFitness.first;

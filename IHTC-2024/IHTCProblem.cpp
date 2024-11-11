@@ -12,7 +12,7 @@ IHTCProblem::IHTCProblem(
 
 std::pair<double, ViolatedRestrictions> IHTCProblem::eval(const CIndividual& individual) const
 {
-	const auto& restrictions = calculateRestrictions(
+	const auto restrictions = calculateRestrictions(
 		problemData,
 		IHTCProblemIO::parseToSolution(individual, problemData)
 	);
