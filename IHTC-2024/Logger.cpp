@@ -27,7 +27,7 @@ std::vector<std::string> Logger::getLogs() const
 void Logger::flushToFile()
 {
 	std::lock_guard<std::mutex> lock(mutex);
-	std::ofstream file(filename, std::ios::app);
+	std::ofstream file(filename, std::ios::trunc);
 
 	if (!file.is_open())
 	{
