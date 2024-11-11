@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 			logger
 		);
 
-		evaluateProblem(REPETITIONS, problem, saSolver, randSolver);
+		evaluateProblem(REPETITIONS, problem, saSolver, greedySolver);
 	}
 	catch (const std::exception& e)
 	{
