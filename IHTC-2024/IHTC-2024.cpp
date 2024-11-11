@@ -17,7 +17,7 @@
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
 	
-static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
+static const std::string PROBLEM_FILE = "../competition_instances/i08.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
@@ -28,7 +28,7 @@ static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 800;  // 150 for VCF, 9 for GG, simplex is whatever
-static constexpr int NEIGHBOURHOOD_NUMBER = 30;
+static constexpr int NEIGHBOURHOOD_NUMBER = 15;
 
 static constexpr double NEIGHBOUR_PROB = 1;
 
