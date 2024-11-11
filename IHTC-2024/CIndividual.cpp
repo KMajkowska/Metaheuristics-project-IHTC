@@ -24,14 +24,14 @@ std::unordered_map<std::string, std::vector<Assignment>> CIndividual::getAssignm
 	return assignments;
 }
 
-double CIndividual::getFitness() const
+std::pair<double, ViolatedRestrictions> CIndividual::getFitness() const
 {
 	if (!fitnessUpToDate)
 	{
-		return INT_MIN; // coertion
+		return std::make_pair(INT_MIN, violated); // coertion
 	}
 
-	return fitness;
+	return std::make_pair(fitness, violated);
 }
 
 bool CIndividual::isFitnessUpToDate() const
@@ -49,10 +49,11 @@ void CIndividual::setPatients(std::vector<Patient> newPatients)
 	patients = newPatients;
 }
 
-void CIndividual::setFitness(double newFitness)
+void CIndividual::setFitness(std::pair<double, ViolatedRestrictions> newFitness)
 {
 	fitnessUpToDate = true;
-	fitness = newFitness;
+	fitness = newFitness.first;
+	violated = newFitness.second;
 }
 
 std::vector<CIndividual> CIndividual::crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const

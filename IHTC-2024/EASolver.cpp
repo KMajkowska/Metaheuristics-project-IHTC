@@ -5,9 +5,10 @@ EASolver::EASolver(
 	const ISelector& selector, 
 	const IMutator& mutator, 
 	const ICrosser& crosser, 
-	std::mt19937& randGenerator
+	std::mt19937& randGenerator, 
+	Logger& logger
 ) :
-	IHTCSolver(problemData, randGenerator),
+	IHTCSolver(problemData, randGenerator, logger),
 	selector(selector),
 	mutator(mutator),
 	crosser(crosser)

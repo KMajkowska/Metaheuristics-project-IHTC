@@ -8,9 +8,10 @@ SASolver::SASolver(
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)>  stopCriterium, 
 		int neighbourhoodNumber, 
-		INeighbourGenerator& neighbourGenerator
+		INeighbourGenerator& neighbourGenerator, 
+		Logger& logger
 ):
-		IHTCSolver(problemData, randGenerator),
+		IHTCSolver(problemData, randGenerator, logger),
 		startingTemp(startingTemp),
 		coolingFn(coolingFn),
 		stopCriterium(stopCriterium),
@@ -18,18 +19,22 @@ SASolver::SASolver(
 		neighbourGenerator(neighbourGenerator)
 {}
 
-CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startingIndividual) const
+CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
 	double actualTemp = startingTemp;
 	int iteration = 0;
 
-	CIndividual individual = startingIndividual;
-	CIndividual best = startingIndividual;
-	individual.setFitness(problem.eval(individual));
+	CIndividual curr = startingIndividual;
+	auto res = problem.eval(curr);
+	curr.setFitness(res);
+
+	CIndividual best = curr;
+
+	logger.log(res.second.getCSVColumns("") + ",res," + res.second.getCSVColumns("Best") + ",resBest");
 
 	while (!stopCriterium(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, individual);
+		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
 
 		for (auto& neighbour : neighbours) 
 		{
@@ -38,19 +43,24 @@ CIndividual SASolver::solve(const IProblem & problem, const CIndividual& startin
 
 		for (auto& neighbour : neighbours)
 		{
-			if (neighbour.getFitness() < individual.getFitness() || checkIfAcceptNeighbour(individual, neighbour, actualTemp))
+			if (neighbour.getFitness().first < curr.getFitness().first || checkIfAcceptNeighbour(curr, neighbour, actualTemp))
 			{
-				individual = std::move(neighbour);
+				curr = std::move(neighbour);
 			}
 
-			if (individual.getFitness() < best.getFitness())
+			if (curr.getFitness().first < best.getFitness().first)
 			{
-				best = individual;
+				best = curr;
 			}
 		}
 
 		actualTemp = coolingFn(startingTemp, actualTemp, iteration);
 		++iteration;
+
+		logger.log(
+			curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
+			best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first)
+		);
 	}
 	
 	return best;
@@ -60,7 +70,7 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& individual, const CIndi
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	double expProb = exp((individual.getFitness() - neighbour.getFitness()) / temperature);
+	double expProb = exp((individual.getFitness().first - neighbour.getFitness().first) / temperature);
 
 	return distribution(randGenerator) < expProb;
 }

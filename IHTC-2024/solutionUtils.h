@@ -24,4 +24,4 @@ double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iter
 
 double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber);
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initSolver);
+std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initSolver);

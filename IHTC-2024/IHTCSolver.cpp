@@ -1,8 +1,9 @@
 #include "IHTCSolver.h"
 
-IHTCSolver::IHTCSolver(const ProblemData& newProblemData, std::mt19937& randGenerator) :
+IHTCSolver::IHTCSolver(const ProblemData& newProblemData, std::mt19937& randGenerator, Logger& logger) :
 	roomInfos(newProblemData.getPreprocessedRooms()),
-	ISolver(newProblemData, randGenerator)
+	ISolver(newProblemData, randGenerator),
+	logger(logger)
 {
 	preprocessPatientsToRooms();
 }

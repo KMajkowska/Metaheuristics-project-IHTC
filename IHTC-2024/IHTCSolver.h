@@ -3,15 +3,17 @@
 #include <vector>
 
 #include "ISolver.h"
+#include "Logger.h"
 
 class IHTCSolver : public ISolver
 {
 public:
-	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator);
+	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger);
 
 protected:
 	std::vector<std::vector<int>> patientsInRoom;
 	RoomWithOccupancyRepresentation roomInfos;
+	Logger& logger;
 
 	static constexpr int UNOCCUPIABLE = -INT_MAX;
 	static constexpr int ASSIGNABLE = -1;

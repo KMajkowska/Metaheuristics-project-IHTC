@@ -1,8 +1,7 @@
 #include "GreedySolver.h"
-#include <iostream>
 
-GreedySolver::GreedySolver(const ProblemData& problemData, std::mt19937& randGenerator) :
-	IHTCSolver(problemData, randGenerator)
+GreedySolver::GreedySolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger) :
+	IHTCSolver(problemData, randGenerator, logger)
 {}
 
 CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
@@ -107,13 +106,6 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 			{
 				roomId = newRoomId;
 			}
-
-			std::cout << "ID: " << patient.getId() <<
-				" ROOM: " << roomId <<
-				" OT: " << ot <<
-				" ADMISSION: " << admissionDay <<
-				" D.A.D: " << dissallowedAdmissionDays.size() <<
-				std::endl;
 		}
 
 		patients.push_back(Patient(patient.getId(), admissionDay, roomId, ot));

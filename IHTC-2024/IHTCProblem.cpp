@@ -3,16 +3,14 @@
 IHTCProblem::IHTCProblem(
 	const ProblemData& problemData,
 	std::function<ViolatedRestrictions(const ProblemData&, const SolutionData&)> calculateRestrictions, 
-	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn,
-	Logger& logger
+	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn
 ) :
 	problemData(problemData),
 	calculateRestrictions(calculateRestrictions),
-	evalFn(evalFn),
-	logger(logger)
+	evalFn(evalFn)
 {}
 
-double IHTCProblem::eval(const CIndividual& individual) const
+std::pair<double, ViolatedRestrictions> IHTCProblem::eval(const CIndividual& individual) const
 {
 	const auto& restrictions = calculateRestrictions(
 		problemData,
@@ -21,7 +19,5 @@ double IHTCProblem::eval(const CIndividual& individual) const
 
 	const double res = evalFn(problemData.getWeights(), restrictions);
 
-	logger.log(restrictions.getCSVData() + "," + std::to_string(res));
-
-	return res;
+	return std::make_pair(res, restrictions);
 }

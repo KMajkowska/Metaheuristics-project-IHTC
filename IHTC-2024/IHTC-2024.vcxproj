@@ -138,6 +138,7 @@
     <ClCompile Include="GreedySolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
+    <ClCompile Include="IHTCMutatorAssignmentsSwap.cpp" />
     <ClCompile Include="IHTCMutatorDay.cpp" />
     <ClCompile Include="IHTCMutatorOperatingTheaters.cpp" />
     <ClCompile Include="IHTCMutatorOTInversion.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="GreedySolver.h" />
     <ClInclude Include="ICrosser.h" />
+    <ClInclude Include="IHTCMutatorAssignmentsSwap.h" />
     <ClInclude Include="IHTCMutatorDay.h" />
     <ClInclude Include="IHTCMutatorOperatingTheaters.h" />
     <ClInclude Include="IHTCMutatorOTInversion.h" />

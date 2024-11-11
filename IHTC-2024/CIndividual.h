@@ -3,6 +3,7 @@
 #include "Patient.h"
 #include "Assignment.h"
 #include "ICrosser.h"
+#include "ViolatedRestrictions.h"
 
 #include <vector>
 
@@ -18,10 +19,10 @@ public:
 
 	std::vector<Patient> getPatients() const;
 	std::unordered_map<std::string, std::vector<Assignment>> getAssignments() const;
-	double getFitness() const;
+	std::pair<double, ViolatedRestrictions> getFitness() const;
 	bool isFitnessUpToDate() const;
 
-	void setFitness(double newFitness);
+	void setFitness(std::pair<double, ViolatedRestrictions> newFitness);
 	void setAssignments(std::unordered_map<std::string, std::vector<Assignment>> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
 
@@ -34,5 +35,6 @@ private:
 	std::unordered_map<std::string, std::vector<Assignment>> assignments;
 
 	double fitness;
+	ViolatedRestrictions violated;
 	bool fitnessUpToDate;
 };

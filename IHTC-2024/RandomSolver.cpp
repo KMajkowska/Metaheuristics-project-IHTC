@@ -1,4 +1,5 @@
 #include "RandomSolver.h"
+#include <iostream>
 
 RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator) :
     ISolver(problemData, randGenerator)
@@ -26,13 +27,13 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
 
         const int admissionDay = distrib(randGenerator);
 
-        if (admissionDay >= problemData.getDays())
+        if (admissionDay >= problemData.getDays() || ots.at(admissionDay).size() <= 0)
         { 
             solutionPatients.push_back(
                 Patient(
                     patient.getId(),
                     admissionDay,
-                    problemRooms[roomDistrib(randGenerator)].getId(),
+                    problemRooms.at(roomDistrib(randGenerator)).getId(),
                     ""
                 )
             );
@@ -47,7 +48,7 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
                 Patient(
                     patient.getId(),
                     admissionDay,
-                    problemRooms[roomDistrib(randGenerator)].getId(),
+                    problemRooms.at(roomDistrib(randGenerator)).getId(),
                     it -> first
                 )
             );
@@ -68,7 +69,7 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
             while (_0to100Distrib(randGenerator) >= 50)
             {
                 int i = roomDistrib(randGenerator);
-                assignedRooms.insert(problemRooms[i].getId());
+                assignedRooms.insert(problemRooms.at(i).getId());
             }
 
             assignments.push_back(
@@ -79,8 +80,7 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
                 )
             );
         }
-
-        solutionAssignments[nurse.getId()] = assignments;
+       solutionAssignments[nurse.getId()] = assignments;
     }
 
     return CIndividual(solutionPatients, solutionAssignments);

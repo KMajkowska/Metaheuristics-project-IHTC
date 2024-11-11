@@ -33,7 +33,7 @@ struct ViolatedRestrictions
 	int countTotalHard() const;
 	int countTotalSoft() const;
 
-	std::string getCSVColumns() const;
+	std::string getCSVColumns(const std::string& suffix) const;
 	std::string getCSVData() const;
 };
 

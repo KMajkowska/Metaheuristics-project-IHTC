@@ -5,7 +5,6 @@
 #include "OccupantDTO.h"
 #include "ProblemData.h"
 #include "RoomInfo.h"
-#include "ViolatedRestrictions.h"
 #include "CIndividual.h"
 #include "IProblem.h"
 #include "IHTCProblemIO.h"
@@ -24,17 +23,14 @@ public:
 	IHTCProblem(
 		const ProblemData& problemData, 
 		std::function<ViolatedRestrictions(const ProblemData& problemData, const SolutionData& solution)> calculateRestrictions,
-		std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn,
-		Logger& logger
+		std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn
 	);
 
-	double eval(const CIndividual& individual) const;
+	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const;
 
 protected:
 	const ProblemData& problemData;
 
 	std::function<ViolatedRestrictions(const ProblemData& problemData, const SolutionData& solution)> calculateRestrictions;
 	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn;
-
-	Logger& logger;
 };

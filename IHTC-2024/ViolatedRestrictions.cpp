@@ -66,31 +66,31 @@ int ViolatedRestrictions::countTotalSoft() const
 	return countTotalSoft;
 }
 
-std::string ViolatedRestrictions::getCSVColumns() const
+std::string ViolatedRestrictions::getCSVColumns(const std::string& suffix) const
 {
 	std::stringstream ss;
 
-	ss << "countGenderMixHard,"
-		<< "countIncompatibleRoomsHard,"
-		<< "countOvercrowdedCapacityHard,"
-		<< "countUnadmittedMandatoryHard,"
-		<< "countLateAdmittedMandatoryHard,"
-		<< "countSurgeonOvertimeHard,"
-		<< "countOTOvertimeHard,"
-		<< "countUncoveredRoomHard,"
-		<< "countNursePresentOnWrongDayHard,"
+	ss << "countGenderMixHard" << suffix
+		<< ",countIncompatibleRoomsHard" << suffix
+		<< ",countOvercrowdedCapacityHard" << suffix
+		<< ",countUnadmittedMandatoryHard" << suffix
+		<< ",countLateAdmittedMandatoryHard" << suffix
+		<< ",countSurgeonOvertimeHard" << suffix
+		<< ",countOTOvertimeHard" << suffix
+		<< ",countUncoveredRoomHard" << suffix
+		<< ",countNursePresentOnWrongDayHard" << suffix
 
-		<< "countMixedAgeGroups,"
-		<< "countMinimumSkillLevelExceeded,"
-		<< "countUncontinuousCare,"
-		<< "countMaximumWorkloadExcceeded,"
-		<< "countOpenOTs,"
-		<< "countSurgeonTransfer,"
-		<< "countAdmissionDelay,"
-		<< "countUncheduledOptional,"
+		<< ",countMixedAgeGroups" << suffix
+		<< ",countMinimumSkillLevelExceeded" << suffix
+		<< ",countUncontinuousCare" << suffix
+		<< ",countMaximumWorkloadExcceeded" << suffix
+		<< ",countOpenOTs" << suffix
+		<< ",countSurgeonTransfer" << suffix
+		<< ",countAdmissionDelay" << suffix
+		<< ",countUncheduledOptional" << suffix
 
-		<< "countTotalHard,"
-		<< "countTotalSoft";
+		<< ",countTotalHard" << suffix
+		<< ",countTotalSoft" << suffix;
 
 	return ss.str();
 }

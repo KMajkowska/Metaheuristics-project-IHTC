@@ -318,9 +318,9 @@ double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, 
     return currTemp * 1.0 / (1.0 + 1.0 / sqrt(iteration * (maxIterationNumber + 1) + maxIterationNumber));
 }
 
-std::vector<double> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
+std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
 {
-    std::vector<double> fitnesses;
+    std::vector<std::pair<double, ViolatedRestrictions>> fitnesses;
     fitnesses.reserve(amountOfRepetitions);
 
     for (int i = 0; i < amountOfRepetitions; ++i)

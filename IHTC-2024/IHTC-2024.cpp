@@ -15,19 +15,20 @@
 #include "NeighbourGeneratorQueue.h"
 #include "NeighbourGeneratorTournament.h"
 #include "GreedySolver.h"
-
-static const std::string PROBLEM_FILE = "../competition_instances/i10.json";
+#include "IHTCMutatorAssignmentsSwap.h"
+	
+static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 
-static constexpr int REPETITIONS = 100;
+static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 800;  // 150 for VCF, 9 for GG, simplex is whatever
-static constexpr int NEIGHBOURHOOD_NUMBER = 32;
+static constexpr int NEIGHBOURHOOD_NUMBER = 30;
 
 static constexpr double NEIGHBOUR_PROB = 1;
 
@@ -77,24 +78,23 @@ int main(int argc, char* argv[])
 
 	Logger logger(LOG_FILE);
 
-	logger.log(ViolatedRestrictions().getCSVColumns() + ",res");
-
 	try
 	{
 		ProblemData problemData = IHTCProblemIO::parseFromJSON(argc > 1 ? argv[0] : PROBLEM_FILE);
 
-		IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht, logger);
+		IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht);
 
 		RandomSolver randSolver(problemData, mt);
 
-		GreedySolver greedySolver(problemData, mt);
+		GreedySolver greedySolver(problemData, mt, logger);
 
-		std::vector<std::shared_ptr<IMutator>> mutators =
+		const std::vector<std::shared_ptr<IMutator>> mutators =
 		{
 			std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
 			std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
 			std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB)
+			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB),
+			std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB)
 		};
 
 		NeighbourGeneratorQueue neighbourGenQueue(mutators);
@@ -107,10 +107,11 @@ int main(int argc, char* argv[])
 			mt,
 			stopCriteriumSA,
 			NEIGHBOURHOOD_NUMBER,
-			neighbourGenTournament
+			neighbourGenTournament,
+			logger
 		);
 
-		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, greedySolver) << std::endl;
+		evaluateProblem(REPETITIONS, problem, saSolver, randSolver);
 	}
 	catch (const std::exception& e)
 	{

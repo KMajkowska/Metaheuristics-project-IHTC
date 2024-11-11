@@ -4,7 +4,7 @@ MockProblem::MockProblem(double evalReturn) :
 	evalReturn(evalReturn)
 {}
 
-double MockProblem::eval(const CIndividual & individual) const
+std::pair<double, ViolatedRestrictions> MockProblem::eval(const CIndividual & individual) const
 {
-	return evalReturn;
+	return std::make_pair(evalReturn, ViolatedRestrictions());
 }

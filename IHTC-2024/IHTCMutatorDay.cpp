@@ -28,13 +28,18 @@ void IHTCMutatorDay::mutate(CIndividual& individual) const
 	Patient& patient = patients.at(patientDistribution(randGenerator));
 	const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
 
+	int countInvalidAdmissionDays = 0;
+
 	int newAdmissionDay = randomDay(
 		patientFromProblem.getSurgeryReleaseDay(), 
 		patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay()
 	);
 
-	while (!checkCorrectAdmissionDay(newAdmissionDay, patientFromProblem.getSurgeonId(), patient.getOperationTheater()))
+	while (!checkCorrectAdmissionDay(newAdmissionDay, patientFromProblem.getSurgeonId(), patient.getOperationTheater()) 
+		&& countInvalidAdmissionDays <= patientFromProblem.getLengthOfStay())
 	{
+		++countInvalidAdmissionDays;
+
 		newAdmissionDay = randomDay(
 			patientFromProblem.getSurgeryReleaseDay(),
 			patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay()

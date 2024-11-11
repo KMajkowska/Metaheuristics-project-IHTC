@@ -16,7 +16,8 @@ public:
 		std::mt19937& randGenerator, 
 		std::function<bool(double, int)> stopCriterium, 
 		int neighbourhoodNumber, 
-		INeighbourGenerator& neighbourGenerator
+		INeighbourGenerator& neighbourGenerator, 
+		Logger& logger
 	);
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
