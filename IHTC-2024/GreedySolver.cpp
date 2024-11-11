@@ -309,12 +309,11 @@ std::string GreedySolver::chooseRoomId(
 
 		for (int i = admissionDay; i < patient.getLengthOfStay() + admissionDay && i < problemData.getDays(); ++i)
 		{
-			const auto& patientWorkload = patient.getWorkloadProduced().at(i - admissionDay);
 			const auto& preprocessedRoom = roomWithOccupancy.getPatientRoomInfoRef(i, room.getId());
 
-			if (preprocessedRoom.currentCapacity < patientWorkload)
+			if (preprocessedRoom.currentCapacity > 0)
 			{
-				brokenCapacity = patientWorkload - preprocessedRoom.currentCapacity;
+				++brokenCapacity;
 			}
 
 			for (const auto& [gender, _] : preprocessedRoom.genders)

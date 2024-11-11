@@ -1,4 +1,5 @@
 ﻿#include "SASolver.h"
+#include <iostream>
 
 SASolver::SASolver(
 		const ProblemData& problemData,
@@ -59,7 +60,9 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& individual, const CIndi
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	return distribution(randGenerator) < exp((neighbour.getFitness() - individual.getFitness()) / temperature);
+	double expProb = exp((individual.getFitness() - neighbour.getFitness()) / temperature);
+
+	return distribution(randGenerator) < expProb;
 }
 
 /*

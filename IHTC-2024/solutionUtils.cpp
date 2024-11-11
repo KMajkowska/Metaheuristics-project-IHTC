@@ -305,7 +305,7 @@ double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, 
 
 double simplexCoolingScheme(double startingTemp, double currTemp, int iteration)
 {
-    return 0.99 * currTemp;
+    return 0.995 * currTemp;
 }
 
 double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration)

@@ -26,8 +26,8 @@ static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 static constexpr int REPETITIONS = 100;
 
 static constexpr int MAX_ITER = 250;
-static constexpr double STARTING_TEMP = 150;  // 150 for VCF, 9 for GG, simplex is whatever
-static constexpr int NEIGHBOURHOOD_NUMBER = 15;
+static constexpr double STARTING_TEMP = 800;  // 150 for VCF, 9 for GG, simplex is whatever
+static constexpr int NEIGHBOURHOOD_NUMBER = 32;
 
 static constexpr double NEIGHBOUR_PROB = 1;
 
@@ -94,22 +94,23 @@ int main(int argc, char* argv[])
 			std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
 			std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
 			std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB) // causes invalid ordered map key
+			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB)
 		};
 
-		NeighbourGeneratorTournament neighbourGen(mutators);
+		NeighbourGeneratorQueue neighbourGenQueue(mutators);
+		NeighbourGeneratorTournament neighbourGenTournament(mutators);
 
 		SASolver saSolver(
 			problemData,
 			STARTING_TEMP,
-			variableCoolingFactorCoolingSchemeParam,
+			simplexCoolingScheme,
 			mt,
-			stopCriteriumSAIter,
+			stopCriteriumSA,
 			NEIGHBOURHOOD_NUMBER,
-			neighbourGen
+			neighbourGenTournament
 		);
 
-		std::cout << evaluateProblem(REPETITIONS, problem, greedySolver, randSolver) << std::endl;
+		std::cout << evaluateProblem(REPETITIONS, problem, saSolver, greedySolver) << std::endl;
 	}
 	catch (const std::exception& e)
 	{
