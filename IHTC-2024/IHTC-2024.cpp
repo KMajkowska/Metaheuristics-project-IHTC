@@ -17,7 +17,7 @@
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
 	
-static const std::string PROBLEM_FILE = "../competition_instances/i08.json";
+static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
