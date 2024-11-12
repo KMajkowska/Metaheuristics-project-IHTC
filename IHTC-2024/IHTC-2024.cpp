@@ -28,7 +28,11 @@ static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 800;  // 150 for VCF, 9 for GG, simplex is whatever
+<<<<<<< HEAD
+static constexpr int NEIGHBOURHOOD_NUMBER = 10;
+=======
 static constexpr int NEIGHBOURHOOD_NUMBER = 15;
+>>>>>>> 731536445c20442b47314bcc891e520ce22ee74f
 
 static constexpr double NEIGHBOUR_PROB = 1;
 
