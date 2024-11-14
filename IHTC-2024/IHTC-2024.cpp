@@ -16,8 +16,9 @@
 #include "NeighbourGeneratorTournament.h"
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
+#include "IHTCMutatorNurseRoomCover.h"
 
-static const std::string PROBLEM_FILE = "../competition_instances/i03.json";
+static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 
@@ -26,10 +27,10 @@ static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
-static constexpr double STARTING_TEMP = 1500;  // 150 for VCF, 9 for GG, simplex is whatever
+static constexpr double STARTING_TEMP = 1300;  // 150 for VCF, 9 for GG, simplex is whatever
 static constexpr int NEIGHBOURHOOD_NUMBER = 30;
 
-static constexpr double NEIGHBOUR_PROB = 1;
+static constexpr double NEIGHBOUR_PROB = 0.5;
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
@@ -88,7 +89,8 @@ static void run(int argc, char* argv[])
 		std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
 		std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
 		std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB)
+		std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB),
+		std::make_shared<IHTCMutatorNurseRoomCover>(mt, problemData, NEIGHBOUR_PROB)
 	};
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
