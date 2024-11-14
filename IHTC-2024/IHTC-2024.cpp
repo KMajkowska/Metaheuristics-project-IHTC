@@ -27,13 +27,9 @@ static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
-<<<<<<< HEAD
-static constexpr double STARTING_TEMP = 1300;  // 150 for VCF, 9 for GG, simplex is whatever
-=======
 static constexpr double STARTING_TEMP = 600;
 static constexpr double STOP_TEMP = 0.01;
->>>>>>> 76aeb8edab737f3e4c1fa1550da6651b11ab3a42
-static constexpr int NEIGHBOURHOOD_NUMBER = 30;
+static constexpr int NEIGHBOURHOOD_NUMBER = 5;
 
 static constexpr double NEIGHBOUR_PROB = 0.5;
 
@@ -114,7 +110,7 @@ static void run(int argc, char* argv[])
 		logger
 	);
 
-	evaluateProblem(REPETITIONS, problem, saSolver, greedySolver);
+	evaluateProblem(REPETITIONS, problem, saSolver, randSolver);
 }
 
 int main(int argc, char* argv[])
