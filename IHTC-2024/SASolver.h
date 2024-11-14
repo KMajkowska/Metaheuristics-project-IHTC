@@ -31,5 +31,5 @@ private:
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 
-	static constexpr double NORMALIZATION_DIVIDER = 3.0;
+	const double NORMALIZATION_DIVIDER = exp(1.0);
 };

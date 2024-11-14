@@ -26,7 +26,8 @@ static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
-static constexpr double STARTING_TEMP = 1500;  // 150 for VCF, 9 for GG, simplex is whatever
+static constexpr double STARTING_TEMP = 250;
+static constexpr double STOP_TEMP = 0.5;
 static constexpr int NEIGHBOURHOOD_NUMBER = 30;
 
 static constexpr double NEIGHBOUR_PROB = 1;
@@ -58,7 +59,7 @@ static double calculateFitnessWithWeigtht(const WeightsDTO& weights, const Viola
 
 static bool stopCriteriumSA(double currTemp, int iteration)
 {
-	return currTemp < 50;
+	return currTemp < STOP_TEMP;
 }
 
 static bool stopCriteriumSAIter(double currTemp, int iteration)

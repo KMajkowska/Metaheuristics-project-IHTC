@@ -54,7 +54,7 @@ std::string getFileNameWithoutExtension(const std::string& filePath)
 std::string getLoggerFileName(const std::string filePath)
 {
     
-    return LOG_FILE + getFileNameWithoutExtension(filePath) + ".txt";
+    return LOG_FILE + getFileNameWithoutExtension(filePath) + ".csv";
 }
 
 

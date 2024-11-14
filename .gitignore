@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=vcpkg,visualstudio,c++
 
 solution.json
-logFiles
+log_files
 
 .idea
 
