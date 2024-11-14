@@ -140,6 +140,7 @@
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCMutatorAssignmentsSwap.cpp" />
     <ClCompile Include="IHTCMutatorDay.cpp" />
+    <ClCompile Include="IHTCMutatorNurseRoomCover.cpp" />
     <ClCompile Include="IHTCMutatorOperatingTheaters.cpp" />
     <ClCompile Include="IHTCMutatorOTInversion.cpp" />
     <ClCompile Include="IHTCMutatorOTSwap.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IHTCMutatorAssignmentsSwap.h" />
     <ClInclude Include="IHTCMutatorDay.h" />
+    <ClInclude Include="IHTCMutatorNurseRoomCover.h" />
     <ClInclude Include="IHTCMutatorOperatingTheaters.h" />
     <ClInclude Include="IHTCMutatorOTInversion.h" />
     <ClInclude Include="IHTCMutatorOTSwap.h" />
