@@ -37,41 +37,44 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 		for (auto& neighbour : neighbours)
 		{
-			neighbour.setFitness(problem.eval(neighbour));
+			if (!neighbour.isFitnessUpToDate())
+			{
+				neighbour.setFitness(problem.eval(neighbour));
+			}
 		}
 
-		for (auto& neighbour : neighbours)
+		for (const auto& neighbour : neighbours)
 		{
 			if (neighbour.getFitness().first < curr.getFitness().first || checkIfAcceptNeighbour(curr, neighbour, actualTemp))
 			{
-				curr = std::move(neighbour);
+				curr = neighbour;
+
+				if (curr.getFitness().first < best.getFitness().first)
+				{
+					best = curr;
+				}
 			}
 
-			if (curr.getFitness().first < best.getFitness().first)
-			{
-				best = curr;
-			}
+			logger.log(
+				curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
+				best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first)
+			);
 		}
 
 		actualTemp = coolingFn(startingTemp, actualTemp, iteration);
 		++iteration;
-
-		logger.log(
-			curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
-			best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first)
-		);
 	}
 
 	return best;
 }
 
-bool SASolver::checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const
+bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual& neighbour, double temperature) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	double expProb = exp((individual.getFitness().first - neighbour.getFitness().first) / temperature);
+	double expProb = exp((neighbour.getFitness().first - curr.getFitness().first) / temperature);
 
-	return distribution(randGenerator) < expProb;
+	return distribution(randGenerator) < 1 / (1 + expProb);
 }
 
 /*

@@ -1,11 +1,11 @@
 #include "NeighbourGeneratorTournament.h"
 
-NeighbourGeneratorTournament::NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>>& mutators) :
-	INeighbourGenerator(mutators),
+NeighbourGeneratorTournament::NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
+	INeighbourGenerator(mutators, problem),
 	mutators(mutators)
 {}
 
-std::vector<CIndividual> NeighbourGeneratorTournament::getNeighbours(int iteration, int numberOfNeighbours, const CIndividual& currIndiv)
+std::vector<CIndividual> NeighbourGeneratorTournament::getNeighbours(int iteration, int numberOfNeighbours, CIndividual& currIndiv)
 {
 
 	if (mutators.empty())
@@ -31,7 +31,7 @@ std::vector<CIndividual> NeighbourGeneratorTournament::getNeighbours(int iterati
 			--remainingNeighbours;
 		}
 
-		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator);
+		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, problem);
 
 		allNeighbours.insert(allNeighbours.end(), neighbours.begin(), neighbours.end());
 	}

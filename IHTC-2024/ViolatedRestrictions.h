@@ -35,6 +35,8 @@ struct ViolatedRestrictions
 
 	std::string getCSVColumns(const std::string& suffix) const;
 	std::string getCSVData() const;
+
+	bool operator==(const ViolatedRestrictions& other) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const ViolatedRestrictions& data);

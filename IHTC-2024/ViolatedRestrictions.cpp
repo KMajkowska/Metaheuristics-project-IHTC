@@ -123,3 +123,25 @@ std::string ViolatedRestrictions::getCSVData() const
 
 	return ss.str();
 }
+
+bool ViolatedRestrictions::operator==(const ViolatedRestrictions& other) const
+{
+	return countGenderMixHard == other.countGenderMixHard
+		&& countIncompatibleRoomsHard == other.countIncompatibleRoomsHard
+		&& countOvercrowdedCapacityHard == other.countOvercrowdedCapacityHard
+		&& countUnadmittedMandatoryHard == other.countUnadmittedMandatoryHard
+		&& countLateAdmittedMandatoryHard == other.countLateAdmittedMandatoryHard
+		&& countSurgeonOvertimeHard == other.countSurgeonOvertimeHard
+		&& countOTOvertimeHard == other.countOTOvertimeHard
+		&& countUncoveredRoomHard == other.countUncoveredRoomHard
+		&& countNursePresentOnWrongDayHard == other.countNursePresentOnWrongDayHard
+
+		&& countMixedAgeGroups == other.countMixedAgeGroups
+		&& countMinimumSkillLevelExceeded == other.countMinimumSkillLevelExceeded
+		&& countUncontinuousCare == other.countUncontinuousCare
+		&& countMaximumWorkloadExcceeded == other.countMaximumWorkloadExcceeded
+		&& countOpenOTs == other.countOpenOTs
+		&& countSurgeonTransfer == other.countSurgeonTransfer
+		&& countAdmissionDelay == other.countAdmissionDelay
+		&& countUncheduledOptional == other.countUncheduledOptional;
+}

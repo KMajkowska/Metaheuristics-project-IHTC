@@ -14,6 +14,14 @@ CIndividual::CIndividual(std::vector<Patient> patients, std::unordered_map<std::
 	fitnessUpToDate(false)
 {}
 
+CIndividual::CIndividual(const CIndividual& otherIndividual) :
+	patients(otherIndividual.patients), // deep copy of the vector of Patients
+	assignments(otherIndividual.assignments), // deep copy of the map (string -> vector of Assignments)
+	fitness(otherIndividual.fitness),
+	violated(otherIndividual.violated),
+	fitnessUpToDate(otherIndividual.fitnessUpToDate)
+{}
+
 std::vector<Patient> CIndividual::getPatients() const
 {
 	return patients;
@@ -68,16 +76,27 @@ void CIndividual::mute(const IMutator& mutator)
 	mutator.mutate(*this);
 }
 
-std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber) const
+std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber, const IProblem& problem)
 {
 	std::vector<CIndividual> neighbours;
 	neighbours.reserve(neighbourhoodNumber);
+
+	if (!this->fitnessUpToDate)
+	{
+		setFitness(problem.eval(*this));
+	}
 
 	for (size_t i = 0; i < neighbourhoodNumber; ++i)
 	{
 		CIndividual individual(*this);
 		individual.mute(mutator);
-		neighbours.push_back(individual);
+
+		individual.setFitness(problem.eval(individual));
+
+		if (individual.violated != violated)
+		{
+			neighbours.push_back(individual);
+		}
 	}
 
 	return neighbours;

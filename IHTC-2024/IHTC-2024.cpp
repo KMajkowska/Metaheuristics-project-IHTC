@@ -17,7 +17,7 @@
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
 	
-static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
+static const std::string PROBLEM_FILE = "../competition_instances/i03.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
 static const std::string LOG_FILE = "../logFile.txt";
@@ -28,11 +28,7 @@ static constexpr int REPETITIONS = 1;
 
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 800;  // 150 for VCF, 9 for GG, simplex is whatever
-<<<<<<< HEAD
-static constexpr int NEIGHBOURHOOD_NUMBER = 10;
-=======
-static constexpr int NEIGHBOURHOOD_NUMBER = 15;
->>>>>>> 731536445c20442b47314bcc891e520ce22ee74f
+static constexpr int NEIGHBOURHOOD_NUMBER = 30;
 
 static constexpr double NEIGHBOUR_PROB = 1;
 
@@ -63,7 +59,7 @@ static double calculateFitnessWithWeigtht(const WeightsDTO& weights, const Viola
 
 static bool stopCriteriumSA(double currTemp, int iteration)
 {
-	return currTemp < 1.0;
+	return currTemp < 0.1;
 }
 
 static bool stopCriteriumSAIter(double currTemp, int iteration)
@@ -101,8 +97,8 @@ int main(int argc, char* argv[])
 			std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB)
 		};
 
-		NeighbourGeneratorQueue neighbourGenQueue(mutators);
-		NeighbourGeneratorTournament neighbourGenTournament(mutators);
+		NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
+		NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
 
 		SASolver saSolver(
 			problemData,

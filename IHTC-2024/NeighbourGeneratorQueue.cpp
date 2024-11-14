@@ -1,11 +1,11 @@
 #include "NeighbourGeneratorQueue.h"
 
-NeighbourGeneratorQueue::NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>>& mutators) :
-	INeighbourGenerator(mutators),
+NeighbourGeneratorQueue::NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
+	INeighbourGenerator(mutators, problem),
 	mutatorQueue(std::deque<std::shared_ptr<IMutator>>(mutators.begin(), mutators.end()))
 {}
 
-std::vector<CIndividual> NeighbourGeneratorQueue::getNeighbours(int iteration, int numberOfNeigbours, const CIndividual& currIndiv)
+std::vector<CIndividual> NeighbourGeneratorQueue::getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv)
 {
 	if (mutatorQueue.empty())
 	{
@@ -19,6 +19,7 @@ std::vector<CIndividual> NeighbourGeneratorQueue::getNeighbours(int iteration, i
 
 	return currIndiv.createNeighbours(
 		*mut,
-		numberOfNeigbours
+		numberOfNeigbours,
+		problem
 	);
 }

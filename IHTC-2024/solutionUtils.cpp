@@ -130,7 +130,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 				}
 			}
 
-			if (roomValue.shiftToNurseId.size() < allShiftTypes.size())
+			if (roomValue.patientIds.size() > 0 && roomValue.shiftToNurseId.size() < allShiftTypes.size())
 			{
 				res.countUncoveredRoomHard += allShiftTypes.size() - roomValue.shiftToNurseId.size();
 			}
@@ -278,8 +278,6 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 	}
 
 	return res;
-
-
 }
 
 double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
