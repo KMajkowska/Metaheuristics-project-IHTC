@@ -72,9 +72,17 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	double expProb = exp((neighbour.getFitness().first - curr.getFitness().first) / temperature);
+	int normalizedDiff = neighbour.getFitness().first - curr.getFitness().first;
 
-	return distribution(randGenerator) < 1 / (1 + expProb);
+	while (normalizedDiff > startingTemp * NORMALIZATION_DIVIDER)
+	{
+		normalizedDiff /= NORMALIZATION_DIVIDER;
+	}
+
+	double expCalc = exp(normalizedDiff / temperature);
+	double expProb = 1 / (1 + expCalc);
+
+	return distribution(randGenerator) < expProb;
 }
 
 /*

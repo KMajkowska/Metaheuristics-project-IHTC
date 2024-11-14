@@ -30,4 +30,6 @@ private:
 	INeighbourGenerator& neighbourGenerator;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
+
+	static constexpr double NORMALIZATION_DIVIDER = 3.0;
 };
