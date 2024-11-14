@@ -44,3 +44,17 @@ std::pair<int, int> findTwoDifferentNumbersBetween(int lowLimit, int highLimit, 
 
     return std::make_pair(firstIndex, secondIndex);
 }
+
+std::string getFileNameWithoutExtension(const std::string& filePath)
+{
+    std::filesystem::path path(filePath);
+    return path.stem().string();
+}
+
+std::string getLoggerFileName(const std::string filePath)
+{
+    
+    return LOG_FILE + getFileNameWithoutExtension(filePath) + ".txt";
+}
+
+

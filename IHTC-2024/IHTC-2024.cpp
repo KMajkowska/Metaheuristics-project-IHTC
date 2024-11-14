@@ -16,11 +16,10 @@
 #include "NeighbourGeneratorTournament.h"
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
-	
+
 static const std::string PROBLEM_FILE = "../competition_instances/i03.json";
 // static const std::string OUTPUT_FILE = "../solution.json";
 // static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
-static const std::string LOG_FILE = "../logFile.txt";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 
@@ -72,49 +71,53 @@ static double variableCoolingFactorCoolingSchemeParam(double startingTemp, doubl
 	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, MAX_ITER);
 }
 
-int main(int argc, char* argv[])
+static void run(int argc, char* argv[])
 {
+	std::string problemFile = argc > 1 ? argv[1] : PROBLEM_FILE;
+
+	ProblemData problemData = IHTCProblemIO::parseFromJSON(problemFile);
+	IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht);
+
+	Logger logger(getLoggerFileName(problemFile));
+
 	std::mt19937 mt = createRandomGenerator();
 
-	Logger logger(LOG_FILE);
+	const std::vector<std::shared_ptr<IMutator>> mutators =
+	{
+		std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
+		std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
+		std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
+		std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB),
+		std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB)
+	};
 
+	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
+	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
+
+	RandomSolver randSolver(problemData, mt);
+	GreedySolver greedySolver(problemData, mt, logger);
+	SASolver saSolver(
+		problemData,
+		STARTING_TEMP,
+		simplexCoolingScheme,
+		mt,
+		stopCriteriumSA,
+		NEIGHBOURHOOD_NUMBER,
+		neighbourGenTournament,
+		logger
+	);
+
+	evaluateProblem(REPETITIONS, problem, saSolver, greedySolver);
+}
+
+int main(int argc, char* argv[])
+{
 	try
 	{
-		ProblemData problemData = IHTCProblemIO::parseFromJSON(argc > 1 ? argv[0] : PROBLEM_FILE);
-
-		IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht);
-
-		RandomSolver randSolver(problemData, mt);
-
-		GreedySolver greedySolver(problemData, mt, logger);
-
-		const std::vector<std::shared_ptr<IMutator>> mutators =
-		{
-			std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB),
-			std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB)
-		};
-
-		NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
-		NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
-
-		SASolver saSolver(
-			problemData,
-			STARTING_TEMP,
-			simplexCoolingScheme,
-			mt,
-			stopCriteriumSA,
-			NEIGHBOURHOOD_NUMBER,
-			neighbourGenTournament,
-			logger
-		);
-
-		evaluateProblem(REPETITIONS, problem, saSolver, greedySolver);
+		run(argc, argv);
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << e.what();
+		std::cerr << e.what() << std::endl;
 	}
 }

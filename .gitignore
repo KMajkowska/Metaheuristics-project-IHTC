@@ -2,7 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=vcpkg,visualstudio,c++
 
 solution.json
-logFile.txt
+logFiles
+
+.idea
 
 ### C++ ###
 # Prerequisites
