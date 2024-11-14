@@ -1,9 +1,13 @@
 import os
 import subprocess
 from typing import List
+import winsound
 
 EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
 INSTANCES_PATH: str = "../competition_instances"
+
+FREQUENCY: int = 2500
+DURATION: int = 1000
 
 
 def generate_files() -> List[str]:
@@ -32,3 +36,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+    winsound.Beep(FREQUENCY, DURATION)

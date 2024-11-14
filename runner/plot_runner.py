@@ -10,7 +10,7 @@ CURRENT_COL_NAME: str = "res"
 BEST_COL_NAME: str = "resBest"
 TEMP_COL_NAME: str = "actualTemp"
 
-DPI: int = 1000
+DPI: int = 400
 FILE_FORMAT: str = "png"
 
 
