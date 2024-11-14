@@ -6,7 +6,7 @@
 #include <map>
 #include <filesystem>
 
-static const std::string LOG_FILE = "../logFiles/";
+static const std::string LOG_FILE = "../log_files/";
 
 void writeToFile(const std::string& filename, const std::string& data);
 

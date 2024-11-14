@@ -29,7 +29,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	logger.log(res.second.getCSVColumns("") + ",res," + res.second.getCSVColumns("Best") + ",resBest");
+	logger.log(res.second.getCSVColumns("") + ",res," + res.second.getCSVColumns("Best") + ",resBest,actualTemp");
 
 	while (!stopCriterium(actualTemp, iteration))
 	{
@@ -53,12 +53,13 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				{
 					best = curr;
 				}
-			}
 
-			logger.log(
-				curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
-				best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first)
-			);
+				logger.log(
+					curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
+					best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," + 
+					std::to_string(actualTemp)
+				);
+			}
 		}
 
 		actualTemp = coolingFn(startingTemp, actualTemp, iteration);
@@ -72,15 +73,20 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	int normalizedDiff = neighbour.getFitness().first - curr.getFitness().first;
+	int neighbourFitness = neighbour.getFitness().first;
+	int currFitness = curr.getFitness().first;
 
-	while (normalizedDiff > startingTemp * NORMALIZATION_DIVIDER)
+	int diff = neighbourFitness - currFitness;
+
+	while (diff > startingTemp * NORMALIZATION_DIVIDER)
 	{
-		normalizedDiff /= NORMALIZATION_DIVIDER;
+		diff /= NORMALIZATION_DIVIDER;
 	}
 
-	double expCalc = exp(normalizedDiff / temperature);
-	double expProb = 1 / (1 + expCalc);
+	double expCalc = exp(diff / temperature);
+	double expProb = 2 / (1 + expCalc);
+
+	// logger.log(std::to_string(expProb));
 
 	return distribution(randGenerator) < expProb;
 }

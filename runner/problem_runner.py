@@ -13,14 +13,15 @@ def generate_files() -> List[str]:
 def main() -> None:
     if not os.path.exists(EXEC_PATH):
         raise Exception(f"Executable not found: {EXEC_PATH}")
-    
+
     for file_path in generate_files():
         if not os.path.exists(file_path):
             raise Exception(f"File path not found: {file_path}")
 
+        print(f"Running {EXEC_PATH} with {file_path}")
+
         result = subprocess.run([EXEC_PATH, file_path], capture_output=True, text=True)
 
-        print(f"Running {EXEC_PATH} with {file_path}")
         print("Output:")
         print(result.stdout)
 
@@ -29,5 +30,5 @@ def main() -> None:
             print(result.stderr)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
