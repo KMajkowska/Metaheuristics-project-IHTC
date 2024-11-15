@@ -18,3 +18,8 @@ CIndividual EASolver::solve(const IProblem& problem, const CIndividual& starting
 {
 	return CIndividual();
 }
+
+std::string EASolver::getCSVHeaders() const
+{
+	return ViolatedRestrictions().getCSVColumns("") + ", res";
+}

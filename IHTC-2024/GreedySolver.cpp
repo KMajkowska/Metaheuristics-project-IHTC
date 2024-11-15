@@ -156,6 +156,11 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 	return CIndividual(patients, assignments);
 }
 
+std::string GreedySolver::getCSVHeaders() const
+{
+	return ViolatedRestrictions().getCSVColumns("") + ", res";
+}
+
 std::vector<std::string> GreedySolver::chooseNurse(
 	std::unordered_map<std::string, Workload>& nurseWorkloads,
 	ShiftNurses& shiftNurses,

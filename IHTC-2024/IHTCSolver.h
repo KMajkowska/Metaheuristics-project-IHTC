@@ -10,6 +10,8 @@ class IHTCSolver : public ISolver
 public:
 	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger);
 
+	virtual std::string getCSVHeaders() const = 0;
+
 protected:
 	std::vector<std::vector<int>> patientsInRoom;
 	RoomWithOccupancyRepresentation roomInfos;

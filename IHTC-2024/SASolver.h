@@ -22,6 +22,8 @@ public:
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 
+	std::string getCSVHeaders() const;
+
 private:
 	double startingTemp;
 	std::function<double(double, double, int)> coolingFn;

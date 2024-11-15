@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-LOG_FILES_PATH: str = "../log_files_random/"
+LOG_FILES_PATH: str = "../log_files/"
 PLOT_OUTPUT_PATH: str = "../plot_output/"
 
 CURRENT_COL_NAME: str = "res"

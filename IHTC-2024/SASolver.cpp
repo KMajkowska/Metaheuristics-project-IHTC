@@ -29,8 +29,6 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	logger.log(res.second.getCSVColumns("") + ",res," + res.second.getCSVColumns("Best") + ",resBest,actualTemp");
-
 	while (!stopCriterium(actualTemp, iteration))
 	{
 		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
@@ -67,6 +65,13 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 	}
 
 	return best;
+}
+
+std::string SASolver::getCSVHeaders() const
+{
+	ViolatedRestrictions res;
+
+	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp";
 }
 
 bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual& neighbour, double temperature) const

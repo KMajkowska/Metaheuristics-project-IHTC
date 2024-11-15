@@ -1,8 +1,7 @@
 #include "RandomSolver.h"
-#include <iostream>
 
-RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator) :
-    ISolver(problemData, randGenerator)
+RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger) :
+    IHTCSolver(problemData, randGenerator, logger)
 {}
 
 CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
@@ -83,5 +82,16 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
        solutionAssignments[nurse.getId()] = assignments;
     }
 
-    return CIndividual(solutionPatients, solutionAssignments);
+    CIndividual res(solutionPatients, solutionAssignments);
+
+    res.setFitness(problem.eval(res));
+
+    logger.log(res.getFitness().second.getCSVData() + "," + std::to_string(res.getFitness().first));
+
+    return res;
+}
+
+std::string RandomSolver::getCSVHeaders() const
+{
+    return ViolatedRestrictions().getCSVColumns("") + ", res";
 }

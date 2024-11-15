@@ -5,8 +5,10 @@
 #include <random>
 #include <map>
 #include <filesystem>
+#include "ViolatedRestrictions.h"
+#include "WeightsDTO.h"
 
-static const std::string LOG_FILE = "../log_files_random/";
+static const std::string LOG_FILE = "../log_files/";
 
 void writeToFile(const std::string& filename, const std::string& data);
 
@@ -17,3 +19,6 @@ std::pair<int, int> findTwoDifferentNumbersBetween(int lowLimit, int highLimit, 
 std::string getFileNameWithoutExtension(const std::string& filePath);
 
 std::string getLoggerFileName(const std::string filePath);
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec);
