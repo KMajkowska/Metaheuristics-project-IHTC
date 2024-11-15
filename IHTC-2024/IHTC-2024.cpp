@@ -24,7 +24,7 @@ static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
 
 static constexpr double HARD_RESTRICTION_WEIGHT = 100;
 
-static constexpr int REPETITIONS = 1;
+static constexpr int REPETITIONS = 100;
 
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 600;
@@ -97,7 +97,7 @@ static void run(int argc, char* argv[])
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
 	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
 
-	RandomSolver randSolver(problemData, mt);
+	RandomSolver randSolver(problemData, mt, logger);
 	GreedySolver greedySolver(problemData, mt, logger);
 	SASolver saSolver(
 		problemData,
@@ -110,7 +110,10 @@ static void run(int argc, char* argv[])
 		logger
 	);
 
-	evaluateProblem(REPETITIONS, problem, saSolver, greedySolver);
+	logger.log(ViolatedRestrictions().getCSVColumns("") + ", res");
+
+
+	evaluateProblem(REPETITIONS, problem, randSolver, randSolver);
 }
 
 int main(int argc, char* argv[])
