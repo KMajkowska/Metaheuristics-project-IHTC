@@ -29,7 +29,7 @@ static constexpr int REPETITIONS = 1;
 static constexpr int MAX_ITER = 250;
 static constexpr double STARTING_TEMP = 600;
 static constexpr double STOP_TEMP = 0.01;
-static constexpr int NEIGHBOURHOOD_NUMBER = 30;
+static constexpr int NEIGHBOURHOOD_NUMBER = 5;
 
 static constexpr double NEIGHBOUR_PROB = 0.5;
 
