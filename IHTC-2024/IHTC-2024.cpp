@@ -17,102 +17,50 @@
 #include "GreedySolver.h"
 #include "IHTCMutatorAssignmentsSwap.h"
 #include "IHTCMutatorNurseRoomCover.h"
-
-static const std::string PROBLEM_FILE = "../competition_instances/i01.json";
-// static const std::string OUTPUT_FILE = "../solution.json";
-// static const std::string SOLUTION_FILE = "../toy/toy_solution.json";
-
-static constexpr double HARD_RESTRICTION_WEIGHT = 100;
-
-static constexpr int REPETITIONS = 100;
-
-static constexpr int MAX_ITER = 250;
-static constexpr double STARTING_TEMP = 600;
-static constexpr double STOP_TEMP = 0.01;
-static constexpr int NEIGHBOURHOOD_NUMBER = 15;
-
-static constexpr double NEIGHBOUR_PROB = 0.5;
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
-{
-	os << "{";
-
-	for (size_t i = 0; i < vec.size(); ++i)
-	{
-		os << vec[i];
-
-		if (i != vec.size() - 1)
-		{
-			os << ", ";
-		}
-	}
-
-	os << "}\n";
-
-	return os;
-}
-
-static double calculateFitnessWithWeigtht(const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
-{
-	return calculateFitness(HARD_RESTRICTION_WEIGHT, weights, restrictions);
-}
-
-static bool stopCriteriumSA(double currTemp, int iteration)
-{
-	return currTemp < STOP_TEMP;
-}
-
-static bool stopCriteriumSAIter(double currTemp, int iteration)
-{
-	return iteration >= MAX_ITER;
-}
-
-static double variableCoolingFactorCoolingSchemeParam(double startingTemp, double currTemp, int iteration)
-{
-	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, MAX_ITER);
-}
+#include "params.h"
 
 static void run(int argc, char* argv[])
 {
-	std::string problemFile = argc > 1 ? argv[1] : PROBLEM_FILE;
+	std::string problemFile = argc > 1 ? argv[1] : DEFAULT_PROBLEM_FILE;
+
+	Logger logger(getLoggerFileName(problemFile));
 
 	ProblemData problemData = IHTCProblemIO::parseFromJSON(problemFile);
 	IHTCProblem problem(problemData, getViolatedFromSolution, calculateFitnessWithWeigtht);
 
-	Logger logger(getLoggerFileName(problemFile));
-
-	std::mt19937 mt = createRandomGenerator();
+	std::mt19937 randomGenerator = createRandomGenerator();
 
 	const std::vector<std::shared_ptr<IMutator>> mutators =
 	{
-		std::make_shared<IHTCMutatorOTSwap>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorOTInversion>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorRoom>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorDay>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorAssignmentsSwap>(mt, problemData, NEIGHBOUR_PROB),
-		std::make_shared<IHTCMutatorNurseRoomCover>(mt, problemData, NEIGHBOUR_PROB)
+		std::make_shared<IHTCMutatorOTSwap>(randomGenerator, problemData, MUTATION_PROBABILITY),
+		std::make_shared<IHTCMutatorOTInversion>(randomGenerator, problemData, MUTATION_PROBABILITY),
+		std::make_shared<IHTCMutatorRoom>(randomGenerator, problemData, MUTATION_PROBABILITY),
+		std::make_shared<IHTCMutatorDay>(randomGenerator, problemData, MUTATION_PROBABILITY),
+		std::make_shared<IHTCMutatorAssignmentsSwap>(randomGenerator, problemData, MUTATION_PROBABILITY),
+		std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, MUTATION_PROBABILITY)
 	};
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
 	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
 
-	RandomSolver randSolver(problemData, mt, logger);
-	GreedySolver greedySolver(problemData, mt, logger);
-	SASolver saSolver(
+	RandomSolver randomSolver(problemData, randomGenerator, logger);
+	GreedySolver greedySolver(problemData, randomGenerator, logger);
+	SASolver simulatedAnnealingSolver(
 		problemData,
-		STARTING_TEMP,
+		STARTING_TEMPERATURE,
 		simplexCoolingScheme,
-		mt,
+		randomGenerator,
 		stopCriteriumSA,
-		NEIGHBOURHOOD_NUMBER,
+		NEIGHBOUR_NUMBER,
 		neighbourGenTournament,
 		logger
 	);
 
-	logger.log(ViolatedRestrictions().getCSVColumns("") + ", res");
+	const auto& currentSolver = simulatedAnnealingSolver;
 
-	evaluateProblem(REPETITIONS, problem, saSolver, randSolver);
+	logger.log(currentSolver.getCSVHeaders());
+
+	evaluateProblem(SOLVER_REPETITION_AMOUNT, problem, currentSolver, randomSolver);
 }
 
 int main(int argc, char* argv[])
@@ -125,4 +73,6 @@ int main(int argc, char* argv[])
 	{
 		std::cerr << e.what() << std::endl;
 	}
+
+	return 0;
 }

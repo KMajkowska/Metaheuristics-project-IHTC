@@ -13,6 +13,8 @@ public:
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
 
+	std::string getCSVHeaders() const;
+
 private:
 	const ISelector& selector;
 	const IMutator& mutator;

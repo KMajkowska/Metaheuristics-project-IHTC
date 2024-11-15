@@ -90,3 +90,8 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
 
     return res;
 }
+
+std::string RandomSolver::getCSVHeaders() const
+{
+    return ViolatedRestrictions().getCSVColumns("") + ", res";
+}

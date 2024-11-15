@@ -1,4 +1,5 @@
 #include "solutionUtils.h"
+#include "params.h"
 
 ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, const SolutionData& solution)
 {
@@ -339,3 +340,22 @@ std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountO
 	return fitnesses;
 }
 
+double calculateFitnessWithWeigtht(const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
+{
+	return calculateFitness(HARD_RESTRICTION_WEIGHT, weights, restrictions);
+}
+
+bool stopCriteriumSA(double currTemp, int iteration)
+{
+	return currTemp < STOP_TEMPERATURE;
+}
+
+bool stopCriteriumSAIter(double currTemp, int iteration)
+{
+	return iteration >= MAX_ITERATION;
+}
+
+double variableCoolingFactorCoolingSchemeParam(double startingTemp, double currTemp, int iteration)
+{
+	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, MAX_ITERATION);
+}

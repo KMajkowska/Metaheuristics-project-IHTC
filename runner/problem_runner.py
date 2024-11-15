@@ -4,7 +4,7 @@ from typing import List
 import winsound
 
 EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
-INSTANCES_PATH: str = "../competition_instances"
+INSTANCES_PATH: str = "../datasets/competition_instances"
 
 FREQUENCY: int = 2500
 DURATION: int = 1000

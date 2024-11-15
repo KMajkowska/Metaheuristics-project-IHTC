@@ -1,6 +1,5 @@
 #include "other.h"
 
-
 void writeToFile(const std::string& filename, const std::string& data)
 {
     std::ofstream file(filename);
@@ -53,8 +52,25 @@ std::string getFileNameWithoutExtension(const std::string& filePath)
 
 std::string getLoggerFileName(const std::string filePath)
 {
-    
     return LOG_FILE + getFileNameWithoutExtension(filePath) + ".csv";
 }
 
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
+{
+    os << "{";
 
+    for (size_t i = 0; i < vec.size(); ++i)
+    {
+        os << vec[i];
+
+        if (i != vec.size() - 1)
+        {
+            os << ", ";
+        }
+    }
+
+    os << "}\n";
+
+    return os;
+}

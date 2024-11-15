@@ -246,9 +246,6 @@
     <ClCompile Include="RoomInfo.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClCompile>
-    <ClCompile Include="SurgeonOTInfo.h">
-      <Filter>Pliki nagłówkowe\algorithm\other</Filter>
-    </ClCompile>
     <ClCompile Include="NurseRoomIndividual.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
     </ClCompile>
@@ -287,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="IHTCMutatorNurseRoomCover.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="IHTCMutatorNurseRoomCover.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="params.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
