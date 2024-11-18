@@ -97,7 +97,7 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 		setFitness(problem.eval(*this));
 	}
 
-	while (neighbours.size() < neighbourhoodNumber)
+	for (size_t i = 0; i < neighbourhoodNumber * neighbourhoodNumber && neighbours.size() < neighbourhoodNumber; ++i)
 	{
 		CIndividual individual(*this);
 		individual.mute(mutator);
