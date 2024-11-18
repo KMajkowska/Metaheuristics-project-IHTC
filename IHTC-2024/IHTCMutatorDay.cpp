@@ -51,6 +51,11 @@ void IHTCMutatorDay::mutate(CIndividual& individual) const
 	individual.setPatients(patients);
 }
 
+std::string IHTCMutatorDay::getMutatorName() const
+{
+	return "Day";
+}
+
 // We allow to be greater than max, on purpose, it will be punished later
 int IHTCMutatorDay::randomDay(int min, int max) const
 {

@@ -69,3 +69,8 @@ void IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 
 	individual.setPatients(patients);
 }
+
+std::string IHTCMutatorOTInversion::getMutatorName() const
+{
+	return "OperatingTheatersInversion";
+}

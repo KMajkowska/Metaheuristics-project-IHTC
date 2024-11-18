@@ -78,3 +78,8 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 	individual.setPatients(patients);
 
 }
+
+std::string IHTCMutatorOTSwap::getMutatorName() const
+{
+	return "OperatingTheatersSwap";
+}

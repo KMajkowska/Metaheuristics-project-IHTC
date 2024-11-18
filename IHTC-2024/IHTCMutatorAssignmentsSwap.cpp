@@ -88,3 +88,8 @@ void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 		}
 	}
 }
+
+std::string IHTCMutatorAssignmentsSwap::getMutatorName() const
+{
+	return "AssignmentsSwap";
+}

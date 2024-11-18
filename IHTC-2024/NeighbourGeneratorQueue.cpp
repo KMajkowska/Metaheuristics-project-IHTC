@@ -7,11 +7,6 @@ NeighbourGeneratorQueue::NeighbourGeneratorQueue(const std::vector<std::shared_p
 
 std::vector<CIndividual> NeighbourGeneratorQueue::getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv)
 {
-	if (mutatorQueue.empty())
-	{
-		throw std::runtime_error("Mutator queue is empty.");
-	}
-
 	std::shared_ptr<IMutator> mut = mutatorQueue.front();
 
 	mutatorQueue.pop();

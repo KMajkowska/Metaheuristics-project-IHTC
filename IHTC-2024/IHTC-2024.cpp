@@ -18,6 +18,8 @@
 #include "IHTCMutatorAssignmentsSwap.h"
 #include "IHTCMutatorNurseRoomCover.h"
 #include "params.h"
+#include "NeighbourGeneratorPrizeBest.h"
+#include "NeighbourGeneratorTop.h"
 
 static void run(int argc, char* argv[])
 {
@@ -42,6 +44,8 @@ static void run(int argc, char* argv[])
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
 	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
+	NeighbourGeneratorPrizeBest neighbourGenPrize(mutators, problem);
+	NeighbourGeneratorTop neighbourGenTop(mutators, problem);
 
 	RandomSolver randomSolver(problemData, randomGenerator, logger);
 	GreedySolver greedySolver(problemData, randomGenerator, logger);
@@ -52,7 +56,7 @@ static void run(int argc, char* argv[])
 		randomGenerator,
 		stopCriteriumSA,
 		NEIGHBOUR_NUMBER,
-		neighbourGenTournament,
+		neighbourGenPrize,
 		logger
 	);
 

@@ -1,7 +1,7 @@
 #include "CIndividual.h"
 #include "IMutator.h"
 
-CIndividual::CIndividual() : 
+CIndividual::CIndividual() :
 	fitness(0),
 	fitnessUpToDate(false)
 {
@@ -19,7 +19,8 @@ CIndividual::CIndividual(const CIndividual& otherIndividual) :
 	assignments(otherIndividual.assignments), // deep copy of the map (string -> vector of Assignments)
 	fitness(otherIndividual.fitness),
 	violated(otherIndividual.violated),
-	fitnessUpToDate(otherIndividual.fitnessUpToDate)
+	fitnessUpToDate(otherIndividual.fitnessUpToDate),
+	mutatorName(otherIndividual.mutatorName)
 {}
 
 std::vector<Patient> CIndividual::getPatients() const
@@ -42,6 +43,11 @@ std::pair<double, ViolatedRestrictions> CIndividual::getFitness() const
 	return std::make_pair(fitness, violated);
 }
 
+std::string CIndividual::getMutatorName() const
+{
+	return mutatorName;
+}
+
 bool CIndividual::isFitnessUpToDate() const
 {
 	return fitnessUpToDate;
@@ -55,6 +61,11 @@ void CIndividual::setAssignments(std::unordered_map<std::string, std::vector<Ass
 void CIndividual::setPatients(std::vector<Patient> newPatients)
 {
 	patients = newPatients;
+}
+
+void CIndividual::setMutatorName(const std::string& newMutatorName)
+{
+	mutatorName = newMutatorName;
 }
 
 void CIndividual::setFitness(const std::pair<double, ViolatedRestrictions>& newFitness)
@@ -86,10 +97,12 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 		setFitness(problem.eval(*this));
 	}
 
-	for (size_t i = 0; i < neighbourhoodNumber; ++i)
+	while (neighbours.size() < neighbourhoodNumber)
 	{
 		CIndividual individual(*this);
 		individual.mute(mutator);
+
+		individual.setMutatorName(mutator.getMutatorName());
 
 		individual.setFitness(problem.eval(individual));
 
@@ -100,4 +113,9 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 	}
 
 	return neighbours;
+}
+
+std::partial_ordering CIndividual::operator<=>(const CIndividual& other) const
+{
+	return fitness <=> other.fitness;
 }

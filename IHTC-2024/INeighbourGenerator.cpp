@@ -1,9 +1,10 @@
 #include "INeighbourGenerator.h"
 
 INeighbourGenerator::INeighbourGenerator(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
-	problem(problem)
+	problem(problem),
+	mutators(mutators)
 {
-	if (mutators.size() <= 0)
+	if (mutators.empty())
 	{
 		throw std::invalid_argument("Mutators list must contain at least one mutator");
 	}

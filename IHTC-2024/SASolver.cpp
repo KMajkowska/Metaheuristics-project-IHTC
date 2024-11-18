@@ -55,7 +55,8 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				logger.log(
 					curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
 					best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," + 
-					std::to_string(actualTemp)
+					std::to_string(actualTemp) + "," +
+					curr.getMutatorName()
 				);
 			}
 		}
@@ -71,7 +72,7 @@ std::string SASolver::getCSVHeaders() const
 {
 	ViolatedRestrictions res;
 
-	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp";
+	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp,currMutator";
 }
 
 bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual& neighbour, double temperature) const

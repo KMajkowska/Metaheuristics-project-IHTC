@@ -32,3 +32,8 @@ void IHTCMutatorRoom::mutate(CIndividual& individual) const
 
 	individual.setPatients(patients);
 }
+
+std::string IHTCMutatorRoom::getMutatorName() const
+{
+	return "Room";
+}

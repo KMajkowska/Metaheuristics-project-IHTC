@@ -288,6 +288,12 @@
     <ClCompile Include="SurgeonOTInfo.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClCompile>
+    <ClCompile Include="NeighbourGeneratorTop.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorPrizeBest.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="params.h">
       <Filter>Pliki nagłówkowe\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorTop.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorPrizeBest.h">
+      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

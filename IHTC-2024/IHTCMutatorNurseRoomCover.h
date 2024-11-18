@@ -9,6 +9,9 @@ public:
 
 	void mutate(CIndividual& individual) const;
 
+	std::string getMutatorName() const;
+
+
 private:
 	double roomAddingToNurseProbability;
 };

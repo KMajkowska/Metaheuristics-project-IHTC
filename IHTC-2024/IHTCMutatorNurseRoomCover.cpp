@@ -73,4 +73,9 @@ void IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 	individual.setAssignments(nurses);
 }
 
+std::string IHTCMutatorNurseRoomCover::getMutatorName() const
+{
+	return "NurseRoomCover";
+}
+
 

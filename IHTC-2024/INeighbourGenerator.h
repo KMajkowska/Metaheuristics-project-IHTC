@@ -14,5 +14,7 @@ public:
 	virtual std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv) = 0;
 
 protected:
+	const std::vector<std::shared_ptr<IMutator>>& mutators;
+
 	const IProblem& problem;
 };

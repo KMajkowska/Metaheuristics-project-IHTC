@@ -9,6 +9,4 @@ public:
 
 	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv);
 
-private:
-	std::vector<std::shared_ptr<IMutator>> mutators;
 };

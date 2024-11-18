@@ -151,7 +151,9 @@
     <ClCompile Include="INeighbourGenerator.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="NeighbourGeneratorPrizeBest.cpp" />
     <ClCompile Include="NeighbourGeneratorQueue.cpp" />
+    <ClCompile Include="NeighbourGeneratorTop.cpp" />
     <ClCompile Include="NeighbourGeneratorTournament.cpp" />
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
@@ -205,7 +207,9 @@
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="INeighbourGenerator.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="NeighbourGeneratorPrizeBest.h" />
     <ClInclude Include="NeighbourGeneratorQueue.h" />
+    <ClInclude Include="NeighbourGeneratorTop.h" />
     <ClInclude Include="NeighbourGeneratorTournament.h" />
     <ClInclude Include="NurseWrapper.h" />
     <ClInclude Include="params.h" />
