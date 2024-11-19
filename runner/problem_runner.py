@@ -4,6 +4,8 @@ from typing import List
 import winsound
 
 EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
+PARAMS_PATH: str = "../IHTC-2024/params.json"
+
 INSTANCES_PATH: str = "../datasets/competition_instances"
 
 FREQUENCY: int = 2500
@@ -24,7 +26,7 @@ def main() -> None:
 
         print(f"Running {EXEC_PATH} with {file_path}")
 
-        result = subprocess.run([EXEC_PATH, file_path], capture_output=True, text=True)
+        result = subprocess.run([EXEC_PATH, file_path, PARAMS_PATH], capture_output=True, text=True)
 
         print("Output:")
         print(result.stdout)
