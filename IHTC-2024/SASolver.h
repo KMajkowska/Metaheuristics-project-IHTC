@@ -5,6 +5,8 @@
 
 #include "IHTCSolver.h"
 #include "INeighbourGenerator.h"
+#include "IStopCriterium.h"
+#include "ICoolingScheme.h"
 
 class SASolver : public IHTCSolver
 {
@@ -12,9 +14,9 @@ public:
 	SASolver(
 		const ProblemData& problemData,
 		double startingTemp, 
-		std::function<double(double, double, int)> coolingFn, 
+		const ICoolingScheme& coolingScheme,
 		std::mt19937& randGenerator, 
-		std::function<bool(double, int)> stopCriterium, 
+		const IStopCriterium& stopCriterium, 
 		int neighbourhoodNumber, 
 		INeighbourGenerator& neighbourGenerator, 
 		Logger& logger
@@ -26,8 +28,8 @@ public:
 
 private:
 	double startingTemp;
-	std::function<double(double, double, int)> coolingFn;
-	std::function<bool(double, int)> stopCriterium;
+	const ICoolingScheme& coolingScheme;
+	const IStopCriterium& stopCriterium;
 	int neighbourhoodNumber;
 	INeighbourGenerator& neighbourGenerator;
 

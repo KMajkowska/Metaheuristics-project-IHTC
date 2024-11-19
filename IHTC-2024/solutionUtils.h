@@ -18,18 +18,4 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions);
 
-double simplexCoolingScheme(double startingTemp, double currTemp, int iteration);
-
-double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration);
-
-double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber);
-
 std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initSolver);
-
-double calculateFitnessWithWeigtht(const WeightsDTO& weights, const ViolatedRestrictions& restrictions);
-
-bool stopCriteriumSA(double currTemp, int iteration);
-
-bool stopCriteriumSAIter(double currTemp, int iteration);
-
-double variableCoolingFactorCoolingSchemeParam(double startingTemp, double currTemp, int iteration);

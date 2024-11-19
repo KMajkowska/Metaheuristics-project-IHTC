@@ -50,9 +50,18 @@ std::string getFileNameWithoutExtension(const std::string& filePath)
     return path.stem().string();
 }
 
-std::string getLoggerFileName(const std::string filePath)
+IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver) 
 {
-    return LOG_FILE + getFileNameWithoutExtension(filePath) + ".csv";
+    switch (solverType) {
+    case SolverType::SA:
+        return &saSolver;
+    case SolverType::RAND:
+        return &randSolver;
+    case SolverType::GREEDY:
+        return &greedySolver;
+    default:
+        throw std::invalid_argument("Incorrect solver type");
+    }
 }
 
 template<typename T>

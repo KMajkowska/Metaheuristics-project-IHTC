@@ -6,6 +6,7 @@
 #include "ProblemData.h"
 #include "SolutionData.h"
 #include "CIndividual.h"
+#include "Params.h"
 
 class IHTCProblemIO
 {
@@ -16,6 +17,7 @@ public:
 	static SolutionData parseToSolution(const CIndividual& individual, const ProblemData& problemData);
 	static SolutionData parseFromJSONSolution(const std::string& problemFilepath);
 	static std::string parseSolutionToJSON(const SolutionData& solution);
+	static Params parseParamsFromJSON(const std::string& paramsFilepath);
 
 private:
 	IHTCProblemIO() = default;

@@ -78,3 +78,22 @@ std::string IHTCProblemIO::parseSolutionToJSON(const SolutionData& solution)
 
     return jsonObject.dump(JSON_INDENT);
 }
+
+Params IHTCProblemIO::parseParamsFromJSON(const std::string& paramsFilepath)
+{
+    std::ifstream inputFile(paramsFilepath);
+
+    if (!inputFile) {
+        inputFile.close();
+
+        throw std::invalid_argument("JSON params file cannot be opened");
+    }
+
+    nlohmann::json jsonData;
+    inputFile >> jsonData;
+
+    Params params;
+    nlohmann::from_json(jsonData, params);
+
+    return params;
+}

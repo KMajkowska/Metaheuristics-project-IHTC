@@ -1,0 +1,15 @@
+{
+
+    "hardRestrictionWeight": 100,
+    "maxIteration": 250,
+    "mutationProbability": 1,
+    "neighbourNumber": 18,
+    "simplexCoolingMultiplier": 0.9995,
+    "solverRepetitionAmount": 1,
+    "startingTemperature": 1000,
+    "stopTemperature": 1,
+    "initSolver": "greedy",
+    "outputSolver": "sa",
+    "neighbourGenerator": "prizeBest",
+    "outputPath":  "./log_files/"
+}

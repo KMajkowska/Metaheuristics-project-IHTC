@@ -115,6 +115,24 @@
     <Filter Include="Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators">
       <UniqueIdentifier>{da435957-fb09-47a1-9b4b-b0ad38a56d0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\params">
+      <UniqueIdentifier>{5bb65884-db0b-4705-9eaa-2ef071ab5411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\params">
+      <UniqueIdentifier>{51c9febe-f5f1-40c6-846b-4c4a1cc582b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\stopCriterium">
+      <UniqueIdentifier>{ab238f1f-f3ac-4b66-a6c0-a21317894d81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\stopCriterium">
+      <UniqueIdentifier>{f8f0bb54-1603-40fb-870f-33763ecd3922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\coolingScheme">
+      <UniqueIdentifier>{61d720d6-969c-4e52-88e7-0c559accf0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\coolingScheme">
+      <UniqueIdentifier>{a53f23c9-c47a-47fd-857f-76c39b5b06c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -294,6 +312,36 @@
     <ClCompile Include="NeighbourGeneratorPrizeBest.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="SolverType.cpp">
+      <Filter>Pliki źródłowe\algorithm\params</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorType.cpp">
+      <Filter>Pliki źródłowe\algorithm\params</Filter>
+    </ClCompile>
+    <ClCompile Include="Params.cpp">
+      <Filter>Pliki źródłowe\algorithm\params</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumTemperature.cpp">
+      <Filter>Pliki źródłowe\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumIter.cpp">
+      <Filter>Pliki źródłowe\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="SimplexCoolingScheme.cpp">
+      <Filter>Pliki źródłowe\algorithm\coolingScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableCoolingScheme.cpp">
+      <Filter>Pliki źródłowe\algorithm\coolingScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="strings.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="FitnessCalculator.cpp">
+      <Filter>Pliki źródłowe\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="GemanAndGemanCoolingScheme.cpp">
+      <Filter>Pliki źródłowe\algorithm\coolingScheme</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -455,19 +503,57 @@
     <ClInclude Include="IHTCMutatorNurseRoomCover.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
-    <ClInclude Include="params.h">
-      <Filter>Pliki nagłówkowe\algorithm</Filter>
-    </ClInclude>
     <ClInclude Include="NeighbourGeneratorTop.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
     </ClInclude>
     <ClInclude Include="NeighbourGeneratorPrizeBest.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
     </ClInclude>
+    <ClInclude Include="Params.h">
+      <Filter>Pliki nagłówkowe\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="SolverType.h">
+      <Filter>Pliki nagłówkowe\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorType.h">
+      <Filter>Pliki nagłówkowe\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="IStopCriterium.h">
+      <Filter>Pliki nagłówkowe\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumTemperature.h">
+      <Filter>Pliki nagłówkowe\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumIter.h">
+      <Filter>Pliki nagłówkowe\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="ICoolingScheme.h">
+      <Filter>Pliki nagłówkowe\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplexCoolingScheme.h">
+      <Filter>Pliki nagłówkowe\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableCoolingScheme.h">
+      <Filter>Pliki nagłówkowe\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="FitnessCalculator.h">
+      <Filter>Pliki nagłówkowe\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="strings.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GemanAndGemanCoolingScheme.h">
+      <Filter>Pliki nagłówkowe\algorithm\coolingScheme</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assign.txt">
       <Filter>Pliki zasobów</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="params.json">
+      <Filter>Pliki zasobów</Filter>
+    </None>
   </ItemGroup>
 </Project>

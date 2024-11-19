@@ -3,16 +3,16 @@
 SASolver::SASolver(
 	const ProblemData& problemData,
 	double startingTemp,
-	std::function<double(double, double, int)> coolingFn,
+	const ICoolingScheme& coolingScheme,
 	std::mt19937& randGenerator,
-	std::function<bool(double, int)>  stopCriterium,
+	const IStopCriterium& stopCriterium,
 	int neighbourhoodNumber,
 	INeighbourGenerator& neighbourGenerator,
 	Logger& logger
 ) :
 	IHTCSolver(problemData, randGenerator, logger),
 	startingTemp(startingTemp),
-	coolingFn(coolingFn),
+	coolingScheme(coolingScheme),
 	stopCriterium(stopCriterium),
 	neighbourhoodNumber(neighbourhoodNumber),
 	neighbourGenerator(neighbourGenerator)
@@ -29,7 +29,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	while (!stopCriterium(actualTemp, iteration))
+	while (!stopCriterium.isStop(actualTemp, iteration))
 	{
 		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
 
@@ -61,7 +61,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 			}
 		}
 
-		actualTemp = coolingFn(startingTemp, actualTemp, iteration);
+		actualTemp = coolingScheme.getNewTemp(startingTemp, actualTemp, iteration);
 		++iteration;
 	}
 

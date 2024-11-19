@@ -10,6 +10,7 @@
 #include "IHTCProblemIO.h"
 #include "solutionUtils.h"
 #include "Logger.h"
+#include "FitnessCalculator.h"
 
 /*
 macierz timeslot/pacjent
@@ -23,7 +24,7 @@ public:
 	IHTCProblem(
 		const ProblemData& problemData, 
 		std::function<ViolatedRestrictions(const ProblemData& problemData, const SolutionData& solution)> calculateRestrictions,
-		std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn
+		const FitnessCalculator& calc
 	);
 
 	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const;
@@ -32,5 +33,5 @@ protected:
 	const ProblemData& problemData;
 
 	std::function<ViolatedRestrictions(const ProblemData& problemData, const SolutionData& solution)> calculateRestrictions;
-	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn;
+	const FitnessCalculator& calc;
 };

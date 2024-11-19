@@ -304,21 +304,6 @@ double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, 
 		+ restrictions.countUncheduledOptional * weights.getUnscheduledOptional();
 }
 
-double simplexCoolingScheme(double startingTemp, double currTemp, int iteration)
-{
-	return SIMPLEX_COOLING_MULTIPLIER * currTemp;
-}
-
-double gemanAndGemanCoolingScheme(double startingTemp, double currTemp, int iteration)
-{
-	return startingTemp / log(1 + iteration);
-}
-
-double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber)
-{
-	return currTemp * 1.0 / (1.0 + 1.0 / sqrt(iteration * (maxIterationNumber + 1) + maxIterationNumber));
-}
-
 std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
 {
 	std::vector<std::pair<double, ViolatedRestrictions>> fitnesses;
@@ -338,24 +323,4 @@ std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountO
 	}
 
 	return fitnesses;
-}
-
-double calculateFitnessWithWeigtht(const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
-{
-	return calculateFitness(HARD_RESTRICTION_WEIGHT, weights, restrictions);
-}
-
-bool stopCriteriumSA(double currTemp, int iteration)
-{
-	return currTemp < STOP_TEMPERATURE;
-}
-
-bool stopCriteriumSAIter(double currTemp, int iteration)
-{
-	return iteration >= MAX_ITERATION;
-}
-
-double variableCoolingFactorCoolingSchemeParam(double startingTemp, double currTemp, int iteration)
-{
-	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, MAX_ITERATION);
 }

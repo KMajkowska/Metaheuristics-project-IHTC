@@ -135,6 +135,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EASolver.cpp" />
+    <ClCompile Include="FitnessCalculator.cpp" />
+    <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GreedySolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
@@ -155,7 +157,9 @@
     <ClCompile Include="NeighbourGeneratorQueue.cpp" />
     <ClCompile Include="NeighbourGeneratorTop.cpp" />
     <ClCompile Include="NeighbourGeneratorTournament.cpp" />
+    <ClCompile Include="NeighbourGeneratorType.cpp" />
     <ClCompile Include="NurseWrapper.cpp" />
+    <ClCompile Include="Params.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
     <ClCompile Include="ShiftNurses.cpp" />
     <ClCompile Include="OperatingTheaterInfo.cpp" />
@@ -185,8 +189,14 @@
     <ClCompile Include="IHTCProblem.cpp" />
     <ClCompile Include="RoomInfo.h" />
     <ClCompile Include="ShiftDTO.cpp" />
+    <ClCompile Include="SimplexCoolingScheme.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="solutionUtils.cpp" />
+    <ClCompile Include="SolverType.cpp" />
+    <ClCompile Include="StopCriteriumIter.cpp" />
+    <ClCompile Include="StopCriteriumTemperature.cpp" />
+    <ClCompile Include="strings.cpp" />
+    <ClCompile Include="VariableCoolingScheme.cpp" />
     <ClCompile Include="Workload.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
     <ClCompile Include="SurgeonOTInfo.cpp" />
@@ -196,7 +206,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EASolver.h" />
+    <ClInclude Include="FitnessCalculator.h" />
+    <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GreedySolver.h" />
+    <ClInclude Include="ICoolingScheme.h" />
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IHTCMutatorAssignmentsSwap.h" />
     <ClInclude Include="IHTCMutatorDay.h" />
@@ -206,13 +219,15 @@
     <ClInclude Include="IHTCMutatorOTSwap.h" />
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="INeighbourGenerator.h" />
+    <ClInclude Include="IStopCriterium.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="NeighbourGeneratorPrizeBest.h" />
     <ClInclude Include="NeighbourGeneratorQueue.h" />
     <ClInclude Include="NeighbourGeneratorTop.h" />
     <ClInclude Include="NeighbourGeneratorTournament.h" />
+    <ClInclude Include="NeighbourGeneratorType.h" />
     <ClInclude Include="NurseWrapper.h" />
-    <ClInclude Include="params.h" />
+    <ClInclude Include="Params.h" />
     <ClInclude Include="PatientNurses.h" />
     <ClInclude Include="ShiftNurses.h" />
     <ClInclude Include="OperatingTheaterInfo.h" />
@@ -243,8 +258,14 @@
     <ClInclude Include="IHTCProblem.h" />
     <ClInclude Include="PatientRoomInfo.h" />
     <ClInclude Include="ShiftDTO.h" />
+    <ClInclude Include="SimplexCoolingScheme.h" />
     <ClInclude Include="SolutionData.h" />
     <ClInclude Include="solutionUtils.h" />
+    <ClInclude Include="SolverType.h" />
+    <ClInclude Include="StopCriteriumIter.h" />
+    <ClInclude Include="StopCriteriumTemperature.h" />
+    <ClInclude Include="strings.h" />
+    <ClInclude Include="VariableCoolingScheme.h" />
     <ClInclude Include="Workload.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
@@ -254,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="assign.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="params.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

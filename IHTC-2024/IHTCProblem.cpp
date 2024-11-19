@@ -3,11 +3,11 @@
 IHTCProblem::IHTCProblem(
 	const ProblemData& problemData,
 	std::function<ViolatedRestrictions(const ProblemData&, const SolutionData&)> calculateRestrictions, 
-	std::function<double(const WeightsDTO&, const ViolatedRestrictions&)> evalFn
+	const FitnessCalculator& calc
 ) :
 	problemData(problemData),
 	calculateRestrictions(calculateRestrictions),
-	evalFn(evalFn)
+	calc(calc)
 {}
 
 std::pair<double, ViolatedRestrictions> IHTCProblem::eval(const CIndividual& individual) const
@@ -17,7 +17,7 @@ std::pair<double, ViolatedRestrictions> IHTCProblem::eval(const CIndividual& ind
 		IHTCProblemIO::parseToSolution(individual, problemData)
 	);
 
-	const double res = evalFn(problemData.getWeights(), restrictions);
+	const double res = calc.calculateFitnessWithWeight(problemData.getWeights(), restrictions);
 
 	return std::make_pair(res, restrictions);
 }
