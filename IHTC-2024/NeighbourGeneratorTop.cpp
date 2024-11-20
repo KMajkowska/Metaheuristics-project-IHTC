@@ -30,7 +30,7 @@ std::vector<CIndividual> NeighbourGeneratorTop::getNeighbours(int iteration, int
 
 		size_t halfSize = currNeighbours.size() / 2;
 
-		allNeighbours.insert(currNeighbours.end(), currNeighbours.begin(), currNeighbours.begin() + halfSize);
+		allNeighbours.insert(allNeighbours.end(), currNeighbours.begin(), currNeighbours.begin() + halfSize);
 	}
 
 	return allNeighbours;
