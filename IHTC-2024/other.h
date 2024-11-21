@@ -21,7 +21,9 @@ std::pair<int, int> findTwoDifferentNumbersBetween(int lowLimit, int highLimit, 
 
 std::string getFileNameWithoutExtension(const std::string& filePath);
 
-IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver);
-
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec);
+
+double calcAverage(const std::vector<double>& data);
+
+double calcStdDev(const std::vector<double>& data);

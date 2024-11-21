@@ -50,18 +50,30 @@ std::string getFileNameWithoutExtension(const std::string& filePath)
     return path.stem().string();
 }
 
-IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver) 
+double calcAverage(const std::vector<double>& data)
 {
-    switch (solverType) {
-    case SolverType::SA:
-        return &saSolver;
-    case SolverType::RAND:
-        return &randSolver;
-    case SolverType::GREEDY:
-        return &greedySolver;
-    default:
-        throw std::invalid_argument("Incorrect solver type");
+    double sum = 0.0;
+
+    for (double wartosc : data) 
+    {
+        sum += wartosc;
     }
+
+    return sum / data.size();
+}
+
+double calcStdDev(const std::vector<double>& data)
+{
+    double avg = calcAverage(data);
+
+    double res = 0.0;
+
+    for (double val : data) 
+    {
+        res += std::pow(val - avg, 2);
+    }
+
+    return std::sqrt(res / data.size());
 }
 
 template<typename T>

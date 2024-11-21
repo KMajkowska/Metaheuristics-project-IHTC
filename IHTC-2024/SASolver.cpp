@@ -31,7 +31,13 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	while (!stopCriterium.isStop(actualTemp, iteration))
 	{
+
 		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
+
+		double bestNeighbour = DBL_MAX;
+		double worstNeighbour = -1;
+		std::vector<double> fitnesses;
+		fitnesses.reserve(neighbours.size());
 
 		for (auto& neighbour : neighbours)
 		{
@@ -39,6 +45,20 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 			{
 				neighbour.setFitness(problem.eval(neighbour));
 			}
+
+			double fitness = neighbour.getFitness().first;
+
+			if (fitness < bestNeighbour)
+			{
+				bestNeighbour = fitness;
+			}
+
+			if (fitness > worstNeighbour)
+			{
+				worstNeighbour = fitness;
+			}
+
+			fitnesses.push_back(fitness);
 		}
 
 		for (const auto& neighbour : neighbours)
@@ -54,8 +74,12 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 				logger.log(
 					curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
-					best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," + 
+					best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," +
 					std::to_string(actualTemp) + "," +
+					std::to_string(worstNeighbour) + "," +
+					std::to_string(bestNeighbour) + "," +
+					std::to_string(calcAverage(fitnesses)) + "," +
+					std::to_string(calcStdDev(fitnesses)) + "," +
 					curr.getMutatorName()
 				);
 			}
@@ -72,7 +96,7 @@ std::string SASolver::getCSVHeaders() const
 {
 	ViolatedRestrictions res;
 
-	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp,currMutator";
+	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp,worstNeighbour,bestNeighbour,avgNeighbour,stdDevNeighbour,currMutator";
 }
 
 bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual& neighbour, double temperature) const

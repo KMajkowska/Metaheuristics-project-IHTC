@@ -55,8 +55,8 @@ public:
 	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:
-	int days;
-	int skill_levels;
+	int days = 0;
+	int skill_levels = 0;
 	std::vector<std::string> shift_types;
 	std::vector<std::string> age_groups;
 	WeightsDTO weights;

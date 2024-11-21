@@ -23,6 +23,20 @@
 #include "StopCriteriumTemperature.h"
 #include "SimplexCoolingScheme.h"
 
+IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver)
+{
+	switch (solverType) {
+	case SolverType::SA:
+		return &saSolver;
+	case SolverType::RAND:
+		return &randSolver;
+	case SolverType::GREEDY:
+		return &greedySolver;
+	default:
+		throw std::invalid_argument("Incorrect solver type");
+	}
+}
+
 static void run(int argc, char* argv[])
 {
 	std::string problemFile = argc > 1 ? argv[1] : DEFAULT_PROBLEM_FILE;

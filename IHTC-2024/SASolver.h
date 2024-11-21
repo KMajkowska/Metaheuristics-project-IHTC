@@ -7,6 +7,7 @@
 #include "INeighbourGenerator.h"
 #include "IStopCriterium.h"
 #include "ICoolingScheme.h"
+#include "other.h"
 
 class SASolver : public IHTCSolver
 {
