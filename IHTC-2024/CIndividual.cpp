@@ -105,8 +105,11 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 		individual.setMutatorName(mutator.getMutatorName());
 
 		individual.setFitness(problem.eval(individual));
-
-		neighbours.push_back(individual);
+		
+		/*if (violated != individual.violated) 
+		{*/
+			neighbours.push_back(individual);
+		//}
 	}
 
 	return neighbours;

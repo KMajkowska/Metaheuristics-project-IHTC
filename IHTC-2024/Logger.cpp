@@ -4,6 +4,7 @@
 Logger::Logger(const std::string& filename) :
 	filename(filename)
 {
+	std::cout << "filename: " << filename << std::endl;
 }
 
 Logger::~Logger()
@@ -13,7 +14,7 @@ Logger::~Logger()
 
 void Logger::log(const std::string& logStr)
 {
-	// std::cout << logStr << std::endl;
+	std::cout << logStr << std::endl;
 
 	std::lock_guard<std::mutex> lock(mutex);
 	buffer.push_back(logStr);

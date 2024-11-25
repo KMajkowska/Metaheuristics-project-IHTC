@@ -38,13 +38,58 @@ RoomWithOccupancyRepresentation::RoomWithOccupancyRepresentation(
 
 void RoomWithOccupancyRepresentation::addIncomingPatient(int admissionDay, const std::string& roomId, const IncomingPatientDTO& patient)
 {
-	addPatient(admissionDay, roomId, patient, false);
+	if (admissionDay < 0 || roomId.empty())
+	{
+		return;
+	}
+
+	for (int i = 0; i < patient.getLengthOfStay() && i + admissionDay < preprocessedRooms.size(); ++i)
+	{
+		auto& roomInfo = preprocessedRooms[i + admissionDay].at(roomId);
+
+		roomInfo.patientIds.insert(patient.getId());
+
+		++roomInfo.ageGroups[patient.getAgeGroup()];
+		++roomInfo.genders[patient.getGender()];
+
+		--roomInfo.currentCapacity;
+
+		for (int j = 0; j < shiftTypes.size(); ++j)
+		{
+			const auto& shiftType = shiftTypes[j];
+			const auto& offset = i * shiftTypes.size() + j;
+
+			roomInfo.skillLevelsRequired[shiftType].push_back(patient.getSkillLevelRequired()[offset]);
+			roomInfo.shiftNameToProducedWorkload[shiftType] += patient.getWorkloadProduced()[offset];
+		}
+	}
 	addIncompatibleRoom(patient);
 }
 
 void RoomWithOccupancyRepresentation::addOccupant(const OccupantDTO& occupant)
 {
-	addPatient(0, occupant.getRoomId(), occupant, true);
+
+	for (int i = 0; i < occupant.getLengthOfStay(); ++i)
+	{
+		auto& roomInfo = preprocessedRooms[i].at(occupant.getRoomId());
+
+		roomInfo.occupantIds.insert(occupant.getId());
+
+		++roomInfo.ageGroups[occupant.getAgeGroup()];
+		++roomInfo.genders[occupant.getGender()];
+
+		--roomInfo.currentCapacity;
+		--roomInfo.maxCapacity;
+		
+		for (int j = 0; j < shiftTypes.size(); ++j)
+		{
+			const auto& shiftType = shiftTypes[j];
+			const auto& offset = i * shiftTypes.size() + j;
+
+			roomInfo.skillLevelsRequired[shiftType].push_back(occupant.getSkillLevelRequired()[offset]);
+			roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[offset];
+		}
+	}
 }
 
 RoomInfo& RoomWithOccupancyRepresentation::getPatientRoomInfoRef(int day, const std::string& roomId)
@@ -55,45 +100,6 @@ RoomInfo& RoomWithOccupancyRepresentation::getPatientRoomInfoRef(int day, const 
 const std::unordered_map<std::string, RoomInfo>& RoomWithOccupancyRepresentation::getRoomsForGivenDayRef(int day)
 {
 	return preprocessedRooms.at(day);
-}
-
-void RoomWithOccupancyRepresentation::addPatient(int admissionDay, const std::string& roomId, const PatientDTO& patient, bool decreaseMaxCapacity)
-{
-	if (admissionDay < 0 || roomId.empty())
-	{
-		return;
-	}
-
-	for (int i = 0; i < patient.getLengthOfStay() && i + admissionDay < preprocessedRooms.size(); ++i)
-	{
-		auto& roomInfo = preprocessedRooms[i + admissionDay].at(roomId);
-
-		roomInfo.occupantIds.insert(patient.getId());
-
-		++roomInfo.ageGroups[patient.getAgeGroup()];
-		++roomInfo.genders[patient.getGender()];
-
-		--roomInfo.currentCapacity;
-
-		if (decreaseMaxCapacity)
-		{
-			--roomInfo.maxCapacity;
-		}
-
-		for (int j = 0; j < shiftTypes.size(); ++j)
-		{
-			const auto& shiftType = shiftTypes[j];
-			const auto& offset = i * shiftTypes.size() + j;
-
-			roomInfo.skillLevelsRequired[shiftType].push_back(patient.getSkillLevelRequired()[offset]);
-			roomInfo.shiftNameToProducedWorkload[shiftType] += patient.getWorkloadProduced()[offset];
-		}
-
-		if (!decreaseMaxCapacity)
-		{
-			roomInfo.patientIds.insert(patient.getId());
-		}
-	}
 }
 
 void RoomWithOccupancyRepresentation::addIncompatibleRoom(const IncomingPatientDTO& patient)

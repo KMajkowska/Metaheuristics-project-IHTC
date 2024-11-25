@@ -22,6 +22,7 @@
 #include "NeighbourGeneratorTop.h"
 #include "StopCriteriumTemperature.h"
 #include "SimplexCoolingScheme.h"
+#include "GemanAndGemanCoolingScheme.h"
 
 IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver)
 {
@@ -52,6 +53,7 @@ static void run(int argc, char* argv[])
 	FitnessCalculator fitnessCalculator(params.hardRestrictionWeight);
 	StopCriteriumTemperature stopCriterium(params.stopTemperature);
 	SimplexCoolingScheme coolingScheme(params.simplexCoolingMultiplier);
+	GemanAndGemanCoolingScheme gemanCoolingScheme;
 
 	IHTCProblem problem(problemData, getViolatedFromSolution, fitnessCalculator);
 

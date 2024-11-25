@@ -6,8 +6,8 @@
 #include "SolverType.h"
 #include "NeighbourGeneratorType.h"
 
-static const std::string DEFAULT_PROBLEM_FILE = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\datasets\\ihtc2024_test_dataset\\test01.json";
-static const std::string DEFAULT_PARAMS_FILE = "C:\\Users\\pawel\\Desktop\\Uczelnia\\Metaheurystyki\\Metaheuristics-project-IHTC\\IHTC-2024\\params.json";
+static const std::string DEFAULT_PROBLEM_FILE = "../datasets/ihtc2024_test_dataset/test01.json";
+static const std::string DEFAULT_PARAMS_FILE = "./params.json";
 
 struct Params
 {

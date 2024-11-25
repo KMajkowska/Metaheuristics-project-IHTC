@@ -3,13 +3,13 @@
     "hardRestrictionWeight": 100,
     "maxIteration": 250,
     "mutationProbability": 1,
-    "neighbourNumber": 18,
+    "neighbourNumber": 30,
     "simplexCoolingMultiplier": 0.995,
     "solverRepetitionAmount": 1,
-    "startingTemperature": 1000,
+    "startingTemperature": 2500,
     "stopTemperature": 1,
     "initSolver": "greedy",
     "outputSolver": "sa",
-    "neighbourGenerator": "prizeBest",
-    "outputPath":  "../log_files/"
+    "neighbourGenerator": "top",
+    "outputPath":  "./log_files/"
 }
