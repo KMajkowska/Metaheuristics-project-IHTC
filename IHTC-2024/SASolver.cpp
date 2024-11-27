@@ -116,7 +116,7 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 	double expCalc = exp(diff / temperature);
 	double expProb = 2 / (1 + expCalc);
 
-	// logger.log(std::to_string(expProb));
+	//logger.log(std::to_string(expProb));
 
 	return distribution(randGenerator) < expProb;
 }

@@ -50,10 +50,10 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		int admissionDay = solutionPatients.getAdmissionDay();
 		const auto patient = problemData.getPatientMap().at(solutionPatients.getId());
 
+		roomInfos.addIncomingPatient(admissionDay, solutionPatients.getRoomId(), patient);
+
 		for (int i = 0; i < patient.getLengthOfStay() && i + admissionDay < days && !solutionPatients.getRoomId().empty(); ++i)
 		{
-			roomInfos.addIncomingPatient(admissionDay, solutionPatients.getRoomId(), patient);
-
 			const auto& roomRef = roomInfos.getPatientRoomInfoRef(i + admissionDay, solutionPatients.getRoomId());
 
 			for (const auto& [nurseId, shift] : roomRef.nurseIdToShift)
