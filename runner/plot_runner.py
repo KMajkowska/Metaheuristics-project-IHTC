@@ -3,8 +3,8 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-LOG_FILES_PATH: str = "./18_test_prize_best/"
-PLOT_OUTPUT_PATH: str = "./18_test_prize_best_res/"
+LOG_FILES_PATH: str = "./log_files/"
+PLOT_OUTPUT_PATH: str = "./plot_files/"
 
 CURRENT_COL_NAME: str = "res"
 BEST_COL_NAME: str = "resBest"
@@ -55,12 +55,14 @@ def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
 
     plt.savefig(output_plot_path, format=FILE_FORMAT, dpi=DPI)
 
-    plt.show()
+    print(f"Saved {output_plot_path}")
+
+    # plt.show()
 
     return data
 
 
-def plot_operators(data: pd.DataFrame) -> None:
+def plot_operators(data: pd.DataFrame, output_plot_path: str) -> None:
     parts = []
     split_size = len(data) // SPLIT
     for i in range(SPLIT):
@@ -85,27 +87,42 @@ def plot_operators(data: pd.DataFrame) -> None:
         ax.set_xlabel("Operator")
         ax.set_ylabel("Count")
 
-    # Hide the unused subplot
     axes[-1].axis("off")
 
-    # Adjust layout
     plt.tight_layout()
-    plt.show()
+
+    plt.savefig(output_plot_path, format=FILE_FORMAT, dpi=DPI)
+
+    print(f"Saved {output_plot_path}")
+
+    # plt.show()
 
 
 def main() -> None:
     os.makedirs(PLOT_OUTPUT_PATH, exist_ok=True)
 
-    for filename in os.listdir(LOG_FILES_PATH):
-        if filename.endswith(".csv") or filename.endswith("txt"):
-            file_path = os.path.join(LOG_FILES_PATH, filename)
+    for root, _, files in os.walk(LOG_FILES_PATH):
+        for filename in files:
+            if filename.endswith(".csv"):
+                file_path = os.path.join(root, filename)
 
-            output_plot_path = os.path.join(
-                PLOT_OUTPUT_PATH, f"{os.path.splitext(filename)[0]}.png"
-            )
+                relative_path = os.path.relpath(root, LOG_FILES_PATH)
+                output_dir = os.path.join(PLOT_OUTPUT_PATH, relative_path)
 
-            data = run_plot(file_path, output_plot_path)
-            plot_operators(data)
+                os.makedirs(output_dir, exist_ok=True)
+
+                output_plot_path_data = os.path.join(
+                    output_dir, f"{os.path.splitext(filename)[0]}_data.png"
+                )
+
+                output_plot_path_operators = os.path.join(
+                    output_dir, f"{os.path.splitext(filename)[0]}_operators.png"
+                )
+
+                data = run_plot(file_path, output_plot_path_data)
+                plot_operators(data, output_plot_path_operators)
+
+                plt.close("all")
 
 
 if __name__ == "__main__":
