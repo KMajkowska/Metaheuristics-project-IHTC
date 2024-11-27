@@ -4,8 +4,7 @@ from typing import List
 import winsound
 
 EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
-PARAMS_PATH: str = "./params/18.json"
-
+PARAMS_DIR: str = "./params"
 INSTANCES_PATH: str = "../datasets/ihtc2024_test_dataset"
 
 FREQUENCY: int = 2500
@@ -17,31 +16,46 @@ def beep() -> None:
 
 
 def generate_files() -> List[str]:
-    return [f"{INSTANCES_PATH}/test{i:02}.json" for i in range(1, 11)]
+    return [f"{INSTANCES_PATH}/test{i:02}.json" for i in range(1, 6)]
 
-def run_problem(full_exec_path: str, file_path: str) -> None
-    print(f"Running {full_exec_path} with \n {file_path}")
 
-    result = subprocess.run(
-        [EXEC_PATH, file_path, PARAMS_PATH], capture_output=True, text=True
+def get_param_files() -> List[str]:
+    return [
+        os.path.join(PARAMS_DIR, file)
+        for file in os.listdir(PARAMS_DIR)
+        if file.endswith(".json")
+    ]
+
+
+def run_problem_in_new_console(
+    exec_path: str, instance_file: str, param_file: str
+) -> None:
+    print(f"Running {instance_file} with {exec_path} and params {param_file}")
+
+    subprocess.Popen(
+        ["cmd.exe", "/c", "start", "", exec_path, instance_file, param_file],
+        creationflags=subprocess.CREATE_NEW_CONSOLE,
     )
-
-    print("Output:")
-    print(result.stdout)
-
-    if result.stderr:
-        print("Errors:")
-        print(result.stderr)
 
 
 def run_all_problems(exec_path: str) -> None:
-    for file_path in generate_files():
-        full_file_file_path = os.path.abspath(file_path)
+    instance_files = generate_files()
+    param_files = get_param_files()
 
-        if not os.path.exists(full_file_file_path):
-            raise Exception(f"File path not found: {full_file_file_path}")
+    for param_file in param_files:
+        full_param_path = os.path.abspath(param_file)
 
-        run_problem(exec_path, full_file_file_path)
+        if not os.path.exists(full_param_path):
+            raise Exception(f"Parameter file not found: {full_param_path}")
+
+        for instance_file in instance_files:
+            full_instance_path = os.path.abspath(instance_file)
+
+            if not os.path.exists(full_instance_path):
+                raise Exception(f"Instance file not found: {full_instance_path}")
+
+            run_problem_in_new_console(exec_path, full_instance_path, full_param_path)
+
 
 def main() -> None:
     full_exec_path = os.path.abspath(EXEC_PATH)
@@ -51,7 +65,7 @@ def main() -> None:
 
     run_all_problems(full_exec_path)
 
-    beep()
+    # beep()
 
 
 if __name__ == "__main__":
