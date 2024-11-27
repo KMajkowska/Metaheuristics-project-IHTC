@@ -1,8 +1,14 @@
 #include "NeighbourGeneratorPrizeBest.h"
 
-NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
-	INeighbourGenerator(mutators, problem)
-{}
+NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem, int prizeSize) :
+	INeighbourGenerator(mutators, problem),
+	prizeSize(prizeSize)
+{
+	if (prizeSize <= 0)
+	{
+		throw std::invalid_argument("Prize size must be a positive number");
+	}
+}
 
 std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteration, int numberOfNeighbours, CIndividual & currIndiv)
 {
@@ -20,7 +26,7 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 
 		if (idx == bestIdx)
 		{
-			++neighboursForThisMutator;
+			neighboursForThisMutator += prizeSize;
 		}
 
 		// loop is not needed as remainingNeighbours is always lower than mutators.size()

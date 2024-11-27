@@ -67,7 +67,7 @@ static void run(int argc, char* argv[])
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
 	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
-	NeighbourGeneratorPrizeBest neighbourGenPrize(mutators, problem);
+	NeighbourGeneratorPrizeBest neighbourGenPrize(mutators, problem, params.prizeSize);
 	NeighbourGeneratorTop neighbourGenTop(mutators, problem);
 
 	INeighbourGenerator* generator = nullptr;

@@ -4,6 +4,7 @@
     "maxIteration": 250,
     "mutationProbability": 1,
     "neighbourNumber": 18,
+    "prizeSize":  3,
     "simplexCoolingMultiplier": 0.995,
     "solverRepetitionAmount": 1,
     "startingTemperature": 1000,
