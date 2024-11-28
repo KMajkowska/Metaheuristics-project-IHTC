@@ -19,64 +19,77 @@ void IHTCMutatorOTSwap::mutate(CIndividual& individual) const
 		return;
 	}
 
+	bool isFinished = false;
+
 	std::uniform_int_distribution<int> day_distribution(0, problemData.getDays() - 1);
 
-	const int day = day_distribution(randGenerator);
-
-	auto daysToOTs = getOperatingTheaterHelper(individual);
-
-	auto& ots = daysToOTs[day];
-
-	if (ots.size() < 2)
+	while (!isFinished)
 	{
-		return;
-	}
+		const int day0 = day_distribution(randGenerator);
+		const int day1 = day_distribution(randGenerator);
 
-	std::vector<std::string> keys;
-	keys.reserve(ots.size());
-	for (const auto& pair : ots)
-	{
-		keys.push_back(pair.first);
-	}
+		auto daysToOTs = getOperatingTheaterHelper(individual);
 
-	auto patients = individual.getPatients();
+		auto& ots0 = daysToOTs[day0];
+		auto& ots1 = daysToOTs[day1];
 
-	std::shuffle(keys.begin(), keys.end(), randGenerator);
+		// don't swap if both are empty
+		if (ots0.empty() || ots1.empty())
+		{
+			continue;
+		}
 
-	const std::string& otId0 = keys[0];
-	const std::string& otId1 = keys[1];
+		auto patients = individual.getPatients();
 
-	if (ots[otId0].size() <= 0 || ots[otId1].size() <= 0)
-	{
-		return;
-	}
+		std::uniform_int_distribution<int> ots0_distribution(0, ots0.size() - 1);
+		std::uniform_int_distribution<int> ots1_distribution(0, ots1.size() - 1);
 
-	std::uniform_int_distribution<int> ots0Distrib(0, ots[otId0].size() - 1);
-	std::uniform_int_distribution<int> ots1Distrib(0, ots[otId1].size() - 1);
+		auto itOts0 = ots0.begin();
+		auto itOts1 = ots1.begin();
 
-	const auto& patientId0 = ots[otId0][ots0Distrib(randGenerator)];
-	const auto& patientId01 = ots[otId1][ots1Distrib(randGenerator)];
+		std::advance(itOts0, ots0_distribution(randGenerator));
+		std::advance(itOts1, ots1_distribution(randGenerator));
 
-	auto it0 = std::find_if(patients.begin(), patients.end(), [otId0](const Patient& obj) {
-		return obj.getOperationTheater() == otId0;
-		});
+		const std::string& otId0 = itOts0->first;
+		const std::string& otId1 = itOts1->first;
 
-	if (it0 != patients.end())
-	{
+		if (ots0[otId0].empty() || ots1[otId1].empty() || (otId0 == otId1 && day0 == day1))
+		{
+			continue;
+		}
+
+		std::uniform_int_distribution<int> ots0Distrib(0, ots0[otId0].size() - 1);
+		std::uniform_int_distribution<int> ots1Distrib(0, ots1[otId1].size() - 1);
+
+		const auto& patientId0 = ots0[otId0][ots0Distrib(randGenerator)];
+		const auto& patientId01 = ots1[otId1][ots1Distrib(randGenerator)];
+
+		auto it0 = std::find_if(patients.begin(), patients.end(), 
+			[otId0](const Patient& obj) 
+			{
+				return obj.getOperationTheater() == otId0;
+			}
+		);
+
+		auto it1 = std::find_if(patients.begin(), patients.end(),
+			[otId1](const Patient& obj)
+			{
+				return obj.getOperationTheater() == otId1;
+			}
+		);
+
+		if (it0 == patients.end() || it1 == patients.end())
+		{
+			continue;
+		}
+
 		it0->setOperationTheater(otId1);
-	}
-
-	auto it1 = std::find_if(patients.begin(), patients.end(), [otId1](const Patient& obj) {
-		return obj.getOperationTheater() == otId1;
-		});
-
-	if (it1 != patients.end())
-	{
 		it1->setOperationTheater(otId0);
+
+		isFinished = true;
+
+		individual.setPatients(patients);
 	}
-
-	individual.setPatients(patients);
-
 }
 
 std::string IHTCMutatorOTSwap::getMutatorName() const

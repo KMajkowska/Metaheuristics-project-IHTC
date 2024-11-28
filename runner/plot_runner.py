@@ -98,31 +98,35 @@ def plot_operators(data: pd.DataFrame, output_plot_path: str) -> None:
     # plt.show()
 
 
+def generate_plots(root: str, filename: str) -> None:
+    file_path = os.path.join(root, filename)
+
+    relative_path = os.path.relpath(root, LOG_FILES_PATH)
+    output_dir = os.path.join(PLOT_OUTPUT_PATH, relative_path)
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    output_plot_path_data = os.path.join(
+        output_dir, f"{os.path.splitext(filename)[0]}_data.png"
+    )
+
+    output_plot_path_operators = os.path.join(
+        output_dir, f"{os.path.splitext(filename)[0]}_operators.png"
+    )
+
+    data = run_plot(file_path, output_plot_path_data)
+    plot_operators(data, output_plot_path_operators)
+
+    plt.close("all")
+
+
 def main() -> None:
     os.makedirs(PLOT_OUTPUT_PATH, exist_ok=True)
 
     for root, _, files in os.walk(LOG_FILES_PATH):
         for filename in files:
             if filename.endswith(".csv"):
-                file_path = os.path.join(root, filename)
-
-                relative_path = os.path.relpath(root, LOG_FILES_PATH)
-                output_dir = os.path.join(PLOT_OUTPUT_PATH, relative_path)
-
-                os.makedirs(output_dir, exist_ok=True)
-
-                output_plot_path_data = os.path.join(
-                    output_dir, f"{os.path.splitext(filename)[0]}_data.png"
-                )
-
-                output_plot_path_operators = os.path.join(
-                    output_dir, f"{os.path.splitext(filename)[0]}_operators.png"
-                )
-
-                data = run_plot(file_path, output_plot_path_data)
-                plot_operators(data, output_plot_path_operators)
-
-                plt.close("all")
+                generate_plots(root, filename)
 
 
 if __name__ == "__main__":

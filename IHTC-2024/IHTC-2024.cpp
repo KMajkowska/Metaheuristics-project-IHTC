@@ -60,11 +60,11 @@ static void run(int argc, char* argv[])
 	const std::vector<std::shared_ptr<IMutator>> mutators =
 	{
 		std::make_shared<IHTCMutatorOTSwap>(randomGenerator, problemData, params.mutationProbability),
-		std::make_shared<IHTCMutatorOTInversion>(randomGenerator, problemData, params.mutationProbability),
+		// std::make_shared<IHTCMutatorOTInversion>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorRoom>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorDay>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorAssignmentsSwap>(randomGenerator, problemData, params.mutationProbability),
-		std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability)
+		// std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability)
 	};
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);

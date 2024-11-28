@@ -1,7 +1,6 @@
 import os
 import subprocess
 from typing import List
-import winsound
 
 EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
 PARAMS_DIR: str = "./params"
@@ -9,10 +8,6 @@ INSTANCES_PATH: str = "../datasets/ihtc2024_test_dataset"
 
 FREQUENCY: int = 2500
 DURATION: int = 1000
-
-
-def beep() -> None:
-    winsound.Beep(FREQUENCY, DURATION)
 
 
 def generate_files() -> List[str]:
@@ -64,8 +59,6 @@ def main() -> None:
         raise Exception(f"Executable not found: {full_exec_path}")
 
     run_all_problems(full_exec_path)
-
-    # beep()
 
 
 if __name__ == "__main__":

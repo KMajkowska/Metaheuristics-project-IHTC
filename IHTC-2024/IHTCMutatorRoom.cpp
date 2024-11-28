@@ -58,10 +58,10 @@ void IHTCMutatorRoom::mutate(CIndividual& individual) const
 		}
 	}
 
-	/*if (patient.getRoomId() == oldRoom)
+	if (patient.getRoomId() == oldRoom)
 	{
 		patient.setRoomId(rooms.at(roomDistribution(randGenerator)).getId());
-	}*/
+	}
 
 	individual.setPatients(patients);
 }
