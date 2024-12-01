@@ -28,6 +28,7 @@ void IHTCMutatorRoom::mutate(CIndividual& individual) const
 	std::uniform_int_distribution<int> roomDistribution(0, rooms.size() - 1);
 
 	Patient& patient = patients.at(patientDistribution(randGenerator));
+<<<<<<< HEAD
 
 	/*
 	Patient& patient = patients.at(patientDistribution(randGenerator));
@@ -35,17 +36,12 @@ void IHTCMutatorRoom::mutate(CIndividual& individual) const
 	{
 		patient = patients.at(patientDistribution(randGenerator));
 	}
+=======
+>>>>>>> 75c3048238eae728129dc4340600c073948ac36d
 
-	for (int i = 0; i < patients.size(); ++i)
-	{
-		const Patient& patient = patients[i];
-		const IncomingPatientDTO incomingPatient = patientMap.at(patient.getId());
-		roomsMap.addIncomingPatient(patient.getAdmissionDay(), patient.getRoomId(), incomingPatient);
-	}
-
-	const IncomingPatientDTO incomingPatient = patientMap.at(patient.getId());
 	std::string oldRoom = patient.getRoomId();
 
+<<<<<<< HEAD
 	for (int i = 0; i < rooms.size(); ++i)
 	{	
 		auto& roomInfo = roomsMap.getPatientRoomInfoRef(patient.getAdmissionDay(), rooms[i].getId());
@@ -74,6 +70,12 @@ void IHTCMutatorRoom::mutate(CIndividual& individual) const
 	}
 
 	patient.setRoomId(roomId);
+=======
+	while (patient.getRoomId() == oldRoom)
+	{
+		patient.setRoomId(rooms.at(roomDistribution(randGenerator)).getId());
+	}
+>>>>>>> 75c3048238eae728129dc4340600c073948ac36d
 
 	individual.setPatients(patients);
 }
