@@ -54,5 +54,10 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 		}
 	}
 
+	if (bestRes > currIndiv.getFitness().first)
+	{
+		bestIdx = -1;
+	}
+
 	return allNeighbours;
 }

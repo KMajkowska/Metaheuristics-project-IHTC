@@ -133,6 +133,12 @@
     <Filter Include="Pliki źródłowe\algorithm\coolingScheme">
       <UniqueIdentifier>{a53f23c9-c47a-47fd-857f-76c39b5b06c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\algorithm\solvers\simulatedAnnealing">
+      <UniqueIdentifier>{7cb4eb15-054d-4758-b017-dde7aa5f3c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\solvers\simulatedAnnealing">
+      <UniqueIdentifier>{1b3108b3-6f9e-44b8-8580-7501a9e025ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -223,9 +229,6 @@
       <Filter>Pliki źródłowe\algorithm\solvers</Filter>
     </ClCompile>
     <ClCompile Include="ISolver.cpp">
-      <Filter>Pliki źródłowe\algorithm\solvers</Filter>
-    </ClCompile>
-    <ClCompile Include="SASolver.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers</Filter>
     </ClCompile>
     <ClCompile Include="IHTCMutatorRoom.cpp">
@@ -342,6 +345,15 @@
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp">
       <Filter>Pliki źródłowe\algorithm\coolingScheme</Filter>
     </ClCompile>
+    <ClCompile Include="SASolver.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="TemperatureOperator.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="GenderGrouper.cpp">
+      <Filter>Pliki źródłowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IncomingPatientDTO.h">
@@ -420,9 +432,6 @@
       <Filter>Pliki nagłówkowe\algorithm\problem</Filter>
     </ClInclude>
     <ClInclude Include="IHTCSolver.h">
-      <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
-    </ClInclude>
-    <ClInclude Include="SASolver.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
     </ClInclude>
     <ClInclude Include="IHTCMutatorRoom.h">
@@ -544,6 +553,15 @@
     </ClInclude>
     <ClInclude Include="GemanAndGemanCoolingScheme.h">
       <Filter>Pliki nagłówkowe\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="SASolver.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="TemperatureOperator.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="GenderGrouper.h">
+      <Filter>Pliki nagłówkowe\algorithm\solvers\simulatedAnnealing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

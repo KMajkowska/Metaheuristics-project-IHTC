@@ -30,7 +30,7 @@ public:
 	void setMutatorName(const std::string& mutatorName);
 
 	std::vector<CIndividual> crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const;
-	void mute(const IMutator& mutator);
+	bool mute(const IMutator& mutator);
 	std::vector<CIndividual> createNeighbours(const IMutator& mutator, int neighbourhoodNumber, const IProblem& problem);
 
 	std::partial_ordering operator<=>(const CIndividual&) const;

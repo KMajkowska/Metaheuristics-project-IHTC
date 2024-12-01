@@ -10,6 +10,7 @@
 #include "Logger.h"
 #include "IHTCMutatorRoom.h"
 #include "IHTCMutatorOTInversion.h"
+#include "IHTCMutatorNurseRoomCover.h"
 #include "IHTCMutatorOTSwap.h"
 #include "IHTCMutatorDay.h"
 #include "NeighbourGeneratorQueue.h"
@@ -57,15 +58,20 @@ static void run(int argc, char* argv[])
 
 	IHTCProblem problem(problemData, getViolatedFromSolution, fitnessCalculator);
 
-	const std::vector<std::shared_ptr<IMutator>> mutators =
+	std::vector<std::shared_ptr<IMutator>> mutators =
 	{
-		std::make_shared<IHTCMutatorOTSwap>(randomGenerator, problemData, params.mutationProbability),
-		// std::make_shared<IHTCMutatorOTInversion>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorRoom>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorDay>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorAssignmentsSwap>(randomGenerator, problemData, params.mutationProbability),
-		// std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability)
+		std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability),
 	};
+
+	if (problemData.getOperatingTheaters().size() > 1 && problemData.getPatients().size() > 1)
+	{
+		mutators.push_back(
+			std::make_shared<IHTCMutatorOTSwap>(randomGenerator, problemData, params.mutationProbability)
+		);
+	}
 
 	NeighbourGeneratorQueue neighbourGenQueue(mutators, problem);
 	NeighbourGeneratorTournament neighbourGenTournament(mutators, problem);
@@ -95,18 +101,22 @@ static void run(int argc, char* argv[])
 		throw std::invalid_argument("Incorrect neighbour generator");
 	}
 
+	TemperatureOperator tempOperator(coolingScheme, params.increaseTempIters);
+
+	GenderGrouper genderGrouper(params.genderGrouperIter, problemData, randomGenerator);
 
 	RandomSolver randomSolver(problemData, randomGenerator, logger);
 	GreedySolver greedySolver(problemData, randomGenerator, logger);
 	SASolver simulatedAnnealingSolver(
 		problemData,
 		params.startingTemperature,
-		coolingScheme,
+		tempOperator,
 		randomGenerator,
 		stopCriterium,
 		params.neighbourNumber,
 		*generator,
-		logger
+		logger,
+		genderGrouper
 	);
 
 	IHTCSolver* initSolver = getSolver(params.initSolver, simulatedAnnealingSolver, randomSolver, greedySolver);

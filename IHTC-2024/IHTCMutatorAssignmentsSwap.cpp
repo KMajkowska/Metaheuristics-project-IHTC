@@ -15,14 +15,20 @@ IHTCMutatorAssignmentsSwap::IHTCMutatorAssignmentsSwap(
 	}
 }
 
-void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
+bool IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	if (distribution(randGenerator) > swapAssignmentsProbability)
+	if (distribution(randGenerator) > swapAssignmentsProbability ||
+		(individual.getFitness().second.countTotalHard() > 0))
 	{
-		return;
+		return false;
 	}
+
+	/*if (individual.getFitness().second.countUncoveredRoomHard > 0)
+	{
+
+	}*/
 
 	std::uniform_int_distribution<int> dayDistribution(0, problemData.getDays() - 1);
 
@@ -33,7 +39,7 @@ void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 	// no possibility of two nurses omn the same day and shift
 	if (assignments.size() < 2)
 	{
-		return;
+		return false;
 	}
 
 	std::uniform_int_distribution<int> assignmentsDistribution(0, assignments.size() - 1);
@@ -43,7 +49,7 @@ void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 
 	if (firstNurseIt->second.empty())
 	{
-		return;
+		return false;
 	}
 	
 	// no need to run because of unordered_map
@@ -84,7 +90,7 @@ void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 
 				individual.setAssignments(assignments);
 
-				return;
+				return true;
 			}
 		}
 	}

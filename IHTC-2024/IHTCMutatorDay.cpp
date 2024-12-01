@@ -10,13 +10,13 @@ IHTCMutatorDay::IHTCMutatorDay(std::mt19937& randGenerator, const ProblemData& p
 	}
 }
 
-void IHTCMutatorDay::mutate(CIndividual& individual) const
+bool IHTCMutatorDay::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
 	if (distribution(randGenerator) > dayShuffleProbability)
 	{
-		return;
+		return false;
 	}
 
 	auto patients = individual.getPatients();
@@ -28,7 +28,7 @@ void IHTCMutatorDay::mutate(CIndividual& individual) const
 	Patient& patient = patients.at(patientDistribution(randGenerator));
 	const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
 
-	int countInvalidAdmissionDays = 0;
+	int countInvalidAdmissionDays = 1;
 
 	int newAdmissionDay = randomDay(
 		patientFromProblem.getSurgeryReleaseDay(), 
@@ -49,6 +49,8 @@ void IHTCMutatorDay::mutate(CIndividual& individual) const
 	patient.setAdmissionDay(newAdmissionDay);
 
 	individual.setPatients(patients);
+
+	return true;
 }
 
 std::string IHTCMutatorDay::getMutatorName() const
@@ -59,6 +61,10 @@ std::string IHTCMutatorDay::getMutatorName() const
 // We allow to be greater than max, on purpose, it will be punished later
 int IHTCMutatorDay::randomDay(int min, int max) const
 {
+	std::uniform_int_distribution<int> patientDistribution(min, max);
+
+	return patientDistribution(randGenerator);
+
 	if (min == max)
 	{
 		return min;

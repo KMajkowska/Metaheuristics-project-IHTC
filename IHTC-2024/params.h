@@ -23,6 +23,8 @@ struct Params
 	int maxIteration = 0;
 
 	int prizeSize = 0;
+	int increaseTempIters = 0;
+	int genderGrouperIter = 0;
 
 	double startingTemperature = 0.0;
 	double stopTemperature = 0.0;

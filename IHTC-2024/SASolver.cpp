@@ -3,19 +3,21 @@
 SASolver::SASolver(
 	const ProblemData& problemData,
 	double startingTemp,
-	const ICoolingScheme& coolingScheme,
+	TemperatureOperator& tempOperator,
 	std::mt19937& randGenerator,
 	const IStopCriterium& stopCriterium,
 	int neighbourhoodNumber,
 	INeighbourGenerator& neighbourGenerator,
-	Logger& logger
+	Logger& logger,
+	const GenderGrouper& genderGrouper
 ) :
 	IHTCSolver(problemData, randGenerator, logger),
 	startingTemp(startingTemp),
-	coolingScheme(coolingScheme),
+	tempOperator(tempOperator),
 	stopCriterium(stopCriterium),
 	neighbourhoodNumber(neighbourhoodNumber),
-	neighbourGenerator(neighbourGenerator)
+	neighbourGenerator(neighbourGenerator),
+	genderGrouper(genderGrouper)
 {}
 
 CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
@@ -31,8 +33,12 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	while (!stopCriterium.isStop(actualTemp, iteration))
 	{
-
 		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
+
+		if (neighbours.empty())
+		{
+			continue;
+		}
 
 		double bestNeighbour = DBL_MAX;
 		double worstNeighbour = -1;
@@ -72,20 +78,21 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 					best = curr;
 				}
 
-				logger.log(
-					curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
-					best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," +
-					std::to_string(actualTemp) + "," +
-					std::to_string(worstNeighbour) + "," +
-					std::to_string(bestNeighbour) + "," +
-					std::to_string(calcAverage(fitnesses)) + "," +
-					std::to_string(calcStdDev(fitnesses)) + "," +
-					curr.getMutatorName()
-				);
+				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
+			}
+
+			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard > 0)
+			{
+				genderGrouper.greedyGroupGenders(curr);
+				curr.setFitness(problem.eval(curr));
+				if (curr.getFitness().first < best.getFitness().first)
+				{
+					best = curr;
+				}
+				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
 			}
 		}
-
-		actualTemp = coolingScheme.getNewTemp(startingTemp, actualTemp, iteration);
+		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.getFitness().second);
 		++iteration;
 	}
 
@@ -119,6 +126,20 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 	//logger.log(std::to_string(expProb));
 
 	return distribution(randGenerator) < expProb;
+}
+
+void SASolver::logResuslts(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const
+{
+	logger.log(
+		curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
+		best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," +
+		std::to_string(actualTemp) + "," +
+		std::to_string(worstNeighbour) + "," +
+		std::to_string(bestNeighbour) + "," +
+		std::to_string(calcAverage(fitnesses)) + "," +
+		std::to_string(calcStdDev(fitnesses)) + "," +
+		changerName
+	);
 }
 
 /*

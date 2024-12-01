@@ -21,8 +21,6 @@ public:
 	const std::unordered_map<std::string, RoomInfo>& getRoomsForGivenDayRef(int day);
 
 private:
-
-	void addPatient(int admissionDay, const std::string& roomId, const PatientDTO& patient, bool decreaseMaxCapacity);
 	void addIncompatibleRoom(const IncomingPatientDTO& patient);
 
 	std::vector<std::unordered_map<std::string, RoomInfo>> preprocessedRooms;

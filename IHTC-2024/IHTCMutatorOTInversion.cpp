@@ -10,13 +10,13 @@ IHTCMutatorOTInversion::IHTCMutatorOTInversion(std::mt19937& randGenerator, cons
 	}
 }
 
-void IHTCMutatorOTInversion::mutate(CIndividual& individual) const
+bool IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
 	if (distribution(randGenerator) > mutationProbability)
 	{
-		return;
+		return false;
 	}
 
 	std::uniform_int_distribution<int> day_distribution(0, problemData.getDays() - 1);
@@ -29,7 +29,7 @@ void IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 
 	if (ots.size() < 2)
 	{
-		return;
+		return false;
 	}
 
 	std::vector<std::string> keys;
@@ -68,6 +68,8 @@ void IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 	}
 
 	individual.setPatients(patients);
+
+	return true;
 }
 
 std::string IHTCMutatorOTInversion::getMutatorName() const

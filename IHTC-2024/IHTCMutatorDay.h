@@ -7,7 +7,7 @@ class IHTCMutatorDay : public IMutator
 public:
 	IHTCMutatorDay(std::mt19937& randGenerator, const ProblemData& problemData, double newDayShuffleProbability);
 
-	void mutate(CIndividual& individual) const;
+	bool mutate(CIndividual& individual) const;
 
 	std::string getMutatorName() const;
 

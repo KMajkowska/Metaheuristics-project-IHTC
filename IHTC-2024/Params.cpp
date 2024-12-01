@@ -9,6 +9,8 @@ void to_json(nlohmann::json& j, const Params& data)
         {"mutationProbability", data.mutationProbability},
         {"neighbourNumber", data.neighbourNumber},
         {"prizeSize", data.prizeSize},
+        {"increaseTempIters", data.increaseTempIters},
+        {"genderGrouperIter", data.genderGrouperIter},
         {"simplexCoolingMultiplier", data.simplexCoolingMultiplier},
         {"solverRepetitionAmount", data.solverRepetitionAmount},
         {"startingTemperature", data.startingTemperature},
@@ -27,6 +29,8 @@ void from_json(const nlohmann::json& j, Params& data)
     data.mutationProbability = j.at("mutationProbability").get<double>();
     data.neighbourNumber = j.at("neighbourNumber").get<int>();
     data.prizeSize = j.at("prizeSize").get<int>();
+    data.increaseTempIters = j.at("increaseTempIters").get<int>();
+    data.genderGrouperIter = j.at("genderGrouperIter").get<int>();
     data.simplexCoolingMultiplier = j.at("simplexCoolingMultiplier").get<double>();
     data.solverRepetitionAmount = j.at("solverRepetitionAmount").get<int>();
     data.startingTemperature = j.at("startingTemperature").get<double>();

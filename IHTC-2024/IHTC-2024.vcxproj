@@ -137,6 +137,7 @@
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
+    <ClCompile Include="GenderGrouper.cpp" />
     <ClCompile Include="GreedySolver.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="StopCriteriumIter.cpp" />
     <ClCompile Include="StopCriteriumTemperature.cpp" />
     <ClCompile Include="strings.cpp" />
+    <ClCompile Include="TemperatureOperator.cpp" />
     <ClCompile Include="VariableCoolingScheme.cpp" />
     <ClCompile Include="Workload.cpp" />
     <ClCompile Include="SurgeonDTO.cpp" />
@@ -208,7 +210,9 @@
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="FitnessCalculator.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
+    <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
+    <ClInclude Include="TemperatureOperator.h" />
     <ClInclude Include="ICoolingScheme.h" />
     <ClInclude Include="ICrosser.h" />
     <ClInclude Include="IHTCMutatorAssignmentsSwap.h" />

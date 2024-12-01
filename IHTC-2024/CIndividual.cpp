@@ -80,11 +80,11 @@ std::vector<CIndividual> CIndividual::crossover(const CIndividual& otherIndividu
 	return crosser.crossover(*this, otherIndividual);
 }
 
-void CIndividual::mute(const IMutator& mutator)
+bool CIndividual::mute(const IMutator& mutator)
 {
 	fitnessUpToDate = false;
 
-	mutator.mutate(*this);
+	return mutator.mutate(*this);
 }
 
 std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, int neighbourhoodNumber, const IProblem& problem)
@@ -100,16 +100,16 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 	for (size_t i = 0; i < neighbourhoodNumber; ++i)
 	{
 		CIndividual individual(*this);
-		individual.mute(mutator);
+		bool isMutated = individual.mute(mutator);
 
 		individual.setMutatorName(mutator.getMutatorName());
 
 		individual.setFitness(problem.eval(individual));
 		
-		/*if (violated != individual.violated) 
-		{*/
+		if (isMutated)
+		{
 			neighbours.push_back(individual);
-		//}
+		}
 	}
 
 	return neighbours;
