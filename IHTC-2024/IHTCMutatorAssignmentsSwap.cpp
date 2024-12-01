@@ -45,8 +45,9 @@ void IHTCMutatorAssignmentsSwap::mutate(CIndividual& individual) const
 	{
 		return;
 	}
-
-	//	std::shuffle(assignments.begin(), assignments.end(), randGenerator);
+	
+	// no need to run because of unordered_map
+	// std::shuffle(assignments.begin(), assignments.end(), randGenerator);
 
 	std::uniform_int_distribution<int> nurseAssignmentOffset(0, firstNurseIt->second.size() - 1);
 	auto& _1stNurseAssignment = firstNurseIt->second.at(nurseAssignmentOffset(randGenerator));

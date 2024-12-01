@@ -64,15 +64,17 @@ int IHTCMutatorDay::randomDay(int min, int max) const
 		return min;
 	}
 
-	double mean = (min + max) / 2.0;
+	double mean = min + 1;
 	double stddev = (max - min) / 6.0;
 
 	std::normal_distribution<double> distribution(mean, stddev);
 
 	double day;
-	do {
+	do 
+	{
 		day = distribution(randGenerator);
-	} while (day < min);
+	} 
+	while (day <= min || day > max);
 
 	return static_cast<int>(day);
 }
