@@ -11,12 +11,11 @@
 #include "IHTCMutatorRoom.h"
 #include "IHTCMutatorOTInversion.h"
 #include "IHTCMutatorNurseRoomCover.h"
-#include "IHTCMutatorOTSwap.h"
+#include "IHTCMutatorOT.h"
 #include "IHTCMutatorDay.h"
 #include "NeighbourGeneratorQueue.h"
 #include "NeighbourGeneratorTournament.h"
 #include "GreedySolver.h"
-#include "IHTCMutatorAssignmentsSwap.h"
 #include "IHTCMutatorNurseRoomCover.h"
 #include "params.h"
 #include "NeighbourGeneratorPrizeBest.h"
@@ -24,6 +23,8 @@
 #include "StopCriteriumTemperature.h"
 #include "SimplexCoolingScheme.h"
 #include "GemanAndGemanCoolingScheme.h"
+#include "IHTCMutatorAssignment.h"
+#include "IHTCMutatorOT.h"
 
 IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver)
 {
@@ -62,14 +63,13 @@ static void run(int argc, char* argv[])
 	{
 		std::make_shared<IHTCMutatorRoom>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorDay>(randomGenerator, problemData, params.mutationProbability),
-		std::make_shared<IHTCMutatorAssignmentsSwap>(randomGenerator, problemData, params.mutationProbability),
-		std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability),
+		std::make_shared<IHTCMutatorAssignment>(randomGenerator, problemData, params.mutationProbability),
 	};
 
 	if (problemData.getOperatingTheaters().size() > 1 && problemData.getPatients().size() > 1)
 	{
 		mutators.push_back(
-			std::make_shared<IHTCMutatorOTSwap>(randomGenerator, problemData, params.mutationProbability)
+			std::make_shared<IHTCMutatorOT>(randomGenerator, problemData, params.mutationProbability)
 		);
 	}
 
@@ -115,8 +115,7 @@ static void run(int argc, char* argv[])
 		stopCriterium,
 		params.neighbourNumber,
 		*generator,
-		logger,
-		genderGrouper
+		logger
 	);
 
 	IHTCSolver* initSolver = getSolver(params.initSolver, simulatedAnnealingSolver, randomSolver, greedySolver);

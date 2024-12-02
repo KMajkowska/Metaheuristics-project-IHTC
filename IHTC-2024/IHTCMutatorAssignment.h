@@ -2,10 +2,10 @@
 
 #include "IMutator.h"
 
-class IHTCMutatorAssignmentsSwap : public IMutator
+class IHTCMutatorAssignment : public IMutator
 {
 public:
-	IHTCMutatorAssignmentsSwap(std::mt19937& randGenerator, const ProblemData& problemData, double swapAssignmentsProbability);
+	IHTCMutatorAssignment(std::mt19937& randGenerator, const ProblemData& problemData, double swapAssignmentsProbability);
 
 	bool mutate(CIndividual& individual) const;
 

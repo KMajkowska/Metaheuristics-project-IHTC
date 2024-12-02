@@ -3,10 +3,10 @@
 #include "IHTCMutatorOperatingTheaters.h"
 #include "other.h"
 
-class IHTCMutatorOTSwap : public IHTCMutatorOperatingTheaters
+class IHTCMutatorOT : public IHTCMutatorOperatingTheaters
 {
 public:
-	IHTCMutatorOTSwap(std::mt19937& randGenerator, const ProblemData& problemData, double newMutationProbability);
+	IHTCMutatorOT(std::mt19937& randGenerator, const ProblemData& problemData, double newMutationProbability);
 
 	bool mutate(CIndividual& individual) const;
 
