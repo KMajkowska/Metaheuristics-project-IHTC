@@ -104,6 +104,7 @@ static void run(int argc, char* argv[])
 	TemperatureOperator tempOperator(coolingScheme, params.increaseTempIters);
 
 	GenderGrouper genderGrouper(params.genderGrouperIter, problemData, randomGenerator);
+	IHTCMutatorNurseRoomCover nurseRoomCover(randomGenerator, problemData, params.mutationProbability);
 
 	RandomSolver randomSolver(problemData, randomGenerator, logger);
 	GreedySolver greedySolver(problemData, randomGenerator, logger);
@@ -115,7 +116,9 @@ static void run(int argc, char* argv[])
 		stopCriterium,
 		params.neighbourNumber,
 		*generator,
-		logger
+		logger,
+		genderGrouper,
+		nurseRoomCover
 	);
 
 	IHTCSolver* initSolver = getSolver(params.initSolver, simulatedAnnealingSolver, randomSolver, greedySolver);

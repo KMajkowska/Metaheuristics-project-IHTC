@@ -9,7 +9,8 @@ SASolver::SASolver(
 	int neighbourhoodNumber,
 	INeighbourGenerator& neighbourGenerator,
 	Logger& logger,
-	const GenderGrouper& genderGrouper
+	const GenderGrouper& genderGrouper,
+	const IHTCMutatorNurseRoomCover& nurseRoomCover
 ) :
 	IHTCSolver(problemData, randGenerator, logger),
 	startingTemp(startingTemp),
@@ -17,7 +18,8 @@ SASolver::SASolver(
 	stopCriterium(stopCriterium),
 	neighbourhoodNumber(neighbourhoodNumber),
 	neighbourGenerator(neighbourGenerator),
-	genderGrouper(genderGrouper)
+	genderGrouper(genderGrouper),
+	nurseRoomCover(nurseRoomCover)
 {}
 
 CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
@@ -90,6 +92,17 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 					best = curr;
 				}
 				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
+			}
+
+			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard > 0)
+			{
+				nurseRoomCover.mutate(curr);
+				curr.setFitness(problem.eval(curr));
+				if (curr.getFitness().first < best.getFitness().first)
+				{
+					best = curr;
+				}
+				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, nurseRoomCover.getMutatorName());
 			}
 		}
 		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.getFitness().second);

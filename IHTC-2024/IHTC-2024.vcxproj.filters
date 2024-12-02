@@ -246,9 +246,6 @@
     <ClCompile Include="IHTCMutatorOTInversion.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
-    <ClCompile Include="IHTCMutatorOTSwap.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
-    </ClCompile>
     <ClCompile Include="GreedySolver.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers\greedy</Filter>
     </ClCompile>
@@ -300,9 +297,6 @@
     <ClCompile Include="NeighbourGeneratorQueue.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
     </ClCompile>
-    <ClCompile Include="IHTCMutatorAssignmentsSwap.cpp">
-      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
-    </ClCompile>
     <ClCompile Include="IHTCMutatorNurseRoomCover.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
@@ -353,6 +347,12 @@
     </ClCompile>
     <ClCompile Include="GenderGrouper.cpp">
       <Filter>Pliki źródłowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorAssignments.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOT.cpp">
+      <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,9 +449,6 @@
     <ClInclude Include="IHTCMutatorOTInversion.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
-    <ClInclude Include="IHTCMutatorOTSwap.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
-    </ClInclude>
     <ClInclude Include="GreedySolver.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers\greedy</Filter>
     </ClInclude>
@@ -506,9 +503,6 @@
     <ClInclude Include="NeighbourGeneratorTournament.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
     </ClInclude>
-    <ClInclude Include="IHTCMutatorAssignmentsSwap.h">
-      <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
-    </ClInclude>
     <ClInclude Include="IHTCMutatorNurseRoomCover.h">
       <Filter>Pliki nagłówkowe\algorithm\individualOperators\mutator</Filter>
     </ClInclude>
@@ -562,6 +556,12 @@
     </ClInclude>
     <ClInclude Include="GenderGrouper.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorAssignment.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOT.h">
+      <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

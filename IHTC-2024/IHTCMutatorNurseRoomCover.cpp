@@ -45,13 +45,13 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 			{
 				if ((roomInfo.patientIds.size() > 0 || roomInfo.occupantIds.size() > 0) && roomInfo.nurseIdToShift.size() != problemData.getShiftTypes().size())
 				{
-					for (auto& nurse : nurses)
+					for (auto& [nurseId, nurseAssignments] : nurses)
 					{
-						for (auto& assignement : nurse.second)
+						for (auto& assignement : nurseAssignments)
 						{
 							if (assignement.getDay() == i && assignement.getShift() == shiftName)
 							{
-								nursesForDayAndShift[nurse.first] = assignement;
+								nursesForDayAndShift[nurseId] = assignement;
 							}
 						}
 					}
