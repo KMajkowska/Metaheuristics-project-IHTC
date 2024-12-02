@@ -63,7 +63,6 @@ static void run(int argc, char* argv[])
 		std::make_shared<IHTCMutatorRoom>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorDay>(randomGenerator, problemData, params.mutationProbability),
 		std::make_shared<IHTCMutatorAssignmentsSwap>(randomGenerator, problemData, params.mutationProbability),
-		std::make_shared<IHTCMutatorNurseRoomCover>(randomGenerator, problemData, params.mutationProbability),
 	};
 
 	if (problemData.getOperatingTheaters().size() > 1 && problemData.getPatients().size() > 1)
@@ -104,6 +103,7 @@ static void run(int argc, char* argv[])
 	TemperatureOperator tempOperator(coolingScheme, params.increaseTempIters);
 
 	GenderGrouper genderGrouper(params.genderGrouperIter, problemData, randomGenerator);
+	IHTCMutatorNurseRoomCover nurseRoomCover(randomGenerator, problemData, params.mutationProbability);
 
 	RandomSolver randomSolver(problemData, randomGenerator, logger);
 	GreedySolver greedySolver(problemData, randomGenerator, logger);
@@ -116,7 +116,8 @@ static void run(int argc, char* argv[])
 		params.neighbourNumber,
 		*generator,
 		logger,
-		genderGrouper
+		genderGrouper,
+		nurseRoomCover
 	);
 
 	IHTCSolver* initSolver = getSolver(params.initSolver, simulatedAnnealingSolver, randomSolver, greedySolver);

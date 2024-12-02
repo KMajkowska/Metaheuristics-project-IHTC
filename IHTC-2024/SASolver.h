@@ -10,6 +10,7 @@
 #include "other.h"
 #include "TemperatureOperator.h"
 #include "GenderGrouper.h"
+#include "IHTCMutatorNurseRoomCover.h"
 
 class SASolver : public IHTCSolver
 {
@@ -23,7 +24,8 @@ public:
 		int neighbourhoodNumber,
 		INeighbourGenerator& neighbourGenerator,
 		Logger& logger,
-		const GenderGrouper& genderGrouper
+		const GenderGrouper& genderGrouper,
+		const IHTCMutatorNurseRoomCover& nurseRoomCover
 	);
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
@@ -37,6 +39,7 @@ private:
 	int neighbourhoodNumber;
 	INeighbourGenerator& neighbourGenerator;
 	const GenderGrouper& genderGrouper;
+	const IHTCMutatorNurseRoomCover& nurseRoomCover;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 
