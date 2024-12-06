@@ -2,22 +2,17 @@ import os
 import subprocess
 from typing import List
 
-EXEC_PATH: str = "../IHTC-2024/x64/Release/IHTC-2024.exe"
-PARAMS_DIR: str = "./params"
-INSTANCES_PATH: str = "../datasets/ihtc2024_test_dataset"
-
-FREQUENCY: int = 2500
-DURATION: int = 1000
+from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH
 
 
 def generate_files() -> List[str]:
-    return [f"{INSTANCES_PATH}/test{i:02}.json" for i in range(1, 6)]
+    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(1, 31)]
 
 
 def get_param_files() -> List[str]:
     return [
-        os.path.join(PARAMS_DIR, file)
-        for file in os.listdir(PARAMS_DIR)
+        os.path.join(PARAMS_DIR_PATH, file)
+        for file in os.listdir(PARAMS_DIR_PATH)
         if file.endswith(".json")
     ]
 

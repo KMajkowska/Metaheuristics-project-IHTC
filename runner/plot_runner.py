@@ -3,48 +3,45 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-LOG_FILES_PATH: str = "./log_files/"
-PLOT_OUTPUT_PATH: str = "./plot_files/"
-
-CURRENT_COL_NAME: str = "res"
-BEST_COL_NAME: str = "resBest"
-TEMP_COL_NAME: str = "actualTemp"
-BEST_NEIGHBOUR: str = "bestNeighbour"
-WORST_NEIGHBOUR: str = "worstNeighbour"
-AVG_NEIGHBOUR: str = "avgNeighbour"
-STD_DEV_NEIGHBOUR: str = "stdDevNeighbour"
-
-CURR_MUTATOR: str = "currMutator"
-SPLIT: int = 5
-
-DPI: int = 100
-FILE_FORMAT: str = "png"
+from consts import (
+    LOG_FILES_PATH,
+    PLOT_OUTPUT_PATH,
+    RES_CURRENT_COL_NAME,
+    RES_BEST_COL_NAME,
+    RES_WORST_NEIGHBOUR,
+    RES_BEST_NEIGHBOUR,
+    RES_AVG_NEIGHBOUR,
+    FILE_FORMAT,
+    DPI,
+    SPLIT,
+    CURR_MUTATOR,
+)
 
 
 def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
     data = pd.read_csv(csv_file_path)
 
     min_value = min(
-        data[CURRENT_COL_NAME].min(),
-        data[BEST_COL_NAME].min(),
-        data[WORST_NEIGHBOUR].min(),
-        data[BEST_NEIGHBOUR].min(),
+        data[RES_CURRENT_COL_NAME].min(),
+        data[RES_BEST_COL_NAME].min(),
+        data[RES_WORST_NEIGHBOUR].min(),
+        data[RES_BEST_NEIGHBOUR].min(),
     )
     max_value = max(
-        data[CURRENT_COL_NAME].max(),
-        data[BEST_COL_NAME].max(),
-        data[WORST_NEIGHBOUR].max(),
-        data[BEST_NEIGHBOUR].max(),
+        data[RES_CURRENT_COL_NAME].max(),
+        data[RES_BEST_COL_NAME].max(),
+        data[RES_WORST_NEIGHBOUR].max(),
+        data[RES_BEST_NEIGHBOUR].max(),
     )
 
     plt.figure(figsize=(30, 15))
 
-    plt.plot(data[WORST_NEIGHBOUR], label="Worst neighbour", color="red")
+    plt.plot(data[RES_WORST_NEIGHBOUR], label="Worst neighbour", color="red")
 
-    plt.plot(data[CURRENT_COL_NAME], label="Current", color="blue")
-    plt.plot(data[BEST_COL_NAME], label="Best", color="green")
+    plt.plot(data[RES_CURRENT_COL_NAME], label="Current", color="blue")
+    plt.plot(data[RES_BEST_COL_NAME], label="Best", color="green")
 
-    plt.plot(data[AVG_NEIGHBOUR], label="Avg neighbour", color="pink")
+    plt.plot(data[RES_AVG_NEIGHBOUR], label="Avg neighbour", color="pink")
 
     plt.ylim(min_value, max_value)
 
