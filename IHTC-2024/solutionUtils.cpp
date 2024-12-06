@@ -239,7 +239,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 					summedUpWorkingTime += it->second.actualWorkingTime;
 				}
 
-				surgeonsToO	Ts[surgeon.getId()].insert(pair.first);
+				surgeonsToOTs[surgeon.getId()].insert(pair.first);
 			}
 
 			if (surgeon.getMaxSurgeryTime()[i] < summedUpWorkingTime)
