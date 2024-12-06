@@ -1,5 +1,4 @@
 #include "RoomWithOccupancyRepresentation.h"
-#include <iostream>
 
 RoomWithOccupancyRepresentation::RoomWithOccupancyRepresentation(
 	const std::vector<RoomDTO>& rooms, const std::vector<OccupantDTO>& occupants, 
@@ -90,6 +89,23 @@ void RoomWithOccupancyRepresentation::addOccupant(const OccupantDTO& occupant)
 			roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.getWorkloadProduced()[offset];
 		}
 	}
+}
+
+void RoomWithOccupancyRepresentation::addNurse(const NurseOutputDTO& nurse)
+{
+	for (const auto& assignment : nurse.getAssignments())
+	{
+		for (const auto& roomId : assignment.getRooms())
+		{
+			addAssignment(assignment.getDay(), roomId, assignment.getShift(), nurse.getId());
+		}
+	}
+}
+
+void RoomWithOccupancyRepresentation::addAssignment(int day, const std::string& roomId, const std::string& shiftName, const std::string nurseId)
+{
+	getPatientRoomInfoRef(day, roomId).nurseIdToShift[nurseId] = shiftName;
+	getPatientRoomInfoRef(day, roomId).shiftToNurseId[shiftName] = nurseId;
 }
 
 RoomInfo& RoomWithOccupancyRepresentation::getPatientRoomInfoRef(int day, const std::string& roomId)

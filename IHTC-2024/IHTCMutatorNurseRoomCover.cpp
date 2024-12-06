@@ -71,8 +71,10 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 						if (assignement.getDay() == i && assignement.getShift() == shiftName)
 						{
 							assignement.appendRoom(roomId);
+							rooms.addAssignment(i, roomId, shiftName, nurseWithMinRooms->first);
 						}
 					}
+
 				}
 			}
 		}

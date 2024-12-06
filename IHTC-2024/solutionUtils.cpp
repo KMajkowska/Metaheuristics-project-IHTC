@@ -36,15 +36,9 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 	for (const auto& nurse : solution.getNurses())
 	{
-		for (const auto& assignment : nurse.getAssignments())
-		{
-			for (const auto& room : assignment.getRooms())
-			{
-				roomInfos.getPatientRoomInfoRef(assignment.getDay(), room).nurseIdToShift[nurse.getId()] = assignment.getShift();
-				roomInfos.getPatientRoomInfoRef(assignment.getDay(), room).shiftToNurseId[assignment.getShift()] = nurse.getId();
-			}
-		}
+		roomInfos.addNurse(nurse);
 	}
+
 	for (const auto& solutionPatients : solution.getPatients())
 	{
 		int admissionDay = solutionPatients.getAdmissionDay();
@@ -245,7 +239,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 					summedUpWorkingTime += it->second.actualWorkingTime;
 				}
 
-				surgeonsToOTs[surgeon.getId()].insert(pair.first);
+				surgeonsToO	Ts[surgeon.getId()].insert(pair.first);
 			}
 
 			if (surgeon.getMaxSurgeryTime()[i] < summedUpWorkingTime)
