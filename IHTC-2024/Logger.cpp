@@ -25,8 +25,6 @@ Logger::~Logger()
 
 void Logger::log(const std::string& logStr)
 {
-	std::lock_guard<std::mutex> lock(mutex);
-
 	buffer.push_back(logStr);
 
 	if (buffer.size() >= MAX_BUFFER_SIZE) 

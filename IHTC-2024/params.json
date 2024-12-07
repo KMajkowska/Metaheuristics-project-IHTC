@@ -13,5 +13,5 @@
     "initSolver": "greedy",
     "outputSolver": "sa",
     "neighbourGenerator": "prizeBest",
-    "outputPath":  "./log_files/"
+    "outputPath":  "./"
 }
