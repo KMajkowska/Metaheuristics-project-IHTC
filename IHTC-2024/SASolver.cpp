@@ -80,7 +80,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 					best = curr;
 				}
 
-				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
+				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
 			}
 
 			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard > 0)
@@ -91,7 +91,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				{
 					best = curr;
 				}
-				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
+				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
 			}
 
 			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard > 0)
@@ -102,7 +102,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				{
 					best = curr;
 				}
-				logResuslts(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, nurseRoomCover.getMutatorName());
+				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, nurseRoomCover.getMutatorName());
 			}
 		}
 		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.getFitness().second);
@@ -136,12 +136,10 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 	double expCalc = exp(diff / temperature);
 	double expProb = 2 / (1 + expCalc);
 
-	//logger.log(std::to_string(expProb));
-
 	return distribution(randGenerator) < expProb;
 }
 
-void SASolver::logResuslts(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const
+void SASolver::logResults(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const
 {
 	logger.log(
 		curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +

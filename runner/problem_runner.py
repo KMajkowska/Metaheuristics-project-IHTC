@@ -6,7 +6,7 @@ from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH
 
 
 def generate_files() -> List[str]:
-    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(1, 31)]
+    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(1, 16)]
 
 
 def get_param_files() -> List[str]:

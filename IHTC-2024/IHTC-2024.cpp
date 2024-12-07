@@ -28,7 +28,8 @@
 
 IHTCSolver* getSolver(SolverType solverType, SASolver& saSolver, RandomSolver& randSolver, GreedySolver& greedySolver)
 {
-	switch (solverType) {
+	switch (solverType) 
+	{
 	case SolverType::SA:
 		return &saSolver;
 	case SolverType::RAND:

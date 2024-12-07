@@ -15,13 +15,13 @@ public:
 
 	void log(const std::string& logStr);
 
-	std::vector<std::string> getLogs() const;
-
 	void flushToFile();
 
 private:
-	std::string filename;
+	std::ofstream logFile;
 	std::vector<std::string> buffer;
 	std::mutex mutex;
+
+	static constexpr size_t MAX_BUFFER_SIZE = 16384;
 
 };

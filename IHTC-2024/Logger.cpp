@@ -2,50 +2,50 @@
 
 
 Logger::Logger(const std::string& filename) :
-	filename(filename)
+	logFile(filename, std::ios::app) 
 {
-	std::cout << "filename: " << filename << std::endl;
+	buffer.reserve(MAX_BUFFER_SIZE);
+	
+	if (!logFile.is_open()) 
+	{
+		throw std::runtime_error("Failed to open log file: " + filename);
+	}
+	else
+	{
+		std::cout << "Opened log file: " << filename << std::endl;
+	}
 }
 
 Logger::~Logger()
 {
 	flushToFile();
+
+	logFile.close();
 }
 
 void Logger::log(const std::string& logStr)
 {
-	std::cout << logStr << std::endl;
-
 	std::lock_guard<std::mutex> lock(mutex);
-	buffer.push_back(logStr);
-}
 
-std::vector<std::string> Logger::getLogs() const
-{
-	return buffer;
+	buffer.push_back(logStr);
+
+	if (buffer.size() >= MAX_BUFFER_SIZE) 
+	{
+		std::cout << logStr << std::endl;
+
+		flushToFile();
+	}
 }
 
 void Logger::flushToFile()
 {
 	std::lock_guard<std::mutex> lock(mutex);
-	std::ofstream file(filename, std::ios::trunc);
 
-	if (!file.is_open())
+	for (const auto& msg : buffer) 
 	{
-		file.close();
-
-		std::cerr << "Failed to open log file: " << filename << std::endl;
-
-		return;
-	}
-
-
-	for (const auto& message : buffer)
-	{
-		file << message << std::endl;
+		logFile << msg << std::endl;
 	}
 
 	buffer.clear();
-
-	file.close();
+	logFile.flush();
 }
