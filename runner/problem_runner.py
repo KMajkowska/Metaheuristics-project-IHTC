@@ -2,11 +2,11 @@ import os
 import subprocess
 from typing import List
 
-from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH
+from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH, RUN_PARALLEL
 
 
 def generate_files() -> List[str]:
-    return [f"{INSTANCES_PATH}/test{i:02}.json" for i in range(1, 31)]
+    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(25, 31)]
 
 
 def get_param_files() -> List[str]:
@@ -22,10 +22,15 @@ def run_problem_in_new_console(
 ) -> None:
     print(f"Running {instance_file} with {exec_path} and params {param_file}")
 
-    subprocess.Popen(
-        [exec_path, instance_file, param_file],
-        creationflags=subprocess.CREATE_NEW_CONSOLE
-    )
+    if RUN_PARALLEL:
+        subprocess.Popen(
+            [exec_path, instance_file, param_file],
+            creationflags=subprocess.CREATE_NEW_CONSOLE,
+        )
+    else:
+        subprocess.run(
+            [exec_path, instance_file, param_file], capture_output=True, text=True
+        )
 
 
 def run_all_problems(exec_path: str) -> None:

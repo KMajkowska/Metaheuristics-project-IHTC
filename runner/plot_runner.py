@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from consts import (
-    LOG_FILES_PATH,
     PLOT_OUTPUT_PATH,
     RES_CURRENT_COL_NAME,
     RES_BEST_COL_NAME,
@@ -15,11 +14,17 @@ from consts import (
     DPI,
     SPLIT,
     CURR_MUTATOR,
+    PLOT_OPERATORS,
+    LOG_FILES_PATH,
 )
 
 
 def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
-    data = pd.read_csv(csv_file_path)
+    all_data = pd.read_csv(csv_file_path)
+    midpoint = len(all_data) // 2
+
+    # filter out initial spikes in search
+    data = all_data.iloc[midpoint:]
 
     min_value = min(
         data[RES_CURRENT_COL_NAME].min(),
@@ -36,12 +41,10 @@ def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
 
     plt.figure(figsize=(30, 15))
 
-    plt.plot(data[RES_WORST_NEIGHBOUR], label="Worst neighbour", color="red")
-
-    plt.plot(data[RES_CURRENT_COL_NAME], label="Current", color="blue")
+    plt.plot(data[RES_WORST_NEIGHBOUR], label="Worst neighbour", color="yellow")
+    plt.plot(data[RES_AVG_NEIGHBOUR], label="Avg neighbour", color="red")
     plt.plot(data[RES_BEST_COL_NAME], label="Best", color="green")
-
-    plt.plot(data[RES_AVG_NEIGHBOUR], label="Avg neighbour", color="pink")
+    plt.plot(data[RES_CURRENT_COL_NAME], label="Current", color="blue")
 
     plt.ylim(min_value, max_value)
 
@@ -95,10 +98,10 @@ def plot_operators(data: pd.DataFrame, output_plot_path: str) -> None:
     # plt.show()
 
 
-def generate_plots(root: str, filename: str) -> None:
+def generate_plots(root: str, filename: str, file_dir: str) -> None:
     file_path = os.path.join(root, filename)
 
-    relative_path = os.path.relpath(root, LOG_FILES_PATH)
+    relative_path = os.path.relpath(root, file_dir)
     output_dir = os.path.join(PLOT_OUTPUT_PATH, relative_path)
 
     os.makedirs(output_dir, exist_ok=True)
@@ -112,18 +115,22 @@ def generate_plots(root: str, filename: str) -> None:
     )
 
     data = run_plot(file_path, output_plot_path_data)
-    plot_operators(data, output_plot_path_operators)
+
+    if PLOT_OPERATORS:
+        plot_operators(data, output_plot_path_operators)
 
     plt.close("all")
 
 
 def main() -> None:
+    file_dir = LOG_FILES_PATH
+
     os.makedirs(PLOT_OUTPUT_PATH, exist_ok=True)
 
-    for root, _, files in os.walk(LOG_FILES_PATH):
+    for root, _, files in os.walk(file_dir):
         for filename in files:
             if filename.endswith(".csv"):
-                generate_plots(root, filename)
+                generate_plots(root, filename, file_dir)
 
 
 if __name__ == "__main__":

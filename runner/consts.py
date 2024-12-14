@@ -22,3 +22,7 @@ SPLIT: int = 5
 
 DPI: int = 100
 FILE_FORMAT: str = "png"
+
+PLOT_OPERATORS: bool = False
+
+RUN_PARALLEL: bool = False
