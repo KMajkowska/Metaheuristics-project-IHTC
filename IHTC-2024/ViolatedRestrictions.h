@@ -5,7 +5,7 @@
 
 
 /**
-* The purpose of this class is to contain all the restrictions. Based on this restrictions we calculate the fitness of the solution. 
+* @brief The purpose of this class is to contain all the restrictions. Based on this restrictions we calculate the fitness of the solution. 
 * 
 * Hard restrictions are the ones, we cannot break. If we break them, the solution is unacceptable (we count it as solution but punish it really strongly).
 * Soft restrictions are the ones, we can break, but we want to minimaze broken soft restrictions. Every restrictions has it own weight, provided by the json data.

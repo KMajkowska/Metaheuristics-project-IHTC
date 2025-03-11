@@ -279,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="assign.txt" />
+    <Text Include="Doxyfile" />
   </ItemGroup>
   <ItemGroup>
     <None Include="params.json" />
