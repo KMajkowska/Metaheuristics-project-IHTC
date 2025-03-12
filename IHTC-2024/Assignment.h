@@ -3,6 +3,11 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Part of individual to analyze rooms assignemnts
+ * Every assignemnt is recognized as its day, shift and rooms which need to be covered on this shift. 
+ * Individual contains vector of this assignemnt in the map nurseId to vector as assignments.
+*/
 class Assignment
 {
 public:

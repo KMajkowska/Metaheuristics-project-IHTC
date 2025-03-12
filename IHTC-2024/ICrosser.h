@@ -3,6 +3,9 @@
 
 class CIndividual;
 
+/**
+ * @brief Class used as interface to cross our individuals. Used for EA solver
+*/
 class ICrosser
 {
 public:

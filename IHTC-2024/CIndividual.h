@@ -10,6 +10,12 @@
 
 class IMutator;
 
+/**
+ * @brief Main Individual for all our solvers. It is our solution. 
+ * Individual is created solution, changing in every iteration.
+ * it contains list of patients, assigned to room, OT and day 
+ * moreover contains map nurseId to theirs assignemnts
+*/
 class CIndividual
 {
 public:

@@ -3,6 +3,9 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Represents our patient, whose we need to assign to room, day an OT during solving our problem. Every patient has its own ID, which is given bvy problemData.
+*/
 class Patient
 {
 public:

@@ -6,6 +6,9 @@
 #include "IMutator.h"
 #include "IProblem.h"
 
+/**
+ * @brief Class used as an interface to provide polymorphism for different ways of generating neighbours
+*/
 class INeighbourGenerator
 {
 public:
