@@ -7,6 +7,10 @@
 #include "RoomDTO.h"
 #include "NurseOutputDTO.h"
 
+/**
+ * @brief Class representing a actual room, with occupants and adding patiends. Here we also add nurses and their assignemnts (linked to this room). 
+
+*/
 class RoomWithOccupancyRepresentation
 {
 public:
@@ -20,6 +24,12 @@ public:
 	void addNurse(const NurseOutputDTO& nurse);
 	void addAssignment(int day, const std::string& roomId, const std::string& shiftName, const std::string nurseId);
 
+	/**
+	 * @brief Returns the RoomInfo about the given room on given day
+	 * @param day which day we want to return
+	 * @param roomId which room we want to return
+	 * @return info about the room
+	*/
 	RoomInfo& getPatientRoomInfoRef(int day, const std::string& roomId);
 
 	const std::unordered_map<std::string, RoomInfo>& getRoomsForGivenDayRef(int day);

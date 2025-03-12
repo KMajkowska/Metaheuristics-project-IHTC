@@ -4,6 +4,9 @@
 
 #include "IMutator.h"
 
+/**
+ * @brief Mutator to change Operating Theaters for patient. We choose random OTs and Patients and we change their assined patients/OTs
+*/
 class IHTCMutatorOperatingTheaters : public IMutator
 {
 public:

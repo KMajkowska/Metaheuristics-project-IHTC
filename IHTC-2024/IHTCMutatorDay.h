@@ -2,6 +2,11 @@
 
 #include "IMutator.h"
 
+/**
+ * @brief Mutator which randomly (normal distribution) assign day for our patient.
+ * For mandatory patients day are choosen in given time period. For optional is choosen from their release day since not defined day
+ * shuffling is happening with given probavility (for SA ut is 1)
+*/
 class IHTCMutatorDay : public IMutator
 {
 public:

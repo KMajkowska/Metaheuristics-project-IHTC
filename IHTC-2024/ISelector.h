@@ -3,6 +3,9 @@
 
 class CIndividual;
 
+/**
+ * @brief Class used as an interface to provide polymorphism for different ways of slecting our neighbours to next generation. Used for EASolver
+*/
 class ISelector
 {
 public:
