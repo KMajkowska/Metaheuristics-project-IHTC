@@ -1,24 +1,24 @@
 #include "IHTCSolver.h"
 
 IHTCSolver::IHTCSolver(const ProblemData& newProblemData, std::mt19937& randGenerator, Logger& logger) :
-	roomInfos(newProblemData.getPreprocessedRooms()),
+	_roomInfos(newProblemData.getPreprocessedRooms()),
 	ISolver(newProblemData, randGenerator),
-	logger(logger)
+	_logger(logger)
 {
 	preprocessPatientsToRooms();
 }
 
 void IHTCSolver::preprocessPatientsToRooms()
 {
-	const auto& incomingPatients = problemData.getPatients();
-	const auto& surgeonMap = problemData.getSurgeonMap();
-	const int days = problemData.getDays();
+	const auto& incomingPatients = _problemData.getPatients();
+	const auto& surgeonMap = _problemData.getSurgeonMap();
+	const int days = _problemData.getDays();
 
-	patientsInRoom.reserve(days);
+	_patientsInRoom.reserve(days);
 
 	for (int dayIdx = 0; dayIdx < days; ++dayIdx)
 	{
-		patientsInRoom.push_back(std::vector<int>(incomingPatients.size(), UNOCCUPIABLE));
+		_patientsInRoom.push_back(std::vector<int>(incomingPatients.size(), UNOCCUPIABLE));
 	}
 
 	for (int patientIdx = 0; patientIdx < incomingPatients.size(); ++patientIdx)
@@ -33,13 +33,13 @@ void IHTCSolver::preprocessPatientsToRooms()
 
 			if (surgeon.getMaxSurgeryTime()[dayIdx] >= patient.getSurgeryDuration())
 			{
-				patientsInRoom[dayIdx][patientIdx] = ASSIGNABLE;
+				_patientsInRoom[dayIdx][patientIdx] = ASSIGNABLE;
 			}
 		}
 
 		for (int dayIdx = endOfPeriod; dayIdx < days; ++dayIdx)
 		{
-			patientsInRoom[dayIdx][patientIdx] = UNDESIRED;
+			_patientsInRoom[dayIdx][patientIdx] = UNDESIRED;
 		}
 	}
 }

@@ -13,18 +13,18 @@ SASolver::SASolver(
 	const IHTCMutatorNurseRoomCover& nurseRoomCover
 ) :
 	IHTCSolver(problemData, randGenerator, logger),
-	startingTemp(startingTemp),
-	tempOperator(tempOperator),
-	stopCriterium(stopCriterium),
-	neighbourhoodNumber(neighbourhoodNumber),
-	neighbourGenerator(neighbourGenerator),
-	genderGrouper(genderGrouper),
-	nurseRoomCover(nurseRoomCover)
+	_startingTemp(startingTemp),
+	_tempOperator(tempOperator),
+	_stopCriterium(stopCriterium),
+	_neighbourhoodNumber(neighbourhoodNumber),
+	_neighbourGenerator(neighbourGenerator),
+	_genderGrouper(genderGrouper),
+	_nurseRoomCover(nurseRoomCover)
 {}
 
 CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
-	double actualTemp = startingTemp;
+	double actualTemp = _startingTemp;
 	int iteration = 0;
 
 	CIndividual curr = startingIndividual;
@@ -33,9 +33,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	while (!stopCriterium.isStop(actualTemp, iteration))
+	while (!_stopCriterium.isStop(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
+		std::vector<CIndividual> neighbours = _neighbourGenerator.getNeighbours(iteration, _neighbourhoodNumber, curr);
 
 		if (neighbours.empty())
 		{
@@ -83,9 +83,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard() > 0)
+			if (iteration % _genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard() > 0)
 			{
-				genderGrouper.greedyGroupGenders(curr);
+				_genderGrouper.greedyGroupGenders(curr);
 				curr.setFitness(problem.eval(curr));
 				if (curr.getFitness().first < best.getFitness().first)
 				{
@@ -94,18 +94,18 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard() > 0)
+			if (iteration % _genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard() > 0)
 			{
-				nurseRoomCover.mutate(curr);
+				_nurseRoomCover.mutate(curr);
 				curr.setFitness(problem.eval(curr));
 				if (curr.getFitness().first < best.getFitness().first)
 				{
 					best = curr;
 				}
-				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, nurseRoomCover.getMutatorName());
+				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, _nurseRoomCover.getMutatorName());
 			}
 		}
-		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.getFitness().second);
+		actualTemp = _tempOperator.getNewTemp(_startingTemp, actualTemp, iteration, curr.getFitness().second);
 		++iteration;
 	}
 
@@ -128,7 +128,7 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 
 	int diff = neighbourFitness - currFitness;
 
-	while (diff > startingTemp * NORMALIZATION_DIVIDER)
+	while (diff > _startingTemp * NORMALIZATION_DIVIDER)
 	{
 		diff /= NORMALIZATION_DIVIDER;
 	}
@@ -136,12 +136,12 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 	double expCalc = exp(diff / temperature);
 	double expProb = 2 / (1 + expCalc);
 
-	return distribution(randGenerator) < expProb;
+	return distribution(_randGenerator) < expProb;
 }
 
 void SASolver::logResults(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const
 {
-	logger.log(
+	_logger.log(
 		curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
 		best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," +
 		std::to_string(actualTemp) + "," +

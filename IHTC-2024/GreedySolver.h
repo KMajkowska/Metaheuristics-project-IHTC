@@ -12,6 +12,9 @@
 #include "ShiftNurses.h"
 #include "NurseWrapper.h"
 
+/**
+ * @brief Greedy Solver for IHTC problem. Used for creating the starting individual for SASolver. Typical greedy algorithm
+*/
 class GreedySolver : public IHTCSolver
 {
 public:

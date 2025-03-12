@@ -5,6 +5,9 @@
 
 #include "ICoolingScheme.h"
 
+/**
+ * @brief 
+*/
 class TemperatureOperator
 {
 public:
@@ -15,8 +18,8 @@ public:
 private:
 	int iterationWithoutChange;
 
-	int currIterationWithoutChange = 0;
-	int currRestrainFromCooling = 0;
+	int currIterationWithoutChange { 0 };
+	int currRestrainFromCooling { 0 };
 
 	ViolatedRestrictions prevRestr;
 

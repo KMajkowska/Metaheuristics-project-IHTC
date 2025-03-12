@@ -6,15 +6,15 @@ GreedySolver::GreedySolver(const ProblemData& problemData, std::mt19937& randGen
 
 CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
-	const auto& shiftTypes = problemData.getShiftTypes();
+	const auto& shiftTypes = _problemData.getShiftTypes();
 
 	std::vector<Patient> patients;
-	patients.reserve(problemData.getPatients().size());
+	patients.reserve(_problemData.getPatients().size());
 
 	std::unordered_map<std::string, std::vector<Assignment>> assignments;
-	assignments.reserve(problemData.getNurses().size());
+	assignments.reserve(_problemData.getNurses().size());
 
-	for (const auto& nurse : problemData.getNurses())
+	for (const auto& nurse : _problemData.getNurses())
 	{
 		std::vector<Assignment> sol;
 
@@ -26,13 +26,13 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 		assignments[nurse.getId()] = sol;
 	}
 
-	int days = problemData.getDays();
+	int days = _problemData.getDays();
 
-	RoomWithOccupancyRepresentation roomWithOccupancy = problemData.getPreprocessedRooms();
-	ShiftNurses shiftNurses(problemData);
+	RoomWithOccupancyRepresentation roomWithOccupancy = _problemData.getPreprocessedRooms();
+	ShiftNurses shiftNurses(_problemData);
 
 	// begin :: ots
-	std::vector<std::vector<OperatingTheaterWrapper>> operatingTheaters = problemData.getOperatingTheatersAvailability();
+	std::vector<std::vector<OperatingTheaterWrapper>> operatingTheaters = _problemData.getOperatingTheatersAvailability();
 
 	for (int i = 0; i < days; ++i)
 	{
@@ -42,9 +42,9 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 
 	// begin :: surgeonWorkloads
 	std::unordered_map<std::string, Workload> surgeonWorkloads;
-	surgeonWorkloads.reserve(problemData.getSurgeons().size());
+	surgeonWorkloads.reserve(_problemData.getSurgeons().size());
 
-	for (const auto& surgeon : problemData.getSurgeons())
+	for (const auto& surgeon : _problemData.getSurgeons())
 	{
 		surgeonWorkloads[surgeon.getId()] = Workload(surgeon);
 	}
@@ -52,17 +52,17 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 
 	// begin :: nurseWorkloads
 	std::unordered_map<std::string, Workload> nurseWorkloads;
-	nurseWorkloads.reserve(problemData.getNurses().size());
+	nurseWorkloads.reserve(_problemData.getNurses().size());
 
-	for (const auto& nurse : problemData.getNurses())
+	for (const auto& nurse : _problemData.getNurses())
 	{
-		nurseWorkloads[nurse.getId()] = Workload(nurse, days, problemData.getShiftTypeToIndexMap());
+		nurseWorkloads[nurse.getId()] = Workload(nurse, days, _problemData.getShiftTypeToIndexMap());
 	}
 	// end :: nurseWorkloads
 
 	std::priority_queue<PatientWrapper> patientQueue;
 
-	for (const auto& patient : problemData.getPatients())
+	for (const auto& patient : _problemData.getPatients())
 	{
 		patientQueue.push(PatientWrapper(patient));
 	}
@@ -72,14 +72,14 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 		const auto& patientWrapper = patientQueue.top();
 		auto& patient = patientWrapper.patient;
 
-		int admissionDay = problemData.getDays();
+		int admissionDay = _problemData.getDays();
 		std::string ot = "";
 		std::string roomId = "";
 
 		std::vector<int> dissallowedAdmissionDays;
 
 		while (
-			admissionDay >= problemData.getDays()
+			admissionDay >= _problemData.getDays()
 			&& roomId.empty()
 			&& ot.empty()
 			&& dissallowedAdmissionDays.size() < patient.getLengthOfStay()
@@ -92,7 +92,7 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 			auto newOt = pair.second;
 			auto newRoomId = chooseRoomId(patient, roomWithOccupancy, newAdmissionDay);
 
-			if (newAdmissionDay < problemData.getDays())
+			if (newAdmissionDay < _problemData.getDays())
 			{
 				admissionDay = newAdmissionDay;
 			}
@@ -116,13 +116,13 @@ CIndividual GreedySolver::solve(const IProblem& problem, const CIndividual& star
 	}
 
 
-	for (const auto& room : problemData.getRooms())
+	for (const auto& room : _problemData.getRooms())
 	{
 		std::vector<std::string> chosenNurses = chooseNurse(
 			nurseWorkloads,
 			shiftNurses,
 			roomWithOccupancy,
-			problemData.getNurses(),
+			_problemData.getNurses(),
 			room.getId()
 		);
 
@@ -170,19 +170,19 @@ std::vector<std::string> GreedySolver::chooseNurse(
 ) const
 {
 	std::vector<std::string> nursesPerShiftAndDayToRoom;
-	nursesPerShiftAndDayToRoom.reserve(problemData.getDays() * problemData.getShiftTypes().size());
+	nursesPerShiftAndDayToRoom.reserve(_problemData.getDays() * _problemData.getShiftTypes().size());
 
-	for (size_t i = 0; i < problemData.getDays() * problemData.getShiftTypes().size(); ++i)
+	for (size_t i = 0; i < _problemData.getDays() * _problemData.getShiftTypes().size(); ++i)
 	{
 		std::priority_queue<NurseWrapper> nursePrio;
 
-		const int day = i / problemData.getShiftTypes().size();
-		const int shiftOffset = i % problemData.getShiftTypes().size();
+		const int day = i / _problemData.getShiftTypes().size();
+		const int shiftOffset = i % _problemData.getShiftTypes().size();
 
 		const auto& room = roomWithOccupancy.getPatientRoomInfoRef(day, roomId);
 		const auto& nurses = shiftNurses.getNursesByDayShiftOffset(i);
 
-		const std::string shiftType = problemData.getShiftTypes().at(shiftOffset);
+		const std::string shiftType = _problemData.getShiftTypes().at(shiftOffset);
 
 		auto it = room.skillLevelsRequired.find(shiftType);
 
@@ -218,7 +218,7 @@ std::vector<std::string> GreedySolver::chooseNurse(
 
 			// any other ?
 
-			nursePrio.push(NurseWrapper(problemData.getWeights(), nurse, day, shiftType));
+			nursePrio.push(NurseWrapper(_problemData.getWeights(), nurse, day, shiftType));
 		}
 
 		const auto& topNurse = nursePrio.top();
@@ -238,7 +238,7 @@ std::pair<int, std::string> GreedySolver::chooseAdmissionDayAndOt(
 	std::vector<int>& disallowedAdmissionDays
 ) const
 {
-	for (int i = patient.getSurgeryReleaseDay(); i <= patient.getSurgeryDueDay() && i < problemData.getDays(); ++i)
+	for (int i = patient.getSurgeryReleaseDay(); i <= patient.getSurgeryDueDay() && i < _problemData.getDays(); ++i)
 	{
 		auto it = std::find(disallowedAdmissionDays.begin(), disallowedAdmissionDays.end(), i);
 
@@ -271,7 +271,7 @@ std::pair<int, std::string> GreedySolver::chooseAdmissionDayAndOt(
 		disallowedAdmissionDays.push_back(i);
 	}
 
-	return std::make_pair(problemData.getDays(), "");
+	return std::make_pair(_problemData.getDays(), "");
 }
 
 std::string GreedySolver::chooseRoomId(
@@ -280,17 +280,17 @@ std::string GreedySolver::chooseRoomId(
 	int admissionDay
 ) const
 {
-	if (admissionDay >= problemData.getDays())
+	if (admissionDay >= _problemData.getDays())
 	{
 		return "";
 	}
 
-	const auto& weight = problemData.getWeights();
+	const auto& weight = _problemData.getWeights();
 	std::priority_queue<RoomBrokenAgeGender> roomPrioQueue;
 
 	const auto& incompatibleRooms = patient.getIncompatibleRoomIds();
 
-	for (const auto& room : problemData.getRooms())
+	for (const auto& room : _problemData.getRooms())
 	{
 		auto it = std::find(incompatibleRooms.begin(), incompatibleRooms.end(), room.getId());
 
@@ -304,7 +304,7 @@ std::string GreedySolver::chooseRoomId(
 		int brokenAgeGroup = 0;
 		int brokenCapacity = 0;
 
-		for (int i = admissionDay; i < patient.getLengthOfStay() + admissionDay && i < problemData.getDays(); ++i)
+		for (int i = admissionDay; i < patient.getLengthOfStay() + admissionDay && i < _problemData.getDays(); ++i)
 		{
 			const auto& preprocessedRoom = roomWithOccupancy.getPatientRoomInfoRef(i, room.getId());
 
@@ -340,5 +340,5 @@ std::string GreedySolver::chooseRoomId(
 		return "";
 	}
 
-	return roomPrioQueue.top().id;
+	return roomPrioQueue.top().id();
 }

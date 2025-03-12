@@ -9,9 +9,9 @@ EASolver::EASolver(
 	Logger& logger
 ) :
 	IHTCSolver(problemData, randGenerator, logger),
-	selector(selector),
-	mutator(mutator),
-	crosser(crosser)
+	_selector(selector),
+	_mutator(mutator),
+	_crosser(crosser)
 {}
 
 CIndividual EASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const

@@ -12,6 +12,20 @@
 #include "GenderGrouper.h"
 #include "IHTCMutatorNurseRoomCover.h"
 
+/**
+ * @brief Solver for our Simulated Annealing. 
+ * 
+ * _problemData problem we are solving
+ * _startingTemp Temperature we are starting our algorithm and which will we cool down
+ * _stopCriterium Crietria which has to be met for algorithm to stop
+ * _tempOperator operator which calculate out new temperature based on its criteria
+ * _randGenerator generator for random operations
+ * _neighbourhoodNumber number of generated neighbours for SA 
+ * _neighbourGenerator class descirbing how to generate this neighbours
+ * _logger logger for writing solutions in the console and in the excel files
+ * _genderGrouper modification of SA algorithm, which modifies patients in the rooms to not broke as many gender restrictions
+ * _nurseRoomCover modification of SA algorithm, which assing uncovered rooms for nurse
+*/
 class SASolver : public IHTCSolver
 {
 public:
@@ -33,13 +47,13 @@ public:
 	std::string getCSVHeaders() const;
 
 private:
-	double startingTemp;
-	const IStopCriterium& stopCriterium;
-	TemperatureOperator& tempOperator;
-	int neighbourhoodNumber;
-	INeighbourGenerator& neighbourGenerator;
-	const GenderGrouper& genderGrouper;
-	const IHTCMutatorNurseRoomCover& nurseRoomCover;
+	double _startingTemp;
+	const IStopCriterium& _stopCriterium;
+	TemperatureOperator& _tempOperator;
+	int _neighbourhoodNumber;
+	INeighbourGenerator& _neighbourGenerator;
+	const GenderGrouper& _genderGrouper;
+	const IHTCMutatorNurseRoomCover& _nurseRoomCover;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 
