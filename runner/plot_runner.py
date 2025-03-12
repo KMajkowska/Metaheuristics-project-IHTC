@@ -16,16 +16,25 @@ from consts import (
     CURR_MUTATOR,
     PLOT_OPERATORS,
     LOG_FILES_PATH,
+    TEMP_COL_NAME
 )
 
 
 def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
     all_data = pd.read_csv(csv_file_path)
-    midpoint = len(all_data) // 2
 
-    # filter out initial spikes in search
-    data = all_data.iloc[midpoint:]
+    # Filter out initial spikes in search
+    midpoint = len(all_data) // 3  # Adjust to correctly take the midpoint
+    data = all_data.iloc[midpoint:].copy()
 
+    # Handle missing or invalid values
+    data = data.replace([float("inf"), -float("inf")], float("nan")).dropna()
+
+    if data.empty:
+        print(f"No valid data to plot in file: {csv_file_path}")
+        return pd.DataFrame()
+
+    # Recalculate min and max values for fitness plotting
     min_value = min(
         data[RES_CURRENT_COL_NAME].min(),
         data[RES_BEST_COL_NAME].min(),
@@ -39,27 +48,35 @@ def run_plot(csv_file_path: str, output_plot_path: str) -> pd.DataFrame:
         data[RES_BEST_NEIGHBOUR].max(),
     )
 
-    plt.figure(figsize=(30, 15))
+    # Create the main plot with a secondary Y-axis
+    fig, ax1 = plt.subplots(figsize=(30, 15))
 
-    plt.plot(data[RES_WORST_NEIGHBOUR], label="Worst neighbour", color="yellow")
-    plt.plot(data[RES_AVG_NEIGHBOUR], label="Avg neighbour", color="red")
-    plt.plot(data[RES_BEST_COL_NAME], label="Best", color="green")
-    plt.plot(data[RES_CURRENT_COL_NAME], label="Current", color="blue")
+    # Plot fitness-related data on the left Y-axis
+    ax1.plot(data[RES_WORST_NEIGHBOUR], label="Worst neighbour", color="yellow")
+    ax1.plot(data[RES_AVG_NEIGHBOUR], label="Avg neighbour", color="red")
+    ax1.plot(data[RES_BEST_COL_NAME], label="Best", color="green")
+    ax1.plot(data[RES_CURRENT_COL_NAME], label="Current", color="blue")
 
-    plt.ylim(min_value, max_value)
+    ax1.set_ylim(min_value, max_value)
+    ax1.set_xlabel("Iteration")
+    ax1.set_ylabel("Fitness")
+    ax1.set_title(f"Simulated Annealing (Min = {min_value}, Max = {max_value})")
+    ax1.legend(loc="upper left")
 
-    plt.xlabel("Iteration")
-    plt.ylabel("Fitness")
-    plt.title(f"Simulated Annealing (Min = {min_value}, Max = {max_value})")
-    plt.legend()
+    # Create a second Y-axis for temperature
+    if TEMP_COL_NAME in data.columns:
+        ax2 = ax1.twinx()
+        ax2.plot(data[TEMP_COL_NAME], label="Temperature", color="orange", linestyle="--")
+        ax2.set_ylabel("Temperature")
+        ax2.legend(loc="upper right")
 
+    # Save the plot
     plt.savefig(output_plot_path, format=FILE_FORMAT, dpi=DPI)
 
     print(f"Saved {output_plot_path}")
 
-    # plt.show()
-
     return data
+
 
 
 def plot_operators(data: pd.DataFrame, output_plot_path: str) -> None:
