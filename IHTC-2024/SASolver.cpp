@@ -83,7 +83,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
 			}
 
-			if (iteration % _genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard() > 0)
+			if (iteration % _genderGrouper.iter() == 0 && curr.getFitness().second.countGenderMixHard() > 0)
 			{
 				_genderGrouper.greedyGroupGenders(curr);
 				curr.setFitness(problem.eval(curr));
@@ -94,7 +94,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
 			}
 
-			if (iteration % _genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard() > 0)
+			if (iteration % _genderGrouper.iter() == 0 && curr.getFitness().second.countUncoveredRoomHard() > 0)
 			{
 				_nurseRoomCover.mutate(curr);
 				curr.setFitness(problem.eval(curr));

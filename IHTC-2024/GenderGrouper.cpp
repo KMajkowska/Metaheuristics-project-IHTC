@@ -1,19 +1,19 @@
 #include "GenderGrouper.h"
 
 GenderGrouper::GenderGrouper(int perIterAmountFix, const ProblemData& problemData, std::mt19937& randGenerator) :
-	perIterAmountFix(perIterAmountFix),
-	problemData(problemData),
-	randGenerator(randGenerator)
+	_perIterAmountFix(perIterAmountFix),
+	_problemData(problemData),
+	_randGenerator(randGenerator)
 {}
 
 void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 {
-	auto rooms = problemData.getPreprocessedRooms();
+	auto rooms = _problemData.getPreprocessedRooms();
 	auto patients = individual.getPatients();
 
 	for (const auto& solutionPatient : patients)
 	{
-		const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
+		const auto patient = _problemData.getPatientMap().at(solutionPatient.getId());
 
 		rooms.addIncomingPatient(solutionPatient.getAdmissionDay(), solutionPatient.getRoomId(), patient);
 	}
@@ -22,7 +22,7 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 	int worstBrokenGenderAmount = -1;
 	std::string worstGender = "";
 
-	for (size_t i = 0; i < problemData.getDays(); ++i)
+	for (size_t i = 0; i < _problemData.getDays(); ++i)
 	{
 		for (const auto& roomsForDay : rooms.getRoomsForGivenDayRef(i))
 		{
@@ -53,7 +53,7 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 		return;
 	}
 
-	for (size_t i = 0; i < problemData.getDays(); ++i)
+	for (size_t i = 0; i < _problemData.getDays(); ++i)
 	{
 		for (const auto& roomsForDay : rooms.getRoomsForGivenDayRef(i))
 		{
@@ -63,7 +63,7 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 				{
 					if (solutionPatient.getRoomId() == worstRoomId)
 					{
-						const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
+						const auto patient = _problemData.getPatientMap().at(solutionPatient.getId());
 
 						if (patient.getGender() == worstGender)
 						{
@@ -78,17 +78,17 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 		}
 	}
 
-	std::uniform_int_distribution<int> roomRand(0, problemData.getRooms().size());
+	std::uniform_int_distribution<int> roomRand(0, _problemData.getRooms().size());
 
 	for (auto& solutionPatient : patients)
 	{
 		if (solutionPatient.getRoomId() == worstRoomId)
 		{
-			const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
+			const auto patient = _problemData.getPatientMap().at(solutionPatient.getId());
 
 			if (patient.getGender() == worstGender)
 			{
-				solutionPatient.setRoomId(problemData.getRooms()[roomRand(randGenerator)].getId());
+				solutionPatient.setRoomId(_problemData.getRooms()[roomRand(_randGenerator)].getId());
 			}
 		}
 	}
@@ -96,7 +96,7 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 	individual.setPatients(patients);
 }
 
-int GenderGrouper::getIter() const
+int GenderGrouper::iter() const
 {
-	return perIterAmountFix;
+	return _perIterAmountFix;
 }

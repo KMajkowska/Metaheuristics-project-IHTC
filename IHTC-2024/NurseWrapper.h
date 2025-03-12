@@ -5,6 +5,9 @@
 #include "WeightsDTO.h"
 #include "NurseDTO.h"
 
+/**
+ * @brief Wrapper for nurse class to allow us to compare two nurses and use this to choose, which nurse is better to assign when we modify our solution
+*/
 class NurseWrapper
 {
 public:

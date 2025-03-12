@@ -2,6 +2,9 @@
 
 #include "ICoolingScheme.h"
 
+/**
+ * @brief SImple cooling schema which is multiplying our current temperature by multiplier smaller than 1
+*/
 class SimplexCoolingScheme : public ICoolingScheme
 {
 public:
