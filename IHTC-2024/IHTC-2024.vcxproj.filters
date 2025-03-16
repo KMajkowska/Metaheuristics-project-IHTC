@@ -154,6 +154,9 @@
     <Filter Include="Pliki nagłówkowe\algorithm\solverBuilder">
       <UniqueIdentifier>{856f117e-42bb-4353-8923-d9fc8373c95f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\algorithm\solverBuilder">
+      <UniqueIdentifier>{2fa6d910-71f1-4e82-8c67-093b2a864b52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -368,6 +371,15 @@
     </ClCompile>
     <ClCompile Include="NurseWorkload.cpp">
       <Filter>Pliki źródłowe\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomSolverBuilder.cpp">
+      <Filter>Pliki źródłowe\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GreedySolverBuilder.cpp">
+      <Filter>Pliki źródłowe\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="SASolverBuilder.cpp">
+      <Filter>Pliki źródłowe\algorithm\solverBuilder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -593,13 +605,25 @@
     <ClInclude Include="consts.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
-    <ClInclude Include="ISolverBuilder.h">
+    <ClInclude Include="IHTCSolverBuilder.h">
       <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
     </ClInclude>
     <ClInclude Include="CoolingSchemeType.h">
       <Filter>Pliki nagłówkowe\algorithm\params</Filter>
     </ClInclude>
     <ClInclude Include="enumOperations.h">
+      <Filter>Pliki nagłówkowe\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSolverBuilder.h">
+      <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GreedySolverBuilder.h">
+      <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="SASolverBuilder.h">
+      <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumType.h">
       <Filter>Pliki nagłówkowe\algorithm\params</Filter>
     </ClInclude>
   </ItemGroup>

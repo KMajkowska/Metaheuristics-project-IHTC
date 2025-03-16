@@ -1,10 +1,10 @@
 #include "FitnessCalculator.h"
 
 FitnessCalculator::FitnessCalculator(double multiplier) :
-	multiplier(multiplier)
+	_multiplier(multiplier)
 {}
 
 double FitnessCalculator::calculateFitnessWithWeight(const WeightsDTO& weights, const ViolatedRestrictions& restrictions) const
 {
-	return calculateFitness(multiplier, weights, restrictions);
+	return calculateFitness(_multiplier, weights, restrictions);
 }

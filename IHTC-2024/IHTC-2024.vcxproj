@@ -139,6 +139,7 @@
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GenderGrouper.cpp" />
     <ClCompile Include="GreedySolver.cpp" />
+    <ClCompile Include="GreedySolverBuilder.cpp" />
     <ClCompile Include="ICrosser.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCMutatorAssignments.cpp" />
@@ -160,7 +161,9 @@
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="Params.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
+    <ClCompile Include="RandomSolverBuilder.cpp" />
     <ClCompile Include="RoomInfo.cpp" />
+    <ClCompile Include="SASolverBuilder.cpp" />
     <ClCompile Include="ShiftNurses.cpp" />
     <ClCompile Include="OperatingTheaterInfo.cpp" />
     <ClCompile Include="OperatingTheaterWrapper.cpp" />
@@ -215,11 +218,15 @@
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
+    <ClInclude Include="GreedySolverBuilder.h" />
     <ClInclude Include="ICIndividualConsumer.h" />
-    <ClInclude Include="ISolverBuilder.h" />
+    <ClInclude Include="IHTCSolverBuilder.h" />
     <ClInclude Include="JSONOperations.h" />
     <ClInclude Include="JSONSerializableExchanger.h" />
+    <ClInclude Include="RandomSolverBuilder.h" />
+    <ClInclude Include="SASolverBuilder.h" />
     <ClInclude Include="solverUtils.h" />
+    <ClInclude Include="StopCriteriumType.h" />
     <ClInclude Include="TemperatureOperator.h" />
     <ClInclude Include="ICoolingScheme.h" />
     <ClInclude Include="ICrosser.h" />

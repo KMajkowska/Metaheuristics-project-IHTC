@@ -9,6 +9,9 @@
 #include "NeighbourGeneratorType.h"
 #include "SolverType.h"
 
+#include "strings.h"
+#include "StopCriteriumType.h"
+
 template <typename T>
 concept EnumType = std::is_enum_v<T>;
 
@@ -42,7 +45,8 @@ public:
 };
 
 template <EnumType T>
-class EnumMapper : public EnumMapperBase<T> {
+class EnumMapper : public EnumMapperBase<T> 
+{
 public:
 	static const EnumMapper<T>& instance()
 	{
@@ -59,22 +63,28 @@ private:
 };
 
 #pragma region getDefault
-template<>
+template <>
 inline CoolingSchemeType EnumMapper<CoolingSchemeType>::getDefault() const
 {
 	return CoolingSchemeType::UNKNOWN;
 }
 
-template<>
+template <>
 inline NeighbourGeneratorType EnumMapper<NeighbourGeneratorType>::getDefault() const
 {
 	return NeighbourGeneratorType::UNKNOWN;
 }
 
-template<>
+template <>
 inline SolverType EnumMapper<SolverType>::getDefault() const
 {
 	return SolverType::UNKNOWN;
+}
+
+template <>
+inline StopCriteriumType EnumMapper<StopCriteriumType>::getDefault() const
+{
+	return StopCriteriumType::UNKNOWN;
 }
 #pragma endregion getDefault
 
@@ -95,6 +105,12 @@ template <>
 inline const std::unordered_map<SolverType, std::string>& EnumMapper<SolverType>::getMap() const
 {
 	return ST_ENUM_TO_STRING;
+}
+
+template <>
+inline const std::unordered_map<StopCriteriumType, std::string>& EnumMapper<StopCriteriumType>::getMap() const
+{
+	return SCT_ENUM_TO_STRING;
 }
 #pragma endregion getMap
 

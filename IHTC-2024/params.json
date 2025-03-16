@@ -5,7 +5,7 @@
     "neighbourNumber": 5,
     "prizeSize": 1,
     "increaseTempIters": 20,
-    "genderGrouperIter" :  100,
+    "genderGrouperIter": 100,
     "simplexCoolingMultiplier": 0.999,
     "solverRepetitionAmount": 1,
     "startingTemperature": 3500,
@@ -13,5 +13,7 @@
     "initSolver": "greedy",
     "outputSolver": "sa",
     "neighbourGenerator": "prizeBest",
-    "outputPath":  "./"
+    "coolingSchemeType": "simplex",
+    "stopCriteriumType": "temperature",
+    "outputPath": "./"
 }

@@ -12,5 +12,5 @@ public:
 	double calculateFitnessWithWeight(const WeightsDTO& weights, const ViolatedRestrictions& restrictions) const;
 
 private:
-	double multiplier;
+	double _multiplier;
 };

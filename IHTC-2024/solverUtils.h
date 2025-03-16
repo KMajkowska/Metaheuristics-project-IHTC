@@ -6,16 +6,19 @@
 #include "RandomSolver.h"
 #include "SASolver.h"
 #include "GreedySolver.h"
-#include "consts.h"
 
 
-//static  std::unique_ptr<IHTCSolver> getSolver(
-//	ICIndividualConsumer& consumer, 
-//	const Params& params, 
-//	const ProblemData& problemData
-//);
+std::vector<std::shared_ptr<IMutator>> getMutators(
+	const ProblemData& problemData, 
+	std::mt19937& randGenerator, 
+	const Params& params
+);
 
-static std::unique_ptr<INeighbourGenerator> getNeighbourGenerator(
+std::shared_ptr<IStopCriterium> getStopCriterium(const Params& params);
+
+std::shared_ptr<ICoolingScheme> getCoolingScheme(const Params& params);
+
+std::shared_ptr<INeighbourGenerator> getNeighbourGenerator(
 	const std::vector<std::shared_ptr<IMutator>> mutators,
 	const Params& params,
 	const IProblem& problem

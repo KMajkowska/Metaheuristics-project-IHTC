@@ -7,6 +7,7 @@
 #include "NeighbourGeneratorType.h"
 #include "CoolingSchemeType.h"
 #include "enumOperations.h"
+#include "StopCriteriumType.h"
 
 static const std::string DEFAULT_PROBLEM_FILE = "../datasets/ihtc2024_test_dataset/test01.json";
 static const std::string DEFAULT_PARAMS_FILE = "./params.json";
@@ -34,6 +35,7 @@ public:
     void setOutputSolver(SolverType solver);
     void setNeighbourGenerator(NeighbourGeneratorType generator);
     void setCoolingSchemeType(CoolingSchemeType coolingSchemeType);
+    void setStopCriteriumType(StopCriteriumType stopCriteriumType);
 
     const std::string& outputPath() const;
     double hardRestrictionWeight() const;
@@ -51,6 +53,7 @@ public:
     SolverType outputSolver() const;
     NeighbourGeneratorType neighbourGenerator() const;
     CoolingSchemeType coolingSchemeType() const;
+    StopCriteriumType stopCriteriumType() const;
 
 private:
     std::string _outputPath { "./" };
@@ -69,6 +72,7 @@ private:
     SolverType _outputSolver { SolverType::UNKNOWN };
     NeighbourGeneratorType _neighbourGenerator { NeighbourGeneratorType::UNKNOWN };
     CoolingSchemeType _coolingSchemeType { CoolingSchemeType:: UNKNOWN };
+    StopCriteriumType _stopCriteriumType { StopCriteriumType::UNKNOWN };
 };
 
 void to_json(nlohmann::json& j, const Params& data);

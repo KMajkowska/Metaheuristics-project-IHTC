@@ -80,6 +80,11 @@ CoolingSchemeType Params::coolingSchemeType() const
     return _coolingSchemeType;
 }
 
+StopCriteriumType Params::stopCriteriumType() const
+{
+    return _stopCriteriumType;
+}
+
 void Params::setOutputPath(const std::string& path) 
 {
     _outputPath = path;
@@ -160,6 +165,11 @@ void Params::setCoolingSchemeType(CoolingSchemeType coolingSchemeType)
     _coolingSchemeType = coolingSchemeType;
 }
 
+void Params::setStopCriteriumType(StopCriteriumType stopCriteriumType)
+{
+    _stopCriteriumType = stopCriteriumType;
+}
+
 void to_json(nlohmann::json& j, const Params& data)
 {
     j = nlohmann::json
@@ -178,7 +188,9 @@ void to_json(nlohmann::json& j, const Params& data)
         {"initSolver", enumToString<SolverType>(data.initSolver())},
         {"outputSolver", enumToString<SolverType>(data.outputSolver())},
         {"neighbourGenerator", enumToString<NeighbourGeneratorType>(data.neighbourGenerator())},
-        {"outputPath", data.outputPath()}
+        {"outputPath", data.outputPath()},
+        {"coolingSchemeType", enumToString<CoolingSchemeType>(data.coolingSchemeType())},
+        {"stopCriteriumType", enumToString<StopCriteriumType>(data.stopCriteriumType())},
     };
 }
 
@@ -199,4 +211,6 @@ void from_json(const nlohmann::json& j, Params& data)
     data.setOutputSolver(stringToEnum<SolverType>(j.at("outputSolver").get<std::string>()));
     data.setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(j.at("neighbourGenerator").get<std::string>()));
     data.setOutputPath(j.at("outputPath").get<std::string>());
+    data.setCoolingSchemeType(stringToEnum<CoolingSchemeType>(j.at("coolingSchemeType").get<std::string>()));
+    data.setStopCriteriumType(stringToEnum<StopCriteriumType>(j.at("stopCriteriumType").get<std::string>()));
 }
