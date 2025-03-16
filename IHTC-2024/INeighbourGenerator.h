@@ -10,11 +10,12 @@ class INeighbourGenerator
 {
 public:
 	INeighbourGenerator(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem);
+	virtual ~INeighbourGenerator() = default;
 
 	virtual std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv) = 0;
 
 protected:
-	const std::vector<std::shared_ptr<IMutator>>& mutators;
+	const std::vector<std::shared_ptr<IMutator>>& _mutators;
 
-	const IProblem& problem;
+	const IProblem& _problem;
 };

@@ -11,21 +11,20 @@ public:
 	Assignment(int day, std::string shift, std::vector<std::string> rooms);
 	Assignment(const Assignment& other) = default;
 
-	int getDay() const;
 	void setDay(int newDay);
-
-	std::string getShift() const;
 	void setShift(const std::string& newShift);
-
-	std::vector<std::string> getRooms() const;
 	void setRooms(std::vector<std::string> newRooms);
+
+	std::string shift() const;
+	std::vector<std::string> rooms() const;
+	int day() const;
 
 	void appendRoom(const std::string& roomId);
 
 private:
-	int day;
-	std::string shift;
-	std::vector<std::string> rooms;
+	int _day;
+	std::string _shift;
+	std::vector<std::string> _rooms;
 };
 
 

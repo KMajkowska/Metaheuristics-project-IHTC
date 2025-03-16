@@ -23,14 +23,12 @@ Logger::~Logger()
 	logFile.close();
 }
 
-void Logger::log(const std::string& logStr)
+void Logger::consume(const CIndividual& current, const CIndividual& best, double temperature)
 {
-	buffer.push_back(logStr);
+	buffer.push_back(createLog(current, best, temperature));
 
-	if (buffer.size() >= MAX_BUFFER_SIZE) 
+	if (buffer.size() >= MAX_BUFFER_SIZE)
 	{
-		std::cout << logStr << std::endl;
-
 		flushToFile();
 	}
 }
@@ -46,4 +44,11 @@ void Logger::flushToFile()
 
 	buffer.clear();
 	logFile.flush();
+}
+
+std::string Logger::createLog(const CIndividual& current, const CIndividual& best, double temperature)
+{
+	return current.fitness().second.getCSVData() + "," + std::to_string(current.fitness().first) + "," +
+		best.fitness().second.getCSVData() + "," + std::to_string(best.fitness().first) + "," +
+		std::to_string(temperature);
 }

@@ -5,60 +5,60 @@ Patient::Patient() : Patient("", 1, "", "")
 }
 
 Patient::Patient(const std::string& id, int admissionDay, const std::string& roomId, const std::string& operationTheater) :
-    id(id),
-    admissionDay(admissionDay),
-    roomId(roomId),
-    operationTheater(operationTheater)
+    _id(id),
+    _admissionDay(admissionDay),
+    _roomId(roomId),
+    _operationTheater(operationTheater)
 {}
 
-std::string Patient::getId() const
+std::string Patient::id() const
 {
-    return id;
+    return _id;
 }
 
 void Patient::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
-int Patient::getAdmissionDay() const
+int Patient::admissionDay() const
 {
-	return admissionDay;
+	return _admissionDay;
 }
 
 void Patient::setAdmissionDay(int newAdmissionDay)
 {
-	admissionDay = newAdmissionDay;
+	_admissionDay = newAdmissionDay;
 }
 
-std::string Patient::getRoomId() const
+std::string Patient::roomId() const
 {
-	return roomId;
+	return _roomId;
 }
 
 void Patient::setRoomId(const std::string& newRoomId)
 {
-	roomId = newRoomId;
+	_roomId = newRoomId;
 }
 
-std::string Patient::getOperationTheater() const
+std::string Patient::operationTheater() const
 {
-	return operationTheater;
+	return _operationTheater;
 }
 
 void Patient::setOperationTheater(const std::string& newOperationTheater)
 {
-	operationTheater = newOperationTheater;
+	_operationTheater = newOperationTheater;
 }
 
 void to_json(nlohmann::json& j, const Patient& data)
 {
     j = nlohmann::json
     {
-        {"id", data.getId()},
-        {"admission_day", data.getAdmissionDay()},
-        {"room", data.getRoomId()},
-        {"operating_theater", data.getOperationTheater()},
+        {"id", data.id()},
+        {"admission_day", data.admissionDay()},
+        {"room", data.roomId()},
+        {"operating_theater", data.operationTheater()},
     };
 }
 

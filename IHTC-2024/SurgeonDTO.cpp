@@ -1,31 +1,31 @@
 #include "SurgeonDTO.h"
 
-std::string SurgeonDTO::getId() const
+std::string SurgeonDTO::id() const
 {
-    return id;
+    return _id;
 }
 
-std::vector<int> SurgeonDTO::getMaxSurgeryTime() const
+std::vector<int> SurgeonDTO::maxSurgeryTime() const
 {
-    return max_surgery_time;
+    return _maxSurgeryTime;
 }
 
 void SurgeonDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void SurgeonDTO::setMaxSurgeryTime(std::vector<int> newMaxSurgeryTime)
 {
-    max_surgery_time = newMaxSurgeryTime;
+    _maxSurgeryTime = newMaxSurgeryTime;
 }
 
 void to_json(nlohmann::json& j, const SurgeonDTO& surgeon)
 {
 	j = nlohmann::json
 	{
-		{"id", surgeon.getId()},
-		{"max_surgery_time", surgeon.getMaxSurgeryTime()}
+		{"id", surgeon.id()},
+		{"max_surgery_time", surgeon.maxSurgeryTime()}
 	};
 }
 

@@ -13,17 +13,20 @@ public:
 	void addWorkload(int workload);
 	void addSkillLevel(int skillLevel);
 
-	NurseDTO nurse;
-
 	std::strong_ordering operator<=>(const NurseWrapper&) const;
 
+	void setNurse(NurseDTO&& nurse);
+	NurseDTO nurse() const;
+
 private:
+	NurseDTO _nurse;
+	WeightsDTO _weights;
+
+	int _maxWorkload;
+
+	std::vector<int> _usedWorkloads;
+	std::vector<int> _usedSkillLevels;
+
 	int getWeightedRestriction() const;
 
-	WeightsDTO weights;
-
-	int maxWorkload;
-	std::vector<int> usedWorkloads;
-
-	std::vector<int> usedSkillLevels;
 };

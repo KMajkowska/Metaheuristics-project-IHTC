@@ -7,11 +7,7 @@ class IHTCMutatorNurseRoomCover : public IMutator
 public:
 	IHTCMutatorNurseRoomCover(std::mt19937& randGenerator, const ProblemData& problemData, double newRoomAddingToNurseProbability);
 
-	bool mutate(CIndividual& individual) const;
+	bool mutate(CIndividual& individual) const override;
 
-	std::string getMutatorName() const;
-
-
-private:
-	double roomAddingToNurseProbability;
+	std::string mutatorName() const override;
 };

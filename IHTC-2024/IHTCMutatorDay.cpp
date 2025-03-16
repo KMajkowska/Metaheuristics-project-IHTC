@@ -1,42 +1,36 @@
 #include "IHTCMutatorDay.h"
 
 IHTCMutatorDay::IHTCMutatorDay(std::mt19937& randGenerator, const ProblemData& problemData, double newDayShuffleProbability) :
-	IMutator(randGenerator, problemData),
-	dayShuffleProbability(newDayShuffleProbability)
-{
-	if (newDayShuffleProbability > 1.0 || newDayShuffleProbability < 0.0)
-	{
-		throw std::invalid_argument("Day shuffle probability is not in the range!");
-	}
-}
+	IMutator(randGenerator, problemData, newDayShuffleProbability)
+{}
 
 bool IHTCMutatorDay::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	if (distribution(randGenerator) > dayShuffleProbability)
+	if (distribution(_randGenerator) > _mutationProbability)
 	{
 		return false;
 	}
 
-	auto patients = individual.getPatients();
-	const auto& rooms = problemData.getRooms();
-	int days = problemData.getDays();
+	auto patients { individual.patients() };
+	const auto& rooms { _problemData.rooms() };
+	int days { _problemData.days() };
 
 	std::uniform_int_distribution<int> patientDistribution(0, patients.size() - 1);
 
-	Patient& patient = patients.at(patientDistribution(randGenerator));
-	const auto patientFromProblem = problemData.getPatientMap().at(patient.getId());
+	Patient& patient { patients.at(patientDistribution(_randGenerator)) };
+	const auto patientFromProblem { _problemData.getPatientMap().at(patient.id()) };
 
-	int countInvalidAdmissionDays = 1;
+	int countInvalidAdmissionDays { 1 };
 
-	int newAdmissionDay = randomDay(
-		patientFromProblem.getSurgeryReleaseDay(), 
+	int newAdmissionDay { randomDay(
+		patientFromProblem.getSurgeryReleaseDay(),
 		patientFromProblem.getSurgeryDueDay() > days ? days : patientFromProblem.getSurgeryDueDay()
-	);
+	) };
 
-	while (!checkCorrectAdmissionDay(newAdmissionDay, patientFromProblem.getSurgeonId(), patient.getOperationTheater()) 
-		&& countInvalidAdmissionDays <= patientFromProblem.getLengthOfStay())
+	while (!checkCorrectAdmissionDay(newAdmissionDay, patientFromProblem.getSurgeonId(), patient.operationTheater()) 
+		&& countInvalidAdmissionDays <= patientFromProblem.lengthOfStay())
 	{
 		++countInvalidAdmissionDays;
 
@@ -53,7 +47,7 @@ bool IHTCMutatorDay::mutate(CIndividual& individual) const
 	return true;
 }
 
-std::string IHTCMutatorDay::getMutatorName() const
+std::string IHTCMutatorDay::mutatorName() const
 {
 	return "Day";
 }
@@ -63,22 +57,22 @@ int IHTCMutatorDay::randomDay(int min, int max) const
 {
 	std::uniform_int_distribution<int> patientDistribution(min, max);
 
-	return patientDistribution(randGenerator);
+	return patientDistribution(_randGenerator);
 
 	if (min == max)
 	{
 		return min;
 	}
 
-	double mean = min + 1;
-	double stddev = (max - min) / 6.0;
+	double mean { min + 1.0 };
+	double stddev { (max - min) / 6.0 };
 
 	std::normal_distribution<double> distribution(mean, stddev);
 
-	double day;
+	double day{ 0 };
 	do 
 	{
-		day = distribution(randGenerator);
+		day = distribution(_randGenerator);
 	} 
 	while (day <= min || day > max);
 
@@ -87,22 +81,24 @@ int IHTCMutatorDay::randomDay(int min, int max) const
 
 bool IHTCMutatorDay::checkCorrectAdmissionDay(int admissionDay, const std::string& surgeonId, const std::string& otId) const
 {
-	if (admissionDay >= problemData.getDays())
+	if (admissionDay >= _problemData.days())
 	{
 		return true;
 	}
 
-	const auto& otAvails = problemData.getOperatingTheatersAvailability();
+	const auto& otAvails { _problemData.operatingTheatersAvailability() };
+	const auto& otAvail { otAvails.at(admissionDay) };
 
-	const auto& otAvail = otAvails.at(admissionDay);
-
-	auto it = std::find_if(otAvail.begin(), otAvail.end(), [otId](const OperatingTheaterWrapper& wrapper)
+	auto it
+	{ 
+		std::find_if(
+		otAvail.begin(), otAvail.end(), [otId](const OperatingTheaterWrapper& wrapper)
 		{
-			return wrapper.operatingTheater.id == otId;
-		}
-	);
+			return wrapper.operatingTheater().id() == otId;
+		}) 
+	};
 
-	bool isSurgeonAvailible = problemData.getSurgeonMap().at(surgeonId).getMaxSurgeryTime().at(admissionDay) > 0;
+	bool isSurgeonAvailible { _problemData.getSurgeonMap().at(surgeonId).maxSurgeryTime().at(admissionDay) > 0 };
 
 	return isSurgeonAvailible && it != otAvail.end();
 }

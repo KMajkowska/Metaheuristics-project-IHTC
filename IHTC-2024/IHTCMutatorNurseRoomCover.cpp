@@ -5,8 +5,7 @@ IHTCMutatorNurseRoomCover::IHTCMutatorNurseRoomCover(
 	const ProblemData& problemData,
 	double newRoomAddingToNurseProbability
 ) :
-	IMutator(randGenerator, problemData),
-	roomAddingToNurseProbability(newRoomAddingToNurseProbability)
+	IMutator(randGenerator, problemData, newRoomAddingToNurseProbability)
 {
 	if (newRoomAddingToNurseProbability > 1.0 || newRoomAddingToNurseProbability < 0.0)
 	{
@@ -18,49 +17,49 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	if (distribution(randGenerator) > roomAddingToNurseProbability || individual.getFitness().second.countUncoveredRoomHard <= 0)
+	if (distribution(_randGenerator) > _mutationProbability || individual.fitness().second.countUncoveredRoomHard <= 0)
 	{
 		return false;
 	}
 
-	auto rooms = problemData.getPreprocessedRooms();
-	auto patients = individual.getPatients();
+	auto rooms { _problemData.getPreprocessedRooms() };
+	auto patients { individual.patients() };
 
 	for (const auto& solutionPatient : patients)
 	{
-		const auto patient = problemData.getPatientMap().at(solutionPatient.getId());
+		const auto patient { _problemData.getPatientMap().at(solutionPatient.id()) };
 
-		rooms.addIncomingPatient(solutionPatient.getAdmissionDay(), solutionPatient.getRoomId(), patient);
+		rooms.addIncomingPatient(solutionPatient.admissionDay(), solutionPatient.roomId(), patient);
 	}
 
-	auto nurses = individual.getAssignments();
+	auto nurses { individual.assignments() };
 	std::unordered_map<std::string, Assignment> nursesForDayAndShift;
 
-	for (int i = 0; i < problemData.getDays(); ++i)
+	for (int i = 0; i < _problemData.days(); ++i)
 	{
-		for (const auto& shiftName : problemData.getShiftTypes())
+		for (const auto& shiftName : _problemData.shiftTypes())
 		{
-			auto& room = rooms.getRoomsForGivenDayRef(i);
+			auto& room { rooms.roomsForGivenDayRef(i) };
 			for (auto& [roomId, roomInfo] : room)
 			{
-				if ((roomInfo.patientIds.size() > 0 || roomInfo.occupantIds.size() > 0) && roomInfo.nurseIdToShift.size() != problemData.getShiftTypes().size())
+				if ((roomInfo.patientIds().size() > 0 || roomInfo.occupantIds.size() > 0) && roomInfo.nurseIdToShift().size() != _problemData.shiftTypes().size())
 				{
 					for (auto& [nurseId, nurseAssignments] : nurses)
 					{
 						for (auto& assignement : nurseAssignments)
 						{
-							if (assignement.getDay() == i && assignement.getShift() == shiftName)
+							if (assignement.day() == i && assignement.shift() == shiftName)
 							{
 								nursesForDayAndShift[nurseId] = assignement;
 							}
 						}
 					}
 
-					auto nurseWithMinRooms = nursesForDayAndShift.begin();
+					auto nurseWithMinRooms { nursesForDayAndShift.begin() };
 
 					for (auto it = nursesForDayAndShift.begin(); it != nursesForDayAndShift.end(); ++it)
 					{
-						if (it->second.getRooms().size() < nurseWithMinRooms->second.getRooms().size())
+						if (it->second.rooms().size() < nurseWithMinRooms->second.rooms().size())
 						{
 							nurseWithMinRooms = it;
 						}
@@ -68,13 +67,12 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 
 					for (auto& assignement : nurses.at(nurseWithMinRooms->first))
 					{
-						if (assignement.getDay() == i && assignement.getShift() == shiftName)
+						if (assignement.day() == i && assignement.shift() == shiftName)
 						{
 							assignement.appendRoom(roomId);
 							rooms.addAssignment(i, roomId, shiftName, nurseWithMinRooms->first);
 						}
 					}
-
 				}
 			}
 		}
@@ -85,7 +83,7 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 	return true;
 }
 
-std::string IHTCMutatorNurseRoomCover::getMutatorName() const
+std::string IHTCMutatorNurseRoomCover::mutatorName() const
 {
 	return "NurseRoomCover";
 }

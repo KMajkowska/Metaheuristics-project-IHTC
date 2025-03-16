@@ -10,6 +10,8 @@ class ISolver
 {
 public:
 	ISolver(const ProblemData& problemData, std::mt19937& randGenerator);
+	virtual ~ISolver() = default;
+
 	virtual CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const = 0;
 
 protected:

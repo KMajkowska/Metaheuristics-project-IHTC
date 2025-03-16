@@ -6,18 +6,18 @@
 class ShiftDTO
 {
 public:
-	int getDay() const;
-	std::string getShift() const;
-	int getMaxLoad() const;
+	int day() const;
+	std::string shift() const;
+	int maxLoad() const;
 
 	void setDay(int newDay);
 	void setShift(const std::string& newShift);
 	void setMaxLoad(int newMaxLoad);
 
 private:
-	int day;
-	std::string shift;
-	int max_load;
+	int _day;
+	std::string _shift;
+	int _maxLoad;
 };
 
 void to_json(nlohmann::json& j, const ShiftDTO& shift);

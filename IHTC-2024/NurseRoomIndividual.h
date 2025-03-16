@@ -1,4 +1,5 @@
 #pragma once
+
 #include<vector>
 
 /*
@@ -11,8 +12,10 @@ class NurseRoomIndividual
 public:
 	std::vector<std::vector<int>> getNursesInRooms();
 	void setRoomForNurses(std::vector<std::vector<int>> newNursesInRooms);
-	int getRoomForNurse(int timeslot, int nurse);
 	void setRoomForNurse(int timeslot, int nurse, int room);
+
+	int roomForNurse(int timeslot, int nurse);
+
 private:
 	std::vector<std::vector<int>> nurseToRoom;
 };

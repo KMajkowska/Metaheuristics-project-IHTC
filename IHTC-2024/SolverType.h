@@ -5,29 +5,29 @@
 
 #include "strings.h"
 
-enum class SolverType 
+
+enum class SolverType
 {
 	SA,
 	RAND,
 	GREEDY,
-    UNKNOWN
+	UNKNOWN
 };
 
-const std::unordered_map<std::string, SolverType> STRING_TO_SOLVER_TYPE
+const std::string SA = "sa";
+const std::string RAND = "rand";
+const std::string GREEDY = "greedy";
+
+const std::unordered_map<std::string, SolverType> ST_STRING_TO_ENUM
 {
-    {"sa", SolverType::SA},
-    {"rand", SolverType::RAND},
-    {"greedy", SolverType::GREEDY}
+	{SA, SolverType::SA},
+	{RAND, SolverType::RAND},
+	{GREEDY, SolverType::GREEDY},
 };
 
-const std::unordered_map<SolverType,std::string> SOLVER_TYPE_TO_STRING
+const std::unordered_map<SolverType, std::string> ST_ENUM_TO_STRING
 {
-    {SolverType::SA, "sa"},
-    {SolverType::RAND,"rand"},
-    {SolverType::GREEDY, "greedy"},
-    {SolverType::UNKNOWN, "unknown"}
+	{SolverType::SA, SA},
+	{SolverType::RAND, RAND},
+	{SolverType::GREEDY, GREEDY},
 };
-
-SolverType solverTypeFromJson(const std::string& colorStr);
-
-std::string solverTypeToJson(SolverType type);

@@ -7,53 +7,53 @@ Assignment::Assignment(int day, std::string shift) : Assignment(day, shift, std:
 {}
 
 Assignment::Assignment(int day, std::string shift, std::vector<std::string> rooms) :
-	day(day),
-	shift(shift),
-	rooms(rooms)
+	_day(day),
+	_shift(shift),
+	_rooms(rooms)
 {}
 
-int Assignment::getDay() const
+int Assignment::day() const
 {
-	return day;
+	return _day;
 }
 
 void Assignment::setDay(int newDay)
 {
-	day = newDay;
+	_day = newDay;
 }
 
-std::string Assignment::getShift() const
+std::string Assignment::shift() const
 {
-	return shift;
+	return _shift;
 }
 
 void Assignment::setShift(const std::string& newShift)
 {
-	shift = newShift;
+	_shift = newShift;
 }
 
-std::vector<std::string> Assignment::getRooms() const
+std::vector<std::string> Assignment::rooms() const
 {
-	return rooms;
+	return _rooms;
 }
 
 void Assignment::setRooms(std::vector<std::string> newRooms)
 {
-	rooms = newRooms;
+	_rooms = newRooms;
 }
 
 void Assignment::appendRoom(const std::string& roomId)
 {
-	rooms.push_back(roomId);
+	_rooms.push_back(roomId);
 }
 
 void to_json(nlohmann::json& j, const Assignment& data)
 {
 	j = nlohmann::json
 	{
-		{"day", data.getDay()},
-		{"shift", data.getShift()},
-		{"rooms", data.getRooms()},
+		{"day", data.day()},
+		{"shift", data.shift()},
+		{"rooms", data.rooms()},
 	};
 }
 

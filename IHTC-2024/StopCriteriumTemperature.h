@@ -7,7 +7,7 @@ class StopCriteriumTemperature : public IStopCriterium
 public:
 	StopCriteriumTemperature(double stopTemp);
 
-	bool isStop(double currTemp, int iteration) const;
+	bool isStop(double currTemp, int iteration) const override;
 
 private:
 	double stopTemp;

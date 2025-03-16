@@ -1,31 +1,25 @@
 #include "IHTCMutatorOTInversion.h"
 
 IHTCMutatorOTInversion::IHTCMutatorOTInversion(std::mt19937& randGenerator, const ProblemData& problemData, double newMutationProbability) :
-	IHTCMutatorOperatingTheaters(randGenerator, problemData),
-	mutationProbability(newMutationProbability)
-{
-	if (newMutationProbability > 1.0 || newMutationProbability < 0.0)
-	{
-		throw std::invalid_argument("OT inversion mutation probability is not in the range!");
-	}
-}
+	IHTCMutatorOperatingTheaters(randGenerator, problemData, newMutationProbability)
+{}
 
 bool IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	if (distribution(randGenerator) > mutationProbability)
+	if (distribution(_randGenerator) > _mutationProbability)
 	{
 		return false;
 	}
 
-	std::uniform_int_distribution<int> day_distribution(0, problemData.getDays() - 1);
+	std::uniform_int_distribution<int> day_distribution(0, _problemData.days() - 1);
 
-	const int day = day_distribution(randGenerator);
+	const int day { day_distribution(_randGenerator) };
 
-	auto daysToOTs = getOperatingTheaterHelper(individual);
+	auto daysToOTs { getOperatingTheaterHelper(individual) };
 
-	auto& ots = daysToOTs[day];
+	auto& ots { daysToOTs[day] };
 
 	if (ots.size() < 2)
 	{
@@ -39,14 +33,14 @@ bool IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 		keys.push_back(pair.first);
 	}
 
-	auto patients = individual.getPatients();
+	auto patients { individual.patients() };
 
-	std::shuffle(keys.begin(), keys.end(), randGenerator);
+	std::shuffle(keys.begin(), keys.end(), _randGenerator);
 
 	for (const auto& patientId : ots[keys[0]])
 	{
 		auto it = std::find_if(patients.begin(), patients.end(), [patientId](const Patient& obj) {
-			return obj.getId() == patientId;
+			return obj.id() == patientId;
 		});
 
 		if (it != patients.end())
@@ -58,7 +52,7 @@ bool IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 	for (const auto& patientId : ots[keys[1]])
 	{
 		auto it = std::find_if(patients.begin(), patients.end(), [patientId](const Patient& obj) {
-			return obj.getId() == patientId;
+			return obj.id() == patientId;
 		});
 
 		if (it != patients.end())
@@ -72,7 +66,7 @@ bool IHTCMutatorOTInversion::mutate(CIndividual& individual) const
 	return true;
 }
 
-std::string IHTCMutatorOTInversion::getMutatorName() const
+std::string IHTCMutatorOTInversion::mutatorName() const
 {
 	return "OperatingTheatersInversion";
 }

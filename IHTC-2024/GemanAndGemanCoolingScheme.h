@@ -7,5 +7,5 @@
 class GemanAndGemanCoolingScheme : public ICoolingScheme
 {
 public:
-	double getNewTemp(double startingTemp, double currTemp, int iteration) const;
+	double getNewTemp(double startingTemp, double currTemp, int iteration) const override;
 };

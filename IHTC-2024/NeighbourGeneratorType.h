@@ -14,23 +14,23 @@ enum class NeighbourGeneratorType
 	UNKNOWN
 };
 
-const std::unordered_map<std::string, NeighbourGeneratorType> STRING_TO_NEIGHBOUR_GENERATOR_TYPE
+const std::string PRIZE_BEST = "prizeBest";
+const std::string QUEUE = "queue";
+const std::string TOP = "top";
+const std::string TOURNAMENT = "tournament";
+
+const std::unordered_map<std::string, NeighbourGeneratorType> NGT_STRING_TO_ENUM
 {
-    {"prizebest", NeighbourGeneratorType::PRIZE_BEST},
-    {"queue", NeighbourGeneratorType::QUEUE},
-    {"top", NeighbourGeneratorType::TOP},
-    {"tournament", NeighbourGeneratorType::TOURNAMENT}
+	{PRIZE_BEST, NeighbourGeneratorType::PRIZE_BEST},
+	{QUEUE, NeighbourGeneratorType::QUEUE},
+	{TOP, NeighbourGeneratorType::TOP},
+	{TOURNAMENT, NeighbourGeneratorType::TOURNAMENT}
 };
 
-const std::unordered_map<NeighbourGeneratorType, std::string> NEIGHBOUR_GENERATOR_TYPE_TO_STRING
+const std::unordered_map<NeighbourGeneratorType, std::string> NGT_ENUM_TO_STRING
 {
-    {NeighbourGeneratorType::PRIZE_BEST, "prizeBest"},
-    {NeighbourGeneratorType::QUEUE, "queue"},
-    {NeighbourGeneratorType::TOP, "top"},
-    {NeighbourGeneratorType::TOURNAMENT, "tournament"},
-    {NeighbourGeneratorType::UNKNOWN, "unknown"}
+	{NeighbourGeneratorType::PRIZE_BEST, PRIZE_BEST},
+	{NeighbourGeneratorType::QUEUE, QUEUE},
+	{NeighbourGeneratorType::TOP, TOP},
+	{NeighbourGeneratorType::TOURNAMENT, TOURNAMENT},
 };
-
-NeighbourGeneratorType neighbourGeneratorTypeFromJson(const std::string& str);
-
-std::string neighbourGeneratorTypeToJson(NeighbourGeneratorType type);

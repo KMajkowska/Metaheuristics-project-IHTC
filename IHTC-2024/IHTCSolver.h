@@ -8,14 +8,13 @@
 class IHTCSolver : public ISolver
 {
 public:
-	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger);
-
-	virtual std::string getCSVHeaders() const = 0;
+	IHTCSolver(const ProblemData& problemData, std::mt19937& randGenerator, ICIndividualConsumer& individualConsumer);
+	virtual ~IHTCSolver() = default;
 
 protected:
 	std::vector<std::vector<int>> patientsInRoom;
 	RoomWithOccupancyRepresentation roomInfos;
-	Logger& logger;
+	ICIndividualConsumer& consumer;
 
 	static constexpr int UNOCCUPIABLE = -INT_MAX;
 	static constexpr int ASSIGNABLE = -1;

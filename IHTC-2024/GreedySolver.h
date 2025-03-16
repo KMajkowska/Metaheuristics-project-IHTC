@@ -15,10 +15,9 @@
 class GreedySolver : public IHTCSolver
 {
 public:
-	GreedySolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger);
-	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
+	GreedySolver(const ProblemData& problemData, std::mt19937& randGenerator, ICIndividualConsumer& consumer);
 
-	std::string getCSVHeaders() const;
+	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const override;
 
 private:
 	std::vector<std::string> chooseNurse(

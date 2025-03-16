@@ -1,29 +1,29 @@
 #include "IHTCMutatorOperatingTheaters.h"
 
-IHTCMutatorOperatingTheaters::IHTCMutatorOperatingTheaters(std::mt19937& randGenerator, const ProblemData& problemData) :
-	IMutator(randGenerator, problemData)
+IHTCMutatorOperatingTheaters::IHTCMutatorOperatingTheaters(std::mt19937& randGenerator, const ProblemData& problemData, double mutationProbability) :
+	IMutator(randGenerator, problemData, mutationProbability)
 {}
 
 std::vector<std::unordered_map<std::string, std::vector<std::string>>> IHTCMutatorOperatingTheaters::getOperatingTheaterHelper(CIndividual& individual) const
 {
-	int days = problemData.getDays();
-	const auto& patients = problemData.getPatients();
+	int days { _problemData.days() };
+	const auto& patients { _problemData.patients() };
 
-	auto copiedDaysToPatientsPerRoomMap = problemData.getEmptyOperatingTheaters();
+	auto copiedDaysToPatientsPerRoomMap { _problemData.getEmptyOperatingTheaters() };
 
 	// begin :: fill in structure
-	for (const auto& patient : individual.getPatients())
+	for (const auto& patient : individual.patients())
 	{
 
-		if (patient.getAdmissionDay() < days)
+		if (patient.admissionDay() < days)
 		{
-			auto& patientsPerRoom = copiedDaysToPatientsPerRoomMap.at(patient.getAdmissionDay());
+			auto& patientsPerRoom = copiedDaysToPatientsPerRoomMap.at(patient.admissionDay());
 
-			auto it = patientsPerRoom.find(patient.getOperationTheater());
+			auto it = patientsPerRoom.find(patient.operationTheater());
 
 			if (it != patientsPerRoom.end())
 			{
-				patientsPerRoom.at(patient.getOperationTheater()).push_back(patient.getId());
+				patientsPerRoom.at(patient.operationTheater()).push_back(patient.id());
 			}
 		}
 	}

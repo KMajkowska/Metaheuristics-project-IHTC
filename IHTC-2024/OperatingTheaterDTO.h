@@ -7,15 +7,15 @@
 class OperatingTheaterDTO
 {
 public:
-	std::string getId() const;
+	std::string id() const;
 	std::vector<int> getAvailability() const;
 
 	void setId(const std::string& newId);
 	void setAvailability(std::vector<int> newAvailabilty);
 
 private:
-	std::string id;
-	std::vector<int> availability;
+	std::string _id;
+	std::vector<int> _availability;
 };
 
 void to_json(nlohmann::json& j, const OperatingTheaterDTO& ot);

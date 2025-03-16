@@ -20,14 +20,14 @@ public:
 	void addNurse(const NurseOutputDTO& nurse);
 	void addAssignment(int day, const std::string& roomId, const std::string& shiftName, const std::string nurseId);
 
-	RoomInfo& getPatientRoomInfoRef(int day, const std::string& roomId);
+	RoomInfo& patientRoomInfoRef(int day, const std::string& roomId);
 
-	const std::unordered_map<std::string, RoomInfo>& getRoomsForGivenDayRef(int day);
+	std::unordered_map<std::string, RoomInfo>& roomsForGivenDayRef(int day);
 
 private:
 	void addIncompatibleRoom(const IncomingPatientDTO& patient);
 
-	std::vector<std::unordered_map<std::string, RoomInfo>> preprocessedRooms;
+	std::vector<std::unordered_map<std::string, RoomInfo>> _preprocessedRooms;
 
-	std::vector<std::string> shiftTypes;
+	std::vector<std::string> _shiftTypes;
 };

@@ -2,77 +2,77 @@
 #include "IMutator.h"
 
 CIndividual::CIndividual() :
-	fitness(0),
-	fitnessUpToDate(false)
+	_fitness(0),
+	_fitnessUpToDate(false)
 {
 }
 
 CIndividual::CIndividual(std::vector<Patient> patients, std::unordered_map<std::string, std::vector<Assignment>> assignments) :
-	patients(patients),
-	assignments(assignments),
-	fitness(0),
-	fitnessUpToDate(false)
+	_patients(patients),
+	_assignments(assignments),
+	_fitness(0),
+	_fitnessUpToDate(false)
 {}
 
 CIndividual::CIndividual(const CIndividual& otherIndividual) :
-	patients(otherIndividual.patients), // deep copy of the vector of Patients
-	assignments(otherIndividual.assignments), // deep copy of the map (string -> vector of Assignments)
-	fitness(otherIndividual.fitness),
-	violated(otherIndividual.violated),
-	fitnessUpToDate(otherIndividual.fitnessUpToDate),
-	mutatorName(otherIndividual.mutatorName)
+	_patients(otherIndividual._patients), // deep copy of the vector of Patients
+	_assignments(otherIndividual._assignments), // deep copy of the map (string -> vector of Assignments)
+	_fitness(otherIndividual._fitness),
+	_violated(otherIndividual._violated),
+	_fitnessUpToDate(otherIndividual._fitnessUpToDate),
+	_mutatorName(otherIndividual._mutatorName)
 {}
 
-std::vector<Patient> CIndividual::getPatients() const
+std::vector<Patient> CIndividual::patients() const
 {
-	return patients;
+	return _patients;
 }
 
-std::unordered_map<std::string, std::vector<Assignment>> CIndividual::getAssignments() const
+std::unordered_map<std::string, std::vector<Assignment>> CIndividual::assignments() const
 {
-	return assignments;
+	return _assignments;
 }
 
-std::pair<double, ViolatedRestrictions> CIndividual::getFitness() const
+std::pair<double, ViolatedRestrictions> CIndividual::fitness() const
 {
-	if (!fitnessUpToDate)
+	if (!_fitnessUpToDate)
 	{
-		return std::make_pair(INT_MIN, violated); // coertion
+		return std::make_pair(INT_MIN, _violated); // coertion
 	}
 
-	return std::make_pair(fitness, violated);
+	return std::make_pair(_fitness, _violated);
 }
 
-std::string CIndividual::getMutatorName() const
+std::string CIndividual::mutatorName() const
 {
-	return mutatorName;
+	return _mutatorName;
 }
 
 bool CIndividual::isFitnessUpToDate() const
 {
-	return fitnessUpToDate;
+	return _fitnessUpToDate;
 }
 
 void CIndividual::setAssignments(std::unordered_map<std::string, std::vector<Assignment>> newAssignments)
 {
-	assignments = newAssignments;
+	_assignments = newAssignments;
 }
 
 void CIndividual::setPatients(std::vector<Patient> newPatients)
 {
-	patients = newPatients;
+	_patients = newPatients;
 }
 
 void CIndividual::setMutatorName(const std::string& newMutatorName)
 {
-	mutatorName = newMutatorName;
+	_mutatorName = newMutatorName;
 }
 
 void CIndividual::setFitness(const std::pair<double, ViolatedRestrictions>& newFitness)
 {
-	fitnessUpToDate = true;
-	fitness = newFitness.first;
-	violated = newFitness.second;
+	_fitnessUpToDate = true;
+	_fitness = newFitness.first;
+	_violated = newFitness.second;
 }
 
 std::vector<CIndividual> CIndividual::crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const
@@ -82,7 +82,7 @@ std::vector<CIndividual> CIndividual::crossover(const CIndividual& otherIndividu
 
 bool CIndividual::mute(const IMutator& mutator)
 {
-	fitnessUpToDate = false;
+	_fitnessUpToDate = false;
 
 	return mutator.mutate(*this);
 }
@@ -92,7 +92,7 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 	std::vector<CIndividual> neighbours;
 	neighbours.reserve(neighbourhoodNumber);
 
-	if (!this->fitnessUpToDate)
+	if (!this->_fitnessUpToDate)
 	{
 		setFitness(problem.eval(*this));
 	}
@@ -102,7 +102,7 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 		CIndividual individual(*this);
 		bool isMutated = individual.mute(mutator);
 
-		individual.setMutatorName(mutator.getMutatorName());
+		individual.setMutatorName(mutator.mutatorName());
 
 		individual.setFitness(problem.eval(individual));
 		
@@ -117,5 +117,5 @@ std::vector<CIndividual> CIndividual::createNeighbours(const IMutator& mutator, 
 
 std::partial_ordering CIndividual::operator<=>(const CIndividual& other) const
 {
-	return fitness <=> other.fitness;
+	return _fitness <=> other._fitness;
 }

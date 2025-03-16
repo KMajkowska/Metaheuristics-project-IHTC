@@ -9,9 +9,9 @@
 class NurseDTO
 {
 public:
-	std::string getId() const;
-	std::vector<ShiftDTO> getWorkingShifts() const;
-	int getSkillLevel() const;
+	std::string id() const;
+	std::vector<ShiftDTO> workingShifts() const;
+	int skillLevel() const;
 
 	void setId(const std::string& newId);
 	void setWorkingShifts(std::vector<ShiftDTO> newWorkingShifts);
@@ -19,12 +19,12 @@ public:
 
 	int getWorkloadByDayAndShift(int workingDay, std::string shift) const;
 
-	std::vector<int> getWorkloadConverted(int day, const std::unordered_map<std::string, int> shiftNameToPos) const;
+	std::vector<int> workloadConverted(int day, const std::unordered_map<std::string, int> shiftNameToPos) const;
 
 private:
-	std::string id;
-	std::vector<ShiftDTO> working_shifts;
-	int skill_level;
+	std::string _id;
+	std::vector<ShiftDTO> _workingShifts;
+	int _skillLevel;
 };
 
 void to_json(nlohmann::json& j, const NurseDTO& nurse);

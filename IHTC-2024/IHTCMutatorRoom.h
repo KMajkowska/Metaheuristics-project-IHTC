@@ -7,11 +7,7 @@ class IHTCMutatorRoom : public IMutator
 public:
 	IHTCMutatorRoom(std::mt19937& randGenerator, const ProblemData& problemData, double newRoomShuffleProbability);
 
-	bool mutate(CIndividual& individual) const;
+	bool mutate(CIndividual& individual) const override;
 
-	std::string getMutatorName() const;
-
-private:
-
-	double roomShuffleProbability;
+	std::string mutatorName() const override;
 };

@@ -7,15 +7,15 @@
 class SurgeonDTO
 {
 public:
-	std::string getId() const;
-	std::vector<int> getMaxSurgeryTime() const;
+	std::string id() const;
+	std::vector<int> maxSurgeryTime() const;
 
 	void setId(const std::string& newId);
 	void setMaxSurgeryTime(std::vector<int> newMaxSurgeryTime);
 
 private:
-	std::string id;
-	std::vector<int> max_surgery_time;
+	std::string _id;
+	std::vector<int> _maxSurgeryTime;
 };
 
 void to_json(nlohmann::json& j, const SurgeonDTO& surgeon);

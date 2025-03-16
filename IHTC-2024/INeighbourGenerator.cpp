@@ -1,8 +1,8 @@
 #include "INeighbourGenerator.h"
 
 INeighbourGenerator::INeighbourGenerator(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
-	problem(problem),
-	mutators(mutators)
+	_problem(problem),
+	_mutators(mutators)
 {
 	if (mutators.empty())
 	{

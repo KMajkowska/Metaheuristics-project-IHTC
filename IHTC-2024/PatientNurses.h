@@ -13,12 +13,12 @@ public:
 	PatientNurses(const PatientNurses& other) = default;
 	
 	void addNurse(const std::string& patientId, const std::string& nurseId);
-	std::set<std::string> getNurses(const std::string& patientId);
 
-	std::unordered_map<std::string, std::set<std::string>> getMap();
+	std::set<std::string> nurses(const std::string& patientId);
+	std::unordered_map<std::string, std::set<std::string>> occupantsAndPatientToNurses();
 
 private:
-	std::unordered_map<std::string, std::set<std::string>> occupantsAndPatientToNurses;
+	std::unordered_map<std::string, std::set<std::string>> _occupantsAndPatientToNurses;
 
 	static std::unordered_map<std::string, std::set<std::string>> processOccupantsAndPatients(const ProblemData& problemData);
 };

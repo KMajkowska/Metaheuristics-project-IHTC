@@ -1,9 +1,9 @@
 #include "NurseWrapper.h"
 
 NurseWrapper::NurseWrapper(const WeightsDTO& weights, const NurseDTO& nurse, int day, const std::string& shiftType) :
-	weights(weights),
-	nurse(nurse),
-	maxWorkload(nurse.getWorkloadByDayAndShift(day, shiftType))
+	_weights(weights),
+	_nurse(nurse),
+	_maxWorkload(nurse.getWorkloadByDayAndShift(day, shiftType))
 {}
 
 std::strong_ordering NurseWrapper::operator<=>(const NurseWrapper& other) const
@@ -13,12 +13,22 @@ std::strong_ordering NurseWrapper::operator<=>(const NurseWrapper& other) const
 
 void NurseWrapper::addWorkload(int workload)
 {
-	usedWorkloads.push_back(workload);
+	_usedWorkloads.push_back(workload);
 }
 
 void NurseWrapper::addSkillLevel(int skillLevel)
 {
-	usedSkillLevels.push_back(skillLevel);
+	_usedSkillLevels.push_back(skillLevel);
+}
+
+NurseDTO NurseWrapper::nurse() const
+{
+	return _nurse;
+}
+
+void NurseWrapper::setNurse(NurseDTO&& nurse)
+{
+	_nurse = std::move(nurse);
 }
 
 int NurseWrapper::getWeightedRestriction() const
@@ -26,21 +36,21 @@ int NurseWrapper::getWeightedRestriction() const
 	int sumOfWorkload = 0;
 	int sumOfSkillLevelOverload = 0;
 
-	for (const auto& skillLevel : usedSkillLevels)
+	for (const auto& skillLevel : _usedSkillLevels)
 	{
-		if (skillLevel > nurse.getSkillLevel())
+		if (skillLevel > _nurse.skillLevel())
 		{
-			sumOfSkillLevelOverload += skillLevel - nurse.getSkillLevel();
+			sumOfSkillLevelOverload += skillLevel - _nurse.skillLevel();
 		}
 	}
 
-	for (const auto& workload : usedWorkloads)
+	for (const auto& workload : _usedWorkloads)
 	{
 		sumOfWorkload += workload;
 	}
 
-	sumOfWorkload = sumOfWorkload > maxWorkload ? sumOfWorkload - maxWorkload : 0;
+	sumOfWorkload = sumOfWorkload > _maxWorkload ? sumOfWorkload - _maxWorkload : 0;
 
-	return weights.getRoomNurseSkill() * sumOfSkillLevelOverload
-		+ weights.getNurseEccessiveWorkload() * sumOfWorkload;
+	return _weights.getRoomNurseSkill() * sumOfSkillLevelOverload
+		+ _weights.getNurseEccessiveWorkload() * sumOfWorkload;
 }

@@ -21,18 +21,18 @@ public:
 	ProblemData() = default;
 	ProblemData(const ProblemData& other) = default;
 
-	int getDays() const;
-	int getSkillLevels() const;
-	std::vector<std::string> getShiftTypes() const;
-	std::vector<std::string> getAgeGroups() const;
-	WeightsDTO getWeights() const;
-	std::vector<NurseDTO> getNurses() const;
-	std::vector<RoomDTO> getRooms() const;
-	std::vector<OccupantDTO> getOccupants() const;
-	std::vector<IncomingPatientDTO> getPatients() const;
-	std::vector<SurgeonDTO> getSurgeons() const;
-	std::vector<OperatingTheaterDTO> getOperatingTheaters() const;
-	std::vector<std::vector<OperatingTheaterWrapper>> getOperatingTheatersAvailability() const;
+	int days() const;
+	int skillLevels() const;
+	std::vector<std::string> shiftTypes() const;
+	std::vector<std::string> ageGroups() const;
+	WeightsDTO weights() const;
+	std::vector<NurseDTO> nurses() const;
+	std::vector<RoomDTO> rooms() const;
+	std::vector<OccupantDTO> occupants() const;
+	std::vector<IncomingPatientDTO> patients() const;
+	std::vector<SurgeonDTO> surgeons() const;
+	std::vector<OperatingTheaterDTO> operatingTheaters() const;
+	std::vector<std::vector<OperatingTheaterWrapper>> operatingTheatersAvailability() const;
 
 	void setDays(int newDays);
 	void setSkillLevels(int newSkillLevels);
@@ -55,25 +55,25 @@ public:
 	int getOffsetOfShiftTypes(std::string shiftType) const;
 
 private:
-	int days = 0;
-	int skill_levels = 0;
-	std::vector<std::string> shift_types;
-	std::vector<std::string> age_groups;
-	WeightsDTO weights;
-	std::vector<NurseDTO> nurses;
-	std::vector<RoomDTO> rooms;
-	std::vector<OccupantDTO> occupants;
-	std::vector<IncomingPatientDTO> patients;
-	std::vector<SurgeonDTO> surgeons;
-	std::vector<OperatingTheaterDTO> operating_theaters;
+	int _days { 0 };
+	int _skill_levels { 0 };
+	std::vector<std::string> _shiftTypes;
+	std::vector<std::string> _ageGroups;
+	WeightsDTO _weights;
+	std::vector<NurseDTO> _nurses;
+	std::vector<RoomDTO> _rooms;
+	std::vector<OccupantDTO> _occupants;
+	std::vector<IncomingPatientDTO> _patients;
+	std::vector<SurgeonDTO> _surgeons;
+	std::vector<OperatingTheaterDTO> _operatingTheaters;
 
-	RoomWithOccupancyRepresentation roomInfos;
-	std::unordered_map<std::string, SurgeonDTO> surgeonMap;
-	std::unordered_map<std::string, IncomingPatientDTO> patientMap;
-	std::unordered_map<std::string, NurseDTO> nursesMap;
-	std::vector<std::unordered_map<std::string, std::vector<std::string>>> empty_operating_theaters;
-	std::vector<std::vector<OperatingTheaterWrapper>> operating_theaters_availability;
-	std::unordered_map<std::string, int> shiftTypeToIndexMap;
+	RoomWithOccupancyRepresentation _roomInfos;
+	std::unordered_map<std::string, SurgeonDTO> _surgeonMap;
+	std::unordered_map<std::string, IncomingPatientDTO> _patientMap;
+	std::unordered_map<std::string, NurseDTO> _nursesMap;
+	std::vector<std::unordered_map<std::string, std::vector<std::string>>> _emptyOperatingTheaters;
+	std::vector<std::vector<OperatingTheaterWrapper>> _operatingTheatersAvailability;
+	std::unordered_map<std::string, int> _shiftTypeToIndexMap;
 
 	void runPreprocessing();
 	void runOperatingTheatersPreprocessing();

@@ -1,57 +1,57 @@
 #include "NurseDTO.h"
 
-std::string NurseDTO::getId() const
+std::string NurseDTO::id() const
 {
-    return id;
+    return _id;
 }
 
-std::vector<ShiftDTO> NurseDTO::getWorkingShifts() const
+std::vector<ShiftDTO> NurseDTO::workingShifts() const
 {
-    return working_shifts;
+    return _workingShifts;
 }
 
-int NurseDTO::getSkillLevel() const
+int NurseDTO::skillLevel() const
 {
-    return skill_level;
+    return _skillLevel;
 }
 
 void NurseDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void NurseDTO::setWorkingShifts(std::vector<ShiftDTO> newWorkingShifts)
 {
-    working_shifts = newWorkingShifts;
+    _workingShifts = newWorkingShifts;
 }
 
 void NurseDTO::setSkillLevel(int newSkillLevel)
 {
-    skill_level = newSkillLevel;
+    _skillLevel = newSkillLevel;
 }
 
 int NurseDTO::getWorkloadByDayAndShift(int workingDay, std::string shiftStr) const
 {
-	for (const auto& shift : working_shifts)
+	for (const auto& shift : _workingShifts)
 	{
-		if (shift.getDay() == workingDay && shiftStr == shift.getShift())
+		if (shift.day() == workingDay && shiftStr == shift.shift())
 		{
-			return shift.getMaxLoad();
+			return shift.maxLoad();
 		}
 	}
 
 	return 0;
 }
 
-std::vector<int> NurseDTO::getWorkloadConverted(int days, const std::unordered_map<std::string, int> shiftNameToPos) const
+std::vector<int> NurseDTO::workloadConverted(int days, const std::unordered_map<std::string, int> shiftNameToPos) const
 {
 	std::vector<int> workload(days * shiftNameToPos.size(), 0);
 
-	for (const auto& shift : working_shifts)
+	for (const auto& shift : _workingShifts)
 	{
-		int iter = shift.getDay() + shiftNameToPos.at(shift.getShift());
+		int iter = shift.day() + shiftNameToPos.at(shift.shift());
 
-		workload[iter] = shift.getMaxLoad();
+		workload[iter] = shift.maxLoad();
 	}
 
 	return workload;
@@ -61,9 +61,9 @@ void to_json(nlohmann::json& j, const NurseDTO& nurse)
 {
 	j = nlohmann::json
 	{
-		{"id", nurse.getId()},
-		{"working_shifts", nurse.getWorkingShifts()},
-		{"skill_level", nurse.getSkillLevel()}
+		{"id", nurse.id()},
+		{"working_shifts", nurse.workingShifts()},
+		{"skill_level", nurse.skillLevel()}
 	};
 }
 

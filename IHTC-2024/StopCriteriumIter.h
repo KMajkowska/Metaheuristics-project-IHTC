@@ -7,7 +7,7 @@ class StopCriteriumIter : public IStopCriterium
 public:
 	StopCriteriumIter(int stopIter);
 
-	bool isStop(double currTemp, int iteration) const;
+	bool isStop(double currTemp, int iteration) const override;
 
 private:
 	int stopIter;

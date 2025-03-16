@@ -8,11 +8,11 @@ SASolver::SASolver(
 	const IStopCriterium& stopCriterium,
 	int neighbourhoodNumber,
 	INeighbourGenerator& neighbourGenerator,
-	Logger& logger,
+	ICIndividualConsumer& consumer,
 	const GenderGrouper& genderGrouper,
 	const IHTCMutatorNurseRoomCover& nurseRoomCover
 ) :
-	IHTCSolver(problemData, randGenerator, logger),
+	IHTCSolver(problemData, randGenerator, consumer),
 	startingTemp(startingTemp),
 	tempOperator(tempOperator),
 	stopCriterium(stopCriterium),
@@ -54,7 +54,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				neighbour.setFitness(problem.eval(neighbour));
 			}
 
-			double fitness = neighbour.getFitness().first;
+			double fitness = neighbour.fitness().first;
 
 			if (fitness < bestNeighbour)
 			{
@@ -71,60 +71,53 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 		for (const auto& neighbour : neighbours)
 		{
-			if (neighbour.getFitness().first < curr.getFitness().first || checkIfAcceptNeighbour(curr, neighbour, actualTemp))
+			if (neighbour.fitness().first < curr.fitness().first || checkIfAcceptNeighbour(curr, neighbour, actualTemp))
 			{
 				curr = neighbour;
 
-				if (curr.getFitness().first < best.getFitness().first)
+				if (curr.fitness().first < best.fitness().first)
 				{
 					best = curr;
 				}
 
-				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, curr.getMutatorName());
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countGenderMixHard > 0)
+			if (iteration % genderGrouper.getIter() == 0 && curr.fitness().second.countGenderMixHard > 0)
 			{
 				genderGrouper.greedyGroupGenders(curr);
 				curr.setFitness(problem.eval(curr));
-				if (curr.getFitness().first < best.getFitness().first)
+				if (curr.fitness().first < best.fitness().first)
 				{
 					best = curr;
 				}
-				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, "genderGrouper");
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.getFitness().second.countUncoveredRoomHard > 0)
+			if (iteration % genderGrouper.getIter() == 0 && curr.fitness().second.countUncoveredRoomHard > 0)
 			{
 				nurseRoomCover.mutate(curr);
 				curr.setFitness(problem.eval(curr));
-				if (curr.getFitness().first < best.getFitness().first)
+				if (curr.fitness().first < best.fitness().first)
 				{
 					best = curr;
 				}
-				logResults(curr, best, actualTemp, worstNeighbour, bestNeighbour, fitnesses, nurseRoomCover.getMutatorName());
 			}
+
+			consumer.consume(curr, best, actualTemp);
 		}
-		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.getFitness().second);
+
+		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.fitness().second);
 		++iteration;
 	}
 
 	return best;
 }
 
-std::string SASolver::getCSVHeaders() const
-{
-	ViolatedRestrictions res;
-
-	return res.getCSVColumns("") + ",res," + res.getCSVColumns("Best") + ",resBest,actualTemp,worstNeighbour,bestNeighbour,avgNeighbour,stdDevNeighbour,currMutator";
-}
-
 bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual& neighbour, double temperature) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	int neighbourFitness = neighbour.getFitness().first;
-	int currFitness = curr.getFitness().first;
+	int neighbourFitness = neighbour.fitness().first;
+	int currFitness = curr.fitness().first;
 
 	int diff = neighbourFitness - currFitness;
 
@@ -138,35 +131,3 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 
 	return distribution(randGenerator) < expProb;
 }
-
-void SASolver::logResults(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const
-{
-	logger.log(
-		curr.getFitness().second.getCSVData() + "," + std::to_string(curr.getFitness().first) + "," +
-		best.getFitness().second.getCSVData() + "," + std::to_string(best.getFitness().first) + "," +
-		std::to_string(actualTemp) + "," +
-		std::to_string(worstNeighbour) + "," +
-		std::to_string(bestNeighbour) + "," +
-		std::to_string(calcAverage(fitnesses)) + "," +
-		std::to_string(calcStdDev(fitnesses)) + "," +
-		changerName
-	);
-}
-
-/*
-* procedure simulated_annealing
-begin
-t←0; poczatkowa temperatura T; losowy wybór vc; ocena vc
-repeat
- repeat
- wybór Vn z sasiadów w zmianie pojedynczej cechy vc //próbkowanie poprzez inversję lub swap
- if f(Vc) < f(Vn) then Vc ← Vn
- else if random[0,1] < exp{(f(Vn)– f(Vc))/T}
- then Vc ← Vn
- until (warunek konca)
-T ← g(T,t)
-t ← t+1
-until (kryterium_stopu)
-end
-*/
-

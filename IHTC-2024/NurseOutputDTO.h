@@ -12,15 +12,15 @@ public:
 	NurseOutputDTO() = default;
 	NurseOutputDTO(std::string newId, std::vector<Assignment> newAssignments);
 
-	std::string getId() const;
-	std::vector<Assignment> getAssignments() const;
+	std::string id() const;
+	std::vector<Assignment> assignments() const;
 
 	void setId(const std::string& newId);
 	void setAssignments(std::vector<Assignment> newAssignments);
 
 private:
-	std::string id;
-	std::vector<Assignment> assignments;
+	std::string _id;
+	std::vector<Assignment> _assignments;
 };
 
 void to_json(nlohmann::json& j, const NurseOutputDTO& data);

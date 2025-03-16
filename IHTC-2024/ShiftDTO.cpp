@@ -1,42 +1,42 @@
 #include "ShiftDTO.h"
 
-int ShiftDTO::getDay() const
+int ShiftDTO::day() const
 {
-    return day;
+    return _day;
 }
 
-std::string ShiftDTO::getShift() const
+std::string ShiftDTO::shift() const
 {
-    return shift;
+    return _shift;
 }
 
-int ShiftDTO::getMaxLoad() const
+int ShiftDTO::maxLoad() const
 {
-    return max_load;
+    return _maxLoad;
 }
 
 void ShiftDTO::setDay(int newDay)
 {
-    day = newDay;
+    _day = newDay;
 }
 
 void ShiftDTO::setShift(const std::string& newShift)
 {
-    shift = newShift;
+    _shift = newShift;
 }
 
 void ShiftDTO::setMaxLoad(int newMaxLoad)
 {
-    max_load = newMaxLoad;
+    _maxLoad = newMaxLoad;
 }
 
 void to_json(nlohmann::json& j, const ShiftDTO& shift)
 {
 	j = nlohmann::json
 	{
-		{"day", shift.getDay()},
-		{"shift", shift.getShift()},
-		{"max_load", shift.getMaxLoad()}
+		{"day", shift.day()},
+		{"shift", shift.shift()},
+		{"max_load", shift.maxLoad()}
 	};
 }
 

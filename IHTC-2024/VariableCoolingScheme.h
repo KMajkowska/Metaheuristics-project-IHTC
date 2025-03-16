@@ -8,7 +8,7 @@ class VariableCoolingScheme : public ICoolingScheme
 public:
 	VariableCoolingScheme(int maxIter);
 
-	double getNewTemp(double startingTemp, double currTemp, int iteration) const;
+	double getNewTemp(double startingTemp, double currTemp, int iteration) const override;
 
 private:
 

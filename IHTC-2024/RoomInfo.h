@@ -4,28 +4,23 @@
 
 #include <set>
 
-struct RoomInfo : public PatientRoomInfo
+class RoomInfo : public PatientRoomInfo
 {
+public:
 	RoomInfo() = default;
+	RoomInfo(int maxCapacity, int currentCapacity);
+	RoomInfo(const PatientRoomInfo& pri);
 
-	RoomInfo(int maxCapacity, int currentCapacity) : 
-		PatientRoomInfo(maxCapacity, currentCapacity)
-	{}
+	void setPatientIds(std::set<std::string>&& patientIds);
+	void setNurseidToShift(std::map<std::string, std::string>&& nurseIdToShift);
+	void setShiftToNurseId(std::map<std::string, std::string>&& shiftToNurseId);
 
-	RoomInfo(const PatientRoomInfo& pri) :
-		PatientRoomInfo(pri.maxCapacity, pri.maxCapacity)
-	{
-		genders = pri.genders;
-		maxCapacity = pri.maxCapacity;
-		currentCapacity = pri.currentCapacity;
-		ageGroups = pri.ageGroups;
-		unallowedPatients = pri.unallowedPatients;
-		skillLevelsRequired = pri.skillLevelsRequired;
-		shiftNameToProducedWorkload = pri.shiftNameToProducedWorkload;
-		occupantIds = pri.occupantIds;
-	}
+	std::set<std::string>& patientIds();
+	std::map<std::string, std::string>& nurseIdToShift();
+	std::map<std::string, std::string>& shiftToNurseId();
 
-	std::set<std::string> patientIds;
-	std::map<std::string, std::string> nurseIdToShift;
-	std::map<std::string, std::string> shiftToNurseId;
+private:
+	std::set<std::string> _patientIds;
+	std::map<std::string, std::string> _nurseIdToShift;
+	std::map<std::string, std::string> _shiftToNurseId;
 };

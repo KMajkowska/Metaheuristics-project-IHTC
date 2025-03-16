@@ -148,8 +148,6 @@
     <ClCompile Include="IHTCMutatorOTInversion.cpp" />
     <ClCompile Include="IHTCMutatorOT.cpp" />
     <ClCompile Include="IHTCMutatorRoom.cpp" />
-    <ClCompile Include="IHTCProblemIO.cpp" />
-    <ClCompile Include="IHTCProblemIO.h" />
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="INeighbourGenerator.cpp" />
     <ClCompile Include="ISolver.cpp" />
@@ -158,10 +156,11 @@
     <ClCompile Include="NeighbourGeneratorQueue.cpp" />
     <ClCompile Include="NeighbourGeneratorTop.cpp" />
     <ClCompile Include="NeighbourGeneratorTournament.cpp" />
-    <ClCompile Include="NeighbourGeneratorType.cpp" />
+    <ClCompile Include="NurseWorkload.cpp" />
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="Params.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
+    <ClCompile Include="RoomInfo.cpp" />
     <ClCompile Include="ShiftNurses.cpp" />
     <ClCompile Include="OperatingTheaterInfo.cpp" />
     <ClCompile Include="OperatingTheaterWrapper.cpp" />
@@ -193,10 +192,11 @@
     <ClCompile Include="SimplexCoolingScheme.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="solutionUtils.cpp" />
-    <ClCompile Include="SolverType.cpp" />
+    <ClCompile Include="solverUtils.cpp" />
     <ClCompile Include="StopCriteriumIter.cpp" />
     <ClCompile Include="StopCriteriumTemperature.cpp" />
     <ClCompile Include="strings.cpp" />
+    <ClCompile Include="SurgeonsTime.cpp" />
     <ClCompile Include="TemperatureOperator.cpp" />
     <ClCompile Include="VariableCoolingScheme.cpp" />
     <ClCompile Include="Workload.cpp" />
@@ -207,11 +207,19 @@
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="consts.h" />
+    <ClInclude Include="CoolingSchemeType.h" />
     <ClInclude Include="EASolver.h" />
+    <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
+    <ClInclude Include="ICIndividualConsumer.h" />
+    <ClInclude Include="ISolverBuilder.h" />
+    <ClInclude Include="JSONOperations.h" />
+    <ClInclude Include="JSONSerializableExchanger.h" />
+    <ClInclude Include="solverUtils.h" />
     <ClInclude Include="TemperatureOperator.h" />
     <ClInclude Include="ICoolingScheme.h" />
     <ClInclude Include="ICrosser.h" />

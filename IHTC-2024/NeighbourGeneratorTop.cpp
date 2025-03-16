@@ -12,11 +12,11 @@ std::vector<CIndividual> NeighbourGeneratorTop::getNeighbours(int iteration, int
 	while (allNeighbours.size() < numberOfNeighbours)
 	{
 		std::vector<CIndividual> currNeighbours;
-		currNeighbours.reserve(mutators.size() * PER_ITER);
+		currNeighbours.reserve(_mutators.size() * PER_ITER);
 
-		for (const auto& mut : mutators)
+		for (const auto& mut : _mutators)
 		{
-			std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, PER_ITER, problem);
+			std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, PER_ITER, _problem);
 
 			currNeighbours.insert(currNeighbours.end(), neighbours.begin(), neighbours.end());
 		}
@@ -24,7 +24,7 @@ std::vector<CIndividual> NeighbourGeneratorTop::getNeighbours(int iteration, int
 		std::sort(currNeighbours.begin(), currNeighbours.end(),
 			[](const CIndividual& a, const CIndividual& b) 
 			{
-				return std::less<>()(a.getFitness().first, b.getFitness().first);
+				return std::less<>()(a.fitness().first, b.fitness().first);
 			}
 		);
 

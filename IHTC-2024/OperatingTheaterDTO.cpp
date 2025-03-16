@@ -1,30 +1,30 @@
 #include "OperatingTheaterDTO.h"
 
-std::string OperatingTheaterDTO::getId() const
+std::string OperatingTheaterDTO::id() const
 {
-    return id;
+    return _id;
 }
 
 std::vector<int> OperatingTheaterDTO::getAvailability() const
 {
-    return availability;
+    return _availability;
 }
 
 void OperatingTheaterDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void OperatingTheaterDTO::setAvailability(std::vector<int> newAvailabilty)
 {
-    availability = newAvailabilty;
+    _availability = newAvailabilty;
 }
 
 void to_json(nlohmann::json& j, const OperatingTheaterDTO& ot)
 {
 	j = nlohmann::json
 	{
-		{"id", ot.getId()},
+		{"id", ot.id()},
 		{"availability", ot.getAvailability()}
 	};
 }

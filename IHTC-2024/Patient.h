@@ -10,23 +10,21 @@ public:
 	Patient(const std::string& id, int admissionDay, const std::string& roomId, const std::string& operationTheater);
 	Patient(const Patient& patient) = default;
 
-	std::string getId() const;
 	void setId(const std::string& newId);
-
-	int getAdmissionDay() const;
+	void setRoomId(const std::string& newRoomId);
+	void setOperationTheater(const std::string& newOperatingTheater);
 	void setAdmissionDay(int newAdmissionDay);
 
-	std::string getRoomId() const;
-	void setRoomId(const std::string& newRoomId);
-
-	std::string getOperationTheater() const;
-	void setOperationTheater(const std::string& newOperatingTheater);
+	std::string id() const;
+	std::string roomId() const;
+	std::string operationTheater() const;
+	int admissionDay() const;
 
 protected:
-	std::string id;
-	int admissionDay;
-	std::string roomId;
-	std::string operationTheater;
+	std::string _id;
+	std::string _roomId;
+	std::string _operationTheater;
+	int _admissionDay;
 };
 
 void to_json(nlohmann::json& j, const Patient& data);

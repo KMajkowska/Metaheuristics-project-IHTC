@@ -6,14 +6,14 @@ NeighbourGeneratorTournament::NeighbourGeneratorTournament(const std::vector<std
 
 std::vector<CIndividual> NeighbourGeneratorTournament::getNeighbours(int iteration, int numberOfNeighbours, CIndividual& currIndiv)
 {
-	int mutatorCount = mutators.size();
+	int mutatorCount = _mutators.size();
 	int baseNeighboursPerMutator = numberOfNeighbours / mutatorCount;
 	int remainingNeighbours = numberOfNeighbours % mutatorCount;
 
 	std::vector<CIndividual> allNeighbours;
 	allNeighbours.reserve(numberOfNeighbours);
 
-	for (const std::shared_ptr<IMutator>& mut : mutators)
+	for (const std::shared_ptr<IMutator>& mut : _mutators)
 	{
 		int neighboursForThisMutator = baseNeighboursPerMutator;
 
@@ -24,7 +24,7 @@ std::vector<CIndividual> NeighbourGeneratorTournament::getNeighbours(int iterati
 			--remainingNeighbours;
 		}
 
-		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, problem);
+		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, _problem);
 
 		allNeighbours.insert(allNeighbours.end(), neighbours.begin(), neighbours.end());
 	}

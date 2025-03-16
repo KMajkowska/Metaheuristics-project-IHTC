@@ -3,13 +3,21 @@
 #include <string>
 #include "SurgeonsTime.h"
 
-struct SurgeonOTInfo
+class SurgeonOTInfo
 {
+public:
 	SurgeonOTInfo(int maxOTCapacity);
 	SurgeonOTInfo() = default;
 
 	bool isOTOvercrowded() const;
 
-	int maxOTCapacity;
-	std::map<std::string, SurgeonsTime> surgeonsOperations;
+	void setMaxOTCapacity(int maxOTCapacity);
+	void setSurgeonsOperations(std::map<std::string, SurgeonsTime>&& surgeonOperations);
+
+	int maxOTCapacity() const;
+	std::map<std::string, SurgeonsTime>& surgeonsOperations();
+
+private:
+	int _maxOTCapacity;
+	std::map<std::string, SurgeonsTime> _surgeonsOperations;
 };

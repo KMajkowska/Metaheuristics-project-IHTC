@@ -12,12 +12,8 @@ IHTCProblem::IHTCProblem(
 
 std::pair<double, ViolatedRestrictions> IHTCProblem::eval(const CIndividual& individual) const
 {
-	const auto restrictions = calculateRestrictions(
-		problemData,
-		IHTCProblemIO::parseToSolution(individual, problemData)
-	);
-
-	const double res = calc.calculateFitnessWithWeight(problemData.getWeights(), restrictions);
+	const auto restrictions = calculateRestrictions(problemData, SolutionData(problemData, individual));
+	const double res = calc.calculateFitnessWithWeight(problemData.weights(), restrictions);
 
 	return std::make_pair(res, restrictions);
 }

@@ -1,15 +1,15 @@
 #include "RandomSolver.h"
 
-RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator, Logger& logger) :
-    IHTCSolver(problemData, randGenerator, logger)
+RandomSolver::RandomSolver(const ProblemData& problemData, std::mt19937& randGenerator, ICIndividualConsumer& consumer) :
+    IHTCSolver(problemData, randGenerator, consumer)
 {}
 
 CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
     const auto& ots = problemData.getEmptyOperatingTheaters();
-    const auto& problemPatients = problemData.getPatients();
-    const auto& problemRooms = problemData.getRooms();
-    const auto& problemNurses = problemData.getNurses();
+    const auto& problemPatients = problemData.patients();
+    const auto& problemRooms = problemData.rooms();
+    const auto& problemNurses = problemData.nurses();
 
     std::uniform_int_distribution<int> roomDistrib(0, static_cast<int>(problemRooms.size()) - 1);
     std::uniform_int_distribution<int> _0to100Distrib(0, 100);
@@ -21,18 +21,18 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
     {
         std::uniform_int_distribution<int> distrib(
             patient.getSurgeryReleaseDay(),
-            patient.getSurgeryDueDay() == INT_MAX ? problemData.getDays() : patient.getSurgeryDueDay()
+            patient.getSurgeryDueDay() == INT_MAX ? problemData.days() : patient.getSurgeryDueDay()
         );
 
         const int admissionDay = distrib(randGenerator);
 
-        if (admissionDay >= problemData.getDays() || ots.at(admissionDay).size() <= 0)
+        if (admissionDay >= problemData.days() || ots.at(admissionDay).size() <= 0)
         { 
             solutionPatients.push_back(
                 Patient(
-                    patient.getId(),
+                    patient.id(),
                     admissionDay,
-                    problemRooms.at(roomDistrib(randGenerator)).getId(),
+                    problemRooms.at(roomDistrib(randGenerator)).id(),
                     ""
                 )
             );
@@ -45,9 +45,9 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
 
             solutionPatients.push_back(
                 Patient(
-                    patient.getId(),
+                    patient.id(),
                     admissionDay,
-                    problemRooms.at(roomDistrib(randGenerator)).getId(),
+                    problemRooms.at(roomDistrib(randGenerator)).id(),
                     it -> first
                 )
             );
@@ -61,37 +61,30 @@ CIndividual RandomSolver::solve(const IProblem& problem, const CIndividual& star
     {
         std::vector<Assignment> assignments;
 
-        for (const auto& shift : nurse.getWorkingShifts())
+        for (const auto& shift : nurse.workingShifts())
         {
             std::set<std::string> assignedRooms;
 
             while (_0to100Distrib(randGenerator) >= 50)
             {
                 int i = roomDistrib(randGenerator);
-                assignedRooms.insert(problemRooms.at(i).getId());
+                assignedRooms.insert(problemRooms.at(i).id());
             }
 
             assignments.push_back(
                 Assignment(
-                    shift.getDay(),
-                    shift.getShift(),
+                    shift.day(),
+                    shift.shift(),
                     std::vector<std::string>(assignedRooms.begin(), assignedRooms.end())
                 )
             );
         }
-       solutionAssignments[nurse.getId()] = assignments;
+       solutionAssignments[nurse.id()] = assignments;
     }
 
     CIndividual res(solutionPatients, solutionAssignments);
 
     res.setFitness(problem.eval(res));
 
-    logger.log(res.getFitness().second.getCSVData() + "," + std::to_string(res.getFitness().first));
-
     return res;
-}
-
-std::string RandomSolver::getCSVHeaders() const
-{
-    return ViolatedRestrictions().getCSVColumns("") + ", res";
 }

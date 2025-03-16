@@ -7,7 +7,6 @@
 #include "RoomInfo.h"
 #include "CIndividual.h"
 #include "IProblem.h"
-#include "IHTCProblemIO.h"
 #include "solutionUtils.h"
 #include "Logger.h"
 #include "FitnessCalculator.h"
@@ -27,7 +26,7 @@ public:
 		const FitnessCalculator& calc
 	);
 
-	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const;
+	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const override;
 
 protected:
 	const ProblemData& problemData;

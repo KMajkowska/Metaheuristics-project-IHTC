@@ -1,35 +1,36 @@
 #include "NurseOutputDTO.h"
 
-NurseOutputDTO::NurseOutputDTO(std::string newId, std::vector<Assignment> newAssignments) :id(newId), assignments(newAssignments)
+NurseOutputDTO::NurseOutputDTO(std::string newId, std::vector<Assignment> newAssignments) :
+    _id(newId), 
+    _assignments(newAssignments)
+{}
+
+std::string NurseOutputDTO::id() const
 {
+    return _id;
 }
 
-std::string NurseOutputDTO::getId() const
+std::vector<Assignment> NurseOutputDTO::assignments() const
 {
-    return id;
-}
-
-std::vector<Assignment> NurseOutputDTO::getAssignments() const
-{
-    return assignments;
+    return _assignments;
 }
 
 void NurseOutputDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void NurseOutputDTO::setAssignments(std::vector<Assignment> newAssignments)
 {
-    assignments = newAssignments;
+    _assignments = newAssignments;
 }
 
 void to_json(nlohmann::json& j, const NurseOutputDTO& data)
 {
     j = nlohmann::json
     {
-        {"id", data.getId()},
-        {"assignments", data.getAssignments()},
+        {"id", data.id()},
+        {"assignments", data.assignments()},
     };
 }
 

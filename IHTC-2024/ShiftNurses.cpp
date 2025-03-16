@@ -11,8 +11,8 @@ std::vector<NurseDTO> ShiftNurses::getNursesByDayShiftOffset(int offset)
 
 std::vector<std::vector<NurseDTO>> ShiftNurses::processNurses(const ProblemData& problemData)
 {
-	int days = problemData.getDays();
-	const auto& shifts = problemData.getShiftTypes();
+	int days = problemData.days();
+	const auto& shifts = problemData.shiftTypes();
 
 	std::vector<std::vector<NurseDTO>> res;
 	res.reserve(days * shifts.size());
@@ -24,11 +24,11 @@ std::vector<std::vector<NurseDTO>> ShiftNurses::processNurses(const ProblemData&
 		res.push_back(nurses);
 	}
 
-	for (const auto& nurse : problemData.getNurses())
+	for (const auto& nurse : problemData.nurses())
 	{
-		for (const auto& shift : nurse.getWorkingShifts())
+		for (const auto& shift : nurse.workingShifts())
 		{
-			res[shift.getDay() * shifts.size() + problemData.getOffsetOfShiftTypes(shift.getShift())].push_back(nurse);
+			res[shift.day() * shifts.size() + problemData.getOffsetOfShiftTypes(shift.shift())].push_back(nurse);
 		}
 	}
 

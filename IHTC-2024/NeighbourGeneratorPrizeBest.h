@@ -7,9 +7,9 @@ class NeighbourGeneratorPrizeBest : public INeighbourGenerator
 public:
 	NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem, int prizeSize);
 
-	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeighbours, CIndividual& currIndiv);
+	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeighbours, CIndividual& currIndiv) override;
 
 private:
-	int bestIdx = -1;
-	int prizeSize;
+	int _bestIdx { -1 };
+	int _prizeSize { 0 };
 };

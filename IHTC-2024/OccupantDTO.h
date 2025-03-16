@@ -6,7 +6,7 @@ class OccupantDTO : public PatientDTO
 {
 
 public:
-	std::string getRoomId() const;
+	std::string roomId() const;
 
 	void setRoomId(const std::string& newRoomId);
 

@@ -6,15 +6,15 @@
 class RoomDTO
 {
 public:
-	std::string getId() const;
-	int getCapacity() const;
+	std::string id() const;
+	int capacity() const;
 
 	void setId(const std::string& newId);
 	void setCapacity(int newCapacity);
 
 private:
-	std::string id;
-	int capacity;
+	std::string _id;
+	int _capacity;
 };
 
 void to_json(nlohmann::json& j, const RoomDTO& room);

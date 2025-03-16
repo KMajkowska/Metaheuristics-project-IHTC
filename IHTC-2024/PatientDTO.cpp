@@ -1,75 +1,75 @@
 #include "PatientDTO.h"
 
-std::string PatientDTO::getId() const
+std::string PatientDTO::id() const
 {
-    return id;
+    return _id;
 }
 
-std::string PatientDTO::getGender() const
+std::string PatientDTO::gender() const
 {
-    return gender;
+    return _gender;
 }
 
-std::string PatientDTO::getAgeGroup() const
+std::string PatientDTO::ageGroup() const
 {
-    return age_group;
+    return _ageGroup;
 }
 
-int PatientDTO::getLengthOfStay() const
+int PatientDTO::lengthOfStay() const
 {
-    return length_of_stay;
+    return _lengthOfStay;
 }
 
-std::vector<int> PatientDTO::getWorkloadProduced() const
+std::vector<int> PatientDTO::workloadProduced() const
 {
-    return workload_produced;
+    return _workloadProduced;
 }
 
-std::vector<int> PatientDTO::getSkillLevelRequired() const
+std::vector<int> PatientDTO::skillLevelRequired() const
 {
-    return skill_level_required;
+    return _skillLevelRequired;
 }
 
 void PatientDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void PatientDTO::setGender(const std::string& newGender)
 {
-    gender = newGender;
+    _gender = newGender;
 }
 
 void PatientDTO::setAgeGroup(const std::string& newAgeGroup)
 {
-    age_group = newAgeGroup;
+    _ageGroup = newAgeGroup;
 }
 
 void PatientDTO::setLengthOfStay(int newLengthOfStay)
 {
-    length_of_stay = newLengthOfStay;
+    _lengthOfStay = newLengthOfStay;
 }
 
 void PatientDTO::setWorkloadProduced(std::vector<int> newWorkloadProduced)
 {
-    workload_produced = newWorkloadProduced;
+    _workloadProduced = newWorkloadProduced;
 }
 
 void PatientDTO::setSkillLevelRequired(std::vector<int> newSkillLevelRequired)
 {
-    skill_level_required = newSkillLevelRequired;
+    _skillLevelRequired = newSkillLevelRequired;
 }
 
 void to_json(nlohmann::json& j, const PatientDTO& patient)
 {
     j = nlohmann::json
     {
-        {"id", patient.getId()},
-        {"gender", patient.getGender()},
-        {"age_group", patient.getAgeGroup()},
-        {"length_of_stay", patient.getLengthOfStay()},
-        {"workload_produced", patient.getWorkloadProduced()},
-        {"skill_level_required", patient.getSkillLevelRequired()}
+        {"id", patient.id()},
+        {"gender", patient.gender()},
+        {"age_group", patient.ageGroup()},
+        {"length_of_stay", patient.lengthOfStay()},
+        {"workload_produced", patient.workloadProduced()},
+        {"skill_level_required", patient.skillLevelRequired()}
     };
 }
 

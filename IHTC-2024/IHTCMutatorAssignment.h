@@ -7,10 +7,7 @@ class IHTCMutatorAssignment : public IMutator
 public:
 	IHTCMutatorAssignment(std::mt19937& randGenerator, const ProblemData& problemData, double swapAssignmentsProbability);
 
-	bool mutate(CIndividual& individual) const;
+	bool mutate(CIndividual& individual) const override;
 
-	std::string getMutatorName() const;
-
-private:
-	double swapAssignmentsProbability;
+	std::string mutatorName() const override;
 };

@@ -18,16 +18,16 @@ public:
 	CIndividual(std::vector<Patient> patients, std::unordered_map<std::string, std::vector<Assignment>> assignments);
 	CIndividual(const CIndividual& otherIndividual);
 
-	std::vector<Patient> getPatients() const;
-	std::unordered_map<std::string, std::vector<Assignment>> getAssignments() const;
-	std::pair<double, ViolatedRestrictions> getFitness() const;
-	std::string getMutatorName() const;
-	bool isFitnessUpToDate() const;
-
 	void setFitness(const std::pair<double, ViolatedRestrictions>& newFitness);
 	void setAssignments(std::unordered_map<std::string, std::vector<Assignment>> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
 	void setMutatorName(const std::string& mutatorName);
+
+	std::vector<Patient> patients() const;
+	std::unordered_map<std::string, std::vector<Assignment>> assignments() const;
+	std::pair<double, ViolatedRestrictions> fitness() const;
+	std::string mutatorName() const;
+	bool isFitnessUpToDate() const;
 
 	std::vector<CIndividual> crossover(const CIndividual& otherIndividual, const ICrosser& crosser) const;
 	bool mute(const IMutator& mutator);
@@ -36,12 +36,13 @@ public:
 	std::partial_ordering operator<=>(const CIndividual&) const;
 
 private:
-	std::vector<Patient> patients;
-	std::unordered_map<std::string, std::vector<Assignment>> assignments;
+	std::vector<Patient> _patients;
+	std::unordered_map<std::string, std::vector<Assignment>> _assignments;
 
-	double fitness;
-	ViolatedRestrictions violated;
-	bool fitnessUpToDate;
+	double _fitness;
+	bool _fitnessUpToDate;
 
-	std::string mutatorName = "";
+	std::string _mutatorName { "" };
+
+	ViolatedRestrictions _violated;
 };

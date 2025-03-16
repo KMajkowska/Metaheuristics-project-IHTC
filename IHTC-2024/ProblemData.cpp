@@ -1,69 +1,69 @@
 #include "ProblemData.h"
 #include "OperatingTheaterWrapper.h"
 
-int ProblemData::getDays() const
+int ProblemData::days() const
 {
-    return days;
+    return _days;
 }
 
-int ProblemData::getSkillLevels() const
+int ProblemData::skillLevels() const
 {
-    return skill_levels;
+    return _skill_levels;
 }
 
-std::vector<std::string> ProblemData::getShiftTypes() const
+std::vector<std::string> ProblemData::shiftTypes() const
 {
-    return shift_types;
+    return _shiftTypes;
 }
 
-std::vector<std::string> ProblemData::getAgeGroups() const
+std::vector<std::string> ProblemData::ageGroups() const
 {
-    return age_groups;
+    return _ageGroups;
 }
 
-WeightsDTO ProblemData::getWeights() const
+WeightsDTO ProblemData::weights() const
 {
-    return weights;
+    return _weights;
 }
 
-std::vector<NurseDTO> ProblemData::getNurses() const
+std::vector<NurseDTO> ProblemData::nurses() const
 {
-    return nurses;
+    return _nurses;
 }
 
-std::vector<RoomDTO> ProblemData::getRooms() const
+std::vector<RoomDTO> ProblemData::rooms() const
 {
-    return rooms;
+    return _rooms;
 }
 
-std::vector<OccupantDTO> ProblemData::getOccupants() const
+std::vector<OccupantDTO> ProblemData::occupants() const
 {
-    return occupants;
+    return _occupants;
 }
 
-std::vector<IncomingPatientDTO> ProblemData::getPatients() const
+std::vector<IncomingPatientDTO> ProblemData::patients() const
 {
-    return patients;
+    return _patients;
 }
 
-std::vector<SurgeonDTO> ProblemData::getSurgeons() const
+std::vector<SurgeonDTO> ProblemData::surgeons() const
 {
-    return surgeons;
+    return _surgeons;
 }
 
-std::vector<OperatingTheaterDTO> ProblemData::getOperatingTheaters() const
+std::vector<OperatingTheaterDTO> ProblemData::operatingTheaters() const
 {
-    return operating_theaters;
+    return _operatingTheaters;
 }
 
-std::vector<std::vector<OperatingTheaterWrapper>> ProblemData::getOperatingTheatersAvailability() const
+std::vector<std::vector<OperatingTheaterWrapper>> ProblemData::operatingTheatersAvailability() const
 {
-    return operating_theaters_availability;
+    return _operatingTheatersAvailability;
 }
 
 void ProblemData::setDays(int newDays)
 {
-    days = newDays;
+    _days = newDays;
 
     runOperatingTheatersPreprocessing();
     runOperatingTheatersAvailibility();
@@ -71,69 +71,69 @@ void ProblemData::setDays(int newDays)
 
 void ProblemData::setSkillLevels(int newSkillLevels)
 {
-    skill_levels = newSkillLevels;
+    _skill_levels = newSkillLevels;
 }
 
 void ProblemData::setShiftTypes(std::vector<std::string> newShiftTypes)
 {
-    shift_types = newShiftTypes;
+    _shiftTypes = newShiftTypes;
 
-    shiftTypeToIndexMap.clear();
+    _shiftTypeToIndexMap.clear();
 
-    shiftTypeToIndexMap.reserve(shift_types.size());
-    for (int i = 0; i < shift_types.size(); ++i)
+    _shiftTypeToIndexMap.reserve(_shiftTypes.size());
+    for (int i = 0; i < _shiftTypes.size(); ++i)
     {
-        shiftTypeToIndexMap[shift_types[i]] = i;
+        _shiftTypeToIndexMap[_shiftTypes[i]] = i;
     }
 }
 
 void ProblemData::setAgeGroups(std::vector<std::string> newAgeGroups)
 {
-    age_groups = newAgeGroups;
+    _ageGroups = newAgeGroups;
 }
 
 void ProblemData::setWeights(WeightsDTO newWeights)
 {
-    weights = newWeights;
+    _weights = newWeights;
 }
 
 void ProblemData::setNurses(std::vector<NurseDTO> newNurses)
 {
-    nurses = newNurses;
+    _nurses = newNurses;
 
-    nursesMap.clear();
+    _nursesMap.clear();
 
-    nursesMap.reserve(nurses.size());
-    for (const auto& nurse : nurses)
+    _nursesMap.reserve(_nurses.size());
+    for (const auto& nurse : _nurses)
     {
-        nursesMap[nurse.getId()] = nurse;
+        _nursesMap[nurse.id()] = nurse;
     }
 }
 
 void ProblemData::setRooms(std::vector<RoomDTO> newRooms)
 {
-    rooms = newRooms;
+    _rooms = newRooms;
 
     runPreprocessing();
 }
 
 void ProblemData::setOccupants(std::vector<OccupantDTO> newOccupants)
 {
-    occupants = newOccupants;
+    _occupants = newOccupants;
 
     runPreprocessing();
 }
 
 void ProblemData::setPatients(std::vector<IncomingPatientDTO> newPatients)
 {
-    patients = newPatients;
+    _patients = newPatients;
 
-    patientMap.clear();
+    _patientMap.clear();
 
-    patientMap.reserve(patients.size());
-    for (const auto& patient : patients)
+    _patientMap.reserve(_patients.size());
+    for (const auto& patient : _patients)
     {
-        patientMap[patient.getId()] = patient;
+        _patientMap[patient.id()] = patient;
     }
 
     runPreprocessing();
@@ -141,20 +141,20 @@ void ProblemData::setPatients(std::vector<IncomingPatientDTO> newPatients)
 
 void ProblemData::setSurgeons(std::vector<SurgeonDTO> newSurgeons)
 {
-    surgeons = newSurgeons;
+    _surgeons = newSurgeons;
 
-    surgeonMap.clear();
+    _surgeonMap.clear();
 
-    surgeonMap.reserve(surgeons.size());
-    for (const auto& surgeon : surgeons)
+    _surgeonMap.reserve(_surgeons.size());
+    for (const auto& surgeon : _surgeons)
     {
-        surgeonMap[surgeon.getId()] = surgeon;
+        _surgeonMap[surgeon.id()] = surgeon;
     }
 }
 
 void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheaters)
 {
-    operating_theaters = newTheaters;
+    _operatingTheaters = newTheaters;
 
     runOperatingTheatersPreprocessing();
     runOperatingTheatersAvailibility();
@@ -162,62 +162,62 @@ void ProblemData::setOperatingTheaters(std::vector<OperatingTheaterDTO> newTheat
 
 RoomWithOccupancyRepresentation ProblemData::getPreprocessedRooms() const
 {
-    return roomInfos;
+    return _roomInfos;
 }
 
 std::unordered_map<std::string, SurgeonDTO> ProblemData::getSurgeonMap() const
 {
-    return surgeonMap;
+    return _surgeonMap;
 }
 
 std::unordered_map<std::string, IncomingPatientDTO> ProblemData::getPatientMap() const
 {
-    return patientMap;
+    return _patientMap;
 }
 
 std::unordered_map<std::string, NurseDTO> ProblemData::getNursesMap() const
 {
-    return nursesMap;
+    return _nursesMap;
 }
 
 std::vector<std::unordered_map<std::string, std::vector<std::string>>> ProblemData::getEmptyOperatingTheaters() const
 {
-    return empty_operating_theaters;
+    return _emptyOperatingTheaters;
 }
 
 int ProblemData::getOffsetOfShiftTypes(std::string shiftType) const
 {
-    return shiftTypeToIndexMap.at(shiftType);
+    return _shiftTypeToIndexMap.at(shiftType);
 }
 
 std::unordered_map<std::string, int> ProblemData::getShiftTypeToIndexMap() const
 {
-    return shiftTypeToIndexMap;
+    return _shiftTypeToIndexMap;
 }
 
 void ProblemData::runPreprocessing()
 {
-    roomInfos = RoomWithOccupancyRepresentation(rooms, occupants, patients, shift_types, days);
+    _roomInfos = RoomWithOccupancyRepresentation(_rooms, _occupants, _patients, _shiftTypes, _days);
 }
 
 void ProblemData::runOperatingTheatersPreprocessing()
 {
-    empty_operating_theaters.clear();
-    empty_operating_theaters.reserve(days);
+    _emptyOperatingTheaters.clear();
+    _emptyOperatingTheaters.reserve(_days);
 
-    for (int i = 0; i < days; ++i)
+    for (int i = 0; i < _days; ++i)
     {
         std::unordered_map<std::string, std::vector<std::string>> newMap;
-        newMap.reserve(operating_theaters.size());
+        newMap.reserve(_operatingTheaters.size());
 
-        empty_operating_theaters.push_back(newMap);
+        _emptyOperatingTheaters.push_back(newMap);
 
-        for (const auto& ot : operating_theaters)
+        for (const auto& ot : _operatingTheaters)
         {
             if (ot.getAvailability()[i] > 0)
             {
                 std::vector<std::string> patients;
-                empty_operating_theaters[i][ot.getId()] = patients;
+                _emptyOperatingTheaters[i][ot.id()] = patients;
             }
         }
     }
@@ -225,23 +225,23 @@ void ProblemData::runOperatingTheatersPreprocessing()
 
 void ProblemData::runOperatingTheatersAvailibility()
 {
-    operating_theaters_availability.clear();
-    operating_theaters_availability.reserve(operating_theaters.size());
+    _operatingTheatersAvailability.clear();
+    _operatingTheatersAvailability.reserve(_operatingTheaters.size());
 
-    for (int i = 0; i < days; ++i)
+    for (int i = 0; i < _days; ++i)
     {
         std::vector<OperatingTheaterWrapper> ots;
 
-        for (const auto& operatingTheater : operating_theaters)
+        for (const auto& operatingTheater : _operatingTheaters)
         {
             ots.push_back(
                 OperatingTheaterWrapper(
-                    OperatingTheaterInfo(operatingTheater.getAvailability().at(i), 0, operatingTheater.getId())
+                    OperatingTheaterInfo(operatingTheater.getAvailability().at(i), 0, operatingTheater.id())
                 )
             );
         }
 
-        operating_theaters_availability.push_back(ots);
+        _operatingTheatersAvailability.push_back(ots);
     }
 }
 
@@ -249,17 +249,17 @@ void to_json(nlohmann::json& j, const ProblemData& data)
 {
     j = nlohmann::json
     {
-        {"days", data.getDays()},
-        {"skill_levels", data.getSkillLevels()},
-        {"shift_types", data.getShiftTypes()},
-        {"age_groups", data.getAgeGroups()},
-        {"weights", data.getWeights()},
-        {"nurses", data.getNurses()},
-        {"rooms", data.getRooms()},
-        {"occupants", data.getOccupants()},
-        {"patients", data.getPatients()},
-        {"surgeons", data.getSurgeons()},
-        {"operating_theaters", data.getOperatingTheaters()}
+        {"days", data.days()},
+        {"skill_levels", data.skillLevels()},
+        {"shift_types", data.shiftTypes()},
+        {"age_groups", data.ageGroups()},
+        {"weights", data.weights()},
+        {"nurses", data.nurses()},
+        {"rooms", data.rooms()},
+        {"occupants", data.occupants()},
+        {"patients", data.patients()},
+        {"surgeons", data.surgeons()},
+        {"operating_theaters", data.operatingTheaters()}
     };
 }
 

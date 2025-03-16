@@ -10,7 +10,7 @@ void NurseRoomIndividual::setRoomForNurses(std::vector<std::vector<int>> newNurs
     nurseToRoom = newNursesInRooms;
 }
 
-int NurseRoomIndividual::getRoomForNurse(int timeslot, int nurse)
+int NurseRoomIndividual::roomForNurse(int timeslot, int nurse)
 {
     return nurseToRoom[timeslot][nurse];
 }

@@ -2,7 +2,7 @@
 
 NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem, int prizeSize) :
 	INeighbourGenerator(mutators, problem),
-	prizeSize(prizeSize)
+	_prizeSize(prizeSize)
 {
 	if (prizeSize <= 0)
 	{
@@ -12,7 +12,7 @@ NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::
 
 std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteration, int numberOfNeighbours, CIndividual & currIndiv)
 {
-	int mutatorCount = mutators.size();
+	int mutatorCount = _mutators.size();
 	int baseNeighboursPerMutator = numberOfNeighbours / mutatorCount;
 	int remainingNeighbours = numberOfNeighbours % mutatorCount;
 
@@ -20,13 +20,13 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 	allNeighbours.reserve(numberOfNeighbours);
 
 	int idx = 0;
-	for (const std::shared_ptr<IMutator>& mut : mutators)
+	for (const std::shared_ptr<IMutator>& mut : _mutators)
 	{
 		int neighboursForThisMutator = baseNeighboursPerMutator;
 
-		if (idx == bestIdx)
+		if (idx == _bestIdx)
 		{
-			neighboursForThisMutator += prizeSize;
+			neighboursForThisMutator += _prizeSize;
 		}
 
 		// loop is not needed as remainingNeighbours is always lower than mutators.size()
@@ -36,7 +36,7 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 			--remainingNeighbours;
 		}
 
-		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, problem);
+		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, _problem);
 
 		allNeighbours.insert(allNeighbours.end(), neighbours.begin(), neighbours.end());
 
@@ -47,16 +47,16 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 
 	for (size_t i = 0; i < allNeighbours.size(); ++i)
 	{
-		if (allNeighbours[i].getFitness().first < bestRes)
+		if (allNeighbours[i].fitness().first < bestRes)
 		{
-			bestIdx = i;
-			bestRes = allNeighbours[i].getFitness().first;
+			_bestIdx = i;
+			bestRes = allNeighbours[i].fitness().first;
 		}
 	}
 
-	if (bestRes > currIndiv.getFitness().first)
+	if (bestRes > currIndiv.fitness().first)
 	{
-		bestIdx = -1;
+		_bestIdx = -1;
 	}
 
 	return allNeighbours;

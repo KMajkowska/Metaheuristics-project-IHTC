@@ -7,12 +7,12 @@
 class PatientDTO
 {
 public:
-	std::string getId() const;
-	std::string getGender() const;
-	std::string getAgeGroup() const;
-	int getLengthOfStay() const;
-	std::vector<int> getWorkloadProduced() const;
-	std::vector<int> getSkillLevelRequired() const;
+	std::string id() const;
+	std::string gender() const;
+	std::string ageGroup() const;
+	int lengthOfStay() const;
+	std::vector<int> workloadProduced() const;
+	std::vector<int> skillLevelRequired() const;
 
 	void setId(const std::string& newId);
 	void setGender(const std::string& newGender);
@@ -22,12 +22,12 @@ public:
 	void setSkillLevelRequired(std::vector<int> newSkillLevelsRequired);
 
 protected:
-	std::string id;
-	std::string gender;
-	std::string age_group;
-	int length_of_stay;
-	std::vector<int> workload_produced;
-	std::vector<int> skill_level_required;
+	std::string _id;
+	std::string _gender;
+	std::string _ageGroup;
+	int _lengthOfStay;
+	std::vector<int> _workloadProduced;
+	std::vector<int> _skillLevelRequired;
 };
 
 void to_json(nlohmann::json& j, const PatientDTO& patient);

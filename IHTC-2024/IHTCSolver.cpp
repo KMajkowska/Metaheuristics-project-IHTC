@@ -1,18 +1,18 @@
 #include "IHTCSolver.h"
 
-IHTCSolver::IHTCSolver(const ProblemData& newProblemData, std::mt19937& randGenerator, Logger& logger) :
+IHTCSolver::IHTCSolver(const ProblemData& newProblemData, std::mt19937& randGenerator, ICIndividualConsumer& consumer) :
 	roomInfos(newProblemData.getPreprocessedRooms()),
 	ISolver(newProblemData, randGenerator),
-	logger(logger)
+	consumer(consumer)
 {
 	preprocessPatientsToRooms();
 }
 
 void IHTCSolver::preprocessPatientsToRooms()
 {
-	const auto& incomingPatients = problemData.getPatients();
+	const auto& incomingPatients = problemData.patients();
 	const auto& surgeonMap = problemData.getSurgeonMap();
-	const int days = problemData.getDays();
+	const int days = problemData.days();
 
 	patientsInRoom.reserve(days);
 
@@ -31,7 +31,7 @@ void IHTCSolver::preprocessPatientsToRooms()
 		{
 			const auto surgeon = surgeonMap.at(patient.getSurgeonId());
 
-			if (surgeon.getMaxSurgeryTime()[dayIdx] >= patient.getSurgeryDuration())
+			if (surgeon.maxSurgeryTime()[dayIdx] >= patient.getSurgeryDuration())
 			{
 				patientsInRoom[dayIdx][patientIdx] = ASSIGNABLE;
 			}

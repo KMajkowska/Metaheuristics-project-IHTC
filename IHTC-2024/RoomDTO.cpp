@@ -1,31 +1,31 @@
 #include "RoomDTO.h"
 
-std::string RoomDTO::getId() const
+std::string RoomDTO::id() const
 {
-    return id;
+    return _id;
 }
 
-int RoomDTO::getCapacity() const
+int RoomDTO::capacity() const
 {
-    return capacity;
+    return _capacity;
 }
 
 void RoomDTO::setId(const std::string& newId)
 {
-    id = newId;
+    _id = newId;
 }
 
 void RoomDTO::setCapacity(int newCapacity)
 {
-	capacity = newCapacity;
+	_capacity = newCapacity;
 }
 
 void to_json(nlohmann::json & j, const RoomDTO & room)
 {
 	j = nlohmann::json
 	{
-		{"id", room.getId()},
-		{"capacity", room.getCapacity()}
+		{"id", room.id()},
+		{"capacity", room.capacity()}
 	};
 }
 

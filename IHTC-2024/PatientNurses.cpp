@@ -1,28 +1,28 @@
 #include "PatientNurses.h"
 
 PatientNurses::PatientNurses(const ProblemData& problemData) :
-    occupantsAndPatientToNurses(processOccupantsAndPatients(problemData))
+    _occupantsAndPatientToNurses(processOccupantsAndPatients(problemData))
 {}
 
 void PatientNurses::addNurse(const std::string& patientId, const std::string& nurseId)
 {
-    occupantsAndPatientToNurses.at(patientId).insert(nurseId);
+    _occupantsAndPatientToNurses.at(patientId).insert(nurseId);
 }
 
-std::set<std::string> PatientNurses::getNurses(const std::string& patientId)
+std::set<std::string> PatientNurses::nurses(const std::string& patientId)
 {
-    return occupantsAndPatientToNurses.at(patientId);
+    return _occupantsAndPatientToNurses.at(patientId);
 }
 
-std::unordered_map<std::string, std::set<std::string>> PatientNurses::getMap()
+std::unordered_map<std::string, std::set<std::string>> PatientNurses::occupantsAndPatientToNurses()
 {
-    return occupantsAndPatientToNurses;
+    return _occupantsAndPatientToNurses;
 }
 
 std::unordered_map<std::string, std::set<std::string>> PatientNurses::processOccupantsAndPatients(const ProblemData& problemData)
 {
-    const auto& patients = problemData.getPatients();
-    const auto& occupants = problemData.getOccupants();
+    const auto& patients { problemData.patients() };
+    const auto& occupants { problemData.occupants() };
 
     std::unordered_map<std::string, std::set<std::string>> res;
     res.reserve(patients.size() + occupants.size());
@@ -31,14 +31,14 @@ std::unordered_map<std::string, std::set<std::string>> PatientNurses::processOcc
     {
         std::set<std::string> newSet;
         
-        res[patient.getId()] = newSet;
+        res[patient.id()] = newSet;
     }
 
     for (const auto& occupant : occupants)
     {
         std::set<std::string> newSet;
 
-        res[occupant.getId()] = newSet;
+        res[occupant.id()] = newSet;
     }
 
     return res;

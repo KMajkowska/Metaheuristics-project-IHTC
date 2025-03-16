@@ -7,7 +7,6 @@
 #include "INeighbourGenerator.h"
 #include "IStopCriterium.h"
 #include "ICoolingScheme.h"
-#include "other.h"
 #include "TemperatureOperator.h"
 #include "GenderGrouper.h"
 #include "IHTCMutatorNurseRoomCover.h"
@@ -23,14 +22,12 @@ public:
 		const IStopCriterium& stopCriterium,
 		int neighbourhoodNumber,
 		INeighbourGenerator& neighbourGenerator,
-		Logger& logger,
+		ICIndividualConsumer& consumer,
 		const GenderGrouper& genderGrouper,
 		const IHTCMutatorNurseRoomCover& nurseRoomCover
 	);
 
-	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const;
-
-	std::string getCSVHeaders() const;
+	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const override;
 
 private:
 	double startingTemp;
@@ -42,8 +39,6 @@ private:
 	const IHTCMutatorNurseRoomCover& nurseRoomCover;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
-
-	void logResults(CIndividual& curr, CIndividual& best, double actualTemp, double worstNeighbour, double bestNeighbour, std::vector<double> fitnesses, std::string changerName) const;
 
 	const double NORMALIZATION_DIVIDER = exp(1.0);
 };

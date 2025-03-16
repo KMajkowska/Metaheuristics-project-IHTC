@@ -5,6 +5,9 @@
 class IncomingPatientDTO : public PatientDTO
 {
 public:
+	IncomingPatientDTO() = default;
+	IncomingPatientDTO(const IncomingPatientDTO& other) = default;
+
 	bool isMandatory() const;
 	int getSurgeryReleaseDay() const;
 	int getSurgeryDueDay() const;

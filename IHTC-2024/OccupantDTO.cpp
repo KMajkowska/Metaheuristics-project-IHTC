@@ -1,6 +1,6 @@
 #include "OccupantDTO.h"
 
-std::string OccupantDTO::getRoomId() const
+std::string OccupantDTO::roomId() const
 {
     return room_id;
 }
@@ -14,7 +14,7 @@ void to_json(nlohmann::json& j, const OccupantDTO& occupant)
 {
 	nlohmann::to_json(j, static_cast<PatientDTO>(occupant));
 
-	j.update({ {"room_id", occupant.getRoomId()} });
+	j.update({ {"room_id", occupant.roomId()} });
 }
 
 void from_json(const nlohmann::json& j, OccupantDTO& occupant)

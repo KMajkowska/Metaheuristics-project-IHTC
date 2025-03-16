@@ -6,9 +6,9 @@ EASolver::EASolver(
 	const IMutator& mutator, 
 	const ICrosser& crosser, 
 	std::mt19937& randGenerator, 
-	Logger& logger
+	ICIndividualConsumer& consumer
 ) :
-	IHTCSolver(problemData, randGenerator, logger),
+	IHTCSolver(problemData, randGenerator, consumer),
 	selector(selector),
 	mutator(mutator),
 	crosser(crosser)
@@ -17,9 +17,4 @@ EASolver::EASolver(
 CIndividual EASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
 	return CIndividual();
-}
-
-std::string EASolver::getCSVHeaders() const
-{
-	return ViolatedRestrictions().getCSVColumns("") + ", res";
 }
