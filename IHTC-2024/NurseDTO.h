@@ -24,7 +24,7 @@ public:
 private:
 	std::string _id;
 	std::vector<ShiftDTO> _workingShifts;
-	int _skillLevel;
+	int _skillLevel { 0 };
 };
 
 void to_json(nlohmann::json& j, const NurseDTO& nurse);

@@ -607,6 +607,7 @@
     <Text Include="assign.txt">
       <Filter>Pliki zasobów</Filter>
     </Text>
+    <Text Include="Doxyfile" />
   </ItemGroup>
   <ItemGroup>
     <None Include="params.json">

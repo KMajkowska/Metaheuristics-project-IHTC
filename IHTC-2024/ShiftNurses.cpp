@@ -1,12 +1,12 @@
 #include "ShiftNurses.h"
 
 ShiftNurses::ShiftNurses(const ProblemData& problemData) :
-	shiftNurses(processNurses(problemData))
+	_shiftNurses(processNurses(problemData))
 {}
 
 std::vector<NurseDTO> ShiftNurses::getNursesByDayShiftOffset(int offset)
 {
-	return shiftNurses.at(offset);
+	return _shiftNurses.at(offset);
 }
 
 std::vector<std::vector<NurseDTO>> ShiftNurses::processNurses(const ProblemData& problemData)

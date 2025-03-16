@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+ * @brief Class used as an interface to have polymorphism when using different ways of cooling SA algorithm
+*/
 class ICoolingScheme
 {
 public:

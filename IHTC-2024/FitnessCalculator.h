@@ -7,10 +7,10 @@
 class FitnessCalculator
 {
 public:
-	FitnessCalculator(int multiplier);
+	FitnessCalculator(double multiplier);
 
 	double calculateFitnessWithWeight(const WeightsDTO& weights, const ViolatedRestrictions& restrictions) const;
 
 private:
-	int multiplier;
+	double multiplier;
 };

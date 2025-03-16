@@ -17,7 +17,7 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	if (distribution(_randGenerator) > _mutationProbability || individual.fitness().second.countUncoveredRoomHard <= 0)
+	if (distribution(_randGenerator) > _mutationProbability || individual.fitness().second.countUncoveredRoomHard() <= 0)
 	{
 		return false;
 	}

@@ -6,6 +6,10 @@
 #include "OperatingTheaterDTO.h"
 #include "NurseDTO.h"
 
+
+/**
+ * @brief Class to represent info about actual and max nurse workload on given day and shift
+*/
 class Workload
 {
 public:

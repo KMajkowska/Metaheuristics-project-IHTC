@@ -5,6 +5,9 @@
 #include "CIndividual.h"
 #include "ProblemData.h"
 
+/**
+ * @brief Class used as an interface to provide polymorphism to different ways of mutating our solution
+*/
 class IMutator
 {
 public:

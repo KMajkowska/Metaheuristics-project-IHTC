@@ -16,8 +16,8 @@ bool IHTCMutatorRoom::mutate(CIndividual& individual) const
 	auto patients = individual.patients();
 	const auto& rooms = _problemData.rooms();
 
-	std::uniform_int_distribution<int> patientDistribution(0, patients.size() - 1);
-	std::uniform_int_distribution<int> roomDistribution(0, rooms.size() - 1);
+	std::uniform_int_distribution<size_t> patientDistribution(0, patients.size() - 1);
+	std::uniform_int_distribution<size_t> roomDistribution(0, rooms.size() - 1);
 
 	Patient& patient = patients.at(patientDistribution(_randGenerator));
 

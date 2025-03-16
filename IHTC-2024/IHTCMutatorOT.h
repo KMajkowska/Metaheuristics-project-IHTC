@@ -11,7 +11,4 @@ public:
 	bool mutate(CIndividual& individual) const override;
 
 	std::string mutatorName() const override;
-
-private:
-	double _mutationProbability;
 };

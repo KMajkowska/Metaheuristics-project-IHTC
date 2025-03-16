@@ -16,6 +16,7 @@ RES_AVG_NEIGHBOUR: str = "avgNeighbour"
 RES_STD_DEV_NEIGHBOUR: str = "stdDevNeighbour"
 COUNT_TOTAL_HARD: str = "countTotalHard"
 COUNT_TOTAL_SOFT: str = "countTotalSoft"
+TEMP_COL_NAME: str = "actualTemp"
 
 CURR_MUTATOR: str = "currMutator"
 SPLIT: int = 5

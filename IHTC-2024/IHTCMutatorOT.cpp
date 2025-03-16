@@ -14,8 +14,8 @@ bool IHTCMutatorOT::mutate(CIndividual& individual) const
 	}
 
 	auto patients { individual.patients() };
-	std::uniform_int_distribution<int> patientDistribution(0, patients.size() - 1);
-	std::uniform_int_distribution<int> otDistribution(0, _problemData.operatingTheaters().size() - 1);
+	std::uniform_int_distribution<size_t> patientDistribution(0, patients.size() - 1);
+	std::uniform_int_distribution<size_t> otDistribution(0, _problemData.operatingTheaters().size() - 1);
 
 	auto patientIt { patients.begin() };
 	std::advance(patientIt, patientDistribution(_randGenerator));

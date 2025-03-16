@@ -7,6 +7,10 @@
 * pielêgniarka ma ju¿ odgórnie przypisany timeslot kiedy jest a kiedy nie
 */
 
+/**
+ * @brief Helper Individual where we store room assigned for nurse on given day and shift 
+*/
+
 class NurseRoomIndividual
 {
 public:

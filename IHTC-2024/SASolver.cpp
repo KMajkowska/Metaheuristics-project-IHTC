@@ -13,18 +13,18 @@ SASolver::SASolver(
 	const IHTCMutatorNurseRoomCover& nurseRoomCover
 ) :
 	IHTCSolver(problemData, randGenerator, consumer),
-	startingTemp(startingTemp),
-	tempOperator(tempOperator),
-	stopCriterium(stopCriterium),
-	neighbourhoodNumber(neighbourhoodNumber),
-	neighbourGenerator(neighbourGenerator),
-	genderGrouper(genderGrouper),
-	nurseRoomCover(nurseRoomCover)
+	_startingTemp(startingTemp),
+	_tempOperator(tempOperator),
+	_stopCriterium(stopCriterium),
+	_neighbourhoodNumber(neighbourhoodNumber),
+	_neighbourGenerator(neighbourGenerator),
+	_genderGrouper(genderGrouper),
+	_nurseRoomCover(nurseRoomCover)
 {}
 
 CIndividual SASolver::solve(const IProblem& problem, const CIndividual& startingIndividual) const
 {
-	double actualTemp = startingTemp;
+	double actualTemp = _startingTemp;
 	int iteration = 0;
 
 	CIndividual curr = startingIndividual;
@@ -33,9 +33,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	while (!stopCriterium.isStop(actualTemp, iteration))
+	while (!_stopCriterium.isStop(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = neighbourGenerator.getNeighbours(iteration, neighbourhoodNumber, curr);
+		std::vector<CIndividual> neighbours = _neighbourGenerator.getNeighbours(iteration, _neighbourhoodNumber, curr);
 
 		if (neighbours.empty())
 		{
@@ -82,9 +82,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.fitness().second.countGenderMixHard > 0)
+			if (iteration % _genderGrouper.iter() == 0 && curr.fitness().second.countGenderMixHard() > 0)
 			{
-				genderGrouper.greedyGroupGenders(curr);
+				_genderGrouper.greedyGroupGenders(curr);
 				curr.setFitness(problem.eval(curr));
 				if (curr.fitness().first < best.fitness().first)
 				{
@@ -92,9 +92,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				}
 			}
 
-			if (iteration % genderGrouper.getIter() == 0 && curr.fitness().second.countUncoveredRoomHard > 0)
+			if (iteration % _genderGrouper.iter() == 0 && curr.fitness().second.countUncoveredRoomHard() > 0)
 			{
-				nurseRoomCover.mutate(curr);
+				_nurseRoomCover.mutate(curr);
 				curr.setFitness(problem.eval(curr));
 				if (curr.fitness().first < best.fitness().first)
 				{
@@ -102,10 +102,10 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 				}
 			}
 
-			consumer.consume(curr, best, actualTemp);
+			_consumer.consume(curr, best, actualTemp);
 		}
 
-		actualTemp = tempOperator.getNewTemp(startingTemp, actualTemp, iteration, curr.fitness().second);
+		actualTemp = _tempOperator.getNewTemp(_startingTemp, actualTemp, iteration, curr.fitness().second);
 		++iteration;
 	}
 
@@ -116,18 +116,18 @@ bool SASolver::checkIfAcceptNeighbour(const CIndividual& curr, const CIndividual
 {
 	std::uniform_real_distribution<double> distribution(0.0, 1.0);
 
-	int neighbourFitness = neighbour.fitness().first;
-	int currFitness = curr.fitness().first;
+	auto neighbourFitness { neighbour.fitness().first };
+	auto currFitness { curr.fitness().first };
 
-	int diff = neighbourFitness - currFitness;
+	auto diff { neighbourFitness - currFitness };
 
-	while (diff > startingTemp * NORMALIZATION_DIVIDER)
+	while (diff > _startingTemp * NORMALIZATION_DIVIDER)
 	{
 		diff /= NORMALIZATION_DIVIDER;
 	}
 
-	double expCalc = exp(diff / temperature);
-	double expProb = 2 / (1 + expCalc);
+	double expCalc { exp(diff / temperature) };
+	double expProb { 2 / (1 + expCalc) };
 
-	return distribution(randGenerator) < expProb;
+	return distribution(_randGenerator) < expProb;
 }

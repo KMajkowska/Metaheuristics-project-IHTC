@@ -2,17 +2,17 @@ import os
 import subprocess
 from typing import List
 
-from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH, RUN_PARALLEL
+from consts import INSTANCES_PATH, PARAMS_DIR_PATH, EXEC_PATH
 
 
 def generate_files() -> List[str]:
-    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(25, 31)]
+    return [f"{INSTANCES_PATH}/i{i:02}.json" for i in range(24, 25)]
 
 
 def get_param_files() -> List[str]:
     return [
-        os.path.join(PARAMS_DIR_PATH, file)
-        for file in os.listdir(PARAMS_DIR_PATH)
+        os.path.join("C:\\Users\\karol\\OneDrive\\Desktop\\Metaheuristics-project-IHTC\\runner", file)
+        for file in os.listdir("C:\\Users\\karol\\OneDrive\\Desktop\\Metaheuristics-project-IHTC\\runner")
         if file.endswith(".json")
     ]
 
@@ -22,15 +22,10 @@ def run_problem_in_new_console(
 ) -> None:
     print(f"Running {instance_file} with {exec_path} and params {param_file}")
 
-    if RUN_PARALLEL:
-        subprocess.Popen(
-            [exec_path, instance_file, param_file],
-            creationflags=subprocess.CREATE_NEW_CONSOLE,
-        )
-    else:
-        subprocess.run(
-            [exec_path, instance_file, param_file], capture_output=True, text=True
-        )
+    subprocess.Popen(
+        [exec_path, instance_file, param_file],
+        creationflags=subprocess.CREATE_NEW_CONSOLE
+    )
 
 
 def run_all_problems(exec_path: str) -> None:

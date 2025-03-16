@@ -2,6 +2,9 @@
 
 #include "INeighbourGenerator.h"
 
+/**
+ * @brief Generator where the mutator which generate the best individual in previous iteration now has more individuals to generate
+*/
 class NeighbourGeneratorPrizeBest : public INeighbourGenerator
 {
 public:

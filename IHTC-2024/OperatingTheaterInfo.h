@@ -2,6 +2,10 @@
 
 #include <string>
 
+/**
+ * @brief Class where we store the info about OT maximum surgeries time aand actual sum of surgeries time
+ * Based on it hard restriction if OT is overcrowded is calculated 
+*/
 class OperatingTheaterInfo
 {
 public:

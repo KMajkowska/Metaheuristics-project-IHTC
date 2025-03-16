@@ -6,6 +6,10 @@
 
 #include "ProblemData.h"
 
+/**
+ * @brief Class where we store the info how muny nurses has a patient during his stay at hospital
+ * Based on it the soft restriction continous of care (minimazing the number of n urses taking care of the patient) is calculated
+*/
 class PatientNurses
 {
 public:

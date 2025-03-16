@@ -2,6 +2,9 @@
 
 #include "IHTCSolver.h"
 
+/**
+ * @brief Alternative for greedy solver to initializa SASOlver
+*/
 class RandomSolver : public IHTCSolver
 {
 public:

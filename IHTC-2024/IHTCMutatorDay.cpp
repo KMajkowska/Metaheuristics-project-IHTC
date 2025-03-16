@@ -17,7 +17,7 @@ bool IHTCMutatorDay::mutate(CIndividual& individual) const
 	const auto& rooms { _problemData.rooms() };
 	int days { _problemData.days() };
 
-	std::uniform_int_distribution<int> patientDistribution(0, patients.size() - 1);
+	std::uniform_int_distribution<size_t> patientDistribution(0, patients.size() - 1);
 
 	Patient& patient { patients.at(patientDistribution(_randGenerator)) };
 	const auto patientFromProblem { _problemData.getPatientMap().at(patient.id()) };

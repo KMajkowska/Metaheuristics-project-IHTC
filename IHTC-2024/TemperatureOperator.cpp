@@ -1,8 +1,8 @@
 #include "TemperatureOperator.h"
 
 TemperatureOperator::TemperatureOperator(const ICoolingScheme& coolingScheme, int iterationWithoutChange) :
-	coolingScheme(coolingScheme),
-	iterationWithoutChange(iterationWithoutChange)
+	_coolingScheme(coolingScheme),
+	_iterationWithoutChange(iterationWithoutChange)
 {}
 
 double TemperatureOperator::getNewTemp(double startingTemp, double currTemp, int iteration, ViolatedRestrictions currRestr)
@@ -11,23 +11,23 @@ double TemperatureOperator::getNewTemp(double startingTemp, double currTemp, int
 
 	if (currTotal > 0)
 	{
-		if ((--currRestrainFromCooling) > 0)
+		if ((--_currRestrainFromCooling) > 0)
 		{
 			return currTemp;
 		}
 
-		if (prevRestr.countTotalHard() == currTotal)
+		if (_prevRestr.countTotalHard() == currTotal)
 		{
-			if ((++currIterationWithoutChange) >= iterationWithoutChange)
+			if ((++_currIterationWithoutChange) >= _iterationWithoutChange)
 			{
-				currRestrainFromCooling = iterationWithoutChange;
-				currIterationWithoutChange = 0;
+				_currRestrainFromCooling = _iterationWithoutChange;
+				_currIterationWithoutChange = 0;
 			}
 		}
 
-		prevRestr = currRestr;
+		_prevRestr = currRestr;
 	}
 	
 
-	return coolingScheme.getNewTemp(startingTemp, currTemp, iteration);
+	return _coolingScheme.getNewTemp(startingTemp, currTemp, iteration);
 }

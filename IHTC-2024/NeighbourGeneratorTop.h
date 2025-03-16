@@ -2,6 +2,9 @@
 
 #include "INeighbourGenerator.h"
 
+/**
+ * @brief Generator where the generated neighbours are the half of the total neighbours for next iteration. Neighbours are chooses as the elite from generated neighbours
+*/
 class NeighbourGeneratorTop : public INeighbourGenerator
 {
 public:

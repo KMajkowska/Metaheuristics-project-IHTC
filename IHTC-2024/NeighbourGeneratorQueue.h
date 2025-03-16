@@ -4,6 +4,9 @@
 
 #include "INeighbourGenerator.h"
 
+/**
+ * @brief Generator where mutatots are puy in the queue (randomly when creating code) and this generator use the mutator from appropriate index from queue
+*/
 class NeighbourGeneratorQueue : public INeighbourGenerator
 {
 public:

@@ -12,14 +12,14 @@ NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::
 
 std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteration, int numberOfNeighbours, CIndividual & currIndiv)
 {
-	int mutatorCount = _mutators.size();
-	int baseNeighboursPerMutator = numberOfNeighbours / mutatorCount;
-	int remainingNeighbours = numberOfNeighbours % mutatorCount;
+	auto mutatorCount { _mutators.size() };
+	auto baseNeighboursPerMutator { numberOfNeighbours / mutatorCount };
+	auto remainingNeighbours { numberOfNeighbours % mutatorCount };
 
 	std::vector<CIndividual> allNeighbours;
 	allNeighbours.reserve(numberOfNeighbours);
 
-	int idx = 0;
+	auto idx { 0 };
 	for (const std::shared_ptr<IMutator>& mut : _mutators)
 	{
 		int neighboursForThisMutator = baseNeighboursPerMutator;
@@ -36,16 +36,16 @@ std::vector<CIndividual> NeighbourGeneratorPrizeBest::getNeighbours(int iteratio
 			--remainingNeighbours;
 		}
 
-		std::vector<CIndividual> neighbours = currIndiv.createNeighbours(*mut, neighboursForThisMutator, _problem);
+		std::vector<CIndividual> neighbours { currIndiv.createNeighbours(*mut, neighboursForThisMutator, _problem) };
 
 		allNeighbours.insert(allNeighbours.end(), neighbours.begin(), neighbours.end());
 
 		++idx;
 	}
 
-	double bestRes = std::numeric_limits<double>::max();
+	auto bestRes { std::numeric_limits<double>::max() };
 
-	for (size_t i = 0; i < allNeighbours.size(); ++i)
+	for (size_t i { 0 }; i < allNeighbours.size(); ++i)
 	{
 		if (allNeighbours[i].fitness().first < bestRes)
 		{

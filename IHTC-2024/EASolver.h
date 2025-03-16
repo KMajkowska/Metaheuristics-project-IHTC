@@ -6,6 +6,9 @@
 #include "ISelector.h"
 #include "IProblem.h"
 
+/**
+ * @brief Potential solver for solving the problem by evolutionary algorithm.
+*/
 class EASolver : public IHTCSolver
 {
 public:
@@ -14,7 +17,7 @@ public:
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const override;
 
 private:
-	const ISelector& selector;
-	const IMutator& mutator;
-	const ICrosser& crosser;
+	const ISelector& _selector;
+	const IMutator& _mutator;
+	const ICrosser& _crosser;
 };

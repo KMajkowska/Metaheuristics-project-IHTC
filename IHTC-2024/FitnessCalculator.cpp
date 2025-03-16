@@ -1,6 +1,6 @@
 #include "FitnessCalculator.h"
 
-FitnessCalculator::FitnessCalculator(int multiplier) :
+FitnessCalculator::FitnessCalculator(double multiplier) :
 	multiplier(multiplier)
 {}
 

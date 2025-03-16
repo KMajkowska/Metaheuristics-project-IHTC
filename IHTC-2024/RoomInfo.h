@@ -4,6 +4,10 @@
 
 #include <set>
 
+/**
+ * @brief Extension of PatientRoomInfo, where we also store id of nurse in given day and shift, list of patientsw assigned to this room during creating solution
+ * and which nurse is assigned to this room on the given day and shift
+*/
 class RoomInfo : public PatientRoomInfo
 {
 public:

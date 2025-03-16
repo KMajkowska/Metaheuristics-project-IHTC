@@ -2,6 +2,9 @@
 
 #include "IMutator.h"
 
+/**
+ * @brief Mutator where we choose random patient and we assign these patient random room, different than current room
+*/
 class IHTCMutatorRoom : public IMutator
 {
 public:

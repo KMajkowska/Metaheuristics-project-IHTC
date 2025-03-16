@@ -89,7 +89,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		}
 	}
 
-	for (size_t i = 0; i < days; i++)
+	for (size_t i { 0 }; i < days; ++i)
 	{
 		for (auto& [id, roomValue] : roomInfos.roomsForGivenDayRef(i))
 		{
@@ -103,17 +103,17 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 			if (roomValue.genders.size() > 1)
 			{
-				++res.countGenderMixHard;
+				res.setCountGenderMixHard();
 			}
 
 			if (roomValue.currentCapacity < 0)
 			{
-				++res.countOvercrowdedCapacityHard;
+				res.countOvercrowdedCapacityHard();
 			}
 
 			if (roomValue.ageGroups.size() > 1)
 			{
-				++res.countMixedAgeGroups;
+				res.countMixedAgeGroups();
 			}
 
 			for (const auto& patient : roomValue.patientIds())
@@ -122,13 +122,13 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 				if (isPatient != roomValue.unallowedPatients.end())
 				{
-					res.countIncompatibleRoomsHard++;
+					res.setCountIncompatibleRoomsHard();
 				}
 			}
 
 			if (roomValue.patientIds().size() > 0 && roomValue.shiftToNurseId().size() < allShiftTypes.size())
 			{
-				res.countUncoveredRoomHard += allShiftTypes.size() - roomValue.shiftToNurseId().size();
+				res.setCountUncoveredRoomHard(allShiftTypes.size() - roomValue.shiftToNurseId().size());
 			}
 
 			for (const auto& shiftPair : roomValue.shiftToNurseId())
@@ -143,7 +143,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 					{
 						if (reqSkillLevel > nurseSkillLevel)
 						{
-							res.countMinimumSkillLevelExceeded += reqSkillLevel - nurseSkillLevel;
+							res.setCountMinimumSkillLevelExceeded(reqSkillLevel - nurseSkillLevel);
 						}
 					}
 				}
@@ -171,7 +171,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 				if (isNurseFound && nurse.getWorkloadByDayAndShift(i, it->second) <= 0)
 				{
-					++res.countNursePresentOnWrongDayHard;
+					res.setCountNursePresentOnWrongDayHard();
 				}
 			}
 		}
@@ -183,7 +183,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		{
 			if (nurse.second.actualWorkload()[i] > nurse.second.maximumWorkload()[i])
 			{
-				res.countMaximumWorkloadExcceeded += nurse.second.actualWorkload()[i] - nurse.second.maximumWorkload()[i];
+				res.setCountMaximumWorkloadExcceeded(nurse.second.actualWorkload()[i] - nurse.second.maximumWorkload()[i]);
 			}
 		}
 	}
@@ -196,20 +196,20 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		{
 			if (patientFromProblem.getSurgeryDueDay() <= days)
 			{
-				res.countUnadmittedMandatoryHard++;
+				res.setCountUnadmittedMandatoryHard();
 			}
 			else
 			{
-				res.countUncheduledOptional++;
+				res.setCountUncheduledOptional();
 			}
 		}
 		else if (patient.admissionDay() > patientFromProblem.getSurgeryDueDay())
 		{
-			res.countLateAdmittedMandatoryHard++;
+			res.setCountLateAdmittedMandatoryHard();
 		}
 		else if (patient.admissionDay() > patientFromProblem.getSurgeryReleaseDay())
 		{
-			res.countAdmissionDelay += patient.admissionDay() - patientFromProblem.getSurgeryReleaseDay();
+			res.setCountAdmissionDelay(patient.admissionDay() - patientFromProblem.getSurgeryReleaseDay());
 		}
 	}
 
@@ -222,7 +222,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		{
 			if (pair.second.isOTOvercrowded())
 			{
-				++res.countOTOvertimeHard;
+				res.setCountOTOvertimeHard();
 			}
 		}
 
@@ -245,7 +245,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 			if (surgeon.maxSurgeryTime()[i] < summedUpWorkingTime)
 			{
-				++res.countSurgeonOvertimeHard;
+				res.setCountSurgeonOvertimeHard();
 			}
 		}
 
@@ -254,7 +254,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 	for (const auto& patientToNurse : patientNurses.occupantsAndPatientToNurses())
 	{
-		res.countUncontinuousCare += patientToNurse.second.size();
+		res.setCountUncontinuousCare(patientToNurse.second.size());
 	}
 
 	for (const auto& day : surgeonToOTPerDay)
@@ -263,14 +263,14 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 		{
 			if (pair.second.size() > 1)
 			{
-				++res.countSurgeonTransfer;
+				res.setCountSurgeonTransfer();
 			}
 		}
 	}
 
 	for (auto const& days : openOTs)
 	{
-		res.countOpenOTs += days.size();
+		res.setCountOpenOTs(days.size());
 	}
 
 	return res;
@@ -278,25 +278,25 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 
 double calculateFitness(double hRestrictionModifier, const WeightsDTO& weights, const ViolatedRestrictions& restrictions)
 {
-	int maxWeight = weights.getMaxWeight() * hRestrictionModifier;
+	auto maxWeight { weights.getMaxWeight() * hRestrictionModifier };
 
-	return restrictions.countGenderMixHard * maxWeight
-		+ restrictions.countIncompatibleRoomsHard * maxWeight
-		+ restrictions.countOvercrowdedCapacityHard * maxWeight
-		+ restrictions.countUnadmittedMandatoryHard * maxWeight
-		+ restrictions.countLateAdmittedMandatoryHard * maxWeight
-		+ restrictions.countSurgeonOvertimeHard * maxWeight
-		+ restrictions.countOTOvertimeHard * maxWeight
-		+ restrictions.countUncoveredRoomHard * maxWeight
-		+ restrictions.countNursePresentOnWrongDayHard * maxWeight
-		+ restrictions.countMixedAgeGroups * weights.getRoomMixedAge()
-		+ restrictions.countMinimumSkillLevelExceeded * weights.getRoomNurseSkill()
-		+ restrictions.countUncontinuousCare * weights.getContinuityOfCare()
-		+ restrictions.countMaximumWorkloadExcceeded * weights.getNurseEccessiveWorkload()
-		+ restrictions.countOpenOTs * weights.getOpenOperatingTheater()
-		+ restrictions.countSurgeonTransfer * weights.getSurgeonTransfer()
-		+ restrictions.countAdmissionDelay * weights.getPatientDelay()
-		+ restrictions.countUncheduledOptional * weights.getUnscheduledOptional();
+	return restrictions.countGenderMixHard() * maxWeight
+		+ restrictions.countIncompatibleRoomsHard() * maxWeight
+		+ restrictions.countOvercrowdedCapacityHard() * maxWeight
+		+ restrictions.countUnadmittedMandatoryHard() * maxWeight
+		+ restrictions.countLateAdmittedMandatoryHard() * maxWeight
+		+ restrictions.countSurgeonOvertimeHard() * maxWeight
+		+ restrictions.countOTOvertimeHard() * maxWeight
+		+ restrictions.countUncoveredRoomHard() * maxWeight
+		+ restrictions.countNursePresentOnWrongDayHard() * maxWeight
+		+ restrictions.countMixedAgeGroups() * weights.getRoomMixedAge()
+		+ restrictions.countMinimumSkillLevelExceeded() * weights.getRoomNurseSkill()
+		+ restrictions.countUncontinuousCare() * weights.getContinuityOfCare()
+		+ restrictions.countMaximumWorkloadExcceeded() * weights.getNurseEccessiveWorkload()
+		+ restrictions.countOpenOTs() * weights.getOpenOperatingTheater()
+		+ restrictions.countSurgeonTransfer() * weights.getSurgeonTransfer()
+		+ restrictions.countAdmissionDelay() * weights.getPatientDelay()
+		+ restrictions.countUncheduledOptional() * weights.getUnscheduledOptional();
 }
 
 std::vector<std::pair<double, ViolatedRestrictions>> evaluateProblem(int amountOfRepetitions, const IProblem& problem, const ISolver& solver, const ISolver& initializeSolver)
