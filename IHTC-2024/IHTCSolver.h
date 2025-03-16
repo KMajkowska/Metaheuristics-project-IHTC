@@ -6,7 +6,7 @@
 #include "Logger.h"
 
 /**
- * @brief SOlver, deriving from more generic solver. Is used for the exact problem we use in this project - IHTC. 
+ * @brief Solver, deriving from more generic solver. Is used for the exact problem we use in this project - IHTC. 
 */
 class IHTCSolver : public ISolver
 {

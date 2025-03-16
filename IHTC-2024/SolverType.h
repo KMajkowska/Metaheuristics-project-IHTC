@@ -3,6 +3,9 @@
 #include <unordered_map>
 #include <string>
 
+/**
+ * @brief Enum for choosing solver
+*/
 enum class SolverType
 {
 	SA,

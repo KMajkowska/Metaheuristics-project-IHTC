@@ -2,12 +2,12 @@
 
 std::string OccupantDTO::roomId() const
 {
-    return room_id;
+    return _roomId;
 }
 
 void OccupantDTO::setRoomId(const std::string& newRoomId)
 {
-    room_id = newRoomId;
+	_roomId = newRoomId;
 }
 
 void to_json(nlohmann::json& j, const OccupantDTO& occupant)

@@ -8,10 +8,12 @@
 #include "CoolingSchemeType.h"
 #include "NeighbourGeneratorType.h"
 #include "SolverType.h"
-
 #include "strings.h"
 #include "StopCriteriumType.h"
 
+/**
+ * @brief This whole files allows mapping string to enum values 
+*/
 template <typename T>
 concept EnumType = std::is_enum_v<T>;
 

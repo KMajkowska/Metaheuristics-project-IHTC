@@ -17,16 +17,16 @@ struct PatientRoomInfo
 {
 	PatientRoomInfo() = default;
 	PatientRoomInfo(int maxCapacity, int currentCapacity) :
-		maxCapacity(maxCapacity),
-		currentCapacity(currentCapacity)
+		_maxCapacity(maxCapacity),
+		_currentCapacity(currentCapacity)
 	{}
 
-	std::unordered_map<std::string, int> genders;
-	int maxCapacity;
-	int currentCapacity;
-	std::unordered_map<std::string, int> ageGroups;
-	std::set<std::string> unallowedPatients;
-	std::unordered_map<std::string, std::vector<int>> skillLevelsRequired;
-	std::unordered_map<std::string, int> shiftNameToProducedWorkload;
-	std::set<std::string> occupantIds;
+	std::unordered_map<std::string, int> _genders;
+	int _maxCapacity;
+	int _currentCapacity;
+	std::unordered_map<std::string, int> _ageGroups;
+	std::set<std::string> _unallowedPatients;
+	std::unordered_map<std::string, std::vector<int>> _skillLevelsRequired;
+	std::unordered_map<std::string, int> _shiftNameToProducedWorkload;
+	std::set<std::string> _occupantIds;
 };

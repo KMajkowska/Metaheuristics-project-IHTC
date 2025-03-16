@@ -2,6 +2,11 @@
 
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Json data provide also weights for all soft restrictions
+ * There are no weights for hard restrictions, beacues the cannot be broken in solution.
+ * However we need this weights to calculate fitness of solution, so the weight of it is the highest soft restriction multiplied by a choosen number
+*/
 class WeightsDTO
 {
 public:
@@ -26,14 +31,14 @@ public:
 	int getMaxWeight() const;
 
 private:
-	int room_mixed_age = 0;
-	int room_nurse_skill = 0;
-	int continuity_of_care = 0;
-	int nurse_eccessive_workload = 0;	// typo in excessive - exists in file
-	int open_operating_theater = 0;
-	int surgeon_transfer = 0;
-	int patient_delay = 0;
-	int unscheduled_optional = 0;
+	int _roomMixedAge { 0 };
+	int _roomNurseSkill { 0 };
+	int _continuityOfCare { 0 };
+	int _nurseEccessiveWorkload { 0 };	// typo in excessive - exists in file
+	int _openOperatingTheater { 0 };
+	int _surgeonTransfer { 0 };
+	int _patientDelay { 0 };
+	int _unscheduledOptional { 0 };
 };
 
 void to_json(nlohmann::json& j, const WeightsDTO& weights);

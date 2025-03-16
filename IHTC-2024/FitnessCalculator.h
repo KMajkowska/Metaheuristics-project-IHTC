@@ -4,6 +4,9 @@
 #include "WeightsDTO.h"
 #include "solutionUtils.h"
 
+/**
+ * @brief Calculating how good is our solution
+*/
 class FitnessCalculator
 {
 public:

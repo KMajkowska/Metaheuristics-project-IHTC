@@ -3,6 +3,9 @@
 #include <unordered_map>
 #include <string>
 
+/**
+ * @brief Enum for choosing cooling scheme 
+*/
 enum class CoolingSchemeType
 {
 	GEMAN_AND_GEMAN,

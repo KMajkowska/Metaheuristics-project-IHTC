@@ -6,6 +6,10 @@
 
 #include "ShiftDTO.h"
 
+/**
+ * @brief DTO class to separte json data from data used to solve our problem. "Real" nurse is pretty similar, but we are separating json logic from algorithm logic
+ * This class is used to take nurse from provided json file
+*/
 class NurseDTO
 {
 public:

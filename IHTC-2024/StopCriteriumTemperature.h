@@ -17,5 +17,5 @@ public:
 	bool isStop(double currTemp, int iteration) const override;
 
 private:
-	double stopTemp;
+	double _stopTemp;
 };

@@ -15,6 +15,12 @@
 #include "RoomWithOccupancyRepresentation.h"
 #include "OperatingTheaterWrapper.h"
 
+/**
+ * @brief Big container for all data parameters. 
+ * Here are data which define about IHTC problem. Some data are also processed here, but all related to this problem. 
+ * Preprocessing is assigning occupants and patients to the rooms to check the solution
+ * 
+*/
 class ProblemData
 {
 public:

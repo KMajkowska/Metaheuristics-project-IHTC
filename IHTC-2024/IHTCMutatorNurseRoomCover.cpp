@@ -42,7 +42,7 @@ bool IHTCMutatorNurseRoomCover::mutate(CIndividual& individual) const
 			auto& room { rooms.roomsForGivenDayRef(i) };
 			for (auto& [roomId, roomInfo] : room)
 			{
-				if ((roomInfo.patientIds().size() > 0 || roomInfo.occupantIds.size() > 0) && roomInfo.nurseIdToShift().size() != _problemData.shiftTypes().size())
+				if ((roomInfo.patientIds().size() > 0 || roomInfo._occupantIds.size() > 0) && roomInfo.nurseIdToShift().size() != _problemData.shiftTypes().size())
 				{
 					for (auto& [nurseId, nurseAssignments] : nurses)
 					{

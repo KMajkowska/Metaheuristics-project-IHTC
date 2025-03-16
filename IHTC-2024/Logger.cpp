@@ -2,11 +2,11 @@
 
 
 Logger::Logger(const std::string& filename) :
-	logFile(filename, std::ios::app) 
+	_logFile(filename, std::ios::app) 
 {
-	buffer.reserve(MAX_BUFFER_SIZE);
+	_buffer.reserve(MAX_BUFFER_SIZE);
 	
-	if (!logFile.is_open()) 
+	if (!_logFile.is_open()) 
 	{
 		throw std::runtime_error("Failed to open log file: " + filename);
 	}
@@ -20,14 +20,14 @@ Logger::~Logger()
 {
 	flushToFile();
 
-	logFile.close();
+	_logFile.close();
 }
 
 void Logger::consume(const CIndividual& current, const CIndividual& best, double temperature)
 {
-	buffer.push_back(createLog(current, best, temperature));
+	_buffer.push_back(createLog(current, best, temperature));
 
-	if (buffer.size() >= MAX_BUFFER_SIZE)
+	if (_buffer.size() >= MAX_BUFFER_SIZE)
 	{
 		flushToFile();
 	}
@@ -35,15 +35,15 @@ void Logger::consume(const CIndividual& current, const CIndividual& best, double
 
 void Logger::flushToFile()
 {
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(_mutex);
 
-	for (const auto& msg : buffer) 
+	for (const auto& msg : _buffer) 
 	{
-		logFile << msg << std::endl;
+		_logFile << msg << std::endl;
 	}
 
-	buffer.clear();
-	logFile.flush();
+	_buffer.clear();
+	_logFile.flush();
 }
 
 std::string Logger::createLog(const CIndividual& current, const CIndividual& best, double temperature)

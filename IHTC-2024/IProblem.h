@@ -3,6 +3,9 @@
 #include "ISelector.h"
 #include "ViolatedRestrictions.h"
 
+/**
+ * @brief Class used as an interface to provide polymorphism when choosing problem
+*/
 class IProblem
 {
 public:

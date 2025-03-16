@@ -2,10 +2,10 @@
 
 StopCriteriumTemperature::StopCriteriumTemperature(double stopTemp) :
 	IStopCriterium(),
-	stopTemp(stopTemp)
+	_stopTemp(stopTemp)
 {}
 
 bool StopCriteriumTemperature::isStop(double currTemp, int iteration) const
 {
-	return currTemp < stopTemp;
+	return currTemp < _stopTemp;
 }

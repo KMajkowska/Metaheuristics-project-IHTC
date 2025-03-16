@@ -2,12 +2,12 @@
 
 VariableCoolingScheme::VariableCoolingScheme(int maxIter) :
 	ICoolingScheme(),
-	maxIter(maxIter)
+	_maxIter(maxIter)
 {}
 
 double VariableCoolingScheme::getNewTemp(double startingTemp, double currTemp, int iteration) const
 {
-	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, maxIter);
+	return variableCoolingFactorCoolingScheme(startingTemp, currTemp, iteration, _maxIter);
 }
 
 double VariableCoolingScheme::variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber) const

@@ -48,18 +48,18 @@ void RoomWithOccupancyRepresentation::addIncomingPatient(int admissionDay, const
 
 		roomInfo.patientIds().insert(patient.id());
 
-		++roomInfo.ageGroups[patient.ageGroup()];
-		++roomInfo.genders[patient.gender()];
+		++roomInfo._ageGroups[patient.ageGroup()];
+		++roomInfo._genders[patient.gender()];
 
-		--roomInfo.currentCapacity;
+		--roomInfo._currentCapacity;
 
 		for (int j = 0; j < _shiftTypes.size(); ++j)
 		{
 			const auto& shiftType { _shiftTypes[j] };
 			const auto& offset { i * _shiftTypes.size() + j };
 
-			roomInfo.skillLevelsRequired[shiftType].push_back(patient.skillLevelRequired()[offset]);
-			roomInfo.shiftNameToProducedWorkload[shiftType] += patient.workloadProduced()[offset];
+			roomInfo._skillLevelsRequired[shiftType].push_back(patient.skillLevelRequired()[offset]);
+			roomInfo._shiftNameToProducedWorkload[shiftType] += patient.workloadProduced()[offset];
 		}
 	}
 	addIncompatibleRoom(patient);
@@ -72,21 +72,21 @@ void RoomWithOccupancyRepresentation::addOccupant(const OccupantDTO& occupant)
 	{
 		auto& roomInfo { _preprocessedRooms[i].at(occupant.roomId()) };
 
-		roomInfo.occupantIds.insert(occupant.id());
+		roomInfo._occupantIds.insert(occupant.id());
 
-		++roomInfo.ageGroups[occupant.ageGroup()];
-		++roomInfo.genders[occupant.gender()];
+		++roomInfo._ageGroups[occupant.ageGroup()];
+		++roomInfo._genders[occupant.gender()];
 
-		--roomInfo.currentCapacity;
-		--roomInfo.maxCapacity;
+		--roomInfo._currentCapacity;
+		--roomInfo._maxCapacity;
 		
 		for (int j = 0; j < _shiftTypes.size(); ++j)
 		{
 			const auto& shiftType { _shiftTypes[j] };
 			const auto& offset { i * _shiftTypes.size() + j };
 
-			roomInfo.skillLevelsRequired[shiftType].push_back(occupant.skillLevelRequired()[offset]);
-			roomInfo.shiftNameToProducedWorkload[shiftType] += occupant.workloadProduced()[offset];
+			roomInfo._skillLevelsRequired[shiftType].push_back(occupant.skillLevelRequired()[offset]);
+			roomInfo._shiftNameToProducedWorkload[shiftType] += occupant.workloadProduced()[offset];
 		}
 	}
 }
@@ -124,7 +124,7 @@ void RoomWithOccupancyRepresentation::addIncompatibleRoom(const IncomingPatientD
 	{
 		for (int j = 0; j < _preprocessedRooms.size(); ++j)
 		{
-			_preprocessedRooms[j].at(incompatibleRoom).unallowedPatients.insert(patient.id());
+			_preprocessedRooms[j].at(incompatibleRoom)._unallowedPatients.insert(patient.id());
 		}
 	}
 }
