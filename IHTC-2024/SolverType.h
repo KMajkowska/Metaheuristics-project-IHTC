@@ -5,7 +5,9 @@
 
 #include "strings.h"
 
-
+/**
+ * @brief Enum for choosing solver
+*/
 enum class SolverType
 {
 	SA,

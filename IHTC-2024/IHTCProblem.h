@@ -29,8 +29,8 @@ public:
 	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const override;
 
 protected:
-	const ProblemData& problemData;
+	const ProblemData& _problemData;
 
 	std::function<ViolatedRestrictions(const ProblemData& problemData, const SolutionData& solution)> calculateRestrictions;
-	const FitnessCalculator& calc;
+	const FitnessCalculator& _calc;
 };

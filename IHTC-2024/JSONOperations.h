@@ -8,6 +8,9 @@
 
 // functions are defined here due to "inclusion compilation model" (recommended in the lectures)
 
+/**
+ * @brief Automize reading from json using nholman/json
+*/
 template <typename T, typename = void>
 struct has_from_json : std::false_type
 {};

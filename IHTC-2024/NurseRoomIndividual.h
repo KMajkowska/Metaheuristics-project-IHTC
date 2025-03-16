@@ -2,11 +2,6 @@
 
 #include<vector>
 
-/*
-* pielêgniarka bêdzie jako macierz timeslot/pokoj 
-* pielêgniarka ma ju¿ odgórnie przypisany timeslot kiedy jest a kiedy nie
-*/
-
 /**
  * @brief Helper Individual where we store room assigned for nurse on given day and shift 
 */
@@ -21,5 +16,5 @@ public:
 	int roomForNurse(int timeslot, int nurse);
 
 private:
-	std::vector<std::vector<int>> nurseToRoom;
+	std::vector<std::vector<int>> _nurseToRoom;
 };

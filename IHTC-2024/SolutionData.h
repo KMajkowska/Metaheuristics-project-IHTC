@@ -6,6 +6,10 @@
 #include "Patient.h"
 #include "ProblemData.h"
 
+/**
+ * @brief Data which are written to the solution file. Solution is combined with nurses and their assigned rooms and patients with rooms, OT and day.
+ * Individual is required as a solution
+*/
 class SolutionData
 {
 public:

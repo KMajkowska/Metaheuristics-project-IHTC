@@ -8,6 +8,9 @@
 #include "CoolingSchemeType.h"
 #include "enumOperations.h"
 
+/**
+ * @brief Paramws for json
+*/
 static const std::string DEFAULT_PROBLEM_FILE = "../datasets/ihtc2024_test_dataset/test01.json";
 static const std::string DEFAULT_PARAMS_FILE = "./params.json";
 

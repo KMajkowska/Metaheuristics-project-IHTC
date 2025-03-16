@@ -2,96 +2,96 @@
 
 int WeightsDTO::getRoomMixedAge() const
 {
-    return room_mixed_age;
+    return _roomMixedAge;
 }
 
 int WeightsDTO::getRoomNurseSkill() const
 {
-    return room_nurse_skill;
+    return _roomNurseSkill;
 }
 
 int WeightsDTO::getContinuityOfCare() const
 {
-    return continuity_of_care;
+    return _continuityOfCare;
 }
 
 int WeightsDTO::getNurseEccessiveWorkload() const
 {
-    return nurse_eccessive_workload;
+    return _nurseEccessiveWorkload;
 }
 
 int WeightsDTO::getOpenOperatingTheater() const
 {
-    return open_operating_theater;
+    return _openOperatingTheater;
 }
 
 int WeightsDTO::getSurgeonTransfer() const
 {
-    return surgeon_transfer;
+    return _surgeonTransfer;
 }
 
 int WeightsDTO::getPatientDelay() const
 {
-    return patient_delay;
+    return _patientDelay;
 }
 
 int WeightsDTO::getUnscheduledOptional() const
 {
-    return unscheduled_optional;
+    return _unscheduledOptional;
 }
 
 void WeightsDTO::setRoomMixedAge(int newRoomMixedAge)
 {
-    room_mixed_age = newRoomMixedAge;
+    _roomMixedAge = newRoomMixedAge;
 }
 
 void WeightsDTO::setRoomNurseSkill(int newRoomNurseSkill)
 {
-    room_nurse_skill = newRoomNurseSkill;
+    _roomNurseSkill = newRoomNurseSkill;
 }
 
 void WeightsDTO::setContinuityOfCare(int newContinuityOfCare)
 {
-    continuity_of_care = newContinuityOfCare;
+    _continuityOfCare = newContinuityOfCare;
 }
 
 void WeightsDTO::setNurseEccessiveWorkload(int newNurseEccessiveWorkload)
 {
-    nurse_eccessive_workload = newNurseEccessiveWorkload;
+    _nurseEccessiveWorkload = newNurseEccessiveWorkload;
 }
 
 void WeightsDTO::setOpenOperatingTheater(int newOpenOperatingTheater)
 {
-    open_operating_theater = newOpenOperatingTheater;
+    _openOperatingTheater = newOpenOperatingTheater;
 }
 
 void WeightsDTO::setSurgeonTransfer(int newSurgeonTransfer)
 {
-    surgeon_transfer = newSurgeonTransfer;
+    _surgeonTransfer = newSurgeonTransfer;
 }
 
 void WeightsDTO::setPatientDelay(int newPatientDelay)
 {
-    patient_delay = newPatientDelay;
+    _patientDelay = newPatientDelay;
 }
 
 void WeightsDTO::setUnscheduledOptional(int newUnscheduledOptional)
 {
-    unscheduled_optional = newUnscheduledOptional;
+    _unscheduledOptional = newUnscheduledOptional;
 }
 
 int WeightsDTO::getMaxWeight() const
 {
     return std::max(
         {
-            room_mixed_age,
-            room_nurse_skill,
-            continuity_of_care,
-            nurse_eccessive_workload,
-            open_operating_theater,
-            surgeon_transfer,
-            patient_delay,
-            unscheduled_optional
+            _roomMixedAge,
+            _roomNurseSkill,
+            _continuityOfCare,
+            _nurseEccessiveWorkload,
+            _openOperatingTheater,
+            _surgeonTransfer,
+            _patientDelay,
+            _unscheduledOptional
         }
     );
 }

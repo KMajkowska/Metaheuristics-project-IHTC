@@ -18,5 +18,5 @@ private:
 
 	double variableCoolingFactorCoolingScheme(double startingTemp, double currTemp, int iteration, double maxIterationNumber) const;
 
-	int maxIter;
+	int _maxIter;
 };

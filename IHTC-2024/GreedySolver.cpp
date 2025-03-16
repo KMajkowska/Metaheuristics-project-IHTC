@@ -185,10 +185,10 @@ std::vector<std::string> GreedySolver::chooseNurse(
 
 		const std::string shiftType { _problemData.shiftTypes().at(shiftOffset) };
 
-		auto it { room.skillLevelsRequired.find(shiftType) };
+		auto it { room._skillLevelsRequired.find(shiftType) };
 
 		// room doesn't have any patient to take care of during this moment
-		if (it == room.skillLevelsRequired.end())
+		if (it == room._skillLevelsRequired.end())
 		{
 			nursesPerShiftAndDayToRoom.push_back("");
 			continue;
@@ -209,7 +209,7 @@ std::vector<std::string> GreedySolver::chooseNurse(
 
 			auto& nurseWorkload { nurseWorkloads.at(nurse.id()) };
 
-			const auto& actualWorkload { room.shiftNameToProducedWorkload.at(shiftType) };
+			const auto& actualWorkload { room._shiftNameToProducedWorkload.at(shiftType) };
 			const auto& nurseWorkloadLefover { nurseWorkload.max().at(i) - nurseWorkload.current().at(i) };
 
 			if (actualWorkload > nurseWorkloadLefover)
@@ -224,7 +224,7 @@ std::vector<std::string> GreedySolver::chooseNurse(
 
 		const auto& topNurse { nursePrio.top() };
 
-		nurseWorkloads.at(topNurse.nurse().id()).current()[i] += room.shiftNameToProducedWorkload.at(shiftType);
+		nurseWorkloads.at(topNurse.nurse().id()).current()[i] += room._shiftNameToProducedWorkload.at(shiftType);
 
 		nursesPerShiftAndDayToRoom.push_back(topNurse.nurse().id());
 	}
@@ -310,12 +310,12 @@ std::string GreedySolver::chooseRoomId(
 		{
 			const auto& preprocessedRoom { roomWithOccupancy.patientRoomInfoRef(i, room.id()) };
 
-			if (preprocessedRoom.currentCapacity > 0)
+			if (preprocessedRoom._currentCapacity > 0)
 			{
 				++brokenCapacity;
 			}
 
-			for (const auto& [gender, _] : preprocessedRoom.genders)
+			for (const auto& [gender, _] : preprocessedRoom._genders)
 			{
 				if (gender != patient.gender())
 				{
@@ -324,7 +324,7 @@ std::string GreedySolver::chooseRoomId(
 				}
 			}
 
-			for (const auto& [ageGroup, _] : preprocessedRoom.ageGroups)
+			for (const auto& [ageGroup, _] : preprocessedRoom._ageGroups)
 			{
 				if (ageGroup != patient.ageGroup())
 				{

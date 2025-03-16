@@ -8,6 +8,9 @@
 
 #include "ICIndividualConsumer.h"
 
+/**
+ * @brief Logging individual and their values on the console and write to file.
+*/
 class Logger : public ICIndividualConsumer
 {
 public:
@@ -20,9 +23,9 @@ public:
 	void flushToFile();
 
 private:
-	std::ofstream logFile;
-	std::vector<std::string> buffer;
-	std::mutex mutex;
+	std::ofstream _logFile;
+	std::vector<std::string> _buffer;
+	std::mutex _mutex;
 
 	static constexpr size_t MAX_BUFFER_SIZE = 16384;
 

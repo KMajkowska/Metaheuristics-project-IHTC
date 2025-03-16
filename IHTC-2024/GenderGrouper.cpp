@@ -26,9 +26,9 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 	{
 		for (const auto& roomsForDay : rooms.roomsForGivenDayRef(i))
 		{
-			for (const auto& [prevGenderName, prevGenderAmount] : roomsForDay.second.genders)
+			for (const auto& [prevGenderName, prevGenderAmount] : roomsForDay.second._genders)
 			{
-				for (const auto& [genderName, amount] : roomsForDay.second.genders)
+				for (const auto& [genderName, amount] : roomsForDay.second._genders)
 				{
 					if (genderName == prevGenderName)
 					{
@@ -57,7 +57,7 @@ void GenderGrouper::greedyGroupGenders(CIndividual& individual) const
 	{
 		for (const auto& roomsForDay : rooms.roomsForGivenDayRef(i))
 		{
-			if ((roomsForDay.second.genders.size() == 1 && roomsForDay.second.genders.contains(worstGender))|| roomsForDay.second.genders.empty())
+			if ((roomsForDay.second._genders.size() == 1 && roomsForDay.second._genders.contains(worstGender))|| roomsForDay.second._genders.empty())
 			{
 				for (auto& solutionPatient : patients)
 				{

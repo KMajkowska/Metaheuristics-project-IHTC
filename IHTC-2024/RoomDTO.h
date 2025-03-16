@@ -3,6 +3,9 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief DTO class to sepearte json data from data used to solve our problem. "Real" room is pretty similar, but we are separating json logic from algorithm logic
+*/
 class RoomDTO
 {
 public:

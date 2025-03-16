@@ -2,6 +2,9 @@
 
 #include "IProblem.h"
 
+/**
+ * @brief Mocking problem to check if algorithm works correctly by mocking data
+*/
 class MockProblem : public IProblem
 {
 public:
@@ -10,5 +13,5 @@ public:
 	std::pair<double, ViolatedRestrictions> eval(const CIndividual& individual) const override;
 
 private:
-	double evalReturn;
+	double _evalReturn;
 };

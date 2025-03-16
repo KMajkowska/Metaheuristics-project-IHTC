@@ -2,10 +2,10 @@
 
 StopCriteriumIter::StopCriteriumIter(int stopIter) :
 	IStopCriterium(),
-	stopIter(stopIter)
+	_stopIter(stopIter)
 {}
 
 bool StopCriteriumIter::isStop(double currTemp, int iteration) const
 {
-	return iteration >= stopIter;
+	return iteration >= _stopIter;
 }

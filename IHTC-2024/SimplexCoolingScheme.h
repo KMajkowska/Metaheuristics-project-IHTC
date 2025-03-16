@@ -13,5 +13,5 @@ public:
 	double getNewTemp(double startingTemp, double currTemp, int iteration) const override;
 
 private:
-	double multiplier;
+	double _multiplier;
 };

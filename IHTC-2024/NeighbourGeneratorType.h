@@ -5,6 +5,9 @@
 
 #include "strings.h"
 
+/**
+ * @brief Enum class to choose neighbour generator type  
+*/
 enum class NeighbourGeneratorType
 {
 	PRIZE_BEST,

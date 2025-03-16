@@ -93,7 +93,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 	{
 		for (auto& [id, roomValue] : roomInfos.roomsForGivenDayRef(i))
 		{
-			for (const auto& occupantId : roomValue.occupantIds)
+			for (const auto& occupantId : roomValue._occupantIds)
 			{
 				for (const auto& [nurseId, shift] : roomValue.nurseIdToShift())
 				{
@@ -101,26 +101,26 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 				}
 			}
 
-			if (roomValue.genders.size() > 1)
+			if (roomValue._genders.size() > 1)
 			{
 				res.setCountGenderMixHard();
 			}
 
-			if (roomValue.currentCapacity < 0)
+			if (roomValue._currentCapacity < 0)
 			{
 				res.countOvercrowdedCapacityHard();
 			}
 
-			if (roomValue.ageGroups.size() > 1)
+			if (roomValue._ageGroups.size() > 1)
 			{
 				res.countMixedAgeGroups();
 			}
 
 			for (const auto& patient : roomValue.patientIds())
 			{
-				const auto& isPatient { std::find(roomValue.unallowedPatients.begin(), roomValue.unallowedPatients.end(), patient) };
+				const auto& isPatient { std::find(roomValue._unallowedPatients.begin(), roomValue._unallowedPatients.end(), patient) };
 
-				if (isPatient != roomValue.unallowedPatients.end())
+				if (isPatient != roomValue._unallowedPatients.end())
 				{
 					res.setCountIncompatibleRoomsHard();
 				}
@@ -135,9 +135,9 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 			{
 				const auto nurseSkillLevel { problemData.getNursesMap()[shiftPair.second].skillLevel() };
 
-				auto it { roomValue.skillLevelsRequired.find(shiftPair.first) };
+				auto it { roomValue._skillLevelsRequired.find(shiftPair.first) };
 
-				if (it != roomValue.skillLevelsRequired.end())
+				if (it != roomValue._skillLevelsRequired.end())
 				{
 					for (const auto& reqSkillLevel : it->second)
 					{
@@ -149,7 +149,7 @@ ViolatedRestrictions getViolatedFromSolution(const ProblemData& problemData, con
 				}
 			}
 
-			for (const auto& shiftWorkloadPair : roomValue.shiftNameToProducedWorkload)
+			for (const auto& shiftWorkloadPair : roomValue._shiftNameToProducedWorkload)
 			{
 				auto it { roomValue.shiftToNurseId().find(shiftWorkloadPair.first)};
 

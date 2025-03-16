@@ -17,5 +17,5 @@ public:
 	bool isStop(double currTemp, int iteration) const override;
 
 private:
-    int stopIter; ///< Maximum allowed iterations.
+    int _stopIter; ///< Maximum allowed iterations.
 };

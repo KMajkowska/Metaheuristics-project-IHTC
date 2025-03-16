@@ -4,6 +4,9 @@
 #include "WeightsDTO.h"
 #include "solutionUtils.h"
 
+/**
+ * @brief Calculating how good is our solution
+*/
 class FitnessCalculator
 {
 public:
@@ -12,5 +15,5 @@ public:
 	double calculateFitnessWithWeight(const WeightsDTO& weights, const ViolatedRestrictions& restrictions) const;
 
 private:
-	double multiplier;
+	double _multiplier;
 };

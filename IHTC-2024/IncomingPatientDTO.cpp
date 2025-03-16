@@ -2,62 +2,62 @@
 
 bool IncomingPatientDTO::isMandatory() const
 {
-    return mandatory;
+    return _mandatory;
 }
 
 int IncomingPatientDTO::getSurgeryReleaseDay() const
 {
-    return surgery_release_day;
+    return _surgeryReleaseDay;
 }
 
 int IncomingPatientDTO::getSurgeryDueDay() const
 {
-    return surgery_due_day;
+    return _surgeryDueDay;
 }
 
 int IncomingPatientDTO::getSurgeryDuration() const
 {
-    return surgery_duration;
+    return _surgeryDuration;
 }
 
 std::string IncomingPatientDTO::getSurgeonId() const
 {
-    return surgeon_id;
+    return _surgeonId;
 }
 
 std::vector<std::string> IncomingPatientDTO::getIncompatibleRoomIds() const
 {
-    return incompatible_room_ids;
+    return _incompatibleRoomIds;
 }
 
 void IncomingPatientDTO::setMandatory(bool mandatory)
 {
-    this->mandatory = mandatory;
+    this->_mandatory = mandatory;
 }
 
 void IncomingPatientDTO::setSurgeryReleaseDay(int newSurgeryReleaseDay)
 {
-    surgery_release_day = newSurgeryReleaseDay;
+    _surgeryReleaseDay = newSurgeryReleaseDay;
 }
 
 void IncomingPatientDTO::setSurgeruDueDay(int newSurgeryDueDay) 
 {
-    surgery_due_day = newSurgeryDueDay;
+    _surgeryDueDay = newSurgeryDueDay;
 }
 
 void IncomingPatientDTO::setSurgeryDuration(int newSurgeryDuration)
 {
-    surgery_duration = newSurgeryDuration;
+    _surgeryDuration = newSurgeryDuration;
 }
 
 void IncomingPatientDTO::setSurgeonId(const std::string& newSurgeonId)
 {
-    surgeon_id = newSurgeonId;
+    _surgeonId = newSurgeonId;
 }
 
 void IncomingPatientDTO::setIncompatibleRooms(std::vector<std::string> newIncompatibleRooms)
 {
-    incompatible_room_ids = newIncompatibleRooms;
+    _incompatibleRoomIds = newIncompatibleRooms;
 }
 
 void to_json(nlohmann::json& j, const IncomingPatientDTO& incomingPatient)

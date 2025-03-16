@@ -2,6 +2,9 @@
 #include <type_traits>
 #include "IHTCSolver.h"
 
+/**
+ * @brief Builder for SA Solver
+*/
 template <typename T>
 concept DerivedFromIHTCSolver = std::is_base_of_v<IHTCSolver, T>;
 

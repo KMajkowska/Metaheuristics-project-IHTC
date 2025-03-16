@@ -5,6 +5,9 @@
 
 #include "strings.h"
 
+/**
+ * @brief Enum for choosing cooling scheme 
+*/
 enum class CoolingSchemeType
 {
 	GEMAN_AND_GEMAN,

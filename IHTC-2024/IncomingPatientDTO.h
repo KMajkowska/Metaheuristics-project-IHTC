@@ -2,6 +2,9 @@
 
 #include "PatientDTO.h"
 
+/**
+ * @brief DTO class to sepearte json data from data used to solve our problem. "Real" incoming patient is pretty similar, but we are separating json logic from algorithm logic
+*/
 class IncomingPatientDTO : public PatientDTO
 {
 public:
@@ -23,12 +26,12 @@ public:
 	void setIncompatibleRooms(std::vector<std::string> newIncompatibleRooms);
 
 private:
-	bool mandatory;
-	int surgery_release_day;
-	int surgery_due_day;
-	int surgery_duration;
-	std::string surgeon_id;
-	std::vector<std::string> incompatible_room_ids;
+	bool _mandatory;
+	int _surgeryReleaseDay;
+	int _surgeryDueDay;
+	int _surgeryDuration;
+	std::string _surgeonId;
+	std::vector<std::string> _incompatibleRoomIds;
 };
 
 void to_json(nlohmann::json& j, const IncomingPatientDTO& incomingPatient);

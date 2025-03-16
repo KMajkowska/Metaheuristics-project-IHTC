@@ -2,6 +2,9 @@
 
 #include "JSONOperations.h"
 
+/**
+ * @brief Facade for json nholman/json connector
+*/
 template <JsonConvertibleType T>
 class JSONSerializableExchanger
 {
@@ -14,13 +17,13 @@ public:
 	void connectToPeer();
 
 private:
-	std::string targetIP;
-	short targetPort;
+	std::string _targetIP;
+	short _targetPort;
 
 	boost::asio::io_context io_context;
 	boost::asio::ip::udp::socket socket;
 	std::thread listenThread;
-	bool connected;
+	bool _connected;
 
 	void listenForResources();
 };

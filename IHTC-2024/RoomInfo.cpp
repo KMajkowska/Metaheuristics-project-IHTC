@@ -5,16 +5,16 @@ RoomInfo::RoomInfo(int maxCapacity, int currentCapacity) :
 {}
 
 RoomInfo::RoomInfo(const PatientRoomInfo& pri) :
-	PatientRoomInfo(pri.maxCapacity, pri.maxCapacity)
+	PatientRoomInfo(pri._maxCapacity, pri._maxCapacity)
 {
-	genders = pri.genders;
-	maxCapacity = pri.maxCapacity;
-	currentCapacity = pri.currentCapacity;
-	ageGroups = pri.ageGroups;
-	unallowedPatients = pri.unallowedPatients;
-	skillLevelsRequired = pri.skillLevelsRequired;
-	shiftNameToProducedWorkload = pri.shiftNameToProducedWorkload;
-	occupantIds = pri.occupantIds;
+	_genders = pri._genders;
+	_maxCapacity = pri._maxCapacity;
+	_currentCapacity = pri._currentCapacity;
+	_ageGroups = pri._ageGroups;
+	_unallowedPatients = pri._unallowedPatients;
+	_skillLevelsRequired = pri._skillLevelsRequired;
+	_shiftNameToProducedWorkload = pri._shiftNameToProducedWorkload;
+	_occupantIds = pri._occupantIds;
 }
 
 void RoomInfo::setPatientIds(std::set<std::string>&& patientIds)

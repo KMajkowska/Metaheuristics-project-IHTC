@@ -2,10 +2,10 @@
 
 SimplexCoolingScheme::SimplexCoolingScheme(double multiplier) :
 	ICoolingScheme(),
-	multiplier(multiplier)
+	_multiplier(multiplier)
 {}
 
 double SimplexCoolingScheme::getNewTemp(double startingTemp, double currTemp, int iteration) const
 {
-	return multiplier * currTemp;
+	return _multiplier * currTemp;
 }

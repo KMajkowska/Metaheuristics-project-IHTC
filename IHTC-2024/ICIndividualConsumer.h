@@ -2,6 +2,9 @@
 
 #include "CIndividual.h"
 
+/**
+ * @brief Interface between whatever and solver. For example loggers.
+*/
 class ICIndividualConsumer
 {
 public:
