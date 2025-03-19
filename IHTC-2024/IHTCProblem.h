@@ -8,7 +8,6 @@
 #include "CIndividual.h"
 #include "IProblem.h"
 #include "solutionUtils.h"
-#include "Logger.h"
 #include "FitnessCalculator.h"
 
 /*

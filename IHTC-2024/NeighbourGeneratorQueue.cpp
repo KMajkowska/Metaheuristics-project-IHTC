@@ -1,6 +1,6 @@
 #include "NeighbourGeneratorQueue.h"
 
-NeighbourGeneratorQueue::NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
+NeighbourGeneratorQueue::NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>> mutators, const IProblem& problem) :
 	INeighbourGenerator(mutators, problem),
 	_mutatorQueue(std::deque<std::shared_ptr<IMutator>>(mutators.begin(), mutators.end()))
 {}

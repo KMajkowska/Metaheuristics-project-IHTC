@@ -8,7 +8,7 @@
 class NeighbourGeneratorTournament : public INeighbourGenerator
 {
 public:
-	NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem);
+	NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>> mutators, const IProblem& problem);
 
 	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv) override;
 

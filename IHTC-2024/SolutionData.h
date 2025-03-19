@@ -13,6 +13,7 @@
 class SolutionData
 {
 public:
+	SolutionData() = default;
 	SolutionData(const ProblemData& problemData, const CIndividual& individual);
 
 	std::vector<NurseOutputDTO> nurses() const;

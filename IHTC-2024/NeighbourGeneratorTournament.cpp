@@ -1,6 +1,6 @@
 #include "NeighbourGeneratorTournament.h"
 
-NeighbourGeneratorTournament::NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem) :
+NeighbourGeneratorTournament::NeighbourGeneratorTournament(const std::vector<std::shared_ptr<IMutator>> mutators, const IProblem& problem) :
 	INeighbourGenerator(mutators, problem)
 {}
 

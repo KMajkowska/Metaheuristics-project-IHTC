@@ -157,6 +157,12 @@
     <Filter Include="Pliki źródłowe\algorithm\solverBuilder">
       <UniqueIdentifier>{2fa6d910-71f1-4e82-8c67-093b2a864b52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\game">
+      <UniqueIdentifier>{e6b3a0c8-6fdf-4b62-ad65-8d18213daedb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\game">
+      <UniqueIdentifier>{d68810b3-5037-4f6b-9cea-ad18e146e1b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -354,7 +360,7 @@
     <ClCompile Include="IHTCMutatorOT.cpp">
       <Filter>Pliki źródłowe\algorithm\individualOperators\mutators</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
+    <ClCompile Include="ICIndividualCSVLogger.cpp">
       <Filter>Pliki źródłowe\consumer</Filter>
     </ClCompile>
     <ClCompile Include="solverUtils.cpp">
@@ -380,6 +386,18 @@
     </ClCompile>
     <ClCompile Include="SASolverBuilder.cpp">
       <Filter>Pliki źródłowe\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumTime.cpp">
+      <Filter>Pliki źródłowe\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="CIndividualObservable.cpp">
+      <Filter>Pliki źródłowe\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerToPeer.cpp">
+      <Filter>Pliki źródłowe\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="CSolutionDataHandler.cpp">
+      <Filter>Pliki źródłowe\networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -590,7 +608,7 @@
     <ClInclude Include="ICIndividualConsumer.h">
       <Filter>Pliki nagłówkowe\algorithm\consumer</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
+    <ClInclude Include="ICIndividualCSVLogger.h">
       <Filter>Pliki nagłówkowe\algorithm\consumer</Filter>
     </ClInclude>
     <ClInclude Include="JSONOperations.h">
@@ -601,9 +619,6 @@
     </ClInclude>
     <ClInclude Include="solverUtils.h">
       <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
-    </ClInclude>
-    <ClInclude Include="consts.h">
-      <Filter>Pliki nagłówkowe\utils</Filter>
     </ClInclude>
     <ClInclude Include="IHTCSolverBuilder.h">
       <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
@@ -626,6 +641,24 @@
     <ClInclude Include="StopCriteriumType.h">
       <Filter>Pliki nagłówkowe\algorithm\params</Filter>
     </ClInclude>
+    <ClInclude Include="StopCriteriumTime.h">
+      <Filter>Pliki nagłówkowe\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndividualObservable.h">
+      <Filter>Pliki nagłówkowe\algorithm\consumer</Filter>
+    </ClInclude>
+    <ClInclude Include="ICObservable.h">
+      <Filter>Pliki nagłówkowe\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerToPeer.h">
+      <Filter>Pliki nagłówkowe\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="INetworkExchanger.h">
+      <Filter>Pliki nagłówkowe\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="CSolutionDataHandler.h">
+      <Filter>Pliki nagłówkowe\networking</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assign.txt">
@@ -636,6 +669,9 @@
   <ItemGroup>
     <None Include="params.json">
       <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="constants.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -11,12 +11,12 @@
 /**
  * @brief Logging individual and their values on the console and write to file.
 */
-class Logger : public ICIndividualConsumer
+class ICIndividualCSVLogger : public ICIndividualConsumer
 {
 public:
-	Logger(const std::string& filename);
-	Logger(const Logger& other) = default;
-	~Logger();
+	ICIndividualCSVLogger(const std::string& filename);
+	ICIndividualCSVLogger(const ICIndividualCSVLogger& other) = default;
+	~ICIndividualCSVLogger();
 
 	void consume(const CIndividual& current, const CIndividual& best, double temperature) override;
 

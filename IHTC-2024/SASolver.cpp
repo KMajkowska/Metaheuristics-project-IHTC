@@ -3,14 +3,14 @@
 SASolver::SASolver(
 	const ProblemData& problemData,
 	double startingTemp,
-	TemperatureOperator& tempOperator,
+	std::shared_ptr<TemperatureOperator> tempOperator,
 	std::mt19937& randGenerator,
-	const IStopCriterium& stopCriterium,
+	std::shared_ptr<IStopCriterium> stopCriterium,
 	int neighbourhoodNumber,
-	INeighbourGenerator& neighbourGenerator,
+	std::shared_ptr<INeighbourGenerator> neighbourGenerator,
 	ICIndividualConsumer& consumer,
-	const GenderGrouper& genderGrouper,
-	const IHTCMutatorNurseRoomCover& nurseRoomCover
+	GenderGrouper genderGrouper,
+	IHTCMutatorNurseRoomCover nurseRoomCover
 ) :
 	IHTCSolver(problemData, randGenerator, consumer),
 	_startingTemp(startingTemp),
@@ -33,9 +33,9 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	CIndividual best = curr;
 
-	while (!_stopCriterium.isStop(actualTemp, iteration))
+	while (!_stopCriterium->isStop(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = _neighbourGenerator.getNeighbours(iteration, _neighbourhoodNumber, curr);
+		std::vector<CIndividual> neighbours = _neighbourGenerator->getNeighbours(iteration, _neighbourhoodNumber, curr);
 
 		if (neighbours.empty())
 		{
@@ -105,7 +105,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 			_consumer.consume(curr, best, actualTemp);
 		}
 
-		actualTemp = _tempOperator.getNewTemp(_startingTemp, actualTemp, iteration, curr.fitness().second);
+		actualTemp = _tempOperator->getNewTemp(_startingTemp, actualTemp, iteration, curr.fitness().second);
 		++iteration;
 	}
 

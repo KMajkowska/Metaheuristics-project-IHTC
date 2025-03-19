@@ -11,7 +11,7 @@
 class TemperatureOperator
 {
 public:
-	TemperatureOperator(const ICoolingScheme& coolingScheme, int iterationWithoutChange);
+	TemperatureOperator(std::shared_ptr<ICoolingScheme> coolingScheme, int iterationWithoutChange);
 
 	/**
 	 * @brief Calculate new temperature for SA algorithm
@@ -31,5 +31,5 @@ private:
 
 	ViolatedRestrictions _prevRestr;
 
-	const ICoolingScheme& _coolingScheme;	
+	std::shared_ptr<ICoolingScheme> _coolingScheme;	
 };

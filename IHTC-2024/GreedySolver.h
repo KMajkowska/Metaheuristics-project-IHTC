@@ -11,6 +11,7 @@
 #include "RoomWithOccupancyRepresentation.h"
 #include "ShiftNurses.h"
 #include "NurseWrapper.h"
+#include "ICIndividualConsumer.h"
 
 /**
  * @brief Greedy Solver for IHTC problem. Used for creating the starting individual for SASolver. Typical greedy algorithm

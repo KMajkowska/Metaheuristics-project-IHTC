@@ -62,7 +62,7 @@ std::optional<T> jsonToObject(const std::string& filepath)
     {
         inputFile.close();
 
-        std::cerr << "JSON problem file cannot be opened" << std::endl;
+        std::cerr << "JSON file cannot be opened" << std::endl;
 
         return std::nullopt;
     }
@@ -81,7 +81,7 @@ std::optional<std::string> objectToJson(const T& obj)
     {
         auto jsonObject{ nlohmann::json(obj) };
 
-        return jsonObject.dump(JSON_INDENT);
+        return jsonObject.dump();
     }
     catch (const nlohmann::json::exception& e)
     {

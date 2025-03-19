@@ -8,7 +8,6 @@
 #include "solutionUtils.h"
 #include "IHTCProblem.h"
 #include "SASolver.h"
-#include "Logger.h"
 #include "IHTCMutatorRoom.h"
 #include "IHTCMutatorOTInversion.h"
 #include "IHTCMutatorNurseRoomCover.h"
@@ -27,15 +26,19 @@
 #include "JSONOperations.h"
 #include "SASolverBuilder.h"
 #include "GreedySolverBuilder.h"
+#include "CIndividualObservable.h"
+#include "PeerToPeer.h"
+#include "JSONSerializableExchanger.h"
+#include "CSolutionDataHandler.h"
 
 
 static void run(int argc, char* argv[])
 {
-	std::string problemFile = argc > 1 ? argv[1] : DEFAULT_PROBLEM_FILE;
-	std::string paramsFile = argc > 2 ? argv[2] : DEFAULT_PARAMS_FILE;
+	auto sendPort { argc > 1 ? (short)atoi(argv[1])  : 5000} ;
+	auto recievePort { argc > 2 ? (short)atoi(argv[2]) : 5001};
 
-	auto problemDataOpt = jsonToObject<ProblemData>(problemFile);
-	auto paramsOpt = jsonToObject<Params>(paramsFile);
+	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
+	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
 
 	if (!problemDataOpt || !paramsOpt)
 	{
@@ -45,51 +48,33 @@ static void run(int argc, char* argv[])
 	auto problemData(std::move(problemDataOpt.value()));
 	auto params(std::move(paramsOpt.value()));
 
-	Logger logger(params.outputPath() + getFileNameWithoutExtension(problemFile) + ".csv");
+	auto peer { std::make_shared<PeerToPeer>("127.0.0.1", sendPort, recievePort) };
+
+	peer->addObserver([](std::string observed)
+		{
+			std::cout << observed << std::endl;
+		});
+
+	CSolutionDataHandler exchanger(peer);
+	// ICIndividualCSVLogger logger(params.outputPath() + getFileNameWithoutExtension(problemFile) + ".csv");
+
+	peer->start();
+
+	CIndividualObservable consumer(exchanger, problemData);
 
 	std::mt19937 randomGenerator = createRandomGenerator();
 
 	FitnessCalculator fitnessCalculator(params.hardRestrictionWeight());
 	IHTCProblem problem(problemData, getViolatedFromSolution, fitnessCalculator);
 
-	auto initSolver { GreedySolverBuilder(params, problemData, randomGenerator, logger).build() };
-	auto currentSolver { SASolverBuilder(params, problemData, randomGenerator, logger, problem).build() };
+	auto initSolver { GreedySolverBuilder(params, problemData, randomGenerator, consumer).build() };
+	auto currentSolver { SASolverBuilder(params, problemData, randomGenerator, consumer, problem).build() };
 
-	evaluateProblem(params.solverRepetitionAmount(), problem, currentSolver, initSolver);
-}
+	CIndividual startingIndividual = initSolver.solve(problem, CIndividual());
 
-void broadcastSession(short port) 
-{
-	boost::asio::io_context io_context;
-	boost::asio::ip::udp::socket socket(io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 0));
-	socket.set_option(boost::asio::socket_base::broadcast(true));
+	const CIndividual& individual = currentSolver.solve(problem, startingIndividual);
 
-	boost::asio::ip::udp::endpoint broadcast_endpoint(boost::asio::ip::address_v4::broadcast(), port);
-
-	while (true) 
-	{
-		std::string message = "TicTacToeSession: 192.168.1.100:12345"; // Replace with actual IP
-		socket.send_to(boost::asio::buffer(message), broadcast_endpoint);
-		std::cout << "Broadcasting game session...\n";
-		std::this_thread::sleep_for(std::chrono::seconds(2)); // Broadcast every 2 seconds
-	}
-}
-
-void discoverSessions(short port) 
-{
-	boost::asio::io_context io_context;
-	boost::asio::ip::udp::socket socket(io_context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port));
-
-	char buffer[1024];
-	boost::asio::ip::udp::endpoint sender_endpoint;
-
-	std::cout << "Listening for game sessions...\n";
-	while (true) 
-	{
-		size_t length = socket.receive_from(boost::asio::buffer(buffer), sender_endpoint);
-		std::string message(buffer, length);
-		std::cout << "Discovered session: " << message << " (From: " << sender_endpoint.address() << ")\n";
-	}
+	// evaluateProblem(params.solverRepetitionAmount(), problem, currentSolver, initSolver);
 }
 
 int main(int argc, char* argv[])

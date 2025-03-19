@@ -5,6 +5,7 @@
 #include "IHTCSolver.h"
 #include "ISelector.h"
 #include "IProblem.h"
+#include "ICIndividualConsumer.h"
 
 /**
  * @brief Potential solver for solving the problem by evolutionary algorithm.

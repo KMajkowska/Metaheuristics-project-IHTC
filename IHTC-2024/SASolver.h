@@ -31,26 +31,26 @@ public:
 	SASolver(
 		const ProblemData& problemData,
 		double startingTemp,
-		TemperatureOperator& tempOperator,
+		std::shared_ptr<TemperatureOperator> tempOperator,
 		std::mt19937& randGenerator,
-		const IStopCriterium& stopCriterium,
+		std::shared_ptr<IStopCriterium> stopCriterium,
 		int neighbourhoodNumber,
-		INeighbourGenerator& neighbourGenerator,
+		std::shared_ptr<INeighbourGenerator> neighbourGenerator,
 		ICIndividualConsumer& consumer,
-		const GenderGrouper& genderGrouper,
-		const IHTCMutatorNurseRoomCover& nurseRoomCover
+		GenderGrouper genderGrouper,
+		IHTCMutatorNurseRoomCover nurseRoomCover
 	);
 
 	CIndividual solve(const IProblem& problem, const CIndividual& startingIndividual) const override;
 
 private:
 	double _startingTemp;
-	const IStopCriterium& _stopCriterium;
-	TemperatureOperator& _tempOperator;
+	std::shared_ptr<const IStopCriterium> _stopCriterium;
+	std::shared_ptr<TemperatureOperator> _tempOperator;
 	int _neighbourhoodNumber;
-	INeighbourGenerator& _neighbourGenerator;
-	const GenderGrouper& _genderGrouper;
-	const IHTCMutatorNurseRoomCover& _nurseRoomCover;
+	std::shared_ptr<INeighbourGenerator> _neighbourGenerator;
+	GenderGrouper _genderGrouper;
+	IHTCMutatorNurseRoomCover _nurseRoomCover;
 
 	bool checkIfAcceptNeighbour(const CIndividual& individual, const CIndividual& neighbour, double temperature) const;
 

@@ -1,6 +1,6 @@
 #include "TemperatureOperator.h"
 
-TemperatureOperator::TemperatureOperator(const ICoolingScheme& coolingScheme, int iterationWithoutChange) :
+TemperatureOperator::TemperatureOperator(std::shared_ptr<ICoolingScheme> coolingScheme, int iterationWithoutChange) :
 	_coolingScheme(coolingScheme),
 	_iterationWithoutChange(iterationWithoutChange)
 {}
@@ -29,5 +29,5 @@ double TemperatureOperator::getNewTemp(double startingTemp, double currTemp, int
 	}
 	
 
-	return _coolingScheme.getNewTemp(startingTemp, currTemp, iteration);
+	return _coolingScheme->getNewTemp(startingTemp, currTemp, iteration);
 }

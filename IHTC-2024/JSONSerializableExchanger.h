@@ -1,92 +1,56 @@
 #pragma once
 
+#include <boost/asio.hpp>
+
 #include "JSONOperations.h"
+#include "INetworkExchanger.h"
 
 /**
- * @brief Facade for json nholman/json connector
+ * @brief Facade for network exchanger to send data converted to json.  
 */
 template <JsonConvertibleType T>
 class JSONSerializableExchanger
 {
 public:
-	JSONSerializableExchanger(const std::string& ip, short port);
-	~JSONSerializableExchanger();
+	JSONSerializableExchanger(std::shared_ptr<INetworkExchanger> exchanger);
 
-	void send(const T& toSend) override;
+	void send(T toSend);
 
-	void connectToPeer();
+protected:
+
+	/**
+	 * @brief Cosumes data by sending it through the network using a network exchanger
+	 * @param consumable Data to be consumed
+	 */
+	virtual void consume(T consumable) = 0;
 
 private:
-	std::string _targetIP;
-	short _targetPort;
-
-	boost::asio::io_context io_context;
-	boost::asio::ip::udp::socket socket;
-	std::thread listenThread;
-	bool _connected;
-
-	void listenForResources();
+	std::shared_ptr<INetworkExchanger> _exchanger;
 };
 
 template<JsonConvertibleType T>
-inline JSONSerializableExchanger<T>::JSONSerializableExchanger(const std::string& ip, short port) :
-    targetIP(ip),
-    targetPort(port),
-    socket(io_context),
-    connected(false)
-{}
-
-template<JsonConvertibleType T>
-inline JSONSerializableExchanger<T>::~JSONSerializableExchanger()
+inline JSONSerializableExchanger<T>::JSONSerializableExchanger(std::shared_ptr<INetworkExchanger> exchanger) :
+	_exchanger(exchanger)
 {
-    if (connected)
-    {
-        socket.close();
-        listenThread.join();
-    }
+	_exchanger->addObserver([this](std::string recieved)
+		{
+			auto parsed { nlohmann::json::parse(recieved) };
+			std::optional<T> result{ jsonToObject<T>(parsed) };
+
+			if (result)
+			{
+				consume(std::move(result.value()));
+			}
+		});
 }
 
 template<JsonConvertibleType T>
-inline void JSONSerializableExchanger<T>::send(const T& toSend)
+inline void JSONSerializableExchanger<T>::send(T toSend)
 {
-    auto result = objectToJson<T>(toSend);
+	std::optional<std::string> result { objectToJson<T>(toSend) };
 
-    boost::asio::write(socket, boost::asio::buffer(result));
-}
-
-template<JsonConvertibleType T>
-inline void JSONSerializableExchanger<T>::connectToPeer()
-{
-    try
-    {
-        boost::asio::ip::udp::resolver resolver(io_context);
-        boost::asio::connect(socket, resolver.resolve(targetIP, std::to_string(targetPort)));
-
-        connected = true;
-
-        listenThread = std::thread(&JSONSerializableExchanger::listenForResources, this);
-    }
-    catch (const std::exception& e)
-    {
-    }
-}
-
-template<JsonConvertibleType T>
-inline void JSONSerializableExchanger<T>::listenForResources()
-{
-    try
-    {
-        while (connected)
-        {
-            char buffer[1024];
-            size_t length = socket.receive(boost::asio::buffer(buffer));
-            std::string message(buffer, length);
-
-            std::cout << "Received: " << message << "\n";
-        }
-    }
-    catch (...) {
-        std::cerr << "Connection lost!\n";
-        connected = false;
-    }
+	if (result)
+	{
+		_exchanger->sendMessage(std::move(result.value()));
+	}
 }

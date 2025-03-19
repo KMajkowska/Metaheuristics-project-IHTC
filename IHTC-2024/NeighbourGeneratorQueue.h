@@ -10,7 +10,7 @@
 class NeighbourGeneratorQueue : public INeighbourGenerator
 {
 public:
-	NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem);
+	NeighbourGeneratorQueue(const std::vector<std::shared_ptr<IMutator>> mutators, const IProblem& problem);
 
 	std::vector<CIndividual> getNeighbours(int iteration, int numberOfNeigbours, CIndividual& currIndiv) override;
 

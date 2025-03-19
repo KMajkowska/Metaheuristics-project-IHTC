@@ -134,6 +134,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CIndividualObservable.cpp" />
+    <ClCompile Include="CSolutionDataHandler.cpp" />
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
@@ -152,7 +154,7 @@
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="INeighbourGenerator.cpp" />
     <ClCompile Include="ISolver.cpp" />
-    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="ICIndividualCSVLogger.cpp" />
     <ClCompile Include="NeighbourGeneratorPrizeBest.cpp" />
     <ClCompile Include="NeighbourGeneratorQueue.cpp" />
     <ClCompile Include="NeighbourGeneratorTop.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="NurseWrapper.cpp" />
     <ClCompile Include="Params.cpp" />
     <ClCompile Include="PatientNurses.cpp" />
+    <ClCompile Include="PeerToPeer.cpp" />
     <ClCompile Include="RandomSolverBuilder.cpp" />
     <ClCompile Include="RoomInfo.cpp" />
     <ClCompile Include="SASolverBuilder.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="solverUtils.cpp" />
     <ClCompile Include="StopCriteriumIter.cpp" />
     <ClCompile Include="StopCriteriumTemperature.cpp" />
+    <ClCompile Include="StopCriteriumTime.cpp" />
     <ClCompile Include="strings.cpp" />
     <ClCompile Include="SurgeonsTime.cpp" />
     <ClCompile Include="TemperatureOperator.cpp" />
@@ -210,8 +214,9 @@
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="consts.h" />
+    <ClInclude Include="CIndividualObservable.h" />
     <ClInclude Include="CoolingSchemeType.h" />
+    <ClInclude Include="CSolutionDataHandler.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
@@ -221,11 +226,15 @@
     <ClInclude Include="GreedySolverBuilder.h" />
     <ClInclude Include="ICIndividualConsumer.h" />
     <ClInclude Include="IHTCSolverBuilder.h" />
+    <ClInclude Include="INetworkExchanger.h" />
     <ClInclude Include="JSONOperations.h" />
     <ClInclude Include="JSONSerializableExchanger.h" />
+    <ClInclude Include="ICObservable.h" />
+    <ClInclude Include="PeerToPeer.h" />
     <ClInclude Include="RandomSolverBuilder.h" />
     <ClInclude Include="SASolverBuilder.h" />
     <ClInclude Include="solverUtils.h" />
+    <ClInclude Include="StopCriteriumTime.h" />
     <ClInclude Include="StopCriteriumType.h" />
     <ClInclude Include="TemperatureOperator.h" />
     <ClInclude Include="ICoolingScheme.h" />
@@ -239,7 +248,7 @@
     <ClInclude Include="IHTCSolver.h" />
     <ClInclude Include="INeighbourGenerator.h" />
     <ClInclude Include="IStopCriterium.h" />
-    <ClInclude Include="Logger.h" />
+    <ClInclude Include="ICIndividualCSVLogger.h" />
     <ClInclude Include="NeighbourGeneratorPrizeBest.h" />
     <ClInclude Include="NeighbourGeneratorQueue.h" />
     <ClInclude Include="NeighbourGeneratorTop.h" />
@@ -297,6 +306,7 @@
     <Text Include="Doxyfile" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="constants.h" />
     <None Include="params.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

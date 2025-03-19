@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "ISolver.h"
-#include "Logger.h"
+#include "ICIndividualConsumer.h"
 
 /**
  * @brief Solver, deriving from more generic solver. Is used for the exact problem we use in this project - IHTC. 

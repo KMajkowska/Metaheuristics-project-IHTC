@@ -3,10 +3,19 @@
 
 #include "IHTCSolver.h"
 #include "Params.h"
+#include "ICIndividualConsumer.h"
 
+
+/**
+ * @brief Accepts only classed that derive from IHTCSolver
+ */
 template <typename T>
 concept DerivedFromIHTCSolver = std::is_base_of_v<IHTCSolver, T>;
 
+/**
+ * @brief Used for building complex solvers
+ * @tparam T class type that derives from IHTCSolver
+ */
 template <DerivedFromIHTCSolver T>
 class IHTCSolverBuilder
 {
@@ -14,6 +23,10 @@ public:
 	IHTCSolverBuilder(const Params& params, const ProblemData& problemData, std::mt19937& randGenerator, ICIndividualConsumer& consumer);
 	virtual ~IHTCSolverBuilder() = default;
 
+	/**
+	 * @brief Build the solver with data gathered in the builder properties
+	 * @return instance of a solver 
+	 */
 	T build() const;
 
 protected:

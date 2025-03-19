@@ -1,6 +1,6 @@
 #include "NeighbourGeneratorPrizeBest.h"
 
-NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>>& mutators, const IProblem& problem, int prizeSize) :
+NeighbourGeneratorPrizeBest::NeighbourGeneratorPrizeBest(const std::vector<std::shared_ptr<IMutator>> mutators, const IProblem& problem, int prizeSize) :
 	INeighbourGenerator(mutators, problem),
 	_prizeSize(prizeSize)
 {
