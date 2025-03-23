@@ -1,20 +1,19 @@
 #pragma once
 
 #include "ICIndividualConsumer.h"
-#include "ICObservable.h"
+#include "CObservable.h"
 #include "SolutionData.h"
 
 /**
  * @brief Allows notification of observable with data consumed from algorithm
  */
-class CIndividualObservable : public ICIndividualConsumer
+class CIndividualObservable : public ICIndividualConsumer, public CObservable<SolutionData>
 {
 public:
-	CIndividualObservable(ICObservable<SolutionData>& observable, const ProblemData& problemData);
+	CIndividualObservable(const ProblemData& problemData);
 
 	void consume(const CIndividual& current, const CIndividual& best, double temperature);
 
 private:
-	ICObservable<SolutionData>& _observable;
 	const ProblemData& _problemData;
 };

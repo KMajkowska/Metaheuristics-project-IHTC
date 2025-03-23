@@ -1,14 +1,15 @@
 #include "SASolverBuilder.h"
 
 SASolverBuilder::SASolverBuilder(const Params& params, const ProblemData& problemData, std::mt19937& randGenerator, ICIndividualConsumer& consumer, const IProblem& problem) :
-	IHTCSolverBuilder(params, problemData, randGenerator, consumer),
-	_problem(problem)
+	IHTCSolverBuilder(problemData, randGenerator, consumer),
+	_problem(problem),
+	_params(params)
 {}
 
-std::optional<SASolver> SASolverBuilder::prepareForBuild() const
+std::optional<std::shared_ptr<IHTCSolver>> SASolverBuilder::prepareForBuild() const
 {
 
-	return SASolver(
+	return std::make_shared<SASolver>(
 		_problemData,
 		_params.startingTemperature(),
 		std::make_shared<TemperatureOperator>(getCoolingScheme(_params), _params.increaseTempIters()),

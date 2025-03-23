@@ -10,6 +10,8 @@
 #include "SolverType.h"
 #include "strings.h"
 #include "StopCriteriumType.h"
+#include "Winner.h"
+#include "WinnerJudgeType.h"
 
 /**
  * @brief This whole files allows mapping string to enum values 
@@ -88,6 +90,18 @@ inline StopCriteriumType EnumMapper<StopCriteriumType>::getDefault() const
 {
 	return StopCriteriumType::UNKNOWN;
 }
+
+template <>
+inline WinnerJudgeType EnumMapper<WinnerJudgeType>::getDefault() const
+{
+	return WinnerJudgeType::BEST_OF_N;
+}
+
+template <>
+inline Winner EnumMapper<Winner>::getDefault() const
+{
+	return Winner::NOT_FINISHED;
+}
 #pragma endregion getDefault
 
 #pragma region getMap
@@ -114,6 +128,18 @@ inline const std::unordered_map<StopCriteriumType, std::string>& EnumMapper<Stop
 {
 	return SCT_ENUM_TO_STRING;
 }
+
+template <>
+inline const std::unordered_map<Winner, std::string>& EnumMapper<Winner>::getMap() const
+{
+	return WINNER_ENUM_TO_STRING;
+}
+
+template <>
+inline const std::unordered_map<WinnerJudgeType, std::string>& EnumMapper<WinnerJudgeType>::getMap() const
+{
+	return WJT_ENUM_TO_STRING;
+}
 #pragma endregion getMap
 
 template <EnumType T>
@@ -129,7 +155,6 @@ std::string enumToString(T value)
 	}
 
 	throw std::invalid_argument("Invalid string value");
-
 }
 
 template <EnumType T>

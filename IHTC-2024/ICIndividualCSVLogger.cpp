@@ -1,6 +1,5 @@
 #include "ICIndividualCSVLogger.h"
 
-
 ICIndividualCSVLogger::ICIndividualCSVLogger(const std::string& filename) :
 	_logFile(filename, std::ios::app) 
 {
@@ -9,10 +8,6 @@ ICIndividualCSVLogger::ICIndividualCSVLogger(const std::string& filename) :
 	if (!_logFile.is_open()) 
 	{
 		throw std::runtime_error("Failed to open log file: " + filename);
-	}
-	else
-	{
-		std::cout << "Opened log file: " << filename << std::endl;
 	}
 }
 

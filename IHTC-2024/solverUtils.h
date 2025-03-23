@@ -1,11 +1,20 @@
 #pragma once
 
-#include "SolverType.h"
-#include "EASolver.h"
 #include "params.h"
-#include "RandomSolver.h"
-#include "SASolver.h"
-#include "GreedySolver.h"
+#include "NeighbourGeneratorQueue.h"
+#include "NeighbourGeneratorPrizeBest.h"
+#include "NeighbourGeneratorTop.h"
+#include "NeighbourGeneratorTournament.h"
+#include "GemanAndGemanCoolingScheme.h"
+#include "VariableCoolingScheme.h"
+#include "SimplexCoolingScheme.h"
+#include "StopCriteriumTemperature.h"
+#include "StopCriteriumIter.h"
+#include "IHTCMutatorRoom.h"
+#include "IHTCMutatorOT.h"
+#include "IHTCMutatorAssignment.h"
+#include "IHTCMutatorDay.h"
+#include "StopCriteriumTime.h"
 
 /**
  * @brief Pointer to have acces to neighbour generators

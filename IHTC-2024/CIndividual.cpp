@@ -1,17 +1,9 @@
 #include "CIndividual.h"
 #include "IMutator.h"
 
-CIndividual::CIndividual() :
-	_fitness(0),
-	_fitnessUpToDate(false)
-{
-}
-
 CIndividual::CIndividual(std::vector<Patient> patients, std::unordered_map<std::string, std::vector<Assignment>> assignments) :
 	_patients(patients),
-	_assignments(assignments),
-	_fitness(0),
-	_fitnessUpToDate(false)
+	_assignments(assignments)
 {}
 
 CIndividual::CIndividual(const CIndividual& otherIndividual) :

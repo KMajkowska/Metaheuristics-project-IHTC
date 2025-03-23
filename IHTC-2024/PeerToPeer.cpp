@@ -1,10 +1,11 @@
 #include "PeerToPeer.h"
 
-PeerToPeer::PeerToPeer(const std::string& ip, short sendPort, short receivePort) :
-    _io_context(),
-    _work_guard(boost::asio::make_work_guard(_io_context)),
-    _socket(_io_context),
-    _acceptor(_io_context),
+PeerToPeer::PeerToPeer(const std::string& ip, short sendPort, short receivePort, bool isHost) :
+    _isHost(isHost),
+    _ioContext(),
+    _work_guard(boost::asio::make_work_guard(_ioContext)),
+    _socket(_ioContext),
+    _acceptor(_ioContext),
     _connected(false),
     _ip(ip),
     _sendPort(sendPort),
@@ -14,14 +15,19 @@ PeerToPeer::PeerToPeer(const std::string& ip, short sendPort, short receivePort)
 void PeerToPeer::start()
 {
     // Run io_context in a separate thread
-    std::thread([this]() {
-        _io_context.run();
+    std::thread([this]() 
+        {
+        _ioContext.run();
         }).detach();
 
-    if (_sendPort == 5000)
-	listenForConnections();
-    else 
-	tryConnect();
+    if (_isHost)
+    {
+        listenForConnections();
+    }
+    else
+    {
+        tryConnect();
+    }
 }
 
 void PeerToPeer::listenForConnections()
@@ -53,19 +59,20 @@ void PeerToPeer::tryConnect()
 {
     boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _sendPort);
 
-    _socket.async_connect(endpoint, [this](const boost::system::error_code& error) {
-        if (!error)
+    _socket.async_connect(endpoint, [this](const boost::system::error_code& error) 
         {
-            _connected = true;
-            std::cout << "Connected to Peer!" << std::endl;
+            if (!error)
+            {
+                _connected = true;
+                std::cout << "Connected to Peer!" << std::endl;
 
-            // Start listening for messages
-            receiveMessage();
-        }
-        else
-        {
-            std::cout << "Connection failed: " << error.message() << std::endl;
-        }
+                // Start listening for messages
+                receiveMessage();
+            }
+            else
+            {
+                std::cout << "Connection failed: " << error.message() << std::endl;
+            }
         });
 }
 
@@ -111,8 +118,6 @@ void PeerToPeer::receiveMessage()
                 std::istream is(&_receive_buffer);
                 std::string message;
                 std::getline(is, message); // Read until newline
-
-                std::cout << "Received message " << std::endl;
 
                 notify(message); // Process message
 

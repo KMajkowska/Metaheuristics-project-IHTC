@@ -33,5 +33,4 @@ void from_json(const nlohmann::json& j, RoomDTO& room)
 {
 	room.setId(j.at("id").get<std::string>());
 	room.setCapacity(j.at("capacity").get<int>());
-
 }

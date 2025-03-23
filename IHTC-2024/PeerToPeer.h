@@ -13,15 +13,18 @@
 class PeerToPeer : public INetworkExchanger
 {
 public:
-	PeerToPeer(const std::string& ip, short sendPort, short receivePort);
+	PeerToPeer(const std::string& ip, short sendPort, short receivePort, bool isHost);
 
+	/**
+	 * @brief Start the process of receiving messages and allow sending (establishes connection)
+	 */
 	void start() override;
 
 	void sendMessage(std::string message) override;
 	void receiveMessage() override;
 
 private:
-	boost::asio::io_context _io_context;
+	boost::asio::io_context _ioContext;
 	boost::asio::ip::tcp::socket _socket;
 	boost::asio::ip::tcp::endpoint _endpoint;
 	boost::asio::ip::tcp::acceptor _acceptor;
@@ -34,6 +37,7 @@ private:
 	const int _sendPort;
 	const int _receivePort;
 
+	bool _isHost;
 
 	void listenForConnections();
 	void tryConnect();

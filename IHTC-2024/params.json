@@ -10,10 +10,11 @@
     "solverRepetitionAmount": 1,
     "startingTemperature": 3500,
     "stopTemperature": 1,
+    "stopMillis":  10000,
     "initSolver": "greedy",
     "outputSolver": "sa",
     "neighbourGenerator": "prizeBest",
     "coolingSchemeType": "simplex",
-    "stopCriteriumType": "temperature",
+    "stopCriteriumType": "time",
     "outputPath": "./"
 }

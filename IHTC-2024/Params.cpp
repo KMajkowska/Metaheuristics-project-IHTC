@@ -60,6 +60,11 @@ int Params::solverRepetitionAmount() const
     return _solverRepetitionAmount;
 }
 
+int Params::stopMillis() const
+{
+    return _stopMillis;
+}
+
 SolverType Params::initSolver() const 
 {
     return _initSolver; 
@@ -145,6 +150,11 @@ void Params::setSolverRepetitionAmount(int amount)
     _solverRepetitionAmount = amount; 
 }
 
+void Params::setStopMillis(int millis)
+{
+    _stopMillis = millis;
+}
+
 void Params::setInitSolver(SolverType solver) 
 {
     _initSolver = solver; 
@@ -185,6 +195,7 @@ void to_json(nlohmann::json& j, const Params& data)
         {"solverRepetitionAmount", data.solverRepetitionAmount()},
         {"startingTemperature", data.startingTemperature()},
         {"stopTemperature", data.stopTemperature()},
+        {"stopMillis", data.stopMillis()},
         {"initSolver", enumToString<SolverType>(data.initSolver())},
         {"outputSolver", enumToString<SolverType>(data.outputSolver())},
         {"neighbourGenerator", enumToString<NeighbourGeneratorType>(data.neighbourGenerator())},
@@ -207,6 +218,7 @@ void from_json(const nlohmann::json& j, Params& data)
     data.setSolverRepetitionAmount(j.at("solverRepetitionAmount").get<int>());
     data.setStartingTemperature(j.at("startingTemperature").get<double>());
     data.setStopTemperature(j.at("stopTemperature").get<double>());
+    data.setStopMillis(j.at("stopMillis").get<int>());
     data.setInitSolver(stringToEnum<SolverType>(j.at("initSolver").get<std::string>()));
     data.setOutputSolver(stringToEnum<SolverType>(j.at("outputSolver").get<std::string>()));
     data.setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(j.at("neighbourGenerator").get<std::string>()));

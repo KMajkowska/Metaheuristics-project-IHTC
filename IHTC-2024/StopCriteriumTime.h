@@ -5,13 +5,13 @@
 #include "IStopCriterium.h"
 
 /**
- * @brief Stop criterion based on the number of iterations.
+ * @brief Stop criterion based on the run time.
  */
 class StopCriteriumTime : public IStopCriterium
 {
 public:
     /**
-     * @brief Constructor to set the iteration limit.
+     * @brief Constructor to set the millis limit.
      * @param millis
      */
     StopCriteriumTime(int millis);
@@ -20,6 +20,6 @@ public:
 
 private:
     int _millis; /// Time after which to stop.
-    std::chrono::steady_clock::time_point _startTime; /// Time of start
-
+    mutable std::chrono::steady_clock::time_point _startTime { std::chrono::steady_clock::now() }; /// Time of start
+    mutable bool _started { false }; /// The clock starts counting down after first 'isStop'.
 };

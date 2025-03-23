@@ -1,15 +1,16 @@
-#include "CSolutionDataHandler.h"
+#include "CSolutionDataHandlerNetwork.h"
 
-CSolutionDataHandler::CSolutionDataHandler(std::shared_ptr<INetworkExchanger> exchanger) :
+CSolutionDataHandlerNetwork::CSolutionDataHandlerNetwork(std::shared_ptr<INetworkExchanger> exchanger) :
 	JSONSerializableExchanger(exchanger)
+{}
+
+void CSolutionDataHandlerNetwork::consumeLocal(SolutionData solution)
 {
-	addObserver([this](SolutionData data)
-		{
-			send(std::move(data));
-		});
+	send(solution);
+	CSolutionHandler::consumeLocal(solution);
 }
 
-void CSolutionDataHandler::consume(SolutionData consumable)
+void CSolutionDataHandlerNetwork::consume(SolutionData consumable)
 {
-	notify(std::move(consumable));
+	consumeOpponent(std::move(consumable));
 }

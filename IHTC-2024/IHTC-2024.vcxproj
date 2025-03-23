@@ -134,15 +134,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BestOfN.cpp" />
+    <ClCompile Include="CGameComputer.cpp" />
+    <ClCompile Include="CGameNetwork.cpp" />
     <ClCompile Include="CIndividualObservable.cpp" />
+    <ClCompile Include="CSessionPosterPeerToPeer.cpp" />
     <ClCompile Include="CSolutionDataHandler.cpp" />
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
+    <ClCompile Include="CGameInfo.cpp" />
+    <ClCompile Include="ICGame.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GenderGrouper.cpp" />
     <ClCompile Include="GreedySolver.cpp" />
     <ClCompile Include="GreedySolverBuilder.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="ICrosser.cpp" />
+    <ClCompile Include="CSolutionHandler.cpp" />
+    <ClCompile Include="CSessionReceiverPeerToPeer.cpp" />
     <ClCompile Include="IHTC-2024.cpp" />
     <ClCompile Include="IHTCMutatorAssignments.cpp" />
     <ClCompile Include="IHTCMutatorDay.cpp" />
@@ -152,9 +161,11 @@
     <ClCompile Include="IHTCMutatorOT.cpp" />
     <ClCompile Include="IHTCMutatorRoom.cpp" />
     <ClCompile Include="IHTCSolver.cpp" />
+    <ClCompile Include="IHTCSolverBuilder.cpp" />
     <ClCompile Include="INeighbourGenerator.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="ICIndividualCSVLogger.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="NeighbourGeneratorPrizeBest.cpp" />
     <ClCompile Include="NeighbourGeneratorQueue.cpp" />
     <ClCompile Include="NeighbourGeneratorTop.cpp" />
@@ -198,6 +209,7 @@
     <ClCompile Include="SimplexCoolingScheme.cpp" />
     <ClCompile Include="SolutionData.cpp" />
     <ClCompile Include="solutionUtils.cpp" />
+    <ClCompile Include="solverBuilderUtils.cpp" />
     <ClCompile Include="solverUtils.cpp" />
     <ClCompile Include="StopCriteriumIter.cpp" />
     <ClCompile Include="StopCriteriumTemperature.cpp" />
@@ -214,12 +226,19 @@
     <ClCompile Include="WeightsDTO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BestOfN.h" />
+    <ClInclude Include="CGameComputer.h" />
+    <ClInclude Include="CGameNetwork.h" />
     <ClInclude Include="CIndividualObservable.h" />
     <ClInclude Include="CoolingSchemeType.h" />
-    <ClInclude Include="CSolutionDataHandler.h" />
+    <ClInclude Include="CSessionPosterPeerToPeer.h" />
+    <ClInclude Include="CSessionReceiverPeerToPeer.h" />
+    <ClInclude Include="CSolutionDataHandlerNetwork.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
+    <ClInclude Include="CGameInfo.h" />
+    <ClInclude Include="ICGame.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
@@ -227,9 +246,15 @@
     <ClInclude Include="ICIndividualConsumer.h" />
     <ClInclude Include="IHTCSolverBuilder.h" />
     <ClInclude Include="INetworkExchanger.h" />
+    <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="ISessionPoster.h" />
+    <ClInclude Include="IWinnerJudge.h" />
     <ClInclude Include="JSONOperations.h" />
     <ClInclude Include="JSONSerializableExchanger.h" />
-    <ClInclude Include="ICObservable.h" />
+    <ClInclude Include="CObservable.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="solverBuilderUtils.h" />
+    <ClInclude Include="Winner.h" />
     <ClInclude Include="PeerToPeer.h" />
     <ClInclude Include="RandomSolverBuilder.h" />
     <ClInclude Include="SASolverBuilder.h" />
@@ -294,6 +319,7 @@
     <ClInclude Include="StopCriteriumTemperature.h" />
     <ClInclude Include="strings.h" />
     <ClInclude Include="VariableCoolingScheme.h" />
+    <ClInclude Include="WinnerJudgeType.h" />
     <ClInclude Include="Workload.h" />
     <ClInclude Include="SurgeonDTO.h" />
     <ClInclude Include="SurgeonsTime.h" />
@@ -307,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="constants.h" />
+    <None Include="CSolutionHandler.h" />
     <None Include="params.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

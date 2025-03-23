@@ -163,6 +163,39 @@
     <Filter Include="Pliki źródłowe\game">
       <UniqueIdentifier>{d68810b3-5037-4f6b-9cea-ad18e146e1b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\game\player">
+      <UniqueIdentifier>{be96d9e8-4b1f-40d2-8e41-4a1041c8bfa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\game\player">
+      <UniqueIdentifier>{e7b9b050-c908-4d0a-8c2d-aefb2eccb0bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\game\solutionHandler">
+      <UniqueIdentifier>{7508191b-3a52-4ba8-93b4-26a5c32fc789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\game\winnerJudge">
+      <UniqueIdentifier>{6d565a1e-3bd5-4251-8e60-3f75dd27d3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\game\winnerJudge">
+      <UniqueIdentifier>{47418f36-afe7-4557-9379-7a2c4fe38128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\game\solutionHandler">
+      <UniqueIdentifier>{f75247c4-dd16-42f6-9754-ab2e488017b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\game\gameMode">
+      <UniqueIdentifier>{03eb37c7-b4d5-4efe-ae73-696d8d6553d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\game\gameMode">
+      <UniqueIdentifier>{2c2f7c68-4208-4517-a593-965cafdad5b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\networking\session">
+      <UniqueIdentifier>{e081227e-3066-49bc-8090-32b42f515091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\networking\session">
+      <UniqueIdentifier>{61dd8dcb-c71b-473d-84b6-5bb343dac847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\networking\NewFilter1">
+      <UniqueIdentifier>{a71fac20-06c1-4ef0-b6cb-05205186f96b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -363,9 +396,6 @@
     <ClCompile Include="ICIndividualCSVLogger.cpp">
       <Filter>Pliki źródłowe\consumer</Filter>
     </ClCompile>
-    <ClCompile Include="solverUtils.cpp">
-      <Filter>Pliki źródłowe\algorithm\solvers</Filter>
-    </ClCompile>
     <ClCompile Include="SurgeonOTInfo.h">
       <Filter>Pliki nagłówkowe\algorithm\other</Filter>
     </ClCompile>
@@ -396,8 +426,47 @@
     <ClCompile Include="PeerToPeer.cpp">
       <Filter>Pliki źródłowe\networking</Filter>
     </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Pliki źródłowe\game\player</Filter>
+    </ClCompile>
+    <ClCompile Include="BestOfN.cpp">
+      <Filter>Pliki źródłowe\game\winnerJudge</Filter>
+    </ClCompile>
+    <ClCompile Include="CSolutionHandler.cpp">
+      <Filter>Pliki źródłowe\game\solutionHandler</Filter>
+    </ClCompile>
     <ClCompile Include="CSolutionDataHandler.cpp">
-      <Filter>Pliki źródłowe\networking</Filter>
+      <Filter>Pliki źródłowe\game\solutionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="ICGame.cpp">
+      <Filter>Pliki źródłowe\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameNetwork.cpp">
+      <Filter>Pliki źródłowe\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameComputer.cpp">
+      <Filter>Pliki źródłowe\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCSolverBuilder.cpp">
+      <Filter>Pliki źródłowe\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="solverUtils.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="solverBuilderUtils.cpp">
+      <Filter>Pliki źródłowe\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CSessionPosterPeerToPeer.cpp">
+      <Filter>Pliki źródłowe\networking\session</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameInfo.cpp">
+      <Filter>Pliki źródłowe\game</Filter>
+    </ClCompile>
+    <ClCompile Include="CSessionReceiverPeerToPeer.cpp">
+      <Filter>Pliki źródłowe\networking\session</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -617,16 +686,10 @@
     <ClInclude Include="JSONSerializableExchanger.h">
       <Filter>Pliki nagłówkowe\networking</Filter>
     </ClInclude>
-    <ClInclude Include="solverUtils.h">
-      <Filter>Pliki nagłówkowe\algorithm\solvers</Filter>
-    </ClInclude>
     <ClInclude Include="IHTCSolverBuilder.h">
       <Filter>Pliki nagłówkowe\algorithm\solverBuilder</Filter>
     </ClInclude>
     <ClInclude Include="CoolingSchemeType.h">
-      <Filter>Pliki nagłówkowe\algorithm\params</Filter>
-    </ClInclude>
-    <ClInclude Include="enumOperations.h">
       <Filter>Pliki nagłówkowe\algorithm\params</Filter>
     </ClInclude>
     <ClInclude Include="RandomSolverBuilder.h">
@@ -647,7 +710,7 @@
     <ClInclude Include="CIndividualObservable.h">
       <Filter>Pliki nagłówkowe\algorithm\consumer</Filter>
     </ClInclude>
-    <ClInclude Include="ICObservable.h">
+    <ClInclude Include="CObservable.h">
       <Filter>Pliki nagłówkowe\networking</Filter>
     </ClInclude>
     <ClInclude Include="PeerToPeer.h">
@@ -656,8 +719,56 @@
     <ClInclude Include="INetworkExchanger.h">
       <Filter>Pliki nagłówkowe\networking</Filter>
     </ClInclude>
-    <ClInclude Include="CSolutionDataHandler.h">
-      <Filter>Pliki nagłówkowe\networking</Filter>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Pliki nagłówkowe\game\player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSolutionDataHandlerNetwork.h">
+      <Filter>Pliki nagłówkowe\game\solutionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="IWinnerJudge.h">
+      <Filter>Pliki nagłówkowe\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="Winner.h">
+      <Filter>Pliki nagłówkowe\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="BestOfN.h">
+      <Filter>Pliki nagłówkowe\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="ICGame.h">
+      <Filter>Pliki nagłówkowe\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameNetwork.h">
+      <Filter>Pliki nagłówkowe\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameComputer.h">
+      <Filter>Pliki nagłówkowe\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="enumOperations.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="solverBuilderUtils.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="solverUtils.h">
+      <Filter>Pliki nagłówkowe\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ISessionPoster.h">
+      <Filter>Pliki nagłówkowe\networking\session</Filter>
+    </ClInclude>
+    <ClInclude Include="CSessionPosterPeerToPeer.h">
+      <Filter>Pliki nagłówkowe\networking\session</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameInfo.h">
+      <Filter>Pliki nagłówkowe\game</Filter>
+    </ClInclude>
+    <ClInclude Include="WinnerJudgeType.h">
+      <Filter>Pliki nagłówkowe\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="CSessionReceiverPeerToPeer.h">
+      <Filter>Pliki nagłówkowe\networking\session</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -672,6 +783,9 @@
     </None>
     <None Include="constants.h">
       <Filter>Pliki nagłówkowe\utils</Filter>
+    </None>
+    <None Include="CSolutionHandler.h">
+      <Filter>Pliki nagłówkowe\game\solutionHandler</Filter>
     </None>
   </ItemGroup>
 </Project>

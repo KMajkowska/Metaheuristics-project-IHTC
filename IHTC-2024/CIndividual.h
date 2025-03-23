@@ -19,7 +19,7 @@ class IMutator;
 class CIndividual
 {
 public:
-	CIndividual();
+	CIndividual() = default;
 
 	CIndividual(std::vector<Patient> patients, std::unordered_map<std::string, std::vector<Assignment>> assignments);
 	CIndividual(const CIndividual& otherIndividual);
@@ -45,8 +45,8 @@ private:
 	std::vector<Patient> _patients;
 	std::unordered_map<std::string, std::vector<Assignment>> _assignments;
 
-	double _fitness;
-	bool _fitnessUpToDate;
+	double _fitness { std::numeric_limits<double>::max() };
+	bool _fitnessUpToDate { false };
 
 	std::string _mutatorName { "" };
 

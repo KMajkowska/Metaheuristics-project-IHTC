@@ -1,42 +1,19 @@
 ﻿#include <iostream>
-#include <random>
 
-#include <boost/asio.hpp>
-
-#include "RandomSolver.h"
-#include "other.h"
-#include "solutionUtils.h"
-#include "IHTCProblem.h"
-#include "SASolver.h"
-#include "IHTCMutatorRoom.h"
-#include "IHTCMutatorOTInversion.h"
-#include "IHTCMutatorNurseRoomCover.h"
-#include "IHTCMutatorOT.h"
-#include "IHTCMutatorDay.h"
-#include "NeighbourGeneratorQueue.h"
-#include "NeighbourGeneratorTournament.h"
-#include "GreedySolver.h"
-#include "params.h"
-#include "NeighbourGeneratorPrizeBest.h"
-#include "NeighbourGeneratorTop.h"
-#include "StopCriteriumTemperature.h"
-#include "SimplexCoolingScheme.h"
-#include "GemanAndGemanCoolingScheme.h"
-#include "IHTCMutatorAssignment.h"
+#include "constants.h"
 #include "JSONOperations.h"
-#include "SASolverBuilder.h"
-#include "GreedySolverBuilder.h"
-#include "CIndividualObservable.h"
+#include "params.h"
+#include "ProblemData.h"
+#include "CGameComputer.h"
+#include "CPlayer.h"
+#include "BestOfN.h"
 #include "PeerToPeer.h"
-#include "JSONSerializableExchanger.h"
-#include "CSolutionDataHandler.h"
+#include "CGameNetwork.h"
+#include "CSessionReceiverPeerToPeer.h"
+#include "CSessionPosterPeerToPeer.h"
 
-
-static void run(int argc, char* argv[])
+static void runLocalTest()
 {
-	auto sendPort { argc > 1 ? (short)atoi(argv[1])  : 5000} ;
-	auto recievePort { argc > 2 ? (short)atoi(argv[2]) : 5001};
-
 	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
 	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
 
@@ -48,40 +25,75 @@ static void run(int argc, char* argv[])
 	auto problemData(std::move(problemDataOpt.value()));
 	auto params(std::move(paramsOpt.value()));
 
-	auto peer { std::make_shared<PeerToPeer>("127.0.0.1", sendPort, recievePort) };
+	CGameComputer game(std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(3), problemData, params);
 
-	peer->addObserver([](std::string observed)
+	game.startGame();
+}
+
+static void searchPeers()
+{
+	CSessionReceiverPeerToPeer search;
+
+	search.addObserver([&search](CGameInfo gameInfo)
 		{
-			std::cout << observed << std::endl;
+			auto jsonOpt{ objectToJson<CGameInfo>(gameInfo) };
+
+			if (jsonOpt)
+			{
+				std::cout << jsonOpt.value() << std::endl;
+
+				search.stopChecking();
+			}
 		});
 
-	CSolutionDataHandler exchanger(peer);
-	// ICIndividualCSVLogger logger(params.outputPath() + getFileNameWithoutExtension(problemFile) + ".csv");
+	search.checkForSessions();
+}
 
-	peer->start();
+static void postSessionToPeers()
+{
+	CGameInfo gameInfo;
 
-	CIndividualObservable consumer(exchanger, problemData);
+	CSessionPosterPeerToPeer poster(gameInfo);
 
-	std::mt19937 randomGenerator = createRandomGenerator();
+	poster.postSession();
+}
 
-	FitnessCalculator fitnessCalculator(params.hardRestrictionWeight());
-	IHTCProblem problem(problemData, getViolatedFromSolution, fitnessCalculator);
+static void runNetworkGame(int sendPort, int recievePort, bool isHost)
+{
+	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
+	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
 
-	auto initSolver { GreedySolverBuilder(params, problemData, randomGenerator, consumer).build() };
-	auto currentSolver { SASolverBuilder(params, problemData, randomGenerator, consumer, problem).build() };
+	if (!problemDataOpt || !paramsOpt)
+	{
+		return;
+	}
 
-	CIndividual startingIndividual = initSolver.solve(problem, CIndividual());
+	auto peer{ std::make_shared<PeerToPeer>(IP, sendPort, recievePort, isHost) };
+}
 
-	const CIndividual& individual = currentSolver.solve(problem, startingIndividual);
+static void runNetworkTest(int argc, char* argv[])
+{
+	auto sendPort{ argc > 1 ? (short)atoi(argv[1]) : 5001 };
+	auto recievePort{ argc > 2 ? (short)atoi(argv[2]) : 5000 };
 
-	// evaluateProblem(params.solverRepetitionAmount(), problem, currentSolver, initSolver);
+	auto isHost { sendPort == 5000 };
+
+	if (isHost)
+	{
+		postSessionToPeers();
+	}
+	else
+	{
+		searchPeers();
+	}
 }
 
 int main(int argc, char* argv[])
 {
 	try
 	{
-		run(argc, argv);
+		// runLocal();
+		runNetworkTest(argc, argv);
 	}
 	catch (const std::exception& e)
 	{

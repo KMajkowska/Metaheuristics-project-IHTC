@@ -1,17 +1,5 @@
 #include "solverUtils.h"
-#include "NeighbourGeneratorQueue.h"
-#include "NeighbourGeneratorPrizeBest.h"
-#include "NeighbourGeneratorTop.h"
-#include "NeighbourGeneratorTournament.h"
-#include "GemanAndGemanCoolingScheme.h"
-#include "VariableCoolingScheme.h"
-#include "SimplexCoolingScheme.h"
-#include "StopCriteriumTemperature.h"
-#include "StopCriteriumIter.h"
-#include "IHTCMutatorRoom.h"
-#include "IHTCMutatorOT.h"
-#include "IHTCMutatorAssignment.h"
-#include "IHTCMutatorDay.h"
+
 
 std::vector<std::shared_ptr<IMutator>> getMutators(const ProblemData& problemData, std::mt19937& randGenerator, const Params& params)
 {
@@ -40,6 +28,8 @@ std::shared_ptr<IStopCriterium> getStopCriterium(const Params& params)
 		return std::make_shared<StopCriteriumTemperature>(params.stopTemperature());
 	case StopCriteriumType::ITERATION:
 		return std::make_shared<StopCriteriumIter>(params.maxIteration());
+	case StopCriteriumType::TIME:
+		return std::make_shared<StopCriteriumTime>(params.stopMillis());
 	default:
 		throw std::invalid_argument("Incorrect stop criterium");
 	}

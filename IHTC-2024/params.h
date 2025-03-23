@@ -12,15 +12,15 @@
 /**
  * @brief Paramws for json
 */
-static const std::string DEFAULT_PROBLEM_FILE = "../datasets/ihtc2024_test_dataset/test01.json";
-static const std::string DEFAULT_PARAMS_FILE = "./params.json";
-
 class Params
 {
 public:
 	Params() = default;
 	Params(const Params& other) = default;
 	Params(Params&& other) = default;
+
+    Params& operator=(const Params& other) = default;
+    Params& operator=(Params&& other) = default;
 
     void setOutputPath(const std::string& path);
     void setHardRestrictionWeight(double weight);
@@ -34,6 +34,7 @@ public:
     void setStopTemperature(double temperature);
     void setSimplexCoolingMultiplier(double multiplier);
     void setSolverRepetitionAmount(int amount);
+    void setStopMillis(int millis);
     void setInitSolver(SolverType solver);
     void setOutputSolver(SolverType solver);
     void setNeighbourGenerator(NeighbourGeneratorType generator);
@@ -52,6 +53,7 @@ public:
     double stopTemperature() const;
     double simplexCoolingMultiplier() const;
     int solverRepetitionAmount() const;
+    int stopMillis() const;
     SolverType initSolver() const;
     SolverType outputSolver() const;
     NeighbourGeneratorType neighbourGenerator() const;
@@ -71,6 +73,7 @@ private:
     double _stopTemperature { 0.0 };
     double _simplexCoolingMultiplier { 0.0 };
     int _solverRepetitionAmount { 0 };
+    int _stopMillis { 0 };
     SolverType _initSolver { SolverType::UNKNOWN };
     SolverType _outputSolver { SolverType::UNKNOWN };
     NeighbourGeneratorType _neighbourGenerator { NeighbourGeneratorType::UNKNOWN };

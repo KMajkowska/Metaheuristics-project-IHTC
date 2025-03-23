@@ -2,12 +2,12 @@
 
 #include <string>
 
-#include "ICObservable.h"
+#include "CObservable.h"
 
 /**
  * @brief Interface for different types of network exchangers
  */
-class INetworkExchanger : public ICObservable<std::string>
+class INetworkExchanger : public CObservable<std::string>
 {
 public:
 

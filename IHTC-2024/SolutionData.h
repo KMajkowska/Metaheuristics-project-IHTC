@@ -16,15 +16,19 @@ public:
 	SolutionData() = default;
 	SolutionData(const ProblemData& problemData, const CIndividual& individual);
 
-	std::vector<NurseOutputDTO> nurses() const;
-	std::vector<Patient> patients() const;
-
 	void setNurses(std::vector<NurseOutputDTO> newNurses);
 	void setPatients(std::vector<Patient> newPatients);
+	void setFitness(double fitness);
+
+	std::vector<NurseOutputDTO> nurses() const;
+	std::vector<Patient> patients() const;
+	double fitness() const;
 
 private:
 	std::vector<NurseOutputDTO> _nurses;
 	std::vector<Patient> _patients;
+
+	double _fitness { std::numeric_limits<double>::max() };
 };
 
 void to_json(nlohmann::json& j, const SolutionData& data);
