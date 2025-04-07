@@ -17,7 +17,7 @@ public:
 
 	IncomingPatientDTO patient() const;
 
-	std::strong_ordering operator<=>(const PatientWrapper&) const;
+	std::strong_ordering operator<=>(const PatientWrapper& other) const;
 private:
 	IncomingPatientDTO _patient;
 };

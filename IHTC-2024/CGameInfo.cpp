@@ -60,13 +60,11 @@ int CGameInfo::rounds() const
 	return _rounds;
 }
 
-
-
 void to_json(nlohmann::json& j, const CGameInfo& obj)
 {
 	j = nlohmann::json
 	{
-		{'uuid', obj.uuid()},
+		{"uuid", obj.uuid()},
 		{"postPort", obj.postPort()},
 		{"receivePort", obj.receivePort()},
 		{"playerName", obj.playerName()},
@@ -77,7 +75,7 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 
 void from_json(const nlohmann::json& j, CGameInfo& obj)
 {
-	obj.setUUID(j.at('uuid').get<std::string>());
+	obj.setUUID(j.at("uuid").get<std::string>());
 	obj.setPostPort(j.at("postPort").get<short>());
 	obj.setReceivePort(j.at("receivePort").get<short>());
 	obj.setPlayerName(j.at("playerName").get<std::string>());

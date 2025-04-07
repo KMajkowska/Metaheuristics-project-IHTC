@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 #include "CObservable.h"
 
@@ -15,6 +16,15 @@ public:
 
 	virtual void start() = 0;
 
-	virtual void sendMessage(std::string message) = 0;
+	virtual void sendMessage(const std::string& message) = 0;
 	virtual void receiveMessage() = 0;
+
+	virtual void tellEndOfTransmission() = 0;
+
+	void setOnClose(std::function<void()> callback);
+	void setOnConnect(std::function<void()> callback);
+
+protected:
+	std::function<void()> _onClose;
+	std::function<void()> _onConnect;
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "CIndividual.h"
 #include "SolutionData.h"
 
 class CSolutionHandler

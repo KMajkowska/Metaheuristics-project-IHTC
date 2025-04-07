@@ -44,5 +44,4 @@ private:
 
 
 void to_json(nlohmann::json& j, const CGameInfo& obj);
-
 void from_json(const nlohmann::json& j, CGameInfo& obj);

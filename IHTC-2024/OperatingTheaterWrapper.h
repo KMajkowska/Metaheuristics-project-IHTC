@@ -18,7 +18,7 @@ public:
 	OperatingTheaterInfo& operatingTheater();
 	const OperatingTheaterInfo& operatingTheater() const;
 
-	std::strong_ordering operator<=>(const OperatingTheaterWrapper&) const;
+	std::strong_ordering operator<=>(const OperatingTheaterWrapper& other) const;
 private:
 	OperatingTheaterInfo _operatingTheater;
 };

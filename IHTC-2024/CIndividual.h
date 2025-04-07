@@ -39,7 +39,7 @@ public:
 	bool mute(const IMutator& mutator);
 	std::vector<CIndividual> createNeighbours(const IMutator& mutator, int neighbourhoodNumber, const IProblem& problem);
 
-	std::partial_ordering operator<=>(const CIndividual&) const;
+	std::partial_ordering operator<=>(const CIndividual& other) const;
 
 private:
 	std::vector<Patient> _patients;

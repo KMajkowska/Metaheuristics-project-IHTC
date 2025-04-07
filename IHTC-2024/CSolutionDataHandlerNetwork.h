@@ -3,7 +3,6 @@
 #include "SolutionData.h"
 #include "CSolutionHandler.h"
 #include "JSONSerializableExchanger.h"
-#include "CObservable.h"
 
 /**
  * @brief Class that automatically sends and recieves data through the exchanger.

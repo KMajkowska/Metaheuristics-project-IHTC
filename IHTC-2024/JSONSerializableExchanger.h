@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/asio.hpp>
-
 #include "JSONOperations.h"
 #include "INetworkExchanger.h"
 
@@ -34,7 +32,7 @@ inline JSONSerializableExchanger<T>::JSONSerializableExchanger(std::shared_ptr<I
 {
 	_exchanger->addObserver([this](std::string recieved)
 		{
-			auto parsed { nlohmann::json::parse(recieved) };
+				auto parsed { nlohmann::json::parse(recieved) };
 			std::optional<T> result{ jsonToObject<T>(parsed) };
 
 			if (result)

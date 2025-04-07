@@ -12,7 +12,7 @@
 class CSessionPosterPeerToPeer : public ISessionPoster
 {
 public:
-	CSessionPosterPeerToPeer(const CGameInfo& gameInfo);
+	CSessionPosterPeerToPeer(boost::asio::io_context& context, const CGameInfo& gameInfo);
 	~CSessionPosterPeerToPeer();
 
 	void postSession() override;
@@ -22,8 +22,8 @@ private:
 	const CGameInfo& _gameInfo;
 	std::atomic<bool> _broadcast;  /// Tell the object to keep boradcasting (until this flag is false).
 	std::string _message;
+	boost::asio::io_context& _context;
 	boost::asio::ip::udp::endpoint _endpoint;
-	boost::asio::io_context _ioContext;
 	boost::asio::ip::udp::socket _socket;
 
 	const short BROADCAST_SESSION_TIMEOUT = 2;

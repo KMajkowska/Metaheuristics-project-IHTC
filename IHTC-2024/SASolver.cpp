@@ -35,7 +35,7 @@ CIndividual SASolver::solve(const IProblem& problem, const CIndividual& starting
 
 	while (!_stopCriterium->isStop(actualTemp, iteration))
 	{
-		std::vector<CIndividual> neighbours = _neighbourGenerator->getNeighbours(iteration, _neighbourhoodNumber, curr);
+			std::vector<CIndividual> neighbours = _neighbourGenerator->getNeighbours(iteration, _neighbourhoodNumber, curr);
 
 		if (neighbours.empty())
 		{

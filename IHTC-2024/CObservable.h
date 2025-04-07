@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 /**
  * @brief Observator design pattern
  * @tparam T any data type to be observed

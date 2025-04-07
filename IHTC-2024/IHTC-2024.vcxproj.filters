@@ -193,9 +193,6 @@
     <Filter Include="Pliki źródłowe\networking\session">
       <UniqueIdentifier>{61dd8dcb-c71b-473d-84b6-5bb343dac847}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki nagłówkowe\networking\NewFilter1">
-      <UniqueIdentifier>{a71fac20-06c1-4ef0-b6cb-05205186f96b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IHTC-2024.cpp">
@@ -467,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="CSessionReceiverPeerToPeer.cpp">
       <Filter>Pliki źródłowe\networking\session</Filter>
+    </ClCompile>
+    <ClCompile Include="INetworkExchanger.cpp">
+      <Filter>Pliki źródłowe\networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -775,7 +775,9 @@
     <Text Include="assign.txt">
       <Filter>Pliki zasobów</Filter>
     </Text>
-    <Text Include="Doxyfile" />
+    <Text Include="Doxyfile">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="params.json">

@@ -4,8 +4,8 @@ ICGame::ICGame(
 	std::shared_ptr<CPlayer> localPlayer,
 	std::shared_ptr<CPlayer> opponentPlayer,
 	std::shared_ptr<IWinnerJudge> judge,
-	const ProblemData& problemData,
-	const Params& params
+	const ProblemData problemData,
+	const Params params
 ) :
 	_localPlayer(localPlayer),
 	_opponentPlayer(opponentPlayer),

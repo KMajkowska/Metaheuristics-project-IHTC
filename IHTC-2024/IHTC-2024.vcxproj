@@ -163,6 +163,7 @@
     <ClCompile Include="IHTCSolver.cpp" />
     <ClCompile Include="IHTCSolverBuilder.cpp" />
     <ClCompile Include="INeighbourGenerator.cpp" />
+    <ClCompile Include="INetworkExchanger.cpp" />
     <ClCompile Include="ISolver.cpp" />
     <ClCompile Include="ICIndividualCSVLogger.cpp" />
     <ClCompile Include="Logger.cpp" />
