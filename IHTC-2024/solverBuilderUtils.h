@@ -8,6 +8,8 @@
 #include "RandomSolverBuilder.h"
 #include "SASolverBuilder.h"
 
+std::mt19937 createRandomGenerator();
+
 // only visible in this file
 static std::mt19937 RANDOM_GENERATOR = createRandomGenerator();
 

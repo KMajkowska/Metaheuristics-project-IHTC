@@ -1,0 +1,899 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Header Files\algorithm">
+      <UniqueIdentifier>{618e646d-6990-4d27-a140-e43505511481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DTOs">
+      <UniqueIdentifier>{06923c59-e83b-4e88-890a-8a23ece6e2e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking">
+      <UniqueIdentifier>{3b3ed308-4e60-43d9-b563-6971387c8292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{d6a8b33b-1570-41f8-b4d2-4a4d1f833ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\comparisonWrappers">
+      <UniqueIdentifier>{b32e5b5a-0934-48e3-ad2a-55d0fdce1b5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\consumer">
+      <UniqueIdentifier>{e7526f3d-e944-4bc5-9241-ecefcadd47fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\coolingScheme">
+      <UniqueIdentifier>{a27ee5ad-15f9-4f91-8a02-50503b57d97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individual">
+      <UniqueIdentifier>{fc0e1c43-64bf-4aa2-8f6f-ceef5ef8f375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individualOperators">
+      <UniqueIdentifier>{76296be5-50a7-4b64-a6c3-ceb20ed4ba6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\other">
+      <UniqueIdentifier>{e3d9a631-d3c2-47e6-9e1c-0162b0b8070e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\params">
+      <UniqueIdentifier>{69643d95-44e1-48cd-b600-1bce490d7858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\problem">
+      <UniqueIdentifier>{85fe0cad-6cd4-4551-b06f-e167e2323966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\solverBuilder">
+      <UniqueIdentifier>{ddc1cc2a-a973-4c80-b4e8-eadd95fecebf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\solvers">
+      <UniqueIdentifier>{ed3d0671-cebe-41c4-9fa0-a86aa393f630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\stopCriterium">
+      <UniqueIdentifier>{ee1f606e-9e37-4c01-8eac-390d70a19aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individualOperators\crosser">
+      <UniqueIdentifier>{121a0a34-73eb-4681-8d98-cebc427d4984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individualOperators\mutator">
+      <UniqueIdentifier>{b3094553-d50c-4d69-8e50-48507dd6c3f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individualOperators\mutator\neighbourGenerators">
+      <UniqueIdentifier>{6af34e11-2d62-4791-9446-5796dd86eb33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\individualOperators\selectors">
+      <UniqueIdentifier>{cee70121-8716-4e2e-94d2-c47b6958f6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\solvers\greedy">
+      <UniqueIdentifier>{dd98139b-f14e-4b69-968b-29c72ba40769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\algorithm\solvers\simulatedAnnealing">
+      <UniqueIdentifier>{5c06c959-b4d9-4556-8191-f316cc146f2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DTOs\care">
+      <UniqueIdentifier>{1655895a-2a6b-4f80-9f17-f4b2113ebc1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DTOs\patients">
+      <UniqueIdentifier>{0b68515e-d3c1-4c8e-8fba-a0ce5022df54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DTOs\surgery">
+      <UniqueIdentifier>{ebc1538a-ea99-49f6-95b5-7569bd5b39ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm">
+      <UniqueIdentifier>{8bf59eed-103b-4a75-a6c9-9958c14760d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DTOs">
+      <UniqueIdentifier>{5619b852-ed8b-4eef-9bd4-f7e5b8b943be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking">
+      <UniqueIdentifier>{a86e8ccb-3776-4e9b-b946-bbd7c8f25db1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{a3745e3c-5a48-4049-bba0-b566f282a649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\comparisionWrappers">
+      <UniqueIdentifier>{b4750018-cb54-4104-9b46-f506b6557956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\consumer">
+      <UniqueIdentifier>{a93d7625-1a84-4e04-99d8-442e017cf2c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\coolingScheme">
+      <UniqueIdentifier>{c9ecf750-f74c-4386-a124-a29a94362c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individual">
+      <UniqueIdentifier>{86ee429c-ccd9-4831-89bc-298e7d59e8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individualOperators">
+      <UniqueIdentifier>{2956b2da-d77e-41dd-bd0a-e357d93143a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individualOperators\crossers">
+      <UniqueIdentifier>{94475892-51de-497c-8723-da185d94f8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individualOperators\mutators">
+      <UniqueIdentifier>{df47ca14-06c4-462a-846c-36db6de44436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individualOperators\selectors">
+      <UniqueIdentifier>{bcaa9e31-0939-47f9-b746-a4f09ad8de39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\individualOperators\mutators\neighbourGenerators">
+      <UniqueIdentifier>{4624c4e2-40c9-48c9-9a11-70c066a8c039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DTOs\care">
+      <UniqueIdentifier>{c4e451d6-2a44-45d6-b83d-b4c03ab96701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\other">
+      <UniqueIdentifier>{9db8baf0-6c0e-4fd8-a14c-d998249476dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\params">
+      <UniqueIdentifier>{6545ef27-9744-4030-a20d-3724a3927ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\problem">
+      <UniqueIdentifier>{2b351c47-3f36-4e59-83f0-806b87e704be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\solverBuilder">
+      <UniqueIdentifier>{cd21005d-9e71-490f-b24e-c5d30346acaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\solvers">
+      <UniqueIdentifier>{91d8197b-8bac-41e7-afd7-cb53966e1f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\solvers\greedy">
+      <UniqueIdentifier>{3a47f23c-95e1-4199-80a6-45865c052d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\solvers\simulatedAnnealing">
+      <UniqueIdentifier>{acde3ffd-25b6-4db0-b577-63c21a02f78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algorithm\stopCriterium">
+      <UniqueIdentifier>{c3dfe624-a4f0-4702-a2b7-653a13f98ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DTOs\patients">
+      <UniqueIdentifier>{06aa2250-56bc-4f12-b26e-b2970d40d48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DTOs\surgery">
+      <UniqueIdentifier>{95f4c922-ddce-4062-8d49-f22b85f0ecdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{cde01d50-f938-4290-b40c-846dccdbd2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{4b8ebad6-ef12-48d6-a539-5fc6189fc51f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\screens">
+      <UniqueIdentifier>{52763d5c-f293-49f9-abf6-3938d3f4218b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\screens">
+      <UniqueIdentifier>{9fa07f33-ac55-43d5-b880-be04758cf095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\utils">
+      <UniqueIdentifier>{e578cfe1-b4f0-4567-a31a-a7a55e71b28b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\values">
+      <UniqueIdentifier>{8b027d0c-ed7d-41d3-af50-10f56ae7938b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\values\gameParameters">
+      <UniqueIdentifier>{93707e77-680f-46b7-bcce-c88c033e08b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\values\metahParameters">
+      <UniqueIdentifier>{b6d9dc07-315c-4c2d-8138-b54f5618ba66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\communication">
+      <UniqueIdentifier>{9508a258-8119-46e7-ac1b-7c7621c4b116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\communication">
+      <UniqueIdentifier>{92b297a3-4744-4164-877e-24462cae5a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{adbd240d-29e8-476c-b03c-869bfd6052d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\gameMode">
+      <UniqueIdentifier>{b999d362-587d-4685-8b3a-e536b68a0f6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\player">
+      <UniqueIdentifier>{42e09ab1-c498-4024-a875-df02cbad0d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\winnerJudge">
+      <UniqueIdentifier>{129f8c62-7cea-4c30-b66a-b1a561d49177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\solutionHandler">
+      <UniqueIdentifier>{f945f3c2-5807-4f7e-89ee-61180c7b94d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\session">
+      <UniqueIdentifier>{f1a7ae25-a6fd-4386-837a-83d791b7cefd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{e51ec643-3a9b-4cb0-ba4e-6df656a4e9ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\gameMode">
+      <UniqueIdentifier>{e2d99f99-dd34-4a9d-9cc7-c66c27689e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\solutionHandler">
+      <UniqueIdentifier>{d18a05d4-2d78-48ec-8e07-c77a59e2eb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\player">
+      <UniqueIdentifier>{b924b313-f6b7-4722-981a-dc822994ec4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\winnerJudge">
+      <UniqueIdentifier>{e55a0982-cd39-4fba-845f-24df4fafb986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\session">
+      <UniqueIdentifier>{de7eb131-e062-4e2a-99f1-ac75692f9b1b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="metah.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtUic Include="metah.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NurseWrapper.cpp">
+      <Filter>Source Files\algorithm\comparisionWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterWrapper.cpp">
+      <Filter>Source Files\algorithm\comparisionWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientWrapper.cpp">
+      <Filter>Source Files\algorithm\comparisionWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\algorithm\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableCoolingScheme.cpp">
+      <Filter>Source Files\algorithm\coolingScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="SimplexCoolingScheme.cpp">
+      <Filter>Source Files\algorithm\coolingScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="GemanAndGemanCoolingScheme.cpp">
+      <Filter>Source Files\algorithm\coolingScheme</Filter>
+    </ClCompile>
+    <ClCompile Include="Assignment.cpp">
+      <Filter>Source Files\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="CIndividual.cpp">
+      <Filter>Source Files\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="Patient.cpp">
+      <Filter>Source Files\algorithm\individual</Filter>
+    </ClCompile>
+    <ClCompile Include="ICrosser.cpp">
+      <Filter>Source Files\algorithm\individualOperators\crossers</Filter>
+    </ClCompile>
+    <ClCompile Include="INeighbourGenerator.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorTournament.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorPrizeBest.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorQueue.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="NeighbourGeneratorTop.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators\neighbourGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorRoom.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorAssignments.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorDay.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorNurseRoomCover.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOperatingTheaters.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOT.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCMutatorOTInversion.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="IMutator.cpp">
+      <Filter>Source Files\algorithm\individualOperators\mutators</Filter>
+    </ClCompile>
+    <ClCompile Include="ISelector.cpp">
+      <Filter>Source Files\algorithm\individualOperators\selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="Workload.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseRoomIndividual.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseWorkload.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterInfo.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientNurses.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomInfo.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomWithOccupancyRepresentation.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonOTInfo.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonsTime.cpp">
+      <Filter>Source Files\algorithm\other</Filter>
+    </ClCompile>
+    <ClCompile Include="Params.cpp">
+      <Filter>Source Files\algorithm\params</Filter>
+    </ClCompile>
+    <ClCompile Include="MockProblem.cpp">
+      <Filter>Source Files\algorithm\problem</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCProblem.cpp">
+      <Filter>Source Files\algorithm\problem</Filter>
+    </ClCompile>
+    <ClCompile Include="GreedySolverBuilder.cpp">
+      <Filter>Source Files\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomSolverBuilder.cpp">
+      <Filter>Source Files\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="SASolverBuilder.cpp">
+      <Filter>Source Files\algorithm\solverBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GreedySolver.cpp">
+      <Filter>Source Files\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomBrokenAgeGender.cpp">
+      <Filter>Source Files\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftNurses.cpp">
+      <Filter>Source Files\algorithm\solvers\greedy</Filter>
+    </ClCompile>
+    <ClCompile Include="GenderGrouper.cpp">
+      <Filter>Source Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="TemperatureOperator.cpp">
+      <Filter>Source Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="SASolver.cpp">
+      <Filter>Source Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClCompile>
+    <ClCompile Include="EASolver.cpp">
+      <Filter>Source Files\algorithm\solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTCSolver.cpp">
+      <Filter>Source Files\algorithm\solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="ISolver.cpp">
+      <Filter>Source Files\algorithm\solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomSolver.cpp">
+      <Filter>Source Files\algorithm\solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="FitnessCalculator.cpp">
+      <Filter>Source Files\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumTemperature.cpp">
+      <Filter>Source Files\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumIter.cpp">
+      <Filter>Source Files\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="ShiftDTO.cpp">
+      <Filter>Source Files\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseDTO.cpp">
+      <Filter>Source Files\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="NurseOutputDTO.cpp">
+      <Filter>Source Files\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomDTO.cpp">
+      <Filter>Source Files\DTOs\care</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatingTheaterDTO.cpp">
+      <Filter>Source Files\DTOs\surgery</Filter>
+    </ClCompile>
+    <ClCompile Include="SurgeonDTO.cpp">
+      <Filter>Source Files\DTOs\surgery</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientDTO.cpp">
+      <Filter>Source Files\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomingPatientDTO.cpp">
+      <Filter>Source Files\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="OccupantDTO.cpp">
+      <Filter>Source Files\DTOs\patients</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemData.cpp">
+      <Filter>Source Files\DTOs</Filter>
+    </ClCompile>
+    <ClCompile Include="SolutionData.cpp">
+      <Filter>Source Files\DTOs</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightsDTO.cpp">
+      <Filter>Source Files\DTOs</Filter>
+    </ClCompile>
+    <ClCompile Include="ViolatedRestrictions.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="strings.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="solutionUtils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="other.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="gameParameters.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="chooseOpponent.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="welcomeScreen.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="metahParameters.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="sessions.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="waitingScreen.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="AllGameParameters.cpp">
+      <Filter>Source Files\GUI\communication</Filter>
+    </ClCompile>
+    <ClCompile Include="ICIndividualCSVLogger.cpp">
+      <Filter>Source Files\algorithm\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="CIndividualObservable.cpp">
+      <Filter>Source Files\algorithm\consumer</Filter>
+    </ClCompile>
+    <ClCompile Include="StopCriteriumTime.cpp">
+      <Filter>Source Files\algorithm\stopCriterium</Filter>
+    </ClCompile>
+    <ClCompile Include="IHTC-2024.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ICGame.cpp">
+      <Filter>Source Files\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameComputer.cpp">
+      <Filter>Source Files\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameNetwork.cpp">
+      <Filter>Source Files\game\gameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="BestOfN.cpp">
+      <Filter>Source Files\game\winnerJudge</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Source Files\game\player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSolutionHandler.cpp">
+      <Filter>Source Files\game\solutionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="CSolutionDataHandler.cpp">
+      <Filter>Source Files\game\solutionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="CSessionPosterPeerToPeer.cpp">
+      <Filter>Source Files\networking\session</Filter>
+    </ClCompile>
+    <ClCompile Include="CSessionReceiverPeerToPeer.cpp">
+      <Filter>Source Files\networking\session</Filter>
+    </ClCompile>
+    <ClCompile Include="INetworkExchanger.cpp">
+      <Filter>Source Files\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerToPeer.cpp">
+      <Filter>Source Files\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="solverBuilderUtils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="solverUtils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameInfo.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NurseWrapper.h">
+      <Filter>Header Files\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientWrapper.h">
+      <Filter>Header Files\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterWrapper.h">
+      <Filter>Header Files\algorithm\comparisonWrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="ICIndividualConsumer.h">
+      <Filter>Header Files\algorithm\consumer</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\algorithm\consumer</Filter>
+    </ClInclude>
+    <ClInclude Include="GemanAndGemanCoolingScheme.h">
+      <Filter>Header Files\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="ICoolingScheme.h">
+      <Filter>Header Files\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableCoolingScheme.h">
+      <Filter>Header Files\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplexCoolingScheme.h">
+      <Filter>Header Files\algorithm\coolingScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="Assignment.h">
+      <Filter>Header Files\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndividual.h">
+      <Filter>Header Files\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Header Files\algorithm\individual</Filter>
+    </ClInclude>
+    <ClInclude Include="ICrosser.h">
+      <Filter>Header Files\algorithm\individualOperators\crosser</Filter>
+    </ClInclude>
+    <ClInclude Include="INeighbourGenerator.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorTournament.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorPrizeBest.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorQueue.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorTop.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator\neighbourGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="IMutator.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorRoom.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorAssignment.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorDay.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorNurseRoomCover.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOperatingTheaters.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOT.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCMutatorOTInversion.h">
+      <Filter>Header Files\algorithm\individualOperators\mutator</Filter>
+    </ClInclude>
+    <ClInclude Include="ISelector.h">
+      <Filter>Header Files\algorithm\individualOperators\selectors</Filter>
+    </ClInclude>
+    <ClInclude Include="IStopCriterium.h">
+      <Filter>Header Files\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumTemperature.h">
+      <Filter>Header Files\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumIter.h">
+      <Filter>Header Files\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftNurses.h">
+      <Filter>Header Files\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomBrokenAgeGender.h">
+      <Filter>Header Files\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="GreedySolver.h">
+      <Filter>Header Files\algorithm\solvers\greedy</Filter>
+    </ClInclude>
+    <ClInclude Include="GenderGrouper.h">
+      <Filter>Header Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="SASolver.h">
+      <Filter>Header Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="TemperatureOperator.h">
+      <Filter>Header Files\algorithm\solvers\simulatedAnnealing</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSolver.h">
+      <Filter>Header Files\algorithm\solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="ISolver.h">
+      <Filter>Header Files\algorithm\solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCSolver.h">
+      <Filter>Header Files\algorithm\solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="EASolver.h">
+      <Filter>Header Files\algorithm\solvers</Filter>
+    </ClInclude>
+    <ClInclude Include="GreedySolverBuilder.h">
+      <Filter>Header Files\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCSolverBuilder.h">
+      <Filter>Header Files\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSolverBuilder.h">
+      <Filter>Header Files\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="SASolverBuilder.h">
+      <Filter>Header Files\algorithm\solverBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="IHTCProblem.h">
+      <Filter>Header Files\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="IProblem.h">
+      <Filter>Header Files\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="MockProblem.h">
+      <Filter>Header Files\algorithm\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="CoolingSchemeType.h">
+      <Filter>Header Files\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="FitnessCalculator.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorType.h">
+      <Filter>Header Files\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="params.h">
+      <Filter>Header Files\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="SolverType.h">
+      <Filter>Header Files\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumType.h">
+      <Filter>Header Files\algorithm\params</Filter>
+    </ClInclude>
+    <ClInclude Include="Workload.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseRoomIndividual.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseWorkload.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterInfo.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientNurses.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientRoomInfo.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomInfo.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomWithOccupancyRepresentation.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonOTInfo.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonsTime.h">
+      <Filter>Header Files\algorithm\other</Filter>
+    </ClInclude>
+    <ClInclude Include="ShiftDTO.h">
+      <Filter>Header Files\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseDTO.h">
+      <Filter>Header Files\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="NurseOutputDTO.h">
+      <Filter>Header Files\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomDTO.h">
+      <Filter>Header Files\DTOs\care</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomingPatientDTO.h">
+      <Filter>Header Files\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="OccupantDTO.h">
+      <Filter>Header Files\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientDTO.h">
+      <Filter>Header Files\DTOs\patients</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingTheaterDTO.h">
+      <Filter>Header Files\DTOs\surgery</Filter>
+    </ClInclude>
+    <ClInclude Include="SurgeonDTO.h">
+      <Filter>Header Files\DTOs\surgery</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightsDTO.h">
+      <Filter>Header Files\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemData.h">
+      <Filter>Header Files\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="SolutionData.h">
+      <Filter>Header Files\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="JSONSerializableExchanger.h">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Metaheuristics-project-IHTC\IHTC-2024\JSONOperations.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Metaheuristics-project-IHTC\IHTC-2024\other.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Metaheuristics-project-IHTC\IHTC-2024\strings.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Metaheuristics-project-IHTC\IHTC-2024\ViolatedRestrictions.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gameParameters.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="metahParameters.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreensNumber.h">
+      <Filter>Header Files\GUI\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>Header Files\GUI\values\gameParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimeValues.h">
+      <Filter>Header Files\GUI\values\gameParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWinningMode.h">
+      <Filter>Header Files\GUI\values\gameParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="NeighbourGeneratorValues.h">
+      <Filter>Header Files\GUI\values\metahParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="InitSolverValue.h">
+      <Filter>Header Files\GUI\values\metahParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>Header Files\GUI\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sessions.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="waitingScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="AllGameParameters.h">
+      <Filter>Header Files\GUI\communication</Filter>
+    </ClInclude>
+    <ClInclude Include="CIndividualObservable.h">
+      <Filter>Header Files\algorithm\consumer</Filter>
+    </ClInclude>
+    <ClInclude Include="ICIndividualCSVLogger.h">
+      <Filter>Header Files\algorithm\consumer</Filter>
+    </ClInclude>
+    <ClInclude Include="enumOperations.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="solverUtils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="StopCriteriumTime.h">
+      <Filter>Header Files\algorithm\stopCriterium</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameComputer.h">
+      <Filter>Header Files\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameNetwork.h">
+      <Filter>Header Files\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="ICGame.h">
+      <Filter>Header Files\game\gameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Header Files\game\player</Filter>
+    </ClInclude>
+    <ClInclude Include="BestOfN.h">
+      <Filter>Header Files\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="IWinnerJudge.h">
+      <Filter>Header Files\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="Winner.h">
+      <Filter>Header Files\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="WinnerJudgeType.h">
+      <Filter>Header Files\game\winnerJudge</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameInfo.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="CSolutionDataHandlerNetwork.h">
+      <Filter>Header Files\game\solutionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="CSolutionHandler.h">
+      <Filter>Header Files\game\solutionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="CSessionReceiverPeerToPeer.h">
+      <Filter>Header Files\networking\session</Filter>
+    </ClInclude>
+    <ClInclude Include="ISessionPoster.h">
+      <Filter>Header Files\networking\session</Filter>
+    </ClInclude>
+    <ClInclude Include="CSessionPosterPeerToPeer.h">
+      <Filter>Header Files\networking\session</Filter>
+    </ClInclude>
+    <ClInclude Include="CObservable.h">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="INetworkExchanger.h">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerToPeer.h">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="solverBuilderUtils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWindow.h">
+      <Filter>Header Files\GUI</Filter>
+    </QtMoc>
+    <QtMoc Include="chooseOpponent.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="welcomeScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doxyfile">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="params.json">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -2,6 +2,7 @@
 
 #include "IHTCSolverBuilder.h"
 #include "GreedySolver.h"
+#include <memory>
 
 class GreedySolverBuilder : public IHTCSolverBuilder
 {

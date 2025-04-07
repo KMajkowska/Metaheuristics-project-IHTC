@@ -19,3 +19,12 @@ std::shared_ptr<IHTCSolverBuilder> getSolverBuilder(
 		throw std::invalid_argument("Incorrect solver builder");
 	}
 }
+
+std::mt19937 createRandomGenerator()
+{
+	std::random_device r;
+	std::seed_seq seed{ r(), r(), r(), r(), r(), r(), r(), r() };
+	std::mt19937 mt(seed);
+
+	return mt;
+}

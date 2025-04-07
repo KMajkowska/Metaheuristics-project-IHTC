@@ -14,15 +14,6 @@ void writeToFile(const std::string& filename, const std::string& data)
     file.close();
 }
 
-std::mt19937 createRandomGenerator()
-{
-    std::random_device r;
-    std::seed_seq seed{ r(), r(), r(), r(), r(), r(), r(), r() };
-    std::mt19937 mt(seed);
-
-    return mt;
-}
-
 std::pair<int, int> findTwoDifferentNumbersBetween(int lowLimit, int highLimit, std::mt19937& generator)
 {
     std::uniform_int_distribution<int> distrib(lowLimit, highLimit);
