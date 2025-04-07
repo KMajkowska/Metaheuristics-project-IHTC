@@ -1,0 +1,12 @@
+#pragma once
+
+enum class ScreensNumber
+{
+	WELCOME_SCREEN = 0,
+	CHOOSE_OPPONENT = 1,
+	GAME_PARAMETERS = 2,
+	METAH_PARAMETERS = 5,
+	SESSIONS = 3,
+	WAITING_SCREEN = 4
+
+};
