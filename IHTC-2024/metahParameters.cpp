@@ -174,9 +174,9 @@ void Ui_metahParameters::setUpSimplexCoolingMultiplierDoubleSpinBox()
 void Ui_metahParameters::setUpNeighbourGeneratorCombobox()
 {
     neighbourGeneratorCombobox->setObjectName("neigbourGeneratorCombobox");
-    for (int i = 0; i <= static_cast<int>(NeighbourGeneratorValues::TOURNAMENT); ++i) {
-        NeighbourGeneratorValues mode = static_cast<NeighbourGeneratorValues>(i);
-        neighbourGeneratorCombobox->addItem(toString(mode), i);
+    for (int i = 0; i <= static_cast<int>(NeighbourGeneratorType::TOURNAMENT); ++i) {
+        NeighbourGeneratorType mode = static_cast<NeighbourGeneratorType>(i);
+        neighbourGeneratorCombobox->addItem(QString::fromStdString(enumToString<NeighbourGeneratorType>(mode)), i);
     }
     neighbourGeneratorCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
@@ -234,9 +234,9 @@ void Ui_metahParameters::setUpStopTemperatureSlider()
 void Ui_metahParameters::setUpInitSolverCombobox()
 {
     initSolverCombobox->setObjectName("initSolverCombobox");
-    for (int i = 0; i <= static_cast<int>(InitSolverValue::GREEDY); ++i) {
-        InitSolverValue mode = static_cast<InitSolverValue>(i);
-        initSolverCombobox->addItem(toString(mode), i);
+    for (int i = 0; i <= static_cast<int>(SolverType::GREEDY); ++i) {
+        SolverType mode = static_cast<SolverType>(i);
+        initSolverCombobox->addItem(QString::fromStdString(enumToString<SolverType>(mode)), i);
     }
     initSolverCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
@@ -386,7 +386,7 @@ Ui_metahParameters::Ui_metahParameters(QStackedWidget* stackedWidget, QWidget* p
 
 void Ui_metahParameters::updatePrizeSizeDoubleSpinBox()
 {
-    if (neighbourGeneratorCombobox->currentText() == toString(NeighbourGeneratorValues::PRIZE_BEST))
+    if (neighbourGeneratorCombobox->currentText() == enumToString<NeighbourGeneratorType>(NeighbourGeneratorType::PRIZE_BEST))
     {
         prizeSizeDoubleSpinBox->setEnabled(true);
     }
@@ -419,8 +419,9 @@ void Ui_metahParameters::onStartGameButtonClicked()
     allGameParameters->setCoolingMultiplier(simplexCoolingMulitplierDoubleSpinBox->value());
     allGameParameters->setIncreaseTempIters(increaseTempItersDoubleSpinBox->value());
     allGameParameters->setNeighbourSize(neighbourSizeDoubleSpinBox->value());
-    allGameParameters->setInitSolver(toEnumValueInit(initSolverCombobox->currentText()));
-    allGameParameters->setNeighbourGenerator(toEnumNeighbour(neighbourGeneratorCombobox->currentText()));
+    allGameParameters->setInitSolver(stringToEnum<SolverType>(initSolverCombobox->currentText()));
+    allGameParameters->setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(neighbourGeneratorCombobox->currentText().toStdString()));
+
     if (allGameParameters->isPlayerOpponent()) {
         stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::WAITING_SCREEN));
     }
@@ -432,7 +433,7 @@ void Ui_metahParameters::onStartGameButtonClicked()
 
 void Ui_metahParameters::setSliderEnabled(const QString& value)
 {
-    if (value == toString(GameTimeValues::UNKNOWN))
+    if (value == enumToString(GameTimeValues::UNKNOWN))
     {
         maxIterationSlider->setEnabled(true);
         stopTemperatureSlider->setEnabled(true);

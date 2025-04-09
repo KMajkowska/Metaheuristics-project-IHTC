@@ -16,13 +16,9 @@
 #include <QtWidgets/QWidget>
 #include <qstackedwidget.h>
 #include "ScreensNumber.h"
-#include "GameLevel.h"
-#include "GameWinningMode.h"
-#include "GameTimeValues.h"
 #include "consts.h"
 #include "metahParameters.h"
 #include <qboxlayout.h>
-#include <AllGameParameters.h>
 
 class Ui_gameParameters : public QWidget
 {
@@ -36,9 +32,11 @@ private:
     QComboBox *gameTimeComboBox;
     QComboBox *gameLevelComboBox;
     QComboBox *winningModeComboBox;
+    QDoubleSpinBox* roudNumberDoubleSpinBox;
     QLabel *timeLabel;
     QLabel *gameLevelLabel;
     QLabel *winningModeLabel;
+    QLabel *roundNumberLabel;
     QPushButton *readyButton;
     QFont* font;
     QStackedWidget* stackedWidget;
@@ -46,15 +44,18 @@ private:
     QHBoxLayout* gameTimeLayout;
     QHBoxLayout* gameWinningModeLayout;
     QHBoxLayout* gameLevelLayout;
+    QHBoxLayout* roundNumberLayout;
     Ui_metahParameters* metahParameters;
 
     void setUpTimeLabel();
     void setUpGameLevelLabel();
     void setUpWinningModeLabel();
+    void setUpRoundNumberLabel();
     void setUpReadyButton();
     void setUpGameTimeCombobox();
     void setUpGameLevelCombobox();
     void setUpWinningModeCombobox();
+    void setUpRoundNumberDoubleSpinBox();
     QFont setUpFont(int points);
 
     void setupUi(QWidget* MainWindow);

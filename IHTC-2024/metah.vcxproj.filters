@@ -526,6 +526,9 @@
     <ClCompile Include="CGameInfo.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="IHTCSolverBuilder.cpp">
+      <Filter>Source Files\algorithm\solverBuilder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NurseWrapper.h">
@@ -782,15 +785,6 @@
     </ClInclude>
     <ClInclude Include="GameTimeValues.h">
       <Filter>Header Files\GUI\values\gameParameters</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWinningMode.h">
-      <Filter>Header Files\GUI\values\gameParameters</Filter>
-    </ClInclude>
-    <ClInclude Include="NeighbourGeneratorValues.h">
-      <Filter>Header Files\GUI\values\metahParameters</Filter>
-    </ClInclude>
-    <ClInclude Include="InitSolverValue.h">
-      <Filter>Header Files\GUI\values\metahParameters</Filter>
     </ClInclude>
     <ClInclude Include="consts.h">
       <Filter>Header Files\GUI\utils</Filter>

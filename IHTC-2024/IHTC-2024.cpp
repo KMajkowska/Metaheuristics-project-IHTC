@@ -9,6 +9,7 @@
 #include "CGameNetwork.h"
 #include "CSessionReceiverPeerToPeer.h"
 #include "CSessionPosterPeerToPeer.h"
+#include <MainWindow.h>
 
 static void runLocalTest()
 {
@@ -51,7 +52,7 @@ static void joinGame(boost::asio::io_context& context)
 
 			peer->start();
 
-			CGameNetwork networkGame(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.rounds()), problemData, params);
+			CGameNetwork networkGame(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.roundNumber()), problemData, params);
 
 			networkGame.startGame();
 		});
@@ -64,10 +65,10 @@ static void hostGame(boost::asio::io_context& context)
 	CGameInfo gameInfo;
 
 	gameInfo.setJudgeType(WinnerJudgeType::BEST_OF_N);
-	gameInfo.setPlayerName("Host");
+	gameInfo.setName("Host");
 	gameInfo.setPostPort(8082);
 	gameInfo.setReceivePort(8083);
-	gameInfo.setRounds(5);
+	gameInfo.setRoundNumber(5);
 
 	CSessionPosterPeerToPeer poster(context, gameInfo);
 
@@ -86,7 +87,7 @@ static void hostGame(boost::asio::io_context& context)
 
 	peer->start();
 
-	auto networkGame{ new CGameNetwork(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.rounds()), problemData, params) };
+	auto networkGame{ new CGameNetwork(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.roundNumber()), problemData, params) };
 
 	peer->addObserver([&poster, &networkGame, &peer](std::string str)
 		{
@@ -242,6 +243,13 @@ static void runNetworkTestjustPeer(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+	QApplication app(argc, argv);
+
+	MainWindow mainWindow;
+	mainWindow.resize(1100, 800);
+	mainWindow.show();
+
+	return app.exec();
 	try
 	{
 		auto sendPort{ argc > 1 ? (short)atoi(argv[1]) : 8081 };

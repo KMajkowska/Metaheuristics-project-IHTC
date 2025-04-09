@@ -18,13 +18,11 @@
 #include <QtWidgets/QWidget>
 #include <qstackedwidget.h>
 #include <QDoubleSpinBox>
-#include "InitSolverValue.h"
-#include "NeighbourGeneratorValues.h"
 #include "consts.h"
 #include <qgridlayout.h>
-#include "GameTimeValues.h"
-#include <AllGameParameters.h>
+#include "AllGameParameters.h"
 #include "ScreensNumber.h"
+#include "enumOperations.h"
 
 class Ui_metahParameters : public QWidget
 {

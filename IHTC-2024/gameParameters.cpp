@@ -10,14 +10,17 @@ void Ui_gameParameters::setupUi(QWidget* MainWindow) {
     setUpTimeLabel();
     setUpGameLevelLabel();
     setUpWinningModeLabel();
+    setUpRoundNumberLabel();
     setUpGameTimeCombobox();
     setUpGameLevelCombobox();
     setUpWinningModeCombobox();
+    setUpRoundNumberDoubleSpinBox();
     setUpReadyButton();
 
     mainLayout->addLayout(gameTimeLayout);
     mainLayout->addLayout(gameLevelLayout);
     mainLayout->addLayout(gameWinningModeLayout);
+    mainLayout->addLayout(roundNumberLayout);
 
     mainLayout->addWidget(readyButton, 0, Qt::AlignHCenter);
 
@@ -37,10 +40,12 @@ Ui_gameParameters::Ui_gameParameters(QStackedWidget* stackedWidget, QWidget* par
     timeLabel = new QLabel(centralwidget);
     gameLevelLabel = new QLabel(centralwidget);
     winningModeLabel = new QLabel(centralwidget);
+    roundNumberLabel = new QLabel(centralwidget);
 
     gameLevelComboBox = new QComboBox(centralwidget);
     winningModeComboBox = new QComboBox(centralwidget);
     gameTimeComboBox = new QComboBox(centralwidget);
+    roudNumberDoubleSpinBox = new QDoubleSpinBox(centralwidget);
 
     readyButton = new QPushButton(centralwidget);
 
@@ -50,6 +55,7 @@ Ui_gameParameters::Ui_gameParameters(QStackedWidget* stackedWidget, QWidget* par
     gameTimeLayout = new QHBoxLayout(centralwidget);
     gameWinningModeLayout = new QHBoxLayout(centralwidget);
     gameLevelLayout = new QHBoxLayout(centralwidget);
+    roundNumberLayout = new QHBoxLayout(centralwidget);
 
     connect(readyButton, &QPushButton::clicked, this, &Ui_gameParameters::onReadyButtonClicked);
     connect(gameLevelComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
@@ -59,10 +65,26 @@ Ui_gameParameters::Ui_gameParameters(QStackedWidget* stackedWidget, QWidget* par
 
 }
 
+void Ui_gameParameters::setUpRoundNumberDoubleSpinBox()
+{
+    roudNumberDoubleSpinBox->setObjectName("roudNumberDoubleSpinBox");
+    roudNumberDoubleSpinBox->setDecimals(0);
+    roudNumberDoubleSpinBox->setSingleStep(1);
+    roudNumberDoubleSpinBox->setRange(1, 15);
+    roudNumberDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    roundNumberLayout->addWidget(roudNumberDoubleSpinBox, 0, Qt::AlignCenter);
+}
+
+void Ui_gameParameters::setUpRoundNumberLabel()
+{
+    roundNumberLabel->setObjectName("roundNumberLabel");
+    roundNumberLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    roundNumberLayout->addWidget(roundNumberLabel, 0, Qt::AlignCenter);
+}
+
 void Ui_gameParameters::setUpTimeLabel()
 {
     timeLabel->setObjectName("timeLabel");
-    timeLabel->setGeometry(QRect(150, 100, 241, 31)); 
     timeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
     gameTimeLayout->addWidget(timeLabel, 0, Qt::AlignCenter);
 }
@@ -70,7 +92,6 @@ void Ui_gameParameters::setUpTimeLabel()
 void Ui_gameParameters::setUpGameLevelLabel()
 {
     gameLevelLabel->setObjectName("gameLevelLabel");
-    gameLevelLabel->setGeometry(QRect(150, 240, 311, 61)); 
     gameLevelLabel->setFont(setUpFont(LABEL_FONT_POINTS));
     gameLevelLayout->addWidget(gameLevelLabel, 0, Qt::AlignCenter);
 }
@@ -78,7 +99,6 @@ void Ui_gameParameters::setUpGameLevelLabel()
 void Ui_gameParameters::setUpWinningModeLabel()
 {
     winningModeLabel->setObjectName("winningModeLabel");
-    winningModeLabel->setGeometry(QRect(150, 400, 231, 41)); 
     winningModeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
     gameWinningModeLayout->addWidget(winningModeLabel, 0, Qt::AlignCenter);
 }
@@ -99,7 +119,7 @@ void Ui_gameParameters::setUpGameLevelCombobox()
     gameLevelComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(GameLevel::HARD); ++i) {
         GameLevel level = static_cast<GameLevel>(i);
-        gameLevelComboBox->addItem(toString(level), i);
+        gameLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
     }
     gameLevelComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
     gameLevelLayout->addWidget(gameLevelComboBox, 0, Qt::AlignCenter);
@@ -109,9 +129,9 @@ void Ui_gameParameters::setUpWinningModeCombobox()
 {
     winningModeComboBox->setObjectName("winningModeComboBox");
     winningModeComboBox->setFixedWidth(261);
-    for (int i = 0; i <= static_cast<int>(GameWinningMode::N_OF_BEST); ++i) {
-        GameWinningMode mode = static_cast<GameWinningMode>(i);
-        winningModeComboBox->addItem(toString(mode), i);
+    for (int i = 0; i <= static_cast<int>(WinnerJudgeType::BEST_OF_N); ++i) {
+        WinnerJudgeType mode = static_cast<WinnerJudgeType>(i);
+        winningModeComboBox->addItem(QString::fromStdString(enumToString<WinnerJudgeType>(mode)), i);
     }
     winningModeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
     gameWinningModeLayout->addWidget(winningModeComboBox, 0, Qt::AlignCenter);
@@ -123,7 +143,7 @@ void Ui_gameParameters::setUpGameTimeCombobox()
     gameTimeComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(GameTimeValues::_180); ++i) {
         GameTimeValues time = static_cast<GameTimeValues>(i);
-        gameTimeComboBox->addItem(toString(time), i);
+        gameTimeComboBox->addItem(QString::fromStdString(enumToString(time)), i);
     }
     gameTimeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
     gameTimeLayout->addWidget(gameTimeComboBox, 0, Qt::AlignCenter);
@@ -136,6 +156,7 @@ void Ui_gameParameters::retranslateUi(QWidget* MainWindow)
     timeLabel->setText(QCoreApplication::translate("MainWindow", "Time of the game", nullptr));
     gameLevelLabel->setText(QCoreApplication::translate("MainWindow", "Difficulty of the input data", nullptr));
     winningModeLabel->setText(QCoreApplication::translate("MainWindow", "Winning mode", nullptr));
+    roundNumberLabel->setText(QCoreApplication::translate("MainWindow", "Round number", nullptr));
     readyButton->setText(QCoreApplication::translate("MainWindow", "Ready!", nullptr));
 } 
 
@@ -147,9 +168,10 @@ QFont Ui_gameParameters::setUpFont(int points)
 
 void Ui_gameParameters::onReadyButtonClicked()
 {
-    allGameParameters->setGameLevel(toEnum(gameLevelComboBox->currentText()));
+    allGameParameters->setGameLevel(stringToEnum<GameLevel>(gameLevelComboBox->currentText()));
     allGameParameters->setGameTime(toInt(gameTimeComboBox->currentText()));
-    allGameParameters->setWinningMode(toEnumValue(winningModeComboBox->currentText()));
+    allGameParameters->setJudgeType(stringToEnum<WinnerJudgeType>(winningModeComboBox->currentText()));
+    allGameParameters->setRoundNumber(roudNumberDoubleSpinBox->value());
 
     Ui_metahParameters* metahParameters = new Ui_metahParameters(stackedWidget, this, allGameParameters);
     stackedWidget->addWidget(metahParameters);
@@ -159,8 +181,8 @@ void Ui_gameParameters::onReadyButtonClicked()
 
 void Ui_gameParameters::updateButtonState()
 {
-    if (winningModeComboBox->currentText() != toString(GameTimeValues::UNKNOWN) && 
-        gameLevelComboBox->currentText() != toString(GameTimeValues::UNKNOWN)) 
+    if (winningModeComboBox->currentText() != QString::fromStdString(enumToString(GameTimeValues::UNKNOWN)) && 
+        gameLevelComboBox->currentText() != QString::fromStdString(enumToString(GameTimeValues::UNKNOWN)))
     {
         readyButton->setEnabled(true); 
     }

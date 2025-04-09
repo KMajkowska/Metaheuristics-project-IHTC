@@ -139,6 +139,7 @@
     <ClCompile Include="IHTCMutatorRoom.cpp" />
     <ClCompile Include="IHTCProblem.cpp" />
     <ClCompile Include="IHTCSolver.cpp" />
+    <ClCompile Include="IHTCSolverBuilder.cpp" />
     <ClCompile Include="IMutator.cpp" />
     <ClCompile Include="IncomingPatientDTO.cpp" />
     <ClCompile Include="INeighbourGenerator.cpp" />
@@ -232,7 +233,6 @@
     <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
     <ClInclude Include="gameParameters.h" />
-    <ClInclude Include="GameWinningMode.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
@@ -256,7 +256,6 @@
     <ClInclude Include="IncomingPatientDTO.h" />
     <ClInclude Include="INeighbourGenerator.h" />
     <ClInclude Include="INetworkExchanger.h" />
-    <ClInclude Include="InitSolverValue.h" />
     <ClInclude Include="IProblem.h" />
     <ClInclude Include="ISelector.h" />
     <ClInclude Include="ISessionPoster.h" />
@@ -273,7 +272,6 @@
     <ClInclude Include="NeighbourGeneratorTop.h" />
     <ClInclude Include="NeighbourGeneratorTournament.h" />
     <ClInclude Include="NeighbourGeneratorType.h" />
-    <ClInclude Include="NeighbourGeneratorValues.h" />
     <ClInclude Include="NurseDTO.h" />
     <ClInclude Include="NurseOutputDTO.h" />
     <ClInclude Include="NurseRoomIndividual.h" />

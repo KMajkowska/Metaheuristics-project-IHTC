@@ -3,11 +3,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 
-#include "SolverType.h"
-#include "NeighbourGeneratorType.h"
-#include "CoolingSchemeType.h"
 #include "enumOperations.h"
-#include "StopCriteriumType.h"
 
 /**
  * @brief Paramws for json

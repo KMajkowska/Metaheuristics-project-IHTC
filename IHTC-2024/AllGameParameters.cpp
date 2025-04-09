@@ -1,78 +1,83 @@
 #include "AllGameParameters.h"
 
-std::string& AllGameParameters::name()
+std::string AllGameParameters::name() const
 {
     return _name;
 }
 
-bool AllGameParameters::isPlayerOpponent()
+bool AllGameParameters::isPlayerOpponent() const
 {
     return _isPlayerOpponent;
 }
 
-int AllGameParameters::gameTime()
+int AllGameParameters::gameTime() const
 {
     return _gameTime;
 }
 
-GameLevel AllGameParameters::gameLevel()
+GameLevel AllGameParameters::gameLevel() const
 {
     return _gameLevel;
 }
 
-GameWinningMode AllGameParameters::winningMode()
+WinnerJudgeType AllGameParameters::judgeType() const
 {
-    return _winningMode;
+    return _judgeType;
 }
 
-int AllGameParameters::maxIteration()
+int AllGameParameters::maxIteration() const
 {
     return _maxIteration;
 }
 
-int AllGameParameters::genderGroupIter()
+int AllGameParameters::genderGroupIter() const
 {
     return _genderGroupIter;
 }
 
-int AllGameParameters::neighbourSize()
+int AllGameParameters::neighbourSize() const
 {
     return _neighbourSize;
 }
 
-NeighbourGeneratorValues AllGameParameters::neighbourGenerator()
+NeighbourGeneratorType AllGameParameters::neighbourGenerator() const
 {
     return _neighbourGenerator;
 }
 
-int AllGameParameters::increaseTempIters()
+int AllGameParameters::increaseTempIters() const
 {
     return _increaseTempIters;
 }
 
-InitSolverValue AllGameParameters::initSolver()
+SolverType AllGameParameters::initSolver() const
 {
     return _initSolver;
 }
 
-int AllGameParameters::startingTemperature()
+int AllGameParameters::startingTemperature() const
 {
     return _startingTemperature;
 }
 
-int AllGameParameters::stopTemperature()
+int AllGameParameters::stopTemperature() const
 {
     return _stopTemperature;
 }
 
-int AllGameParameters::prizeSize()
+int AllGameParameters::prizeSize() const
 {
     return _prizeSize;
 }
 
-int AllGameParameters::coolingMultiplier()
+int AllGameParameters::coolingMultiplier() const
 {
     return _coolingMultiplier;
+}
+
+int AllGameParameters::roundNumber() const
+{
+    return _roundNumber;
 }
 
 void AllGameParameters::setName(const std::string& name)
@@ -95,9 +100,9 @@ void AllGameParameters::setGameLevel(GameLevel gameLevel)
     _gameLevel = gameLevel;
 }
 
-void AllGameParameters::setWinningMode(GameWinningMode winningMode)
+void AllGameParameters::setJudgeType(WinnerJudgeType judgeType)
 {
-    _winningMode = winningMode;
+    _judgeType = judgeType;
 }
 
 void AllGameParameters::setMaxIteration(int maxIteration)
@@ -115,7 +120,7 @@ void AllGameParameters::setNeighbourSize(int neighbourSize)
     _neighbourSize = neighbourSize;
 }
 
-void AllGameParameters::setNeighbourGenerator(NeighbourGeneratorValues neighbourGenerator)
+void AllGameParameters::setNeighbourGenerator(NeighbourGeneratorType neighbourGenerator)
 {
     _neighbourGenerator = neighbourGenerator;
 }
@@ -125,7 +130,7 @@ void AllGameParameters::setIncreaseTempIters(int increaseTempIters)
     _increaseTempIters = increaseTempIters;
 }
 
-void AllGameParameters::setInitSolver(InitSolverValue initSolver)
+void AllGameParameters::setInitSolver(SolverType initSolver)
 {
     _initSolver = initSolver;
 }
@@ -148,4 +153,9 @@ void AllGameParameters::setPrizeSize(int prizeSize)
 void AllGameParameters::setCoolingMultiplier(int coolingMulitplier)
 {
     _coolingMultiplier = coolingMulitplier;
+}
+
+void AllGameParameters::setRoundNumber(int roundNumber)
+{
+    _roundNumber = roundNumber;
 }

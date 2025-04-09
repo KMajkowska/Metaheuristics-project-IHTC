@@ -1,6 +1,7 @@
 #pragma once
 
-#include "qstring.h"
+#include <unordered_map>
+#include <string>
 
 enum class GameTimeValues
 {
@@ -13,26 +14,16 @@ enum class GameTimeValues
     _180
 };
 
-inline QString toString(GameTimeValues time) {
-    switch (time) {
-    case GameTimeValues::UNKNOWN:
-        return "<empty>";
-    case GameTimeValues::_30:
-        return "30 seconds";
-    case GameTimeValues::_60:
-        return "60 seconds";
-    case GameTimeValues::_90:
-        return "90 seconds";
-    case GameTimeValues::_120:
-        return "120 seconds";
-    case GameTimeValues::_150:
-        return "150 seconds";
-    case GameTimeValues::_180:
-        return "180 seconds";
-    default:
-        return "Undefined";
-    }
-}
+const std::unordered_map<GameTimeValues, std::string> GTV_ENUM_TO_STRING
+{
+    {GameTimeValues::UNKNOWN, "<empty>"},
+    {GameTimeValues::_30, "30 seconds"},
+    {GameTimeValues::_60, "60 seconds"},
+    {GameTimeValues::_90, "90 seconds"},
+    {GameTimeValues::_120, "120 seconds"},
+    {GameTimeValues::_150, "150 seconds"},
+    {GameTimeValues::_180, "180 seconds"}
+};
 
 inline int toInt(QString time) {
     if (time == "<empty>")

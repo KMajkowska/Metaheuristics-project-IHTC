@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <type_traits>
+#include <qstring.h>
 
 #include "CoolingSchemeType.h"
 #include "NeighbourGeneratorType.h"
@@ -12,6 +13,8 @@
 #include "StopCriteriumType.h"
 #include "Winner.h"
 #include "WinnerJudgeType.h"
+#include "GameLevel.h"
+#include "GameTimeValues.h"
 
 /**
  * @brief This whole files allows mapping string to enum values 
@@ -94,13 +97,25 @@ inline StopCriteriumType EnumMapper<StopCriteriumType>::getDefault() const
 template <>
 inline WinnerJudgeType EnumMapper<WinnerJudgeType>::getDefault() const
 {
-	return WinnerJudgeType::BEST_OF_N;
+	return WinnerJudgeType::UNKNOWN;
 }
 
 template <>
 inline Winner EnumMapper<Winner>::getDefault() const
 {
 	return Winner::NOT_FINISHED;
+}
+
+template <>
+inline GameLevel EnumMapper<GameLevel>::getDefault() const
+{
+	return GameLevel::UNKNOWN;
+}
+
+template <>
+inline GameTimeValues EnumMapper<GameTimeValues>::getDefault() const
+{
+	return GameTimeValues::UNKNOWN;
 }
 #pragma endregion getDefault
 
@@ -140,6 +155,18 @@ inline const std::unordered_map<WinnerJudgeType, std::string>& EnumMapper<Winner
 {
 	return WJT_ENUM_TO_STRING;
 }
+
+template <>
+inline const std::unordered_map<GameLevel, std::string>& EnumMapper<GameLevel>::getMap() const
+{
+	return GL_ENUM_TO_STRING;
+}
+
+template <>
+inline const std::unordered_map<GameTimeValues, std::string>& EnumMapper<GameTimeValues>::getMap() const
+{
+	return GTV_ENUM_TO_STRING;
+}
 #pragma endregion getMap
 
 template <EnumType T>
@@ -170,4 +197,10 @@ T stringToEnum(const std::string& str)
 	}
 
 	return EnumMapper<T>::instance().getDefault();
+}
+
+template <EnumType T>
+T stringToEnum(QString str)
+{
+	return stringToEnum<T>(str.toStdString());
 }

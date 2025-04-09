@@ -15,21 +15,6 @@ void CGameInfo::setReceivePort(short receivePort)
 	_receivePort = receivePort;
 }
 
-void CGameInfo::setPlayerName(const std::string& playerName)
-{
-	_playerName = playerName;
-}
-
-void CGameInfo::setJudgeType(WinnerJudgeType judgeType)
-{
-	_judgeType = judgeType;
-}
-
-void CGameInfo::setRounds(int rounds)
-{
-	_rounds = rounds;
-}
-
 std::string CGameInfo::uuid() const
 {
 	return _uuid;
@@ -45,21 +30,6 @@ short CGameInfo::receivePort() const
 	return _receivePort;
 }
 
-std::string CGameInfo::playerName() const
-{
-	return _playerName;
-}
-
-WinnerJudgeType CGameInfo::judgeType() const
-{
-	return _judgeType;
-}
-
-int CGameInfo::rounds() const
-{
-	return _rounds;
-}
-
 void to_json(nlohmann::json& j, const CGameInfo& obj)
 {
 	j = nlohmann::json
@@ -67,9 +37,22 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 		{"uuid", obj.uuid()},
 		{"postPort", obj.postPort()},
 		{"receivePort", obj.receivePort()},
-		{"playerName", obj.playerName()},
-		{"judgeType", enumToString<WinnerJudgeType>(obj.judgeType())},
-		{"rounds", obj.rounds()}
+		{"name", obj.name()},
+		{"isPlayerOpponent", obj.isPlayerOpponent()},
+		{"gameTime", obj.gameTime()},
+		{"gameLevel", enumToString<GameLevel>(obj.gameLevel())},
+		{"winningMode", enumToString<WinnerJudgeType>(obj.judgeType())},
+		{"maxIteration", obj.maxIteration()},
+		{"genderGroupIter", obj.genderGroupIter()},
+		{"neighbourSize", obj.neighbourSize()},
+		{"neighbourGenerator", enumToString<NeighbourGeneratorType>(obj.neighbourGenerator())},
+		{"increaseTempIters", obj.increaseTempIters()},
+		{"initSolver", enumToString<SolverType>(obj.initSolver())},
+		{"startingTemperature", obj.startingTemperature()},
+		{"stopTemperature", obj.stopTemperature()},
+		{"prizeSize", obj.prizeSize()},
+		{"coolingMultiplier", obj.coolingMultiplier()},
+		{"roundNumber", obj.roundNumber()}
 	};
 }
 
@@ -78,7 +61,22 @@ void from_json(const nlohmann::json& j, CGameInfo& obj)
 	obj.setUUID(j.at("uuid").get<std::string>());
 	obj.setPostPort(j.at("postPort").get<short>());
 	obj.setReceivePort(j.at("receivePort").get<short>());
-	obj.setPlayerName(j.at("playerName").get<std::string>());
+	obj.setName(j.at("playerName").get<std::string>());
 	obj.setJudgeType(stringToEnum<WinnerJudgeType>(j.at("judgeType").get<std::string>()));
-	obj.setRounds(j.at("rounds").get<int>());
+	obj.setRoundNumber(j.at("rounds").get<int>());
+	obj.setName(j.at("name").get<std::string>());
+	obj.setIsPlayerOpponent(j.at("isPlayerOpponent").get<bool>());
+	obj.setGameTime(j.at("gameTime").get<int>());
+	obj.setGameLevel(stringToEnum<GameLevel>(j.at("gameLevel").get<std::string>()));
+	obj.setMaxIteration(j.at("maxIteration").get<int>());
+	obj.setGenderGroupIter(j.at("genderGroupIter").get<int>());
+	obj.setNeighbourSize(j.at("neighbourSize").get<int>());
+	obj.setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(j.at("neighbourGenerator").get<std::string>()));
+	obj.setIncreaseTempIters(j.at("increaseTempIters").get<int>());
+	obj.setInitSolver(stringToEnum<SolverType>(j.at("initSolver").get<std::string>()));
+	obj.setStartingTemperature(j.at("startingTemperature").get<int>());
+	obj.setStopTemperature(j.at("stopTemperature").get<int>());
+	obj.setPrizeSize(j.at("prizeSize").get<int>());
+	obj.setCoolingMultiplier(j.at("coolingMultiplier").get<int>());
+	obj.setRoundNumber(j.at("roundNumber").get<int>());
 }
