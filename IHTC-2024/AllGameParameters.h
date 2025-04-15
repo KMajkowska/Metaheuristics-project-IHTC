@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <WinnerJudgeType.h>
 #include <GameLevel.h>
@@ -9,6 +10,7 @@ class AllGameParameters
 {
 public:
     AllGameParameters() = default;
+    ~AllGameParameters() = default;
 
 //getters
     std::string name() const;

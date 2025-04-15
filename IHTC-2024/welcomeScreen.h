@@ -7,19 +7,14 @@
 ********************************************************************************/
 #pragma once 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QWidget>
 #include <QPushButton>
-#include <chooseOpponent.h>
-#include <qstackedwidget.h>
-#include "ScreensNumber.h"
 #include "consts.h"
 #include <qboxlayout.h>
-#include <memory>
+#include <QtWidgets/QApplication>
+#include "StateController.h"
 
 class Ui_welcomeScreen : public QWidget {
 
@@ -27,20 +22,16 @@ class Ui_welcomeScreen : public QWidget {
 
 public:
 
-    explicit Ui_welcomeScreen(QStackedWidget* stackedWidget, QWidget* parent = nullptr, std::shared_ptr<AllGameParameters> allGameParameters = nullptr);
+    explicit Ui_welcomeScreen(QWidget* parent = nullptr);
     ~Ui_welcomeScreen();
     
 private:
-    std::shared_ptr<AllGameParameters> allGameParameters;
     QWidget* centralwidget;
     QLineEdit* nameTextfield;
     QLabel* welcomeText;
     QFont* font;
     QPushButton* startGameButton;
-    QStackedWidget* stackedWidget;
     QVBoxLayout* mainLayout;
-
-    Ui_chooseOpponent *chooseOpponentScreen;
 
     void setUpNameTextfield();
     void setUpWelcomeText();

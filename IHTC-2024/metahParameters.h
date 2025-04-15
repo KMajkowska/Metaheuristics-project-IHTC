@@ -8,29 +8,23 @@
 #pragma once
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
-#include <qstackedwidget.h>
 #include <QDoubleSpinBox>
 #include "consts.h"
 #include <qgridlayout.h>
-#include "AllGameParameters.h"
-#include "ScreensNumber.h"
 #include "enumOperations.h"
+#include <QtWidgets/QApplication>
+#include "StateController.h"
 
 class Ui_metahParameters : public QWidget
 {
 public: 
-    Ui_metahParameters(QStackedWidget* stackedWidget, QWidget* parent = nullptr, std::shared_ptr<AllGameParameters> allGameParameters = nullptr);
+    Ui_metahParameters(QWidget* parent = nullptr);
     ~Ui_metahParameters() = default;
 private:
-    std::shared_ptr<AllGameParameters> allGameParameters;
     QWidget *centralwidget;
     QSlider* maxIterationSlider;
     QDoubleSpinBox* neighbourSizeDoubleSpinBox;
@@ -62,7 +56,6 @@ private:
     QLabel* minValueStopTemperatureSliderLabel;
     QLabel* maxValueStopTemperatureSliderLabel;
     QLabel* currentValueStopTemperatureSliderLabel;
-    QStackedWidget* stackedWidget;
     QGridLayout* gridLayout;
 
     QFont* font;
@@ -100,6 +93,6 @@ private slots:
     void updateStopTemperatureSlider();
 
 public slots:
-    void setSliderEnabled(const QString& value);
+    void setSlidersEnabled(const QString& value);
     void onStartGameButtonClicked();
 };

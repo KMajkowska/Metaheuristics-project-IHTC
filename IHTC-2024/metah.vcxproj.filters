@@ -529,6 +529,12 @@
     <ClCompile Include="IHTCSolverBuilder.cpp">
       <Filter>Source Files\algorithm\solverBuilder</Filter>
     </ClCompile>
+    <ClCompile Include="StateController.cpp">
+      <Filter>Source Files\GUI\communication</Filter>
+    </ClCompile>
+    <ClCompile Include="gameUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NurseWrapper.h">
@@ -868,6 +874,12 @@
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="solverBuilderUtils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="StateController.h">
+      <Filter>Header Files\GUI\communication</Filter>
+    </ClInclude>
+    <ClInclude Include="gameUtils.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>

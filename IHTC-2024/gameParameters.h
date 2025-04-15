@@ -8,26 +8,25 @@
 #pragma once
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
-#include <qstackedwidget.h>
-#include "ScreensNumber.h"
 #include "consts.h"
-#include "metahParameters.h"
 #include <qboxlayout.h>
+#include <qspinbox.h>
+#include <QtWidgets/QApplication>
+#include "StateController.h"
+#include <enumOperations.h>
+#include <metahParameters.h>
 
 class Ui_gameParameters : public QWidget
 {
 public:
-    Ui_gameParameters(QStackedWidget* stackedWidget, QWidget* parent = nullptr, std::shared_ptr<AllGameParameters> allGameParameters = nullptr);
+    Ui_gameParameters(QWidget* parent = nullptr);
     ~Ui_gameParameters() = default;
 
 private:
-    std::shared_ptr<AllGameParameters> allGameParameters;
     QWidget *centralwidget;
     QComboBox *gameTimeComboBox;
     QComboBox *gameLevelComboBox;
@@ -39,13 +38,11 @@ private:
     QLabel *roundNumberLabel;
     QPushButton *readyButton;
     QFont* font;
-    QStackedWidget* stackedWidget;
     QVBoxLayout* mainLayout;
     QHBoxLayout* gameTimeLayout;
     QHBoxLayout* gameWinningModeLayout;
     QHBoxLayout* gameLevelLayout;
     QHBoxLayout* roundNumberLayout;
-    Ui_metahParameters* metahParameters;
 
     void setUpTimeLabel();
     void setUpGameLevelLabel();

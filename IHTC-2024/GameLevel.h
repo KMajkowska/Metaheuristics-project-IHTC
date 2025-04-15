@@ -5,10 +5,10 @@
 
 enum class GameLevel
 {
+	UNKNOWN,
 	EASY,
 	MEDIUM,
-	HARD,
-	UNKNOWN
+	HARD
 };
 
 const std::unordered_map<GameLevel, std::string> GL_ENUM_TO_STRING

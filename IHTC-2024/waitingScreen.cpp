@@ -1,6 +1,6 @@
 #include "waitingScreen.h"
 
-Ui_waitingScreen::Ui_waitingScreen(QStackedWidget* stackedWidget, QWidget* parent) : QWidget(parent), stackedWidget(stackedWidget)
+Ui_waitingScreen::Ui_waitingScreen(QWidget* parent) : QWidget(parent)
 {
     centralwidget = new QWidget(this);
     loadingCircleLabel = new QLabel(centralwidget);

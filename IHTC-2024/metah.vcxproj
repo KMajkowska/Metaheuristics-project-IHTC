@@ -122,6 +122,7 @@
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="gameParameters.cpp" />
+    <ClCompile Include="gameUtils.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GenderGrouper.cpp" />
     <ClCompile Include="GreedySolver.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="solutionUtils.cpp" />
     <ClCompile Include="solverBuilderUtils.cpp" />
     <ClCompile Include="solverUtils.cpp" />
+    <ClCompile Include="StateController.cpp" />
     <ClCompile Include="StopCriteriumIter.cpp" />
     <ClCompile Include="StopCriteriumTemperature.cpp" />
     <ClCompile Include="StopCriteriumTime.cpp" />
@@ -233,6 +235,7 @@
     <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
     <ClInclude Include="gameParameters.h" />
+    <ClInclude Include="gameUtils.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
     <ClInclude Include="GreedySolver.h" />
@@ -306,6 +309,7 @@
     <ClInclude Include="solverBuilderUtils.h" />
     <ClInclude Include="SolverType.h" />
     <ClInclude Include="solverUtils.h" />
+    <ClInclude Include="StateController.h" />
     <ClInclude Include="StopCriteriumIter.h" />
     <ClInclude Include="StopCriteriumTemperature.h" />
     <ClInclude Include="StopCriteriumTime.h" />

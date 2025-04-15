@@ -31,10 +31,8 @@ void Ui_gameParameters::setupUi(QWidget* MainWindow) {
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
-Ui_gameParameters::Ui_gameParameters(QStackedWidget* stackedWidget, QWidget* parent, std::shared_ptr<AllGameParameters> allGameParameters) : 
-    QWidget(parent),
-    stackedWidget(stackedWidget),
-    allGameParameters(allGameParameters)
+Ui_gameParameters::Ui_gameParameters(QWidget* parent) : 
+    QWidget(parent)
 {
     centralwidget = new QWidget();
     timeLabel = new QLabel(centralwidget);
@@ -69,6 +67,7 @@ void Ui_gameParameters::setUpRoundNumberDoubleSpinBox()
 {
     roudNumberDoubleSpinBox->setObjectName("roudNumberDoubleSpinBox");
     roudNumberDoubleSpinBox->setDecimals(0);
+    roudNumberDoubleSpinBox->setFixedWidth(261);
     roudNumberDoubleSpinBox->setSingleStep(1);
     roudNumberDoubleSpinBox->setRange(1, 15);
     roudNumberDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
@@ -168,15 +167,13 @@ QFont Ui_gameParameters::setUpFont(int points)
 
 void Ui_gameParameters::onReadyButtonClicked()
 {
-    allGameParameters->setGameLevel(stringToEnum<GameLevel>(gameLevelComboBox->currentText()));
-    allGameParameters->setGameTime(toInt(gameTimeComboBox->currentText()));
-    allGameParameters->setJudgeType(stringToEnum<WinnerJudgeType>(winningModeComboBox->currentText()));
-    allGameParameters->setRoundNumber(roudNumberDoubleSpinBox->value());
+    static_cast<Ui_metahParameters*>( StateController::instance().screens()[ScreensNumber::METAH_PARAMETERS])->setSlidersEnabled(gameTimeComboBox->currentText());
+    StateController::instance().allGameParameters().setGameLevel(stringToEnum<GameLevel>(gameLevelComboBox->currentText()));
+    StateController::instance().allGameParameters().setGameTime(toInt(gameTimeComboBox->currentText()));
+    StateController::instance().allGameParameters().setJudgeType(stringToEnum<WinnerJudgeType>(winningModeComboBox->currentText()));
+    StateController::instance().allGameParameters().setRoundNumber(roudNumberDoubleSpinBox->value());
 
-    Ui_metahParameters* metahParameters = new Ui_metahParameters(stackedWidget, this, allGameParameters);
-    stackedWidget->addWidget(metahParameters);
-    metahParameters->setSliderEnabled(gameTimeComboBox->currentText());
-    stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::METAH_PARAMETERS));
+    StateController::instance().navigate(ScreensNumber::METAH_PARAMETERS);
 }
 
 void Ui_gameParameters::updateButtonState()

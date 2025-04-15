@@ -9,7 +9,7 @@
 #include "CGameNetwork.h"
 #include "CSessionReceiverPeerToPeer.h"
 #include "CSessionPosterPeerToPeer.h"
-#include <MainWindow.h>
+#include "MainWindow.h"
 
 static void runLocalTest()
 {
@@ -246,6 +246,7 @@ int main(int argc, char* argv[])
 	QApplication app(argc, argv);
 
 	MainWindow mainWindow;
+
 	mainWindow.resize(1100, 800);
 	mainWindow.show();
 

@@ -44,6 +44,7 @@ plot_output
 
 ### vcpkg ###
 # Vcpkg
+vcpkg
 
 vcpkg-manifest-install.log
 

@@ -1,11 +1,8 @@
 #include "welcomeScreen.h"
 
-Ui_welcomeScreen::Ui_welcomeScreen(QStackedWidget* stackedWidget, QWidget* parent, std::shared_ptr<AllGameParameters> allGameParameters) : 
-    QWidget(parent), 
-    stackedWidget(stackedWidget),
-    allGameParameters(allGameParameters)
+Ui_welcomeScreen::Ui_welcomeScreen(QWidget* parent) : 
+    QWidget(parent)
 {
-    chooseOpponentScreen = nullptr;
     centralwidget = new QWidget(this);
     welcomeText = new QLabel(centralwidget);
     startGameButton = new QPushButton(centralwidget);
@@ -85,8 +82,8 @@ void Ui_welcomeScreen::retranslateUi(QWidget* welcomeScreen)
 
 void Ui_welcomeScreen::openChooseOpponentScreen()
 {
-    allGameParameters->setName(nameTextfield->text().toStdString());
-    stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::CHOOSE_OPPONENT));
+    StateController::instance().allGameParameters().setName(nameTextfield->text().toStdString());
+    StateController::instance().navigate(ScreensNumber::CHOOSE_OPPONENT);
 }
 
 void Ui_welcomeScreen::updateButtonState()

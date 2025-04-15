@@ -5,32 +5,26 @@
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
+#pragma once
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QListWidget>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QScrollArea>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
-#include <qstackedwidget.h>
 #include <qpushbutton.h>
 #include <consts.h>
-#include <ScreensNumber.h>
 #include <qboxlayout.h>
-
+#include <QtWidgets/QApplication>
+#include "StateController.h"
 
 class Ui_sessions : public QWidget
 {
 public:
-    Ui_sessions(QStackedWidget* stackedWidget, QWidget* parent = nullptr);
+    Ui_sessions(QWidget* parent = nullptr);
     ~Ui_sessions() = default;
 
 private:
     QWidget *centralwidget;
     QListWidget *listOfSessions;
-    QStackedWidget* stackedWidget;
     QPushButton* createSessionButton;
     QFont* font;
     QVBoxLayout* layout;

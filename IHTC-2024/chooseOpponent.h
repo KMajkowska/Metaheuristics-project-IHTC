@@ -8,34 +8,30 @@
 #pragma once
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QWidget>
-#include <QStackedWidget>
-#include "ScreensNumber.h"
-#include "consts.h"
 #include <qboxlayout.h>
-#include "AllGameParameters.h"
 #include <memory>
+#include <QtWidgets/QApplication>
+
+#include "consts.h"
+#include "StateController.h"
+#include "ScreensNumber.h"
 
 class Ui_chooseOpponent : public QWidget
 {
     Q_OBJECT
 
 public:
-    Ui_chooseOpponent(QStackedWidget* stackedWidget, QWidget* parent = nullptr, std::shared_ptr<AllGameParameters> allGameParameters = nullptr);
+    Ui_chooseOpponent(QWidget* parent = nullptr);
     ~Ui_chooseOpponent();
 
 private:
-    std::shared_ptr<AllGameParameters> allGameParameters;
     QWidget *centralwidget;
     QLabel *chooseOpponentLabel;
     QPushButton *computerButton;
     QPushButton *playerButton;
     QFont* font;
-    QStackedWidget* stackedWidget;
     QFont setUpFont(int points);
     QVBoxLayout* mainLayout;
     QHBoxLayout* buttonLayout;

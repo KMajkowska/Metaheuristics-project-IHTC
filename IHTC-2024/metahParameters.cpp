@@ -326,7 +326,7 @@ void Ui_metahParameters::retranslateUi(QWidget* MainWindow)
     startGameButton->setText(QCoreApplication::translate("MainWindow", "Start Game", nullptr));
 }
 
-Ui_metahParameters::Ui_metahParameters(QStackedWidget* stackedWidget, QWidget* parent, std::shared_ptr<AllGameParameters> allGameParameters) : QWidget(parent), stackedWidget(stackedWidget), allGameParameters(allGameParameters)
+Ui_metahParameters::Ui_metahParameters(QWidget* parent) : QWidget(parent)
 {
     centralwidget = new QWidget();
     maxIterationSlider = new QSlider(centralwidget);
@@ -411,27 +411,32 @@ void Ui_metahParameters::updateStopTemperatureSlider()
 
 void Ui_metahParameters::onStartGameButtonClicked()
 {
-    allGameParameters->setGenderGroupIter(genderGroupIterDoubleSpinBox->value());
-    allGameParameters->setMaxIteration(maxIterationSlider->value());
-    allGameParameters->setStartingTemperature(startingTemperatureSlider->value());
-    allGameParameters->setStopTemperature(stopTemperatureSlider->value());
-    allGameParameters->setPrizeSize(prizeSizeDoubleSpinBox->value());
-    allGameParameters->setCoolingMultiplier(simplexCoolingMulitplierDoubleSpinBox->value());
-    allGameParameters->setIncreaseTempIters(increaseTempItersDoubleSpinBox->value());
-    allGameParameters->setNeighbourSize(neighbourSizeDoubleSpinBox->value());
-    allGameParameters->setInitSolver(stringToEnum<SolverType>(initSolverCombobox->currentText()));
-    allGameParameters->setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(neighbourGeneratorCombobox->currentText().toStdString()));
+    StateController::instance().allGameParameters().setGenderGroupIter(genderGroupIterDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setMaxIteration(maxIterationSlider->value());
+    StateController::instance().allGameParameters().setStartingTemperature(startingTemperatureSlider->value());
+    StateController::instance().allGameParameters().setStartingTemperature(startingTemperatureSlider->value());
+    StateController::instance().allGameParameters().setStopTemperature(stopTemperatureSlider->value());
+    StateController::instance().allGameParameters().setPrizeSize(prizeSizeDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setCoolingMultiplier(simplexCoolingMulitplierDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setIncreaseTempIters(increaseTempItersDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setNeighbourSize(neighbourSizeDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(neighbourGeneratorCombobox->currentText().toStdString()));
 
-    if (allGameParameters->isPlayerOpponent()) {
-        stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::WAITING_SCREEN));
+    if (StateController::instance().allGameParameters().isPlayerOpponent()) {
+        StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
     }
     else
     {
-        stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::METAH_PARAMETERS));
+        StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+
+        StateController::instance().runComputer([]()
+            {
+                StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
+            });
     }
 }
 
-void Ui_metahParameters::setSliderEnabled(const QString& value)
+void Ui_metahParameters::setSlidersEnabled(const QString& value)
 {
     if (value == enumToString(GameTimeValues::UNKNOWN))
     {

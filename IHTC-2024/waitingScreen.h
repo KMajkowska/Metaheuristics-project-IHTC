@@ -5,30 +5,24 @@
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
+#pragma once
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
-#include <qstackedwidget.h>
 #include "consts.h"
 #include "qmovie.h"
 #include <QVBoxLayout>
-
-QT_BEGIN_NAMESPACE
+#include <QtWidgets/QApplication>
+#include "StateController.h"
 
 class Ui_waitingScreen : public QWidget
 {
 public:
-    Ui_waitingScreen(QStackedWidget* stackedWidget, QWidget* parent);
+    Ui_waitingScreen(QWidget* parent);
     ~Ui_waitingScreen();
 private:
     QWidget *centralwidget;
     QLabel *waitingForPlayerLabel;
-    QStackedWidget* stackedWidget;
     QFont* font;
     QLabel* loadingCircleLabel;
     QMovie* loadingCircleMovie;

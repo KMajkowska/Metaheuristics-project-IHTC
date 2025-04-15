@@ -1,6 +1,6 @@
 #include "sessions.h"
 
-Ui_sessions::Ui_sessions(QStackedWidget* stackedWidget, QWidget* parent) : stackedWidget(stackedWidget), QWidget(parent)
+Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
 {
     centralwidget = new QWidget();
     listOfSessions = new QListWidget(centralwidget);
@@ -65,5 +65,5 @@ void Ui_sessions::retranslateUi(QWidget* MainWindow)
 
 void Ui_sessions::onCreateSessionButtonClicked()
 {
-    stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::GAME_PARAMETERS));
+    StateController::instance().navigate(ScreensNumber::GAME_PARAMETERS);
 }

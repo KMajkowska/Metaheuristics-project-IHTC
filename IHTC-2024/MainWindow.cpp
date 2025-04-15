@@ -1,40 +1,43 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
-
     setWindowIcon(QIcon("uniqrn.png"));
 
-    std::shared_ptr<AllGameParameters> allGameParameters = std::make_shared<AllGameParameters>();
+    _stackedWidget = new QStackedWidget(this);
 
-    stackedWidget = new QStackedWidget(this);
+	auto welcomeScreen = new Ui_welcomeScreen(this);
+	auto chooseOpponentScreen = new Ui_chooseOpponent(this);
+	auto metahParameters = new Ui_metahParameters(this);
+	auto gameParameters = new Ui_gameParameters(this);
+	auto sessions = new Ui_sessions(this);
+	auto waitingScreen = new Ui_waitingScreen(this);
 
-    welcomeScreen = new Ui_welcomeScreen(stackedWidget, this, allGameParameters);
-    chooseOpponentScreen = new Ui_chooseOpponent(stackedWidget, this, allGameParameters);
-    gameParameters = new Ui_gameParameters(stackedWidget, this, allGameParameters);
-    sessions = new Ui_sessions(stackedWidget, this);
-    waitingScreen = new Ui_waitingScreen(stackedWidget, this);
+	_stackedWidget->addWidget(welcomeScreen);
+	_stackedWidget->addWidget(chooseOpponentScreen);
+	_stackedWidget->addWidget(gameParameters);
+	_stackedWidget->addWidget(metahParameters);
+	_stackedWidget->addWidget(sessions);
+	_stackedWidget->addWidget(waitingScreen);
 
-    addScreensToStackedWidget();
+	StateController::instance().addScreen(ScreensNumber::WELCOME_SCREEN, welcomeScreen);
+	StateController::instance().addScreen(ScreensNumber::CHOOSE_OPPONENT, chooseOpponentScreen);
+	StateController::instance().addScreen(ScreensNumber::GAME_PARAMETERS, gameParameters);
+	StateController::instance().addScreen(ScreensNumber::METAH_PARAMETERS, metahParameters);
+	StateController::instance().addScreen(ScreensNumber::SESSIONS, sessions);
+	StateController::instance().addScreen(ScreensNumber::WAITING_SCREEN, waitingScreen);
 
-    setCentralWidget(stackedWidget);
+	StateController::instance().setNavigate([&](ScreensNumber screen)
+		{
+			_stackedWidget->setCurrentIndex(static_cast<int>(screen));
+		});
 
-    stackedWidget->setCurrentWidget(welcomeScreen);
-
-    stackedWidget->showMaximized();
-}
-
-void MainWindow::addScreensToStackedWidget()
-{
-    stackedWidget->addWidget(welcomeScreen);
-    stackedWidget->addWidget(chooseOpponentScreen);
-    stackedWidget->addWidget(gameParameters);
-    stackedWidget->addWidget(sessions);
-    stackedWidget->addWidget(waitingScreen);
+	setCentralWidget(_stackedWidget);
+	_stackedWidget->showMaximized();
+	_stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::WELCOME_SCREEN));
 }
 
 MainWindow::~MainWindow()
 {
-    delete stackedWidget;
+    delete _stackedWidget;
 }
