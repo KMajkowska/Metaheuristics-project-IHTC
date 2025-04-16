@@ -80,6 +80,11 @@ int AllGameParameters::roundNumber() const
     return _roundNumber;
 }
 
+GameLevel AllGameParameters::inputParametersLevel() const
+{
+    return _inputParametersLevel;
+}
+
 void AllGameParameters::setName(const std::string& name)
 {
     _name = name;
@@ -158,4 +163,9 @@ void AllGameParameters::setCoolingMultiplier(int coolingMulitplier)
 void AllGameParameters::setRoundNumber(int roundNumber)
 {
     _roundNumber = roundNumber;
+}
+
+void AllGameParameters::setInputParametersLevel(GameLevel inputParametersLevel)
+{
+    _inputParametersLevel = inputParametersLevel;
 }

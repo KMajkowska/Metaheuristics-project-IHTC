@@ -20,16 +20,20 @@ public:
 	void setUUID(const std::string uuid);
 	void setPostPort(short postPort);
 	void setReceivePort(short receivePort);
+	void setLastUpdated(std::chrono::steady_clock::time_point lastUpdated);
 
 	std::string uuid() const;
 	short postPort() const;
 	short receivePort() const;
+	std::chrono::steady_clock::time_point lastUpdated() const;
 
 private:
 	std::string _uuid { boost::uuids::to_string(boost::uuids::random_generator()()) };
 
 	short _postPort{ 0 };
 	short _receivePort{ 0 };
+
+	std::chrono::steady_clock::time_point _lastUpdated;
 };
 
 

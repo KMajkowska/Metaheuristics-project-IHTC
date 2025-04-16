@@ -31,10 +31,12 @@ private:
     QComboBox *gameTimeComboBox;
     QComboBox *gameLevelComboBox;
     QComboBox *winningModeComboBox;
+    QComboBox* inputParametersLevelComboBox;
     QDoubleSpinBox* roudNumberDoubleSpinBox;
     QLabel *timeLabel;
     QLabel *gameLevelLabel;
     QLabel *winningModeLabel;
+    QLabel* inputParametersLevelLabel;
     QLabel *roundNumberLabel;
     QPushButton *readyButton;
     QFont* font;
@@ -42,14 +44,17 @@ private:
     QHBoxLayout* gameTimeLayout;
     QHBoxLayout* gameWinningModeLayout;
     QHBoxLayout* gameLevelLayout;
+    QHBoxLayout* inputParametersLevelLayout;
     QHBoxLayout* roundNumberLayout;
 
     void setUpTimeLabel();
+    void setUpInputParametersLevelLabel();
     void setUpGameLevelLabel();
     void setUpWinningModeLabel();
     void setUpRoundNumberLabel();
     void setUpReadyButton();
     void setUpGameTimeCombobox();
+    void setUpInputParametersLevelCombobox();
     void setUpGameLevelCombobox();
     void setUpWinningModeCombobox();
     void setUpRoundNumberDoubleSpinBox();

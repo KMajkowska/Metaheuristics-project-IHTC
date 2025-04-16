@@ -15,6 +15,11 @@ void CGameInfo::setReceivePort(short receivePort)
 	_receivePort = receivePort;
 }
 
+void CGameInfo::setLastUpdated(std::chrono::steady_clock::time_point lastUpdated)
+{
+	_lastUpdated = lastUpdated;
+}
+
 std::string CGameInfo::uuid() const
 {
 	return _uuid;
@@ -28,6 +33,11 @@ short CGameInfo::postPort() const
 short CGameInfo::receivePort() const
 {
 	return _receivePort;
+}
+
+std::chrono::steady_clock::time_point CGameInfo::lastUpdated() const
+{
+	return _lastUpdated;
 }
 
 void to_json(nlohmann::json& j, const CGameInfo& obj)

@@ -15,12 +15,15 @@
 #include <qboxlayout.h>
 #include <QtWidgets/QApplication>
 #include "StateController.h"
+#include "enumOperations.h"
 
 class Ui_sessions : public QWidget
 {
 public:
     Ui_sessions(QWidget* parent = nullptr);
     ~Ui_sessions() = default;
+
+    void updateSessionList(std::unordered_map<std::string, CGameInfo> sessions);
 
 private:
     QWidget *centralwidget;
@@ -38,8 +41,10 @@ private:
     void setupUi(QWidget* MainWindow);
 
     void retranslateUi(QWidget* MainWindow);
+    
 
 private slots:
     void onCreateSessionButtonClicked();
+    void onItemCLicked();
 
 };

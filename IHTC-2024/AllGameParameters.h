@@ -29,6 +29,7 @@ public:
     int prizeSize() const;
     int coolingMultiplier() const;
     int roundNumber() const;
+    GameLevel inputParametersLevel() const;
 
 //setters
     void setName(const std::string& name);
@@ -47,6 +48,7 @@ public:
     void setPrizeSize(int prizeSize);
     void setCoolingMultiplier(int coolingMulitplier);
     void setRoundNumber(int roundNumber);
+    void setInputParametersLevel(GameLevel inputParametersLevel);
 
 private:
     std::string _name;
@@ -65,4 +67,5 @@ private:
     int _prizeSize;
     int _coolingMultiplier;
     int _roundNumber;
+    GameLevel _inputParametersLevel;
 };

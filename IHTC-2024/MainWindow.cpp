@@ -32,9 +32,14 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 			_stackedWidget->setCurrentIndex(static_cast<int>(screen));
 		});
 
+	StateController::instance().setSessionConsumer([&](std::unordered_map<std::string, CGameInfo> sessionsList)
+		{
+			sessions->updateSessionList(sessionsList);
+		});
+
 	setCentralWidget(_stackedWidget);
 	_stackedWidget->showMaximized();
-	_stackedWidget->setCurrentIndex(static_cast<int>(ScreensNumber::WELCOME_SCREEN));
+	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
 }
 
 MainWindow::~MainWindow()

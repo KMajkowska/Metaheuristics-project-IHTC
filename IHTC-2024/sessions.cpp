@@ -32,6 +32,8 @@ void Ui_sessions::setupUi(QWidget* MainWindow)
 
     retranslateUi(MainWindow);
 
+    connect(listOfSessions, &QListWidget::itemClicked, this, &Ui_sessions::onItemCLicked);
+
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
@@ -40,6 +42,7 @@ void Ui_sessions::setUpListOfSessions()
     listOfSessions->setObjectName("listWidget");
     listOfSessions->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     listOfSessions->setMinimumHeight(700);
+    listOfSessions->addItem(QString::fromStdString("sdfsdf"));
     listLayout->addWidget(listOfSessions, 0, Qt::AlignVCenter);
 }
 
@@ -62,6 +65,38 @@ void Ui_sessions::retranslateUi(QWidget* MainWindow)
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Choose session", nullptr));
     createSessionButton->setText(QCoreApplication::translate("MainWindow", "Create own session", nullptr));
 }
+
+void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo> sessions)
+{
+    for (auto it = sessions.begin(); it != sessions.end(); it++)
+    {
+        std::string sessionInfo;
+        sessionInfo += it->first;
+        sessionInfo += " ";
+        sessionInfo += it->second.name();
+        sessionInfo += " ";
+        sessionInfo += it->second.gameTime();
+        sessionInfo += " ";
+        sessionInfo += enumToString<GameLevel>(it->second.gameLevel());
+        sessionInfo += " ";
+        sessionInfo += enumToString<WinnerJudgeType>(it->second.judgeType());
+        sessionInfo += " ";
+        sessionInfo += it->second.roundNumber();
+        sessionInfo += " ";
+        sessionInfo += enumToString<GameLevel>(it->second.inputParametersLevel());
+
+        QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
+        item->setData(Qt::UserRole, QVariant::fromValue(it->first));
+
+        listOfSessions->addItem(QString::fromStdString(sessionInfo));
+    }
+}
+
+void Ui_sessions::onItemCLicked()
+{
+    StateController::instance().navigate(ScreensNumber::METAH_PARAMETERS);
+}
+
 
 void Ui_sessions::onCreateSessionButtonClicked()
 {
