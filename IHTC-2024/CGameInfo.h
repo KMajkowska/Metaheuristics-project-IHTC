@@ -8,6 +8,7 @@
 
 #include "AllGameParameters.h"
 #include "enumOperations.h"
+#include "solverBuilderUtils.h"
 
 /**
  * @brief This class is used as a DTO to pass and receive information about a game through network.
@@ -16,22 +17,24 @@ class CGameInfo : public AllGameParameters
 {
 public:
 	CGameInfo() = default;
+	CGameInfo(const AllGameParameters& other);
+	CGameInfo(const CGameInfo& other) = default;
 	
 	void setUUID(const std::string uuid);
-	void setPostPort(short postPort);
-	void setReceivePort(short receivePort);
+	void setPostPort(int postPort);
+	void setReceivePort(int receivePort);
 	void setLastUpdated(std::chrono::steady_clock::time_point lastUpdated);
 
 	std::string uuid() const;
-	short postPort() const;
-	short receivePort() const;
+	int postPort() const;
+	int receivePort() const;
 	std::chrono::steady_clock::time_point lastUpdated() const;
 
 private:
 	std::string _uuid { boost::uuids::to_string(boost::uuids::random_generator()()) };
 
-	short _postPort{ 0 };
-	short _receivePort{ 0 };
+	int _postPort{ 0 };
+	int _receivePort{ 0 };
 
 	std::chrono::steady_clock::time_point _lastUpdated;
 };

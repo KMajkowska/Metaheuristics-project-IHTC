@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 			_stackedWidget->setCurrentIndex(static_cast<int>(screen));
 		});
 
-	StateController::instance().setSessionConsumer([&](std::unordered_map<std::string, CGameInfo> sessionsList)
+	StateController::instance().setSessionConsumer([sessions](std::unordered_map<std::string, CGameInfo>& sessionsList)
 		{
 			sessions->updateSessionList(sessionsList);
 		});

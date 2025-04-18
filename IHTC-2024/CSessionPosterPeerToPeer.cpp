@@ -9,6 +9,7 @@ CSessionPosterPeerToPeer::CSessionPosterPeerToPeer(boost::asio::io_context& cont
 {
 	_socket.open(boost::asio::ip::udp::v4());
 	_socket.set_option(boost::asio::socket_base::broadcast(true));
+	_socket.bind(boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 0));
 
 	auto gameInfoJsonOpt { objectToJson<CGameInfo>(_gameInfo) };
 
@@ -33,19 +34,13 @@ void CSessionPosterPeerToPeer::postSession()
 
 void CSessionPosterPeerToPeer::broadcastSession()
 {
-	std::cout << "BROADCAST SESSION" << std::endl;
-
 	_socket.async_send_to(
 		boost::asio::buffer(_message),
 		_endpoint,
 		[this](boost::system::error_code ec, std::size_t bytes_transferred)
 		{
-			std::cout << "BROADCAST SESSION!!!" << std::endl;
-
 			if (!ec)
 			{
-				std::cout << "POST: " << _message << " Sent " << bytes_transferred << " bytes." << std::endl;
-
 				if (_broadcast)
 				{
 					auto timer = std::make_shared<boost::asio::steady_timer>(_context, std::chrono::seconds(BROADCAST_SESSION_TIMEOUT));

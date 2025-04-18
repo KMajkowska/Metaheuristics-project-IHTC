@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/vcpkg,visualstudio,c++
 # Edit at https://www.toptal.com/developers/gitignore?templates=vcpkg,visualstudio,c++
 
+*.dll
 *.csv
 solution.json
 log_files

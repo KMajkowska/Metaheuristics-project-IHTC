@@ -4,6 +4,13 @@
 #include <nlohmann/json.hpp>
 
 #include "enumOperations.h"
+#include "AllGameParameters.h"
+
+const int DEFAULT_HARD_RESTRICTION_WEIGHT{ 100 };
+const double DEFAULT_MUTATION_PROBABILITY{ 1.0 };
+const int DEFAULT_SOLVER_REPETITION_AMOUNT{ 1 };
+const SolverType DEFAULT_OUTOUT_SOLVER{ SolverType::SA };
+const CoolingSchemeType DEFAULT_COOLING_SCHEME{ CoolingSchemeType::SIMPLEX };
 
 /**
  * @brief Paramws for json
@@ -14,6 +21,7 @@ public:
 	Params() = default;
 	Params(const Params& other) = default;
 	Params(Params&& other) = default;
+    Params(const AllGameParameters& allGameParameters);
 
     Params& operator=(const Params& other) = default;
     Params& operator=(Params&& other) = default;

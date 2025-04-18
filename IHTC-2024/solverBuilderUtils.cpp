@@ -20,6 +20,25 @@ std::shared_ptr<IHTCSolverBuilder> getSolverBuilder(
 	}
 }
 
+std::set<int> getRandomPorts(short amount)
+{
+	std::uniform_int_distribution<> dist(49152, 65535);
+
+	std::set<int> ports;
+
+	if (amount < 0)
+	{
+		return ports;
+	}
+
+	while (ports.size() < amount)
+	{
+		ports.insert(dist(RANDOM_GENERATOR));
+	}
+
+	return ports;
+}
+
 std::mt19937 createRandomGenerator()
 {
 	std::random_device r;

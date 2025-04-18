@@ -1,5 +1,42 @@
 #include "Params.h"
 
+Params::Params(const AllGameParameters& allGameParameters)
+{
+    setHardRestrictionWeight(DEFAULT_HARD_RESTRICTION_WEIGHT);
+    setMutationProbability(DEFAULT_MUTATION_PROBABILITY);
+    setNeighbourNumber(allGameParameters.neighbourSize());
+    setMaxIteration(allGameParameters.maxIteration());
+    setPrizeSize(allGameParameters.prizeSize());
+    setIncreaseTempIters(allGameParameters.increaseTempIters());
+    setGenderGrouperIter(allGameParameters.genderGroupIter());
+    setStartingTemperature(allGameParameters.startingTemperature());
+    setStopTemperature(allGameParameters.stopTemperature());
+    setSimplexCoolingMultiplier(allGameParameters.coolingMultiplier());
+    setSolverRepetitionAmount(DEFAULT_SOLVER_REPETITION_AMOUNT);
+    setStopMillis(allGameParameters.gameTime() * 1000);
+    setInitSolver(allGameParameters.initSolver());
+    setOutputSolver(DEFAULT_OUTOUT_SOLVER);
+    setNeighbourGenerator(allGameParameters.neighbourGenerator());
+    setCoolingSchemeType(DEFAULT_COOLING_SCHEME);
+
+    if (allGameParameters.gameTime() > 0)
+    {
+        setStopCriteriumType(StopCriteriumType::TIME);
+    }
+    else if (allGameParameters.maxIteration() > 0)
+    {
+        setStopCriteriumType(StopCriteriumType::ITERATION);
+    }
+    else if (allGameParameters.stopTemperature() > 0)
+    {
+        setStopCriteriumType(StopCriteriumType::TEMPERATURE);
+    }
+    else 
+    {
+        throw std::invalid_argument("Couldn't create parameters due to: Unknown stop criterium");
+    }
+}
+
 const std::string& Params::outputPath() const 
 {
     return _outputPath; 
@@ -90,7 +127,7 @@ StopCriteriumType Params::stopCriteriumType() const
     return _stopCriteriumType;
 }
 
-void Params::setOutputPath(const std::string& path) 
+void Params::setOutputPath(const std::string& path)
 {
     _outputPath = path;
 }

@@ -26,7 +26,7 @@ private:
 	boost::asio::ip::udp::endpoint _endpoint;
 	boost::asio::ip::udp::socket _socket;
 
-	const short BROADCAST_SESSION_TIMEOUT = 2;
+	const int BROADCAST_SESSION_TIMEOUT = 2;
 
 	void broadcastSession();
 };

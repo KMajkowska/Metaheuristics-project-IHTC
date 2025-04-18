@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include <WinnerJudgeType.h>
 #include <GameLevel.h>
 #include <NeighbourGeneratorType.h>
@@ -10,6 +11,7 @@ class AllGameParameters
 {
 public:
     AllGameParameters() = default;
+    AllGameParameters(const AllGameParameters& other) = default;
     ~AllGameParameters() = default;
 
 //getters

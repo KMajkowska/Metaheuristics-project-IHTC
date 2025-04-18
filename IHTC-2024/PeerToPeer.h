@@ -15,7 +15,7 @@ static std::string END_OF_TRANSMISSION = "EOT";
 class PeerToPeer : public INetworkExchanger
 {
 public:
-	PeerToPeer(boost::asio::io_context& context, const std::string& ip, short sendPort, short receivePort, bool isHost);
+	PeerToPeer(boost::asio::io_context& context, const std::string& ip, int sendPort, int receivePort, bool isHost);
 
 	/**
 	 * @brief Start the process of receiving messages and allow sending (establishes connection)
@@ -36,8 +36,8 @@ private:
 
 	bool _connected;
 	const std::string _ip;
-	const short _sendPort;
-	const short _receivePort;
+	const int _sendPort;
+	const int _receivePort;
 
 	bool _isHost;
 

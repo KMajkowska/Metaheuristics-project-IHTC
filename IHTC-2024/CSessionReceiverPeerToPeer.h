@@ -20,9 +20,10 @@ public:
 	void stopChecking();
 
 protected:
-	std::atomic<bool> _broadcast;  /// Tell the object to keep boradcasting (until this flag is false).
 	boost::asio::ip::udp::socket _socket;
+	bool _broadcast;
+	std::vector<char> _receiveBuffer;
+	boost::asio::ip::udp::endpoint _senderEndpoint;
 
-	void startReceivingBroadcast();
 	void receiveBroadcast();
 };

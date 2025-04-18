@@ -97,6 +97,7 @@ static void hostGame(boost::asio::io_context& context)
 
 	poster.postSession();
 
+
 	std::cout << "FINITO GAME" << std::endl;
 }
 
@@ -148,7 +149,7 @@ static void runJustGame(short postPort, short receivePort)
 	std::cout << "FINITO" << std::endl;
 }
 
-static void runJustHost(short postPort, short receivePort)
+static void runJustHost(int postPort, int receivePort)
 {
 	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
 	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
@@ -196,7 +197,7 @@ static void runJustHost(short postPort, short receivePort)
 	std::cout << "FINITO" << std::endl;
 }
 
-static void runNetworkTest(short sendPort, short receivePort, bool isHost)
+static void runNetworkTest(int sendPort, int receivePort, bool isHost)
 {
 	if (isHost)
 	{
@@ -216,8 +217,8 @@ static void runNetworkTestjustPeer(int argc, char* argv[])
 	boost::asio::executor_work_guard<boost::asio::io_context::executor_type> workGuard = boost::asio::make_work_guard(ioContext);
 
 	std::string ip = "127.0.0.1";
-	short sendPort = 8082;
-	short receivePort = 8083;
+	int sendPort = 8082;
+	int receivePort = 8083;
 	bool isHost = (argc > 1 && std::string(argv[1]) == "host");
 
 	PeerToPeer peer(ioContext, ip, isHost ? sendPort : receivePort, isHost ? receivePort : sendPort, isHost);
@@ -253,9 +254,9 @@ int main(int argc, char* argv[])
 	return app.exec();
 	try
 	{
-		auto sendPort{ argc > 1 ? (short)atoi(argv[1]) : 8081 };
-		auto receivePort{ argc > 2 ? (short)atoi(argv[2]) : 8082 };
-		auto isHostNum{ argc > 3 ? (short)atoi(argv[3]) : 1 };
+		auto sendPort{ argc > 1 ? atoi(argv[1]) : 8081 };
+		auto receivePort{ argc > 2 ? atoi(argv[2]) : 8082 };
+		auto isHostNum{ argc > 3 ? atoi(argv[3]) : 1 };
 
 		runNetworkTest(sendPort, receivePort, isHostNum != 0);
 	}
