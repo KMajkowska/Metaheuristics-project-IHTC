@@ -8,5 +8,6 @@ enum class ScreensNumber
 	METAH_PARAMETERS = 3,
 	SESSIONS = 4,
 	WAITING_SCREEN = 5,
-	PLOT_SCREEN = 6
+	PLOT_SCREEN = 6,
+	END_GAME_SCREEN = 7
 };

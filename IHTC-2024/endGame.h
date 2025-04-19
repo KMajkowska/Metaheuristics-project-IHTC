@@ -1,0 +1,49 @@
+/********************************************************************************
+** Form generated from reading UI file 'chooseOpponent.ui'
+**
+** Created by: Qt User Interface Compiler version 6.8.2
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+#pragma once
+
+#include <QtCore/QVariant>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <qboxlayout.h>
+#include <memory>
+#include <QtWidgets/QApplication>
+
+#include "consts.h"
+#include "StateController.h"
+#include "ScreensNumber.h"
+
+class Ui_endGameScreen : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Ui_endGameScreen(QWidget* parent = nullptr);
+    ~Ui_endGameScreen() = default;
+
+private:
+    QWidget* centralWidget;
+    QFont* font;
+    QPushButton* endButton;
+    QPushButton* returnButton;
+    QVBoxLayout* mainLayout;
+    QHBoxLayout* buttonLayout;
+    QLabel* gameResultLabel;
+
+    void setupUi(QWidget* mainWindow);
+    void retranslateUi(QWidget* mainWindow);
+
+    void setUpEndButton();
+    QFont setUpFont(int points);
+    void setUpReturnButton();
+    void setUpGameResultLabel();
+
+private slots:
+    void onReturnButtonClicked();
+};
+

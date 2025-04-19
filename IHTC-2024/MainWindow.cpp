@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	auto gameParameters = new Ui_gameParameters(this);
 	auto sessions = new Ui_sessions(this);
 	auto waitingScreen = new Ui_waitingScreen(this);
-	auto plot = new Ui_gamePlotScreen(this);
+	auto plotScreen = new Ui_gamePlotScreen(this);
+	auto endGameScreen = new Ui_endGameScreen(this);
 
 	_stackedWidget->addWidget(welcomeScreen);
 	_stackedWidget->addWidget(chooseOpponentScreen);
@@ -20,7 +21,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	_stackedWidget->addWidget(metahParameters);
 	_stackedWidget->addWidget(sessions);
 	_stackedWidget->addWidget(waitingScreen);
-	_stackedWidget->addWidget(plot);
+	_stackedWidget->addWidget(plotScreen);
+	_stackedWidget->addWidget(endGameScreen);
 
 	StateController::instance().addScreen(ScreensNumber::WELCOME_SCREEN, welcomeScreen);
 	StateController::instance().addScreen(ScreensNumber::CHOOSE_OPPONENT, chooseOpponentScreen);
@@ -28,7 +30,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	StateController::instance().addScreen(ScreensNumber::METAH_PARAMETERS, metahParameters);
 	StateController::instance().addScreen(ScreensNumber::SESSIONS, sessions);
 	StateController::instance().addScreen(ScreensNumber::WAITING_SCREEN, waitingScreen);
-	StateController::instance().addScreen(ScreensNumber::PLOT_SCREEN, plot);
+	StateController::instance().addScreen(ScreensNumber::PLOT_SCREEN, plotScreen);
+	StateController::instance().addScreen(ScreensNumber::END_GAME_SCREEN, endGameScreen);
 
 
 	StateController::instance().setNavigate([&](ScreensNumber screen)
@@ -43,7 +46,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
 	setCentralWidget(_stackedWidget);
 	_stackedWidget->showMaximized();
-	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
+	StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
 }
 
 MainWindow::~MainWindow()

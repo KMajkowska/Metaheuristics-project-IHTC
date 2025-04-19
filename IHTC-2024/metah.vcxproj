@@ -120,6 +120,7 @@
     <ClCompile Include="CSolutionDataHandler.cpp" />
     <ClCompile Include="CSolutionHandler.cpp" />
     <ClCompile Include="EASolver.cpp" />
+    <ClCompile Include="endGame.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="gameParameters.cpp" />
     <ClCompile Include="gamePlotScreen.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="CSessionReceiverPeerToPeer.h" />
     <ClInclude Include="CSolutionDataHandlerNetwork.h" />
     <ClInclude Include="CSolutionHandler.h" />
+    <QtMoc Include="endGame.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameTimeValues.h" />
     <ClInclude Include="CoolingSchemeType.h" />
