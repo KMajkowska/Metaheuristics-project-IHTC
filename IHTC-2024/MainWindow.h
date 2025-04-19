@@ -10,6 +10,7 @@
 #include "sessions.h"
 #include "waitingScreen.h"
 #include "StateController.h"
+#include "gamePlotScreen.h"
 
 class MainWindow : public QMainWindow
 {

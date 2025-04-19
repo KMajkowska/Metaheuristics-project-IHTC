@@ -231,6 +231,12 @@
     <Filter Include="Source Files\networking\session">
       <UniqueIdentifier>{de7eb131-e062-4e2a-99f1-ac75692f9b1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GUI\plot">
+      <UniqueIdentifier>{8a19c047-aedd-4684-9666-9a612ac1e4f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\plot">
+      <UniqueIdentifier>{c919b026-fd11-4283-bfcf-e87108ba758d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="metah.qrc">
@@ -534,6 +540,12 @@
     </ClCompile>
     <ClCompile Include="gameUtils.cpp">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="RealTimePlot.cpp">
+      <Filter>Source Files\GUI\plot</Filter>
+    </ClCompile>
+    <ClCompile Include="gamePlotScreen.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -891,6 +903,12 @@
       <Filter>Header Files\GUI\screens</Filter>
     </QtMoc>
     <QtMoc Include="welcomeScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="RealTimePlot.h">
+      <Filter>Header Files\GUI\plot</Filter>
+    </QtMoc>
+    <QtMoc Include="gamePlotScreen.h">
       <Filter>Header Files\GUI\screens</Filter>
     </QtMoc>
   </ItemGroup>

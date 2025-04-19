@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.8.2_msvc2022_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;charts</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -122,6 +122,7 @@
     <ClCompile Include="EASolver.cpp" />
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="gameParameters.cpp" />
+    <ClCompile Include="gamePlotScreen.cpp" />
     <ClCompile Include="gameUtils.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GenderGrouper.cpp" />
@@ -174,6 +175,10 @@
     <ClCompile Include="ProblemData.cpp" />
     <ClCompile Include="RandomSolver.cpp" />
     <ClCompile Include="RandomSolverBuilder.cpp" />
+    <ClCompile Include="RealTimePlot.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\6.8.2\msvc2022_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\6.8.2\msvc2022_64\include\QtCharts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="RoomBrokenAgeGender.cpp" />
     <ClCompile Include="RoomDTO.cpp" />
     <ClCompile Include="RoomInfo.cpp" />
@@ -294,6 +299,7 @@
     <ClInclude Include="ProblemData.h" />
     <ClInclude Include="RandomSolver.h" />
     <ClInclude Include="RandomSolverBuilder.h" />
+    <QtMoc Include="RealTimePlot.h" />
     <ClInclude Include="RoomBrokenAgeGender.h" />
     <ClInclude Include="RoomDTO.h" />
     <ClInclude Include="RoomInfo.h" />
@@ -318,6 +324,7 @@
     <ClInclude Include="SurgeonOTInfo.h" />
     <ClInclude Include="SurgeonsTime.h" />
     <ClInclude Include="TemperatureOperator.h" />
+    <QtMoc Include="gamePlotScreen.h" />
     <ClInclude Include="VariableCoolingScheme.h" />
     <ClInclude Include="waitingScreen.h" />
     <ClInclude Include="WeightsDTO.h" />
