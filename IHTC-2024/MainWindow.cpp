@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
 	setCentralWidget(_stackedWidget);
 	_stackedWidget->showMaximized();
-	StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
+	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
 }
 
 MainWindow::~MainWindow()
