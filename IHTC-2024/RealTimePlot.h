@@ -26,4 +26,6 @@ private:
 
     void setUpAxisX();
     void setUpAxisY();
+
+    void updateChart();
 };

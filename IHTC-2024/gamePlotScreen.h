@@ -44,5 +44,5 @@ private:
 
 
 private slots:
-
+    void updateChart();
 };

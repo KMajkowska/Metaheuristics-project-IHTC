@@ -120,7 +120,24 @@ void StateController::updateSessionList()
 
 void StateController::createSession(AllGameParameters parameters)
 {
-	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
+	std::string problemFile;
+
+	switch (parameters.inputParametersLevel())
+	{
+	case(GameLevel::EASY) :
+		problemFile = EASY_PROBLEM_FILE;
+		break;
+	case(GameLevel::MEDIUM):
+		problemFile = MEDIUM_PROBLEM_FILE;
+		break;
+	case(GameLevel::HARD):
+		problemFile = HARD_PROBLEM_FILE;
+		break;
+	default:
+		problemFile = DEFAULT_PROBLEM_FILE;
+		break;
+	}
+	auto problemDataOpt = jsonToObject<ProblemData>(problemFile);
 
 	if (!problemDataOpt)
 	{
@@ -148,6 +165,11 @@ void StateController::createSession(AllGameParameters parameters)
 		});
 
 	poster->postSession();
+}
+
+void StateController::updateChart()
+{
+
 }
 
 void StateController::cleaner()

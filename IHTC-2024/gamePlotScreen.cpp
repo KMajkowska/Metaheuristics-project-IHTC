@@ -58,3 +58,8 @@ QFont Ui_gamePlotScreen::setUpFont(int points)
 	font->setPointSize(points);
 	return *font;
 }
+
+void Ui_gamePlotScreen::updateChart()
+{
+	plot->updateChart();
+}

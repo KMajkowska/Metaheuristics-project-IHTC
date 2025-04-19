@@ -37,3 +37,9 @@ void RealTimePlot::setUpAxisY()
 	axisY->setLabelFormat("%.1f");
 	axisY->setRange(0, 50000);
 }
+
+void RealTimePlot::updateChart()
+{
+	series->append(0, 0);
+	chart->addSeries(series);
+}
