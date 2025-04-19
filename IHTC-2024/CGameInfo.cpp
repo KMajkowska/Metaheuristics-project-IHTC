@@ -62,7 +62,6 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 		{"postPort", obj.postPort()},
 		{"receivePort", obj.receivePort()},
 		{"name", obj.name()},
-		{"isPlayerOpponent", obj.isPlayerOpponent()},
 		{"gameTime", obj.gameTime()},
 		{"gameLevel", enumToString<GameLevel>(obj.gameLevel())},
 		{"winningMode", enumToString<WinnerJudgeType>(obj.judgeType())},
@@ -83,12 +82,11 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 void from_json(const nlohmann::json& j, CGameInfo& obj)
 {
 	obj.setUUID(j.at("uuid").get<std::string>());
-	obj.setPostPort(j.at("postPort").get<short>());
-	obj.setReceivePort(j.at("receivePort").get<short>());
+	obj.setPostPort(j.at("postPort").get<int>());
+	obj.setReceivePort(j.at("receivePort").get<int>());
 	obj.setJudgeType(stringToEnum<WinnerJudgeType>(j.at("winningMode").get<std::string>()));
 	obj.setRoundNumber(j.at("roundNumber").get<int>());
 	obj.setName(j.at("name").get<std::string>());
-	obj.setIsPlayerOpponent(j.at("isPlayerOpponent").get<bool>());
 	obj.setGameTime(j.at("gameTime").get<int>());
 	obj.setGameLevel(stringToEnum<GameLevel>(j.at("gameLevel").get<std::string>()));
 	obj.setMaxIteration(j.at("maxIteration").get<int>());

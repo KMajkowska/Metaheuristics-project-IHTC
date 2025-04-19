@@ -11,8 +11,6 @@ Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
     listLayout = new QHBoxLayout(centralwidget);
 
     setupUi(this);
-
-    StateController::instance().updateSessionList();
 }
 
 void Ui_sessions::setupUi(QWidget* MainWindow)
@@ -34,7 +32,7 @@ void Ui_sessions::setupUi(QWidget* MainWindow)
 
     retranslateUi(MainWindow);
 
-    connect(listOfSessions, &QListWidget::itemClicked, this, &Ui_sessions::onItemCLicked);
+    connect(listOfSessions, &QListWidget::itemClicked, this, &Ui_sessions::onItemClicked);
 
     QMetaObject::connectSlotsByName(MainWindow);
 }
@@ -44,7 +42,6 @@ void Ui_sessions::setUpListOfSessions()
     listOfSessions->setObjectName("listWidget");
     listOfSessions->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     listOfSessions->setMinimumHeight(700);
-    listOfSessions->addItem(QString::fromStdString("sdfsdf"));
     listLayout->addWidget(listOfSessions, 0, Qt::AlignVCenter);
 }
 
@@ -88,7 +85,7 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
         sessionInfo += enumToString<GameLevel>(it->second.inputParametersLevel());
 
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
-        item->setData(Qt::UserRole, QVariant::fromValue(it->first));
+        item->setData(Qt::UserRole, QVariant::fromValue(QString::fromStdString(it->first)));
 
         if (!addedItems.contains(item->text().toStdString()))
         {
@@ -99,8 +96,47 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
     }
 }
 
-void Ui_sessions::onItemCLicked()
+void Ui_sessions::showEvent(QShowEvent* event)
 {
+    StateController::instance().updateSessionList([this](std::unordered_map<std::string, CGameInfo>& sessionsList)
+        {
+            updateSessionList(sessionsList);
+        });
+
+    QWidget::showEvent(event);
+}
+
+void Ui_sessions::hideEvent(QHideEvent* event)
+{
+    StateController::instance().stopUpdatingSessionList();
+
+    QWidget::hideEvent(event);
+}
+
+void Ui_sessions::onItemClicked(QListWidgetItem* item)
+{
+    StateController::instance().setStartGame([item]()
+        {
+            QString key = item->data(Qt::UserRole).toString();
+            std::string stdKey = key.toStdString();
+
+            auto foundGame{ StateController::instance().foundSessions().find(stdKey)};
+
+            if (foundGame == StateController::instance().foundSessions().end())
+            {
+                return;
+            }
+
+            StateController::instance().setAllGameParametersFromJoined(foundGame->second);
+
+            StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+            StateController::instance().joinSession([]()
+                {
+                    // TODO: przekierowanie na ekran z wynikiem
+                },
+                StateController::instance().allGameParameters(),
+                foundGame->second);
+        });
 
     StateController::instance().navigate(ScreensNumber::METAH_PARAMETERS);
 }

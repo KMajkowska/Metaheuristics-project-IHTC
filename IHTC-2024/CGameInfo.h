@@ -36,7 +36,7 @@ private:
 	int _postPort{ 0 };
 	int _receivePort{ 0 };
 
-	std::chrono::steady_clock::time_point _lastUpdated;
+	std::chrono::steady_clock::time_point _lastUpdated{ std::chrono::steady_clock::now() };
 };
 
 

@@ -22,8 +22,10 @@ public:
 protected:
 	boost::asio::ip::udp::socket _socket;
 	bool _broadcast;
+	bool _socketInitialized;
 	std::vector<char> _receiveBuffer;
 	boost::asio::ip::udp::endpoint _senderEndpoint;
 
 	void receiveBroadcast();
+	void initializeSocket();
 };

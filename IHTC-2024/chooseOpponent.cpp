@@ -81,12 +81,31 @@ void Ui_chooseOpponent::retranslateUi(QWidget* MainWindow)
 
 void Ui_chooseOpponent::onComputerButtonClicked()
 {
-	StateController::instance().allGameParameters().setIsPlayerOpponent(false);
+	StateController::instance().setStartGame([]() 
+		{
+			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+			StateController::instance().runComputer([]()
+				{
+					// TODO: Przekierowanie na ekran z wynikiem
+				},
+				StateController::instance().allGameParameters());
+		});
+
 	StateController::instance().navigate(ScreensNumber::GAME_PARAMETERS);
 }
 
+// default is session start!
 void Ui_chooseOpponent::onPlayerButtonClicked()
 {
-	StateController::instance().allGameParameters().setIsPlayerOpponent(true);
+	StateController::instance().setStartGame([]()
+		{
+			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+			StateController::instance().createSession([]() 
+				{
+					// TODO: Przekierowanie na ekran z wynikiem
+				},
+				StateController::instance().allGameParameters());
+		});
+
 	StateController::instance().navigate(ScreensNumber::SESSIONS);
 }

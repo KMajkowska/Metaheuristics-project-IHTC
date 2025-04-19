@@ -16,7 +16,7 @@ public:
 
 	virtual void start() = 0;
 
-	virtual void sendMessage(const std::string& message) = 0;
+	virtual void sendMessage(std::string message) = 0;
 	virtual void receiveMessage() = 0;
 
 	virtual void tellEndOfTransmission() = 0;

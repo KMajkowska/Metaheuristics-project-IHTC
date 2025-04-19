@@ -135,8 +135,6 @@ static void runJustGame(short postPort, short receivePort)
 			networkGame->startGame();
 		});
 
-	peer->start();
-
 	std::cout << "Joining the game, waiting for connection..." << std::endl;
 
 	std::thread ioThread([ioContext]()
@@ -144,7 +142,10 @@ static void runJustGame(short postPort, short receivePort)
 			ioContext->run();
 		});
 
-	ioThread.join();
+	std::thread peerThread([peer]()
+		{
+			peer->start();
+		});
 
 	std::cout << "FINITO" << std::endl;
 }
@@ -183,7 +184,6 @@ static void runJustHost(int postPort, int receivePort)
 			networkGame->startGame();
 		});
 
-	peer->start();
 
 	std::cout << "Hosting the game, waiting for connection..." << std::endl;
 
@@ -192,7 +192,10 @@ static void runJustHost(int postPort, int receivePort)
 			ioContext->run();
 		});
 
-	ioThread.join();
+	std::thread peerThread([peer]()
+		{
+			peer->start();
+		});
 
 	std::cout << "FINITO" << std::endl;
 }
@@ -245,20 +248,22 @@ static void runNetworkTestjustPeer(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
 	QApplication app(argc, argv);
-
+	
 	MainWindow mainWindow;
-
+	
 	mainWindow.resize(1100, 800);
 	mainWindow.show();
-
+	
 	return app.exec();
+
 	try
 	{
 		auto sendPort{ argc > 1 ? atoi(argv[1]) : 8081 };
 		auto receivePort{ argc > 2 ? atoi(argv[2]) : 8082 };
-		auto isHostNum{ argc > 3 ? atoi(argv[3]) : 1 };
 
-		runNetworkTest(sendPort, receivePort, isHostNum != 0);
+		std::thread([sendPort, receivePort]() { runNetworkTest(receivePort, receivePort, true); }).detach();
+		std::thread([sendPort, receivePort]() { runNetworkTest(sendPort, sendPort, false); }).detach();
+
 	}
 	catch (const std::exception& e)
 	{

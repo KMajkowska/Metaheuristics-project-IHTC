@@ -1,5 +1,8 @@
 #include "CPlayer.h"
 
+CPlayer::CPlayer(const std::string& name) : _name(name)
+{}
+
 std::string CPlayer::name()
 {
     return _name;

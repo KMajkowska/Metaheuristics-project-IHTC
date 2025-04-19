@@ -539,7 +539,7 @@
       <Filter>Source Files\GUI\communication</Filter>
     </ClCompile>
     <ClCompile Include="gameUtils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="RealTimePlot.cpp">
       <Filter>Source Files\GUI\plot</Filter>

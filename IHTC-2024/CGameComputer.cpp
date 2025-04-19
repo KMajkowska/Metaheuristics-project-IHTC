@@ -30,22 +30,27 @@ CSolutionHandler CGameComputer::startRound()
 	FitnessCalculator fitnessCalculator(_localParams.hardRestrictionWeight());
 	IHTCProblem problem(_problemData, getViolatedFromSolution, fitnessCalculator);
 
-	auto localInitSolver = getSolverBuilder(_localParams.initSolver(), _localParams, _problemData, consumerLocal, problem)->build();
-	auto localOutputSolver = getSolverBuilder(_localParams.outputSolver(), _localParams, _problemData, consumerLocal, problem)->build();
-	
-	// yes, the opponent uses the same params!
-	auto opponentInitSolver = getSolverBuilder(_localParams.initSolver(), _localParams, _problemData, consumerOpponent, problem)->build();
-	auto opponentOutputSolver = getSolverBuilder(_localParams.outputSolver(), _localParams, _problemData, consumerOpponent, problem)->build();
-
-
 	std::future<CIndividual> localFuture = std::async(std::launch::async, [&]()
 		{
-			return localOutputSolver->solve(problem, localInitSolver->solve(problem, CIndividual()));
+			auto localInitSolver{ getSolverBuilder(_localParams.initSolver(), _localParams, _problemData, consumerLocal, problem)->build() };
+			auto localOutputSolver{ getSolverBuilder(_localParams.outputSolver(), _localParams, _problemData, consumerLocal, problem)->build() };
+
+			CIndividual localStartingIndividual;
+			auto initialized{ localInitSolver->solve(problem, localStartingIndividual) };
+
+			return localOutputSolver->solve(problem, initialized);
 		});
 
+	// TODO: make the opponent create params
 	std::future<CIndividual> opponentFuture = std::async(std::launch::async, [&]()
 		{
-			return opponentOutputSolver->solve(problem, opponentInitSolver->solve(problem, CIndividual()));
+			auto opponentInitSolver = getSolverBuilder(_localParams.initSolver(), _localParams, _problemData, consumerOpponent, problem)->build();
+			auto opponentOutputSolver = getSolverBuilder(_localParams.outputSolver(), _localParams, _problemData, consumerOpponent, problem)->build();
+			
+			CIndividual opponentStartingIndividual;
+			auto initialized{ opponentInitSolver->solve(problem, opponentStartingIndividual) };
+
+			return opponentOutputSolver->solve(problem, initialized);
 		});
 
 	CIndividual localIndividual { localFuture.get() };

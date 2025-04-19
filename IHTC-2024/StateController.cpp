@@ -1,10 +1,13 @@
 #include "StateController.h"
 
-StateController::StateController() : _wordGuard(boost::asio::make_work_guard(_ioContext))
+StateController::StateController() : 
+	_workGuard(boost::asio::make_work_guard(_ioContext)),
+	_sessionReceiver(_ioContext)
 {
 	_ioContextThread = std::thread([this]()
 		{
 			_ioContext.run();
+			std::cout << "I DIED!";
 		});
 }
 
@@ -16,6 +19,7 @@ StateController& StateController::instance()
 
 StateController::~StateController()
 {
+	_workGuard.reset();
 	_ioContext.stop();
 
 	if (_ioContextThread.joinable())
@@ -23,12 +27,17 @@ StateController::~StateController()
 		_ioContextThread.join();
 	}
 
-	searchForSessions = false;
+	_searchForSessions = false;
 
-	if (cleanerThread.joinable())
+	if (_cleanerThread.joinable())
 	{
-		cleanerThread.join();
+		_cleanerThread.join();
 	}
+}
+
+void StateController::setAllGameParametersFromJoined(AllGameParameters allGameParameters)
+{
+	_allGameParameters = allGameParameters;
 }
 
 AllGameParameters& StateController::allGameParameters()
@@ -62,35 +71,44 @@ void StateController::navigate(ScreensNumber screen)
 	}
 }
 
-void StateController::setSessionConsumer(std::function<void(std::unordered_map<std::string, CGameInfo>&)> sessionConsumer)
+void StateController::setStartGame(std::function<void()> startGameCallback)
 {
-	_sessionConsumer = sessionConsumer;
+	_startGameCallback = startGameCallback;
 }
 
-void StateController::consume(std::unordered_map<std::string, CGameInfo>& sessions)
+void StateController::startGame()
 {
-	if (_sessionConsumer)
+	if (_startGameCallback)
 	{
-		_sessionConsumer(sessions);
+		_startGameCallback();
 	}
 }
 
-// run in another thread!
-// TODO: Parameters choosing
-void StateController::runComputer(std::function<void()> onFinish) const
+std::unordered_map<std::string, CGameInfo>& StateController::foundSessions()
+{
+	return _foundSessions;
+}
+
+// TODO: fix memory leaks (ALL METHODS)
+// TODO: add on close (and post end of transmission)
+// TODO: run in another thread!
+void StateController::runComputer(
+	std::function<void()> onFinish, 
+	AllGameParameters parameters
+) const
 {
 	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
-	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
 
-	if (!problemDataOpt || !paramsOpt)
+	if (!problemDataOpt)
 	{
 		return;
 	}
 
-	auto problemData(std::move(problemDataOpt.value()));
-	auto params(std::move(paramsOpt.value()));
+	Params params(parameters);
 
-	CGameComputer game(std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), getWinnerJudge(_allGameParameters), problemData, params);
+	auto problemData(std::move(problemDataOpt.value()));
+
+	CGameComputer game(std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("stupid computer!"), getWinnerJudge(_allGameParameters), std::move(problemData), std::move(params));
 
 	game.startGame();
 
@@ -100,25 +118,34 @@ void StateController::runComputer(std::function<void()> onFinish) const
 	}
 }
 
-void StateController::updateSessionList()
+void StateController::updateSessionList(std::function<void(std::unordered_map<std::string, CGameInfo>&)> consume)
 {
-	CSessionReceiverPeerToPeer* sessionReveiver = new CSessionReceiverPeerToPeer(_ioContext);
+	_searchForSessions = true;
 
-	searchForSessions = true;
+	_cleanerThread = std::thread(&StateController::cleaner, this);
 
-	cleanerThread = std::thread(&StateController::cleaner, this);
-
-	sessionReveiver->addObserver([this, &sessionReveiver](CGameInfo gameInfo)
+	_sessionReceiver.addObserver([this, consume](CGameInfo gameInfo)
 		{
-			foundSessions[gameInfo.uuid()] = gameInfo;
+			_foundSessions[gameInfo.uuid()] = gameInfo;
 
-			consume(foundSessions);
+			consume(_foundSessions);
+
+			_searchForSessions = false;
 		});
 
-	sessionReveiver->checkForSessions();
+	_sessionReceiver.checkForSessions();
 }
 
-void StateController::createSession(AllGameParameters parameters)
+void StateController::stopUpdatingSessionList()
+{
+	_searchForSessions = false;
+
+	_sessionReceiver.stopChecking();
+
+	_sessionReceiver.removeObservers();
+}
+
+void StateController::createSession(std::function<void()> onFinish, AllGameParameters parameters)
 {
 	std::string problemFile;
 
@@ -148,23 +175,59 @@ void StateController::createSession(AllGameParameters parameters)
 
 	auto problemData(std::move(problemDataOpt.value()));
 
-	auto params{ new Params(gameInfo) };
+	Params params(gameInfo);
 
-	auto poster{ new CSessionPosterPeerToPeer(_ioContext, gameInfo) };
+	auto poster{ std::make_shared<CSessionPosterPeerToPeer>(_ioContext, gameInfo) };
 
 	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, gameInfo.postPort(), gameInfo.receivePort(), true) };
 
-	peer->start();
+	auto networkGame{ make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("enemy"), getWinnerJudge(gameInfo), std::move(problemData), std::move(params))};
+	
+	peer->setOnClose([onFinish]()
+		{
+			onFinish();
+		});
 
-	auto networkGame{ new CGameNetwork(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.roundNumber()), problemData, *params) };
-
-	peer->addObserver([&poster, &networkGame, &peer](std::string str)
+	peer->setOnConnect([poster, networkGame, peer]()
 		{
 			poster->stopBroadcast();
 			networkGame->startGame();
 		});
+	
+	peer->start();
 
 	poster->postSession();
+
+}
+
+void StateController::joinSession(std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
+{
+	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
+
+	if (!problemDataOpt)
+	{
+		return;
+	}
+
+	auto problemData(std::move(problemDataOpt.value()));
+
+	Params params(parameters);
+
+	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, chosenGame.receivePort(), chosenGame.postPort(), false)};
+
+	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), std::make_shared<BestOfN>(chosenGame.roundNumber()), problemData, std::move(params)) };
+
+	peer->setOnClose([onFinish]()
+		{
+			onFinish();
+		});
+
+	peer->setOnConnect([networkGame]()
+		{
+			networkGame->startGame();
+		});
+
+	peer->start();
 }
 
 void StateController::updateChart()
@@ -174,18 +237,18 @@ void StateController::updateChart()
 
 void StateController::cleaner()
 {
-	while (searchForSessions)
+	while (_searchForSessions)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 		std::lock_guard<std::mutex> lock(_mtx);
 
-		auto now = (std::chrono::steady_clock::now());
+		auto now = std::chrono::steady_clock::now();
 
-		for (auto it = foundSessions.begin(); it != foundSessions.end();)
+		for (auto it = _foundSessions.begin(); it != _foundSessions.end();)
 		{
-			if (std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second.lastUpdated()) > timeout)
+			if (std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second.lastUpdated()) > TIMEOUT)
 			{
-				it = foundSessions.erase(it);
+				it = _foundSessions.erase(it);
 			}
 			else
 			{

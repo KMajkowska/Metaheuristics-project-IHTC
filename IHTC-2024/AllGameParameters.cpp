@@ -5,11 +5,6 @@ std::string AllGameParameters::name() const
     return _name;
 }
 
-bool AllGameParameters::isPlayerOpponent() const
-{
-    return _isPlayerOpponent;
-}
-
 int AllGameParameters::gameTime() const
 {
     return _gameTime;
@@ -70,7 +65,7 @@ int AllGameParameters::prizeSize() const
     return _prizeSize;
 }
 
-int AllGameParameters::coolingMultiplier() const
+double AllGameParameters::coolingMultiplier() const
 {
     return _coolingMultiplier;
 }
@@ -88,11 +83,6 @@ GameLevel AllGameParameters::inputParametersLevel() const
 void AllGameParameters::setName(const std::string& name)
 {
     _name = name;
-}
-
-void AllGameParameters::setIsPlayerOpponent(bool isPlayerOpponent)
-{
-    _isPlayerOpponent = isPlayerOpponent;
 }
 
 void AllGameParameters::setGameTime(int gameTime)
@@ -155,7 +145,7 @@ void AllGameParameters::setPrizeSize(int prizeSize)
     _prizeSize = prizeSize;
 }
 
-void AllGameParameters::setCoolingMultiplier(int coolingMulitplier)
+void AllGameParameters::setCoolingMultiplier(double coolingMulitplier)
 {
     _coolingMultiplier = coolingMulitplier;
 }
