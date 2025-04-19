@@ -16,13 +16,14 @@ class PeerToPeer : public INetworkExchanger
 {
 public:
 	PeerToPeer(boost::asio::io_context& context, const std::string& ip, int sendPort, int receivePort, bool isHost);
+	~PeerToPeer();
 
 	/**
 	 * @brief Start the process of receiving messages and allow sending (establishes connection)
 	 */
 	void start() override;
 
-	void sendMessage(const std::string& message) override;
+	void sendMessage(std::string message) override;
 	void receiveMessage() override;
 
 	void tellEndOfTransmission() override;
@@ -41,6 +42,14 @@ private:
 
 	bool _isHost;
 
+	boost::asio::steady_timer _retryTimer;
+
+	int _currentRetryDelay{ 100 };
+	int _attemptCount{ 0 };
+
 	void listenForConnections();
 	void tryConnect();
+
+	const int MAX_RETRY_DELAY{ 2000 };
+	const int MAX_ATTEMPTS{ 10 };
 };

@@ -2,20 +2,45 @@
 
 CSessionReceiverPeerToPeer::CSessionReceiverPeerToPeer(boost::asio::io_context& context) :
 	_socket(context),
+	_socketInitialized(false),
 	_broadcast(false),
 	_receiveBuffer(65507)
-{
-	boost::asio::ip::udp::endpoint listen_endpoint(boost::asio::ip::udp::v4(), SESSION_PEER_TO_PEER_PORT);
-
-	_socket.open(boost::asio::ip::udp::v4());
-	_socket.set_option(boost::asio::socket_base::reuse_address(true));
-	_socket.set_option(boost::asio::socket_base::broadcast(true));
-	_socket.bind(listen_endpoint);
-}
+{}
 
 CSessionReceiverPeerToPeer::~CSessionReceiverPeerToPeer()
 {
 	stopChecking();
+}
+
+void CSessionReceiverPeerToPeer::initializeSocket()
+{
+	if (_socketInitialized)
+	{
+		return;
+	}
+
+	boost::asio::ip::udp::endpoint listenEndpoint(boost::asio::ip::udp::v4(), SESSION_PEER_TO_PEER_PORT);
+
+	boost::system::error_code ec;
+	_socket.open(boost::asio::ip::udp::v4(), ec);
+	if (ec) 
+	{
+		std::cerr << "Socket open error: " << ec.message() << std::endl;
+		return;
+	}
+
+	_socket.set_option(boost::asio::socket_base::reuse_address(true), ec);
+	_socket.set_option(boost::asio::socket_base::broadcast(true), ec);
+	_socket.bind(listenEndpoint, ec);
+
+	if (ec) 
+	{
+		std::cerr << "Socket bind error: " << ec.message() << std::endl;
+		_socket.close();
+		return;
+	}
+
+	_socketInitialized = true;
 }
 
 void CSessionReceiverPeerToPeer::receiveBroadcast()
@@ -23,6 +48,15 @@ void CSessionReceiverPeerToPeer::receiveBroadcast()
 	if (!_broadcast)
 	{
 		return;
+	}
+
+	if (!_socketInitialized)
+	{
+		initializeSocket();
+		if (!_socketInitialized) 
+		{
+			return;
+		}
 	}
 
 	_socket.async_receive_from(
@@ -81,5 +115,8 @@ void CSessionReceiverPeerToPeer::checkForSessions()
 void CSessionReceiverPeerToPeer::stopChecking()
 {
 	_broadcast = false;
-	_socket.cancel();
+	boost::system::error_code ec;
+	_socket.cancel(ec);
+	_socket.close(ec);
+	_socketInitialized = false;
 }

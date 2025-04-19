@@ -25,6 +25,10 @@ public:
 
     void updateSessionList(std::unordered_map<std::string, CGameInfo>& sessions);
 
+protected:
+    void showEvent(QShowEvent* event) override;
+    void hideEvent(QHideEvent* event) override;
+
 private:
     QWidget *centralwidget;
     QListWidget *listOfSessions;
@@ -45,6 +49,6 @@ private:
 
 private slots:
     void onCreateSessionButtonClicked();
-    void onItemCLicked();
+    void onItemClicked(QListWidgetItem* item);
 
 };

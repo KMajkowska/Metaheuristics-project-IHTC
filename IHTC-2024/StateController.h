@@ -25,6 +25,7 @@ public:
 	static StateController& instance();
 	~StateController();
 
+	void setAllGameParametersFromJoined(AllGameParameters allGameParameters);
 	AllGameParameters& allGameParameters();
 
 	std::unordered_map<ScreensNumber, QWidget*>& screens();
@@ -33,35 +34,38 @@ public:
 	void setNavigate(std::function<void(ScreensNumber)> navigateCallback);
 	void navigate(ScreensNumber screen);
 
-	void setSessionConsumer(std::function<void(std::unordered_map<std::string, CGameInfo>&)> sessionCOnsumer);
-	void consume(std::unordered_map<std::string, CGameInfo>& sessions);
+	void setStartGame(std::function<void()> startGameCallback);
+	void startGame();
 
-	void runComputer(std::function<void()> onFinish) const;
+	void updateSessionList(std::function<void(std::unordered_map<std::string, CGameInfo>&)> consume);
+	void stopUpdatingSessionList();
+	std::unordered_map<std::string, CGameInfo>& foundSessions();
 
-	void updateSessionList();
-
-	void createSession(AllGameParameters parameters);
+	void runComputer(std::function<void()> onFinish, AllGameParameters parameter) const;
+	void createSession(std::function<void()> onFinish, AllGameParameters parameters);
+	void joinSession(std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
 
 private:
 	std::function<void(ScreensNumber)> _navigateCallback;
-	std::function<void(std::unordered_map<std::string, CGameInfo>&)> _sessionConsumer;
+	std::function<void()> _startGameCallback;
 
 	std::unordered_map<ScreensNumber, QWidget*> _screens;
 	AllGameParameters _allGameParameters;
 
 	boost::asio::io_context _ioContext;
-	boost::asio::executor_work_guard<boost::asio::io_context::executor_type> _wordGuard;
+	boost::asio::executor_work_guard<boost::asio::io_context::executor_type> _workGuard;
 	std::thread _ioContextThread;
 
-	std::unordered_map<std::string, CGameInfo> foundSessions;
+	std::unordered_map<std::string, CGameInfo> _foundSessions;
 
 	void cleaner();
-	bool searchForSessions{false};
-	std::thread cleanerThread;
 
+	CSessionReceiverPeerToPeer _sessionReceiver;
+	bool _searchForSessions{false};
+	std::thread _cleanerThread;
 	std::mutex _mtx;
 
-	const std::chrono::milliseconds timeout{ (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(TIMEOUT_SECONDS))) };
+	const std::chrono::milliseconds TIMEOUT{ (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(TIMEOUT_SECONDS))) };
 
 	StateController();
 };

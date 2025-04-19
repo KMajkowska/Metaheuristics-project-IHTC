@@ -19,15 +19,15 @@ Params::Params(const AllGameParameters& allGameParameters)
     setNeighbourGenerator(allGameParameters.neighbourGenerator());
     setCoolingSchemeType(DEFAULT_COOLING_SCHEME);
 
-    if (allGameParameters.gameTime() > 0)
+    if (stopMillis() > 0)
     {
         setStopCriteriumType(StopCriteriumType::TIME);
     }
-    else if (allGameParameters.maxIteration() > 0)
+    else if (maxIteration() > 0)
     {
         setStopCriteriumType(StopCriteriumType::ITERATION);
     }
-    else if (allGameParameters.stopTemperature() > 0)
+    else if (stopTemperature() < startingTemperature())
     {
         setStopCriteriumType(StopCriteriumType::TEMPERATURE);
     }

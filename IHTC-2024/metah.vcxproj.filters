@@ -533,7 +533,7 @@
       <Filter>Source Files\GUI\communication</Filter>
     </ClCompile>
     <ClCompile Include="gameUtils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

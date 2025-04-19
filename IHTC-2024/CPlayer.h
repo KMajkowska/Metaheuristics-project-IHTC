@@ -5,6 +5,9 @@
 class CPlayer
 {
 public:
+	CPlayer() = default;
+	CPlayer(const std::string& name);
+
 	std::string name();
 	int score() const;
 	bool isReady() const;
