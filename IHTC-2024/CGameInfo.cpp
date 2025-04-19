@@ -1,16 +1,30 @@
 #include "CGameInfo.h"
 
+CGameInfo::CGameInfo(const AllGameParameters& other) : AllGameParameters(other)
+{
+	auto ports{ getRandomPorts(2) };
+
+	if (ports.size() != 2)
+	{
+		throw std::invalid_argument("GameInfo ports weren't generated properly");
+	}
+
+	setPostPort(*(ports.begin()));
+	ports.erase(ports.begin());
+	setReceivePort(*(ports.begin()));
+}
+
 void CGameInfo::setUUID(const std::string uuid)
 {
 	_uuid = uuid;
 }
 
-void CGameInfo::setPostPort(short postPort)
+void CGameInfo::setPostPort(int postPort)
 {
 	_postPort = postPort;
 }
 
-void CGameInfo::setReceivePort(short receivePort)
+void CGameInfo::setReceivePort(int receivePort)
 {
 	_receivePort = receivePort;
 }
@@ -25,12 +39,12 @@ std::string CGameInfo::uuid() const
 	return _uuid;
 }
 
-short CGameInfo::postPort() const
+int CGameInfo::postPort() const
 {
 	return _postPort;
 }
 
-short CGameInfo::receivePort() const
+int CGameInfo::receivePort() const
 {
 	return _receivePort;
 }
@@ -71,9 +85,8 @@ void from_json(const nlohmann::json& j, CGameInfo& obj)
 	obj.setUUID(j.at("uuid").get<std::string>());
 	obj.setPostPort(j.at("postPort").get<short>());
 	obj.setReceivePort(j.at("receivePort").get<short>());
-	obj.setName(j.at("playerName").get<std::string>());
-	obj.setJudgeType(stringToEnum<WinnerJudgeType>(j.at("judgeType").get<std::string>()));
-	obj.setRoundNumber(j.at("rounds").get<int>());
+	obj.setJudgeType(stringToEnum<WinnerJudgeType>(j.at("winningMode").get<std::string>()));
+	obj.setRoundNumber(j.at("roundNumber").get<int>());
 	obj.setName(j.at("name").get<std::string>());
 	obj.setIsPlayerOpponent(j.at("isPlayerOpponent").get<bool>());
 	obj.setGameTime(j.at("gameTime").get<int>());

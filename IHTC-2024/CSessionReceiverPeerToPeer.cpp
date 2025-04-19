@@ -1,10 +1,16 @@
 #include "CSessionReceiverPeerToPeer.h"
 
 CSessionReceiverPeerToPeer::CSessionReceiverPeerToPeer(boost::asio::io_context& context) :
-	_socket(context, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), SESSION_PEER_TO_PEER_PORT)),
-	_broadcast(false)
+	_socket(context),
+	_broadcast(false),
+	_receiveBuffer(65507)
 {
-	_socket.non_blocking(true);
+	boost::asio::ip::udp::endpoint listen_endpoint(boost::asio::ip::udp::v4(), SESSION_PEER_TO_PEER_PORT);
+
+	_socket.open(boost::asio::ip::udp::v4());
+	_socket.set_option(boost::asio::socket_base::reuse_address(true));
+	_socket.set_option(boost::asio::socket_base::broadcast(true));
+	_socket.bind(listen_endpoint);
 }
 
 CSessionReceiverPeerToPeer::~CSessionReceiverPeerToPeer()
@@ -12,53 +18,64 @@ CSessionReceiverPeerToPeer::~CSessionReceiverPeerToPeer()
 	stopChecking();
 }
 
-void CSessionReceiverPeerToPeer::startReceivingBroadcast()
-{
-	_broadcast = true;
-	receiveBroadcast();
-}
-
 void CSessionReceiverPeerToPeer::receiveBroadcast()
 {
-    std::vector<char> receiveBuffer(2048);
-    boost::asio::ip::udp::endpoint senderEndpoint;
+	if (!_broadcast)
+	{
+		return;
+	}
 
-    while (_broadcast)
-    {
-        std::cout << "RECEIVE" << std::endl;
+	_socket.async_receive_from(
+		boost::asio::buffer(_receiveBuffer),
+		_senderEndpoint,
+		[this](boost::system::error_code ec, std::size_t bytes_recvd)
+		{
+			if (!_broadcast)
+			{
+				return;
+			}
 
-        boost::system::error_code ec;
-        size_t length = _socket.receive_from(boost::asio::buffer(receiveBuffer), senderEndpoint, 0, ec);
+			if (!ec && bytes_recvd > 0)
+			{
 
-        if (ec == boost::asio::error::would_block)
-        {
-            // No data received, just continue checking
-            continue;  // Skip this iteration and continue checking for new data
-        }
-        else if (ec)
-        {
-            // Handle other errors
-            std::cerr << "Error receiving data: " << ec.message() << std::endl;
-            break;
-        }
+				std::string message(_receiveBuffer.begin(), _receiveBuffer.begin() + bytes_recvd);
+				std::cout << "Received from " << _senderEndpoint.address().to_string()
+					<< ":" << _senderEndpoint.port() << " => " << message << std::endl;
 
-        // If data is received, process it
-        std::string message(receiveBuffer.begin(), receiveBuffer.begin() + length);
-        std::cout << message << std::endl;
+				try
+				{
+					auto parsed = nlohmann::json::parse(message);
+					auto gameInfoOpt = jsonToObject<CGameInfo>(parsed);
 
-        auto parsed{ nlohmann::json::parse(message) };
-        auto gameInfoOpt{ jsonToObject<CGameInfo>(parsed) };
+					if (gameInfoOpt)
+					{
+						notify(gameInfoOpt.value());
+					}
+				}
+				catch (const std::exception& e)
+				{
+					std::cerr << "JSON parsing error: " << e.what() << std::endl;
+				}
+			}
+			else if (ec)
+			{
+				if (ec == boost::asio::error::operation_aborted)
+				{
+					// socket was canceled; normal shutdown
+					return;
+				}
+				std::cerr << "Receive error: " << ec.message() << std::endl;
+			}
 
-        if (gameInfoOpt)
-        {
-            notify(gameInfoOpt.value());
-        }
-    }
+			// Continue listening
+			receiveBroadcast();
+		});
 }
 
 void CSessionReceiverPeerToPeer::checkForSessions()
 {
-    startReceivingBroadcast();
+	_broadcast = true;
+	receiveBroadcast();
 }
 
 void CSessionReceiverPeerToPeer::stopChecking()

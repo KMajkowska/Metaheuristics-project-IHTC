@@ -1,9 +1,34 @@
 #include "StateController.h"
 
+StateController::StateController() : _wordGuard(boost::asio::make_work_guard(_ioContext))
+{
+	_ioContextThread = std::thread([this]()
+		{
+			_ioContext.run();
+		});
+}
+
 StateController& StateController::instance()
 {
 	static StateController instance;
 	return instance;
+}
+
+StateController::~StateController()
+{
+	_ioContext.stop();
+
+	if (_ioContextThread.joinable())
+	{
+		_ioContextThread.join();
+	}
+
+	searchForSessions = false;
+
+	if (cleanerThread.joinable())
+	{
+		cleanerThread.join();
+	}
 }
 
 AllGameParameters& StateController::allGameParameters()
@@ -37,12 +62,12 @@ void StateController::navigate(ScreensNumber screen)
 	}
 }
 
-void StateController::setSessionConsumer(std::function<void(std::unordered_map<std::string, CGameInfo>)> sessionConsumer)
+void StateController::setSessionConsumer(std::function<void(std::unordered_map<std::string, CGameInfo>&)> sessionConsumer)
 {
 	_sessionConsumer = sessionConsumer;
 }
 
-void StateController::consume(std::unordered_map<std::string, CGameInfo> sessions)
+void StateController::consume(std::unordered_map<std::string, CGameInfo>& sessions)
 {
 	if (_sessionConsumer)
 	{
@@ -51,7 +76,8 @@ void StateController::consume(std::unordered_map<std::string, CGameInfo> session
 }
 
 // run in another thread!
-void StateController::runComputer(std::function<void()> onFinish)
+// TODO: Parameters choosing
+void StateController::runComputer(std::function<void()> onFinish) const
 {
 	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
 	auto paramsOpt = jsonToObject<Params>(DEFAULT_PARAMS_FILE);
@@ -76,13 +102,13 @@ void StateController::runComputer(std::function<void()> onFinish)
 
 void StateController::updateSessionList()
 {
-	boost::asio::io_context ioContext;
-	boost::asio::executor_work_guard<boost::asio::io_context::executor_type> workGuard = boost::asio::make_work_guard(ioContext);
-	CSessionReceiverPeerToPeer* sessionReveiver = new CSessionReceiverPeerToPeer(ioContext);
+	CSessionReceiverPeerToPeer* sessionReveiver = new CSessionReceiverPeerToPeer(_ioContext);
+
+	searchForSessions = true;
 
 	cleanerThread = std::thread(&StateController::cleaner, this);
 
-	sessionReveiver->addObserver([this, &sessionReveiver, &ioContext](CGameInfo gameInfo)
+	sessionReveiver->addObserver([this, &sessionReveiver](CGameInfo gameInfo)
 		{
 			foundSessions[gameInfo.uuid()] = gameInfo;
 
@@ -90,16 +116,42 @@ void StateController::updateSessionList()
 		});
 
 	sessionReveiver->checkForSessions();
-
-	if (cleanerThread.joinable())
-	{
-		cleanerThread.join();
-	}
 }
 
-void StateController::cleaner() {
-	searchForSessions = true;
+void StateController::createSession(AllGameParameters parameters)
+{
+	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
 
+	if (!problemDataOpt)
+	{
+		return;
+	}
+
+	CGameInfo gameInfo(parameters);
+
+	auto problemData(std::move(problemDataOpt.value()));
+
+	auto params{ new Params(gameInfo) };
+
+	auto poster{ new CSessionPosterPeerToPeer(_ioContext, gameInfo) };
+
+	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, gameInfo.postPort(), gameInfo.receivePort(), true) };
+
+	peer->start();
+
+	auto networkGame{ new CGameNetwork(peer, std::make_shared<CPlayer>(), std::make_shared<CPlayer>(), std::make_shared<BestOfN>(gameInfo.roundNumber()), problemData, *params) };
+
+	peer->addObserver([&poster, &networkGame, &peer](std::string str)
+		{
+			poster->stopBroadcast();
+			networkGame->startGame();
+		});
+
+	poster->postSession();
+}
+
+void StateController::cleaner()
+{
 	while (searchForSessions)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -109,11 +161,12 @@ void StateController::cleaner() {
 
 		for (auto it = foundSessions.begin(); it != foundSessions.end();)
 		{
-			if (std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second.lastUpdated()) > timeout) {
-				std::cout << "Removing session: " << it->first << std::endl;
+			if (std::chrono::duration_cast<std::chrono::milliseconds>(now - it->second.lastUpdated()) > timeout)
+			{
 				it = foundSessions.erase(it);
 			}
-			else {
+			else
+			{
 				++it;
 			}
 		}

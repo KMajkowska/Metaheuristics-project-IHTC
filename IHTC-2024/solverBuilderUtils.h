@@ -20,3 +20,5 @@ std::shared_ptr<IHTCSolverBuilder> getSolverBuilder(
 	ICIndividualConsumer& consumer,
 	const IProblem& problem
 );
+
+std::set<int> getRandomPorts(short amount);

@@ -23,7 +23,7 @@ public:
     Ui_sessions(QWidget* parent = nullptr);
     ~Ui_sessions() = default;
 
-    void updateSessionList(std::unordered_map<std::string, CGameInfo> sessions);
+    void updateSessionList(std::unordered_map<std::string, CGameInfo>& sessions);
 
 private:
     QWidget *centralwidget;

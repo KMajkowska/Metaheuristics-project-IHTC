@@ -423,6 +423,8 @@ void Ui_metahParameters::onStartGameButtonClicked()
     StateController::instance().allGameParameters().setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(neighbourGeneratorCombobox->currentText().toStdString()));
 
     if (StateController::instance().allGameParameters().isPlayerOpponent()) {
+
+        StateController::instance().createSession(StateController::instance().allGameParameters());
         StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
     }
     else

@@ -2,7 +2,7 @@
 
 Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
 {
-    centralwidget = new QWidget();
+    centralwidget = new QWidget(this);
     listOfSessions = new QListWidget(centralwidget);
     createSessionButton = new QPushButton(centralwidget);
     font = new QFont();
@@ -11,6 +11,8 @@ Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
     listLayout = new QHBoxLayout(centralwidget);
 
     setupUi(this);
+
+    StateController::instance().updateSessionList();
 }
 
 void Ui_sessions::setupUi(QWidget* MainWindow)
@@ -66,7 +68,7 @@ void Ui_sessions::retranslateUi(QWidget* MainWindow)
     createSessionButton->setText(QCoreApplication::translate("MainWindow", "Create own session", nullptr));
 }
 
-void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo> sessions)
+void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& sessions)
 {
     for (auto it = sessions.begin(); it != sessions.end(); it++)
     {
@@ -88,7 +90,7 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo> s
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
         item->setData(Qt::UserRole, QVariant::fromValue(it->first));
 
-        listOfSessions->addItem(QString::fromStdString(sessionInfo));
+        listOfSessions->addItem(item);
     }
 }
 

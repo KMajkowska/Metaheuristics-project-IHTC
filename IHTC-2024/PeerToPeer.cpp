@@ -1,6 +1,6 @@
 #include "PeerToPeer.h"
 
-PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, short sendPort, short receivePort, bool isHost) :
+PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, int sendPort, int receivePort, bool isHost) :
 	_isHost(isHost),
 	_sendSocket(context),
 	_receiveSocket(context),
