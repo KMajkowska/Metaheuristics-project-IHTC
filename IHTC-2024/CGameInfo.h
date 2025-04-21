@@ -21,20 +21,17 @@ public:
 	CGameInfo(const CGameInfo& other) = default;
 	
 	void setUUID(const std::string uuid);
-	void setPostPort(int postPort);
-	void setReceivePort(int receivePort);
+	void setPost(int port);
 	void setLastUpdated(std::chrono::steady_clock::time_point lastUpdated);
 
 	std::string uuid() const;
-	int postPort() const;
-	int receivePort() const;
+	int port() const;
 	std::chrono::steady_clock::time_point lastUpdated() const;
 
 private:
 	std::string _uuid { boost::uuids::to_string(boost::uuids::random_generator()()) };
 
-	int _postPort{ 0 };
-	int _receivePort{ 0 };
+	int _port{ 0 };
 
 	std::chrono::steady_clock::time_point _lastUpdated{ std::chrono::steady_clock::now() };
 };

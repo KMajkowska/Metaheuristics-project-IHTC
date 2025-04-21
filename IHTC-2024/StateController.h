@@ -67,5 +67,7 @@ private:
 
 	const std::chrono::milliseconds TIMEOUT{ (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(TIMEOUT_SECONDS))) };
 
+	std::shared_ptr<ICGame> _currentGame{ nullptr };
+
 	StateController();
 };
