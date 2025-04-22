@@ -41,11 +41,9 @@ public:
 	void stopUpdatingSessionList();
 	std::unordered_map<std::string, CGameInfo>& foundSessions();
 
-	void runComputer(std::function<void()> onFinish, AllGameParameters parameter) const;
-	void createSession(std::function<void()> onFinish, AllGameParameters parameters);
-	void joinSession(std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
-
-	std::shared_ptr<ICGame> currentGame();
+	void runComputer(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameter) const;
+	void createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters);
+	void joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
 
 private:
 	std::function<void(ScreensNumber)> _navigateCallback;
@@ -68,8 +66,6 @@ private:
 	std::mutex _mtx;
 
 	const std::chrono::milliseconds TIMEOUT{ (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(TIMEOUT_SECONDS))) };
-
-	std::shared_ptr<ICGame> _currentGame{ nullptr };
 
 	StateController();
 };

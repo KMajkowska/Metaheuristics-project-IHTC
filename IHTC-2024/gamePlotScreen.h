@@ -27,6 +27,8 @@ public:
     Ui_gamePlotScreen(QWidget* parent = nullptr);
     ~Ui_gamePlotScreen() = default;
 
+    void connectPlot(std::shared_ptr<ICGame> game);
+
 private:
     QWidget* centralWidget;
     QLabel* infoLabel;
@@ -41,4 +43,10 @@ private:
     void setUpInfoLabel();
     void setUpChart();
     QFont setUpFont(int points);
+
+private slots:
+    void handleDrawSeries(int idx, double fitness);
+
+signals:
+    void requestDrawSeries(int idx, double fitness);
 };

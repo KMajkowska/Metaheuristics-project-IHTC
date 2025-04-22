@@ -13,6 +13,23 @@ Ui_gamePlotScreen::Ui_gamePlotScreen(QWidget* parent) :
 	setupUi(this);
 }
 
+void Ui_gamePlotScreen::connectPlot(std::shared_ptr<ICGame> game)
+{
+	static int idx = 1;
+
+	connect(this, &Ui_gamePlotScreen::requestDrawSeries,
+		this, &Ui_gamePlotScreen::handleDrawSeries,
+		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+
+	if (game)
+	{
+		game->setOnLocal([this](SolutionData solutionData)
+			{
+				emit requestDrawSeries(idx++, solutionData.fitness());
+			});
+	}
+}
+
 
 void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
     if (MainWindow->objectName().isEmpty())
@@ -44,12 +61,6 @@ void Ui_gamePlotScreen::setUpChart()
 {
 	plot->setUpChart();
 	plotLayout->addWidget(plot);
-
-	StateController::instance().currentGame()->setOnLocal([this](SolutionData solutionData) 
-		{
-			static int idx = 1;
-			plot->drawSeries(idx++, solutionData.fitness());
-		});
 }
 
 
@@ -63,4 +74,9 @@ QFont Ui_gamePlotScreen::setUpFont(int points)
 {
 	font->setPointSize(points);
 	return *font;
+}
+
+void Ui_gamePlotScreen::handleDrawSeries(int idx, double fitness)
+{
+	plot->drawSeries(idx, fitness);
 }

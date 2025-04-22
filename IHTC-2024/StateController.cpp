@@ -93,6 +93,7 @@ std::unordered_map<std::string, CGameInfo>& StateController::foundSessions()
 // TODO: add on close (and post end of transmission)
 // TODO: run in another thread!
 void StateController::runComputer(
+	std::function<void(std::shared_ptr<ICGame>)> onStart,
 	std::function<void()> onFinish, 
 	AllGameParameters parameters
 ) const
@@ -107,9 +108,14 @@ void StateController::runComputer(
 	auto problemData(std::move(problemDataOpt.value()));
 
 	auto game{ std::make_shared<CGameComputer>(std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("stupid computer!"), getWinnerJudge(_allGameParameters), std::move(problemData), Params(parameters)) };
-
-	std::thread([game, onFinish]()
+	
+	std::thread([game, onFinish, onStart]()
 		{
+			if (onStart)
+			{
+				onStart(game);
+			}
+
 			game->startGame();
 
 			if (onFinish)
@@ -147,7 +153,7 @@ void StateController::stopUpdatingSessionList()
 	_sessionReceiver.removeObservers();
 }
 
-void StateController::createSession(std::function<void()> onFinish, AllGameParameters parameters)
+void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters)
 {
 	std::string problemFile;
 
@@ -185,11 +191,19 @@ void StateController::createSession(std::function<void()> onFinish, AllGameParam
 	
 	peer->setOnClose([onFinish]()
 		{
-			onFinish();
+			if (onFinish)
+			{
+				onFinish();
+			}
 		});
 
-	peer->setOnConnect([poster, networkGame, peer]()
+	peer->setOnConnect([poster, networkGame, peer, onStart]()
 		{
+			if (onStart)
+			{
+				onStart(networkGame);
+			}
+
 			poster->stopBroadcast();
 
 			std::thread([networkGame]()
@@ -201,12 +215,9 @@ void StateController::createSession(std::function<void()> onFinish, AllGameParam
 	peer->start();
 
 	poster->postSession();
-
-	_currentGame = networkGame;
-
 }
 
-void StateController::joinSession(std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
+void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
 {
 	auto problemDataOpt = jsonToObject<ProblemData>(DEFAULT_PROBLEM_FILE);
 
@@ -227,23 +238,20 @@ void StateController::joinSession(std::function<void()> onFinish, AllGameParamet
 			onFinish();
 		});
 
-	peer->setOnConnect([networkGame]()
+	peer->setOnConnect([networkGame, onStart]()
 		{
-			std::thread([networkGame]()
+			std::thread([networkGame, onStart]()
 				{
+					if (onStart)
+					{
+						onStart(networkGame);
+					}
+
 					networkGame->startGame();
 				}).detach();
 		});
 
 	peer->start();
-
-	_currentGame = networkGame;
-
-}
-
-std::shared_ptr<ICGame> StateController::currentGame()
-{
-	return _currentGame;
 }
 
 void StateController::cleaner()
