@@ -1,14 +1,12 @@
 #include "PeerToPeer.h"
 
-PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, int sendPort, int receivePort, bool isHost) :
+PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, int port, bool isHost) :
 	_isHost(isHost),
-	_sendSocket(context),
-	_receiveSocket(context),
+	_socket(context),
 	_acceptor(context),
 	_connected(false),
 	_ip(ip),
-	_sendPort(sendPort),
-	_receivePort(receivePort),
+	_port(port),
 	_retryTimer(context)
 {}
 
@@ -19,12 +17,12 @@ PeerToPeer::~PeerToPeer()
 		tellEndOfTransmission();
 	}
 
-	_sendSocket.close();
-	_receiveSocket.close();
+	_socket.close();
 }
 
 void PeerToPeer::start()
 {
+
 	if (_isHost)
 	{
 		listenForConnections();
@@ -33,33 +31,24 @@ void PeerToPeer::start()
 	{
 		tryConnect();
 	}
+
 }
 
 void PeerToPeer::listenForConnections()
 {
-	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _receivePort);
+	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _port);
 	_acceptor.open(endpoint.protocol());
 	_acceptor.set_option(boost::asio::socket_base::reuse_address(true));
 	_acceptor.bind(endpoint);
 	_acceptor.listen();
 
 	_acceptor.async_accept(
-		_receiveSocket,
+		_socket,
 		[this](const boost::system::error_code& error)
 		{
 			if (!error)
 			{
-				receiveMessage();
-
-				if (_isHost)
-				{
-					tryConnect();
-				}
-				else
-				{
-					_connected = true;
-					_onConnect();
-				}
+				onSuccesfullConnect();
 			}
 			else
 			{
@@ -78,35 +67,21 @@ void PeerToPeer::tryConnect()
 
 	_attemptCount++;
 
-	if (_sendSocket.is_open())
-	{
-		_sendSocket.close();
-	}
+	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _port);
 
-	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _sendPort);
+	_socket.open(endpoint.protocol());
 
-	_sendSocket.open(endpoint.protocol());
-
-	_sendSocket.async_connect(
+	_socket.async_connect(
 		endpoint, 
 		[this](const boost::system::error_code& error)
 		{
 			if (!error)
 			{
-
-				if (!_isHost)
-				{
-					listenForConnections();
-				}
-				else 
-				{
-					_connected = true;
-					_onConnect();
-				}
+				onSuccesfullConnect();
 			}
 			else
 			{
-					_retryTimer.expires_after(std::chrono::milliseconds(_currentRetryDelay));
+				_retryTimer.expires_after(std::chrono::milliseconds(_currentRetryDelay));
 				_retryTimer.async_wait([this](const boost::system::error_code& timer_error)
 					{
 						if (!timer_error && !_connected)
@@ -119,9 +94,20 @@ void PeerToPeer::tryConnect()
 		});
 }
 
+void PeerToPeer::onSuccesfullConnect()
+{
+	_connected = true;
+	receiveMessage();
+
+	if (_onConnect)
+	{
+		_onConnect();
+	}
+}
+
 void PeerToPeer::sendMessage(std::string message)
 {
-	if (!_connected || !_sendSocket.is_open())
+	if (!_connected || !_socket.is_open())
 	{
 		return;
 	}
@@ -134,15 +120,11 @@ void PeerToPeer::sendMessage(std::string message)
 	auto message_ptr = std::make_shared<std::string>(std::move(message));
 
 	boost::asio::async_write(
-		_sendSocket,
+		_socket,
 		boost::asio::buffer(*message_ptr),
 		[message_ptr](const boost::system::error_code& error, std::size_t bytes_transferred)
 		{
-			if (!error)
-			{
-				std::cout << "Message sent." << std::endl;
-			}
-			else
+			if (error)
 			{
 				std::cout << "Error while sending message: " << error.message() << std::endl;
 			}
@@ -152,15 +134,13 @@ void PeerToPeer::sendMessage(std::string message)
 void PeerToPeer::receiveMessage()
 {
 	boost::asio::async_read_until(
-		_receiveSocket,
+		_socket,
 		_receiveBuffer,
 		'\n',
 		[this](boost::system::error_code error, std::size_t bytes_transferred)
 		{
 			if (!error)
 			{
-				std::cout << "Message received." << std::endl;
-
 				std::istream is(&_receiveBuffer);
 				std::string message;
 				std::getline(is, message);

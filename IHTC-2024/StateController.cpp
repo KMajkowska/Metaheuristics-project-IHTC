@@ -104,18 +104,20 @@ void StateController::runComputer(
 		return;
 	}
 
-	Params params(parameters);
-
 	auto problemData(std::move(problemDataOpt.value()));
 
-	CGameComputer game(std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("stupid computer!"), getWinnerJudge(_allGameParameters), std::move(problemData), std::move(params));
+	auto game{ std::make_shared<CGameComputer>(std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("stupid computer!"), getWinnerJudge(_allGameParameters), std::move(problemData), Params(parameters)) };
 
-	game.startGame();
+	std::thread([game, onFinish]()
+		{
+			game->startGame();
 
-	if (onFinish)
-	{
-		onFinish();
-	}
+			if (onFinish)
+			{
+				onFinish();
+			}
+		}).detach();
+
 }
 
 void StateController::updateSessionList(std::function<void(std::unordered_map<std::string, CGameInfo>&)> consume)
@@ -175,13 +177,11 @@ void StateController::createSession(std::function<void()> onFinish, AllGameParam
 
 	auto problemData(std::move(problemDataOpt.value()));
 
-	Params params(gameInfo);
-
 	auto poster{ std::make_shared<CSessionPosterPeerToPeer>(_ioContext, gameInfo) };
 
-	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, gameInfo.postPort(), gameInfo.receivePort(), true) };
+	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, gameInfo.port(), true) };
 
-	auto networkGame{ make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("enemy"), getWinnerJudge(gameInfo), std::move(problemData), std::move(params))};
+	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("enemy"), getWinnerJudge(gameInfo), std::move(problemData), Params(gameInfo))};
 	
 	peer->setOnClose([onFinish]()
 		{
@@ -191,12 +191,18 @@ void StateController::createSession(std::function<void()> onFinish, AllGameParam
 	peer->setOnConnect([poster, networkGame, peer]()
 		{
 			poster->stopBroadcast();
-			networkGame->startGame();
+
+			std::thread([networkGame]()
+			{
+				networkGame->startGame();
+			}).detach();
 		});
 	
 	peer->start();
 
 	poster->postSession();
+
+	_currentGame = networkGame;
 
 }
 
@@ -211,11 +217,10 @@ void StateController::joinSession(std::function<void()> onFinish, AllGameParamet
 
 	auto problemData(std::move(problemDataOpt.value()));
 
-	Params params(parameters);
 
-	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, chosenGame.receivePort(), chosenGame.postPort(), false)};
+	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, chosenGame.port(), false)};
 
-	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), std::make_shared<BestOfN>(chosenGame.roundNumber()), problemData, std::move(params)) };
+	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), getWinnerJudge(chosenGame), problemData, Params(parameters)) };
 
 	peer->setOnClose([onFinish]()
 		{
@@ -224,10 +229,16 @@ void StateController::joinSession(std::function<void()> onFinish, AllGameParamet
 
 	peer->setOnConnect([networkGame]()
 		{
-			networkGame->startGame();
+			std::thread([networkGame]()
+				{
+					networkGame->startGame();
+				}).detach();
 		});
 
 	peer->start();
+
+	_currentGame = networkGame;
+
 }
 
 void StateController::updateChart()

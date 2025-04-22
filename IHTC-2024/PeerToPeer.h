@@ -1,5 +1,6 @@
 #pragma once
 
+#include <deque>
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -15,7 +16,7 @@ static std::string END_OF_TRANSMISSION = "EOT";
 class PeerToPeer : public INetworkExchanger
 {
 public:
-	PeerToPeer(boost::asio::io_context& context, const std::string& ip, int sendPort, int receivePort, bool isHost);
+	PeerToPeer(boost::asio::io_context&  ioContext, const std::string& ip, int port, bool isHost);
 	~PeerToPeer();
 
 	/**
@@ -29,16 +30,14 @@ public:
 	void tellEndOfTransmission() override;
 
 private:
-	boost::asio::ip::tcp::socket _sendSocket;
-	boost::asio::ip::tcp::socket _receiveSocket;
+	boost::asio::ip::tcp::socket _socket;
 	boost::asio::ip::tcp::acceptor _acceptor;
 
 	boost::asio::streambuf _receiveBuffer;
 
 	bool _connected;
 	const std::string _ip;
-	const int _sendPort;
-	const int _receivePort;
+	const int _port;
 
 	bool _isHost;
 
@@ -52,4 +51,8 @@ private:
 
 	const int MAX_RETRY_DELAY{ 2000 };
 	const int MAX_ATTEMPTS{ 10 };
+
+	std::deque<std::string> _sendQueue;
+	bool _writeInProgress = false;
+	void onSuccesfullConnect();
 };

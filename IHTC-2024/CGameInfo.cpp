@@ -2,16 +2,14 @@
 
 CGameInfo::CGameInfo(const AllGameParameters& other) : AllGameParameters(other)
 {
-	auto ports{ getRandomPorts(2) };
+	auto ports{ getRandomPorts(1) };
 
-	if (ports.size() != 2)
+	if (ports.size() != 1)
 	{
 		throw std::invalid_argument("GameInfo ports weren't generated properly");
 	}
 
-	setPostPort(*(ports.begin()));
-	ports.erase(ports.begin());
-	setReceivePort(*(ports.begin()));
+	setPost(*(ports.begin()));
 }
 
 void CGameInfo::setUUID(const std::string uuid)
@@ -19,14 +17,9 @@ void CGameInfo::setUUID(const std::string uuid)
 	_uuid = uuid;
 }
 
-void CGameInfo::setPostPort(int postPort)
+void CGameInfo::setPost(int port)
 {
-	_postPort = postPort;
-}
-
-void CGameInfo::setReceivePort(int receivePort)
-{
-	_receivePort = receivePort;
+	_port = port;
 }
 
 void CGameInfo::setLastUpdated(std::chrono::steady_clock::time_point lastUpdated)
@@ -39,14 +32,9 @@ std::string CGameInfo::uuid() const
 	return _uuid;
 }
 
-int CGameInfo::postPort() const
+int CGameInfo::port() const
 {
-	return _postPort;
-}
-
-int CGameInfo::receivePort() const
-{
-	return _receivePort;
+	return _port;
 }
 
 std::chrono::steady_clock::time_point CGameInfo::lastUpdated() const
@@ -59,8 +47,7 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 	j = nlohmann::json
 	{
 		{"uuid", obj.uuid()},
-		{"postPort", obj.postPort()},
-		{"receivePort", obj.receivePort()},
+		{"port", obj.port()},
 		{"name", obj.name()},
 		{"gameTime", obj.gameTime()},
 		{"gameLevel", enumToString<GameLevel>(obj.gameLevel())},
@@ -82,8 +69,7 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 void from_json(const nlohmann::json& j, CGameInfo& obj)
 {
 	obj.setUUID(j.at("uuid").get<std::string>());
-	obj.setPostPort(j.at("postPort").get<int>());
-	obj.setReceivePort(j.at("receivePort").get<int>());
+	obj.setPost(j.at("port").get<int>());
 	obj.setJudgeType(stringToEnum<WinnerJudgeType>(j.at("winningMode").get<std::string>()));
 	obj.setRoundNumber(j.at("roundNumber").get<int>());
 	obj.setName(j.at("name").get<std::string>());
