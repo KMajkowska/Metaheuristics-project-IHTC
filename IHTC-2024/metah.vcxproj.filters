@@ -547,6 +547,9 @@
     <ClCompile Include="gamePlotScreen.cpp">
       <Filter>Source Files\GUI\screens</Filter>
     </ClCompile>
+    <ClCompile Include="endGame.cpp">
+      <Filter>Source Files\GUI\screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NurseWrapper.h">
@@ -909,6 +912,9 @@
       <Filter>Header Files\GUI\plot</Filter>
     </QtMoc>
     <QtMoc Include="gamePlotScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="endGame.h">
       <Filter>Header Files\GUI\screens</Filter>
     </QtMoc>
   </ItemGroup>

@@ -11,6 +11,7 @@
 #include "waitingScreen.h"
 #include "StateController.h"
 #include "gamePlotScreen.h"
+#include "endGame.h"
 
 class MainWindow : public QMainWindow
 {

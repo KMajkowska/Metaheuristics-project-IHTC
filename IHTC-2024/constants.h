@@ -16,4 +16,7 @@ const std::string IP{ "127.0.0.1" };
 const int SESSION_PEER_TO_PEER_PORT{ 12345 };
 
 const std::string DEFAULT_PROBLEM_FILE{ "../datasets/ihtc2024_test_dataset/test01.json" };
+const std::string EASY_PROBLEM_FILE{ "../datasets/ihtc2024_test_dataset/test01.json" };
+const std::string MEDIUM_PROBLEM_FILE{ "../datasets/ihtc2024_test_dataset/test05.json" };
+const std::string HARD_PROBLEM_FILE{ "../datasets/ihtc2024_test_dataset/test08.json" };
 const std::string DEFAULT_PARAMS_FILE{ "./params.json" };

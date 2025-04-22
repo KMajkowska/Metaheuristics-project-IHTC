@@ -87,7 +87,12 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
         item->setData(Qt::UserRole, QVariant::fromValue(QString::fromStdString(it->first)));
 
-        listOfSessions->addItem(item);
+        if (!addedItems.contains(item->text().toStdString()))
+        {
+            listOfSessions->addItem(item);
+            addedItems.insert(item->text().toStdString());
+        }
+
     }
 }
 

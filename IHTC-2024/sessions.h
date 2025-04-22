@@ -37,6 +37,7 @@ private:
     QVBoxLayout* layout;
     QHBoxLayout* listLayout;
     QHBoxLayout* buttonLayout;
+    QSet<std::string> addedItems;
 
     void setUpListOfSessions();
     void setUpCreateSessionButton();

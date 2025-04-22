@@ -17,28 +17,33 @@
 #include "consts.h"
 #include "StateController.h"
 #include "ScreensNumber.h"
-#include "RealTimePlot.h"
 
-class Ui_gamePlotScreen : public QWidget
+class Ui_endGameScreen : public QWidget
 {
     Q_OBJECT
 
 public:
-    Ui_gamePlotScreen(QWidget* parent = nullptr);
-    ~Ui_gamePlotScreen() = default;
+    Ui_endGameScreen(QWidget* parent = nullptr);
+    ~Ui_endGameScreen() = default;
 
 private:
     QWidget* centralWidget;
-    QLabel* infoLabel;
-    RealTimePlot* plot;
     QFont* font;
-    QVBoxLayout* layout;
-    QHBoxLayout* plotLayout;
+    QPushButton* endButton;
+    QPushButton* returnButton;
+    QVBoxLayout* mainLayout;
+    QHBoxLayout* buttonLayout;
+    QLabel* gameResultLabel;
 
     void setupUi(QWidget* mainWindow);
-    void retranslateUi(QWidget* MainWindow);
+    void retranslateUi(QWidget* mainWindow);
 
-    void setUpInfoLabel();
-    void setUpChart();
+    void setUpEndButton();
     QFont setUpFont(int points);
+    void setUpReturnButton();
+    void setUpGameResultLabel();
+
+private slots:
+    void onReturnButtonClicked();
 };
+
