@@ -14,6 +14,8 @@ public:
     RealTimePlot(QWidget* parent = nullptr);
     void setUpChart();
 
+    void drawSeries(double x, double y);
+
 private slots:
 
 private:

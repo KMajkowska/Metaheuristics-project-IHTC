@@ -44,6 +44,12 @@ void Ui_gamePlotScreen::setUpChart()
 {
 	plot->setUpChart();
 	plotLayout->addWidget(plot);
+
+	StateController::instance().currentGame()->setOnLocal([this](SolutionData solutionData) 
+		{
+			static int idx = 1;
+			plot->drawSeries(idx++, solutionData.fitness());
+		});
 }
 
 

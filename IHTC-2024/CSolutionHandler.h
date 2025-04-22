@@ -20,7 +20,7 @@ public:
 	virtual void consumeLocal(SolutionData solution);
 	virtual void consumeOpponent(SolutionData solution);
 
-private:
+protected:
 	SolutionData _currentLocal;
 	SolutionData _currentOpponent;
 

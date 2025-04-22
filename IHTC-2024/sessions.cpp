@@ -124,7 +124,7 @@ void Ui_sessions::onItemClicked(QListWidgetItem* item)
 
             StateController::instance().setAllGameParametersFromJoined(foundGame->second);
 
-            StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+            StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
             StateController::instance().joinSession([]()
                 {
                     // TODO: przekierowanie na ekran z wynikiem

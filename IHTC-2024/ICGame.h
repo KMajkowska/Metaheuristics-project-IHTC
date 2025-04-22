@@ -20,6 +20,9 @@ public:
 
 	Winner startGame();
 
+	void setOnLocal(std::function<void(SolutionData)> onLocal);
+	void setOnOpponent(std::function<void(SolutionData)> onOpponent);
+
 protected:
 	std::shared_ptr<CPlayer> _localPlayer;
 	std::shared_ptr<CPlayer> _opponentPlayer;
@@ -28,6 +31,9 @@ protected:
 
 	const Params _localParams;
 	const ProblemData _problemData;
+
+	std::function<void(SolutionData)> _onLocal;
+	std::function<void(SolutionData)> _onOpponent;
 
 	virtual CSolutionHandler startRound() = 0;
 };

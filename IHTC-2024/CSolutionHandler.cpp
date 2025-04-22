@@ -42,7 +42,7 @@ SolutionData& CSolutionHandler::bestOpponent()
 
 void CSolutionHandler::consumeLocal(SolutionData solution)
 {
-	_currentLocal = std::move(solution);
+	_currentLocal = solution;
 
 	if (_currentLocal.fitness() < _bestLocal.fitness())
 	{
@@ -52,7 +52,7 @@ void CSolutionHandler::consumeLocal(SolutionData solution)
 
 void CSolutionHandler::consumeOpponent(SolutionData solution)
 {
-	_currentOpponent = std::move(solution);
+	_currentOpponent = solution;
 
 	if (_currentOpponent.fitness() < _bestOpponent.fitness())
 	{

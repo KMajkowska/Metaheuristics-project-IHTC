@@ -83,7 +83,7 @@ void Ui_chooseOpponent::onComputerButtonClicked()
 {
 	StateController::instance().setStartGame([]() 
 		{
-			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+			StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 			StateController::instance().runComputer([]()
 				{
 					// TODO: Przekierowanie na ekran z wynikiem
@@ -99,7 +99,7 @@ void Ui_chooseOpponent::onPlayerButtonClicked()
 {
 	StateController::instance().setStartGame([]()
 		{
-			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+			StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 			StateController::instance().createSession([]() 
 				{
 					// TODO: Przekierowanie na ekran z wynikiem

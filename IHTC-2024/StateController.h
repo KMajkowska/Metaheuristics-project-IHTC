@@ -45,6 +45,8 @@ public:
 	void createSession(std::function<void()> onFinish, AllGameParameters parameters);
 	void joinSession(std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
 
+	std::shared_ptr<ICGame> currentGame();
+
 private:
 	std::function<void(ScreensNumber)> _navigateCallback;
 	std::function<void()> _startGameCallback;

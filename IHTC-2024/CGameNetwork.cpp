@@ -26,20 +26,31 @@ CSolutionHandler CGameNetwork::startRound()
 
 	CIndividualObservable consumer(_problemData);
 
-	consumer.addObserver([&handler](SolutionData localSolution)
+	consumer.addObserver([&handler, this](SolutionData localSolution)
 		{
 			handler.consumeLocal(localSolution);
+
+			if (_onLocal)
+			{
+				_onLocal(localSolution);
+			}
 		});
 
-	_exchanger->addObserver([&handler](std::string solution)
+	_exchanger->addObserver([&handler, this](std::string solution)
 		{
 			auto parsed{ nlohmann::json::parse(solution) };
 			auto solutionDataOpt{ jsonToObject<SolutionData>(parsed) };
 
 			if (solutionDataOpt)
 			{
-				handler.consumeOpponent(std::move(solutionDataOpt.value()));
+				handler.consumeOpponent(solutionDataOpt.value());
+
+				if (_onOpponent)
+				{
+					_onOpponent(solutionDataOpt.value());
+				}
 			}
+
 		});
 
 	IHTCProblem problem(_problemData, getViolatedFromSolution, FitnessCalculator(_localParams.hardRestrictionWeight()));

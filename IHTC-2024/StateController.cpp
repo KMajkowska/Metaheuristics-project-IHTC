@@ -224,6 +224,11 @@ void StateController::joinSession(std::function<void()> onFinish, AllGameParamet
 
 }
 
+std::shared_ptr<ICGame> StateController::currentGame()
+{
+	return _currentGame;
+}
+
 void StateController::cleaner()
 {
 	while (_searchForSessions)

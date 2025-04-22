@@ -42,3 +42,13 @@ Winner ICGame::startGame()
 
 	return result;
 }
+
+void ICGame::setOnLocal(std::function<void(SolutionData)> onLocal)
+{
+	_onLocal = onLocal;
+}
+
+void ICGame::setOnOpponent(std::function<void(SolutionData)> onOpponent)
+{
+	_onOpponent = onOpponent;
+}

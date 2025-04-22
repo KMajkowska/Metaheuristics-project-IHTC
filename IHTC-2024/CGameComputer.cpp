@@ -6,8 +6,7 @@ CGameComputer::CGameComputer(
 	std::shared_ptr<IWinnerJudge> judge,
 	const ProblemData problemData,
 	const Params params
-) :
-	ICGame(localPlayer, opponentPlayer, judge, problemData, params)
+) : ICGame(localPlayer, opponentPlayer, judge, problemData, params)
 {}
 
 CSolutionHandler CGameComputer::startRound()
@@ -17,14 +16,25 @@ CSolutionHandler CGameComputer::startRound()
 	CIndividualObservable consumerLocal(_problemData);
 	CIndividualObservable consumerOpponent(_problemData);
 
-	consumerLocal.addObserver([&handler](SolutionData localSolution)
+	consumerLocal.addObserver([&handler, this](SolutionData localSolution)
 		{
 			handler.consumeLocal(localSolution);
+
+			if (_onLocal)
+			{
+				_onLocal(localSolution);
+			}
 		});
 
-	consumerOpponent.addObserver([&handler](SolutionData localSolution)
+	consumerOpponent.addObserver([&handler, this](SolutionData localSolution)
 		{
 			handler.consumeOpponent(localSolution);
+
+
+			if (_onOpponent)
+			{
+				_onOpponent(localSolution);
+			}
 		});
 
 	FitnessCalculator fitnessCalculator(_localParams.hardRestrictionWeight());

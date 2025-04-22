@@ -24,6 +24,12 @@ void RealTimePlot::setUpChart()
 	setLayout(layout);
 }
 
+void RealTimePlot::drawSeries(double x, double y)
+{
+	series->append(x, y);
+	chart->addSeries(series);
+}
+
 void RealTimePlot::setUpAxisX()
 {
 	axisX->setTitleText("X Axis");
