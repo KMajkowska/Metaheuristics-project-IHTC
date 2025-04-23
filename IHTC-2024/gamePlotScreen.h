@@ -51,6 +51,9 @@ private:
     void setUpOurResultLabel();
     void setUpOpponentResultLabel();
 
+    void changeOurScoreLabel(int score);
+    void chaneOpponentScoreLabel(int score);
+
 
 private slots:
     void handleDrawSeries(double idx, double fitness);
