@@ -4,6 +4,9 @@
 #include "SASolver.h"
 #include "solverUtils.h"
 
+/**
+ * @brief Builder of SA solver
+*/
 class SASolverBuilder : public IHTCSolverBuilder
 {
 public:

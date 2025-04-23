@@ -7,6 +7,9 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 
+/**
+ * @brief Class to represents plot and allows to update it real time
+*/
 class RealTimePlot : public QChartView {
     Q_OBJECT
 

@@ -21,10 +21,10 @@ public:
 
 	virtual void tellEndOfTransmission() = 0;
 
-	void setOnClose(std::function<void()> callback);
+	void setOnEndTransmission(std::function<void()> callback);
 	void setOnConnect(std::function<void()> callback);
 
 protected:
-	std::function<void()> _onClose;
+	std::function<void()> _onEndTransmission;
 	std::function<void()> _onConnect;
 };

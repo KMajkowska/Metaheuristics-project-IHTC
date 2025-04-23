@@ -2,6 +2,9 @@
 
 #include <string>
 
+/**
+ * @brief Class representing player
+*/
 class CPlayer
 {
 public:

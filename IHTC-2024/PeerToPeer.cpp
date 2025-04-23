@@ -147,9 +147,9 @@ void PeerToPeer::receiveMessage()
 
 				if (message == END_OF_TRANSMISSION)
 				{
-					if (_onClose)
+					if (_onEndTransmission)
 					{
-						_onClose();
+						_onEndTransmission();
 					}
 				}
 				else
@@ -164,12 +164,8 @@ void PeerToPeer::receiveMessage()
 			}
 			else
 			{
-				if (error == boost::asio::error::eof) {
-					if (_onClose)
-					{
-						_onClose();
-					}
-
+				if (error == boost::asio::error::eof) 
+				{
 					return;
 				}
 				else if (error)

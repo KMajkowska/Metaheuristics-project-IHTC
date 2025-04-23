@@ -17,7 +17,7 @@ CSolutionHandler CGameNetwork::startRound()
 	std::promise<void> endTransmission;
 	std::future<void> endFuture = endTransmission.get_future();
 
-	_exchanger->setOnClose([&endTransmission]()
+	_exchanger->setOnEndTransmission([&endTransmission]()
 		{
 			endTransmission.set_value();
 		});

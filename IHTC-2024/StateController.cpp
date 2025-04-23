@@ -151,23 +151,8 @@ void StateController::stopUpdatingSessionList()
 
 void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters)
 {
-	std::string problemFile;
+	std::string problemFile{ getProblemFilePath(parameters.inputParametersLevel()) };
 
-	switch (parameters.inputParametersLevel())
-	{
-	case(GameLevel::EASY) :
-		problemFile = EASY_PROBLEM_FILE;
-		break;
-	case(GameLevel::MEDIUM):
-		problemFile = MEDIUM_PROBLEM_FILE;
-		break;
-	case(GameLevel::HARD):
-		problemFile = HARD_PROBLEM_FILE;
-		break;
-	default:
-		problemFile = DEFAULT_PROBLEM_FILE;
-		break;
-	}
 	auto problemDataOpt = jsonToObject<ProblemData>(problemFile);
 
 	if (!problemDataOpt)
@@ -185,15 +170,17 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 
 	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("enemy"), getWinnerJudge(gameInfo), std::move(problemData), Params(gameInfo))};
 	
-	peer->setOnClose([onFinish]()
+	peer->setOnEndTransmission([onFinish, peer]()
 		{
+			peer->tellEndOfTransmission();
+
 			if (onFinish)
 			{
 				onFinish();
 			}
 		});
 
-	peer->setOnConnect([poster, networkGame, peer, onStart]()
+	peer->setOnConnect([poster, networkGame, peer, onStart, onFinish]()
 		{
 			if (onStart)
 			{
@@ -202,9 +189,14 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 
 			poster->stopBroadcast();
 
-			std::thread([networkGame]()
+			std::thread([networkGame, onFinish]()
 			{
 				networkGame->startGame();
+
+				if (onFinish)
+				{
+					onFinish();
+				}
 			}).detach();
 		});
 	
@@ -215,23 +207,8 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 
 void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
 {
-	std::string problemFile;
+	std::string problemFile{ getProblemFilePath(parameters.inputParametersLevel())};
 
-	switch (parameters.inputParametersLevel())
-	{
-	case(GameLevel::EASY):
-		problemFile = EASY_PROBLEM_FILE;
-		break;
-	case(GameLevel::MEDIUM):
-		problemFile = MEDIUM_PROBLEM_FILE;
-		break;
-	case(GameLevel::HARD):
-		problemFile = HARD_PROBLEM_FILE;
-		break;
-	default:
-		problemFile = DEFAULT_PROBLEM_FILE;
-		break;
-	}
 	auto problemDataOpt = jsonToObject<ProblemData>(problemFile);
 
 	if (!problemDataOpt)
@@ -246,14 +223,10 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 
 	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), getWinnerJudge(chosenGame), problemData, Params(parameters)) };
 
-	peer->setOnClose([onFinish]()
-		{
-			onFinish();
-		});
 
-	peer->setOnConnect([networkGame, onStart]()
+	peer->setOnConnect([networkGame, onStart, onFinish]()
 		{
-			std::thread([networkGame, onStart]()
+			std::thread([networkGame, onStart, onFinish]()
 				{
 					if (onStart)
 					{
@@ -261,6 +234,12 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 					}
 
 					networkGame->startGame();
+
+
+					if (onFinish)
+					{
+						onFinish();
+					}
 				}).detach();
 		});
 

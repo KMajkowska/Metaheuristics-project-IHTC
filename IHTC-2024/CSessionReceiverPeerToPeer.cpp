@@ -73,8 +73,6 @@ void CSessionReceiverPeerToPeer::receiveBroadcast()
 			{
 
 				std::string message(_receiveBuffer.begin(), _receiveBuffer.begin() + bytes_recvd);
-				std::cout << "Received from " << _senderEndpoint.address().to_string()
-					<< ":" << _senderEndpoint.port() << " => " << message << std::endl;
 
 				try
 				{

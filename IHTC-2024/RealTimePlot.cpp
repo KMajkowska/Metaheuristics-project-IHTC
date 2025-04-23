@@ -131,6 +131,11 @@ void RealTimePlot::drawPoint(QLineSeries* series, QValueAxis* xAxis, QValueAxis*
     qreal xMargin = (maxX - minX) * 0.05;
     qreal yMargin = (maxY - minY) * 0.05;
 
-    xAxis->setRange(minX - xMargin, maxX + xMargin);
-    yAxis->setRange(minY - yMargin, maxY + yMargin);
+    qreal rangeMinX = std::max(0.0, minX - xMargin);
+    qreal rangeMinY = std::max(0.0, minY - yMargin);
+    qreal rangeMaxX = maxX + xMargin;
+    qreal rangeMaxY = maxY + yMargin;
+
+    xAxis->setRange(rangeMinX, rangeMaxX);
+    yAxis->setRange(rangeMinY, rangeMaxY);
 }

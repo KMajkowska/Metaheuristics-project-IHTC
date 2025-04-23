@@ -4,6 +4,10 @@
 #include "GreedySolver.h"
 #include <memory>
 
+/**
+ * @brief Builder of greedy solver
+*/
+
 class GreedySolverBuilder : public IHTCSolverBuilder
 {
 public:

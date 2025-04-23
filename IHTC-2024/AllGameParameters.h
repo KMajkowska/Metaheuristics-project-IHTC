@@ -7,6 +7,10 @@
 #include <NeighbourGeneratorType.h>
 #include <SolverType.h>
 
+/**
+ * @brief Class to send parameters between game instances and collect data from gui
+*/
+
 class AllGameParameters
 {
 public:

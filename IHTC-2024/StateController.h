@@ -19,6 +19,9 @@
 #include "PeerToPeer.h"
 #include "CGameNetwork.h"
 
+/**
+ * @brief Class to control game state
+*/
 class StateController
 {
 public:

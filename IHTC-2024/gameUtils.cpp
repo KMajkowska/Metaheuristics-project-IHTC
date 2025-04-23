@@ -10,3 +10,18 @@ std::shared_ptr<IWinnerJudge> getWinnerJudge(const AllGameParameters& params)
 		throw std::invalid_argument("Incorrect stop criterium");
 	}
 }
+
+std::string getProblemFilePath(const GameLevel& gameLevel)
+{
+	switch (gameLevel)
+	{
+	case GameLevel::EASY:
+		return EASY_PROBLEM_FILE;
+	case GameLevel::MEDIUM:
+		return MEDIUM_PROBLEM_FILE;
+	case GameLevel::HARD:
+		return HARD_PROBLEM_FILE;
+	default:
+		return DEFAULT_PROBLEM_FILE;
+	}
+}
