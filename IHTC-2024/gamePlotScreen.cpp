@@ -24,13 +24,23 @@ void Ui_gamePlotScreen::connectPlot(std::shared_ptr<ICGame> game)
 			{
 				emit requestDrawSeries(idx++, solutionData.fitness());
 			});
+
 		game->setOnOpponent([this](SolutionData solutionData)
 			{
 				emit requestDrawOpponentSeries(opponnetIdx++, solutionData.fitness());
 			});
+
+		game->setConsumeScore([this](Winner result, std::shared_ptr<CPlayer> localPlayer, std::shared_ptr<CPlayer> opponentPlayer)
+			{
+				emit requestResetPlots();
+
+				idx = 0;
+				opponnetIdx = 0;
+
+				// TODO: settings score
+			});
 	}
 }
-
 
 void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
     if (MainWindow->objectName().isEmpty())
@@ -50,10 +60,14 @@ void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
 
 	connect(this, &Ui_gamePlotScreen::requestDrawSeries,
 		this, &Ui_gamePlotScreen::handleDrawSeries,
-		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+		Qt::QueuedConnection);
 	connect(this, &Ui_gamePlotScreen::requestDrawOpponentSeries,
 		this, &Ui_gamePlotScreen::handleOpponentDrawSeries,
-		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+		Qt::QueuedConnection);
+
+	connect(this, &Ui_gamePlotScreen::requestResetPlots,
+		this, &Ui_gamePlotScreen::handleResetPlots,
+		Qt::QueuedConnection);
 
     QMetaObject::connectSlotsByName(MainWindow);
 }
@@ -71,7 +85,6 @@ void Ui_gamePlotScreen::setUpChart()
 	plotLayout->addWidget(plot);
 }
 
-
 void Ui_gamePlotScreen::retranslateUi(QWidget* MainWindow)
 {
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Game!!", nullptr));
@@ -84,12 +97,18 @@ QFont Ui_gamePlotScreen::setUpFont(int points)
 	return *font;
 }
 
-void Ui_gamePlotScreen::handleDrawSeries(int idx, double fitness)
+void Ui_gamePlotScreen::handleDrawSeries(double idx, double fitness)
 {
 	plot->drawSeriesOurResult(idx, fitness);
 }
 
-void Ui_gamePlotScreen::handleOpponentDrawSeries(int idx, double fitness)
+void Ui_gamePlotScreen::handleOpponentDrawSeries(double idx, double fitness)
 {
 	plot->drawSeriesOpponentResult(idx, fitness);
+}
+
+void Ui_gamePlotScreen::handleResetPlots()
+{
+	plot->clearOpponentPlot();
+	plot->clearOurPlot();
 }

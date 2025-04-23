@@ -52,7 +52,7 @@ void PeerToPeer::listenForConnections()
 			}
 			else
 			{
-				std::cout << "Failed to accept connection: " << error.message() << std::endl;
+				std::cerr << "Failed to accept connection: " << error.message() << std::endl;
 			}
 		});
 }
@@ -126,7 +126,7 @@ void PeerToPeer::sendMessage(std::string message)
 		{
 			if (error)
 			{
-				std::cout << "Error while sending message: " << error.message() << std::endl;
+				std::cerr << "Error while sending message: " << error.message() << std::endl;
 			}
 		});
 }

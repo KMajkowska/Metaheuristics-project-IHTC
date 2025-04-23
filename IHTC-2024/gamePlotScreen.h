@@ -45,12 +45,14 @@ private:
     QFont setUpFont(int points);
 
 private slots:
-    void handleDrawSeries(int idx, double fitness);
-    void handleOpponentDrawSeries(int idx, double fitness);
+    void handleDrawSeries(double idx, double fitness);
+    void handleOpponentDrawSeries(double idx, double fitness);
+
+    void handleResetPlots();
 
 signals:
-    void requestDrawSeries(int idx, double fitness);
+    void requestDrawSeries(double idx, double fitness);
+    void requestDrawOpponentSeries(double idx, double fitness);
 
-signals:
-    void requestDrawOpponentSeries(int idx, double fitness);
+    void requestResetPlots();
 };

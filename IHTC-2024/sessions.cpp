@@ -138,7 +138,7 @@ void Ui_sessions::onItemClicked(QListWidgetItem* item)
                 },
                 []()
                 {
-                    // TODO: przekierowanie na ekran z wynikiem
+                    StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
                 },
                 StateController::instance().allGameParameters(),
                 foundGame->second);

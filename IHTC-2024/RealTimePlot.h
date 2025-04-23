@@ -12,17 +12,17 @@ class RealTimePlot : public QChartView {
 
 public:
     RealTimePlot(QWidget* parent = nullptr);
+
     void setUpChart();
 
     void setUpYourOpponentPlot();
-
     void setUpOurResultPlot();
 
     void drawSeriesOurResult(double x, double y);
-
     void drawSeriesOpponentResult(double x, double y);
 
-private slots:
+    void clearOurPlot();
+    void clearOpponentPlot();
 
 private:
     QLineSeries* ourResultSeries;
@@ -39,4 +39,6 @@ private:
 
     void setUpAxisX();
     void setUpAxisY();
+
+    void drawPoint(QLineSeries* series, QValueAxis* xAxis, QValueAxis* yAxis, double x, double y);
 };

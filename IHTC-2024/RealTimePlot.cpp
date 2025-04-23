@@ -62,56 +62,28 @@ void RealTimePlot::setUpOurResultPlot()
 
 void RealTimePlot::drawSeriesOurResult(double x, double y)
 {
-    ourResultSeries->append(x, y);
-
-    if (!ourResultSeries->points().isEmpty())
-    {
-        QVector<QPointF> points = ourResultSeries->points();
-        qreal minX = points.first().x();
-        qreal maxX = points.first().x();
-        qreal minY = points.first().y();
-        qreal maxY = points.first().y();
-
-        for (const QPointF& point : points) {
-            minX = std::min(minX, point.x());
-            maxX = std::max(maxX, point.x());
-            minY = std::min(minY, point.y());
-            maxY = std::max(maxY, point.y());
-        }
-
-        qreal xMargin = (maxX - minX) * 0.05;
-        qreal yMargin = (maxY - minY) * 0.05;
-
-        ourResultAxisX->setRange(minX - xMargin, maxX + xMargin);
-        ourResultAxisY->setRange(minY - yMargin, maxY + yMargin);
-    }
+    drawPoint(ourResultSeries, ourResultAxisX, ourResultAxisY, x, y);
 }
 
 void RealTimePlot::drawSeriesOpponentResult(double x, double y)
 {
-    opponentSeries->append(x, y);
+    drawPoint(opponentSeries, opponentAxisX, opponentAxisY, x, y);
+}
 
-    if (!opponentSeries->points().isEmpty())
-    {
-        QVector<QPointF> points = opponentSeries->points();
-        qreal minX = points.first().x();
-        qreal maxX = points.first().x();
-        qreal minY = points.first().y();
-        qreal maxY = points.first().y();
+void RealTimePlot::clearOurPlot()
+{
+    ourResultSeries->clear();
 
-        for (const QPointF& point : points) {
-            minX = std::min(minX, point.x());
-            maxX = std::max(maxX, point.x());
-            minY = std::min(minY, point.y());
-            maxY = std::max(maxY, point.y());
-        }
+    ourResultAxisX->setRange(1, 1);
+    ourResultAxisY->setRange(1, 1);
+}
 
-        qreal xMargin = (maxX - minX) * 0.05;
-        qreal yMargin = (maxY - minY) * 0.05;
+void RealTimePlot::clearOpponentPlot()
+{
+    opponentSeries->clear();
 
-        opponentAxisX->setRange(minX - xMargin, maxX + xMargin);
-        opponentAxisY->setRange(minY - yMargin, maxY + yMargin);
-    }
+    opponentAxisX->setRange(1, 1);
+    opponentAxisY->setRange(1, 1);
 }
 
 void RealTimePlot::setUpAxisX()
@@ -121,7 +93,6 @@ void RealTimePlot::setUpAxisX()
 
     opponentAxisX->setTitleText("X Axis");
     opponentAxisX->setLabelFormat("%.1f");
-
 }
 
 void RealTimePlot::setUpAxisY()
@@ -131,4 +102,35 @@ void RealTimePlot::setUpAxisY()
 
     opponentAxisX->setTitleText("X Axis");
     opponentAxisX->setLabelFormat("%.1f");
+}
+
+void RealTimePlot::drawPoint(QLineSeries* series, QValueAxis* xAxis, QValueAxis* yAxis, double x, double y)
+{
+    series->append(x, y);
+
+    if (series->points().isEmpty())
+    {
+        return;
+    }
+
+    QVector<QPointF> points = series->points();
+
+    qreal minX = points.first().x();
+    qreal maxX = points.first().x();
+    qreal minY = points.first().y();
+    qreal maxY = points.first().y();
+
+    for (const auto& point : points)
+    {
+        minX = std::min(minX, point.x());
+        maxX = std::max(maxX, point.x());
+        minY = std::min(minY, point.y());
+        maxY = std::max(maxY, point.y());
+    }
+
+    qreal xMargin = (maxX - minX) * 0.05;
+    qreal yMargin = (maxY - minY) * 0.05;
+
+    xAxis->setRange(minX - xMargin, maxX + xMargin);
+    yAxis->setRange(minY - yMargin, maxY + yMargin);
 }

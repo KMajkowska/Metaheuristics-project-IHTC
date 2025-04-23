@@ -93,7 +93,7 @@ void Ui_chooseOpponent::onComputerButtonClicked()
 				},
 				[]()
 				{
-					// TODO: Przekierowanie na ekran z wynikiem
+					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
 				},
 				StateController::instance().allGameParameters());
 		});
@@ -115,7 +115,7 @@ void Ui_chooseOpponent::onPlayerButtonClicked()
 				},
 				[]() 
 				{
-					// TODO: Przekierowanie na ekran z wynikiem
+					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
 				},
 				StateController::instance().allGameParameters());
 		});

@@ -7,7 +7,6 @@ StateController::StateController() :
 	_ioContextThread = std::thread([this]()
 		{
 			_ioContext.run();
-			std::cout << "I DIED!";
 		});
 }
 
@@ -89,9 +88,6 @@ std::unordered_map<std::string, CGameInfo>& StateController::foundSessions()
 	return _foundSessions;
 }
 
-// TODO: fix memory leaks (ALL METHODS)
-// TODO: add on close (and post end of transmission)
-// TODO: run in another thread!
 void StateController::runComputer(
 	std::function<void(std::shared_ptr<ICGame>)> onStart,
 	std::function<void()> onFinish, 

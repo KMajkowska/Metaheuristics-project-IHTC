@@ -22,6 +22,7 @@ public:
 
 	void setOnLocal(std::function<void(SolutionData)> onLocal);
 	void setOnOpponent(std::function<void(SolutionData)> onOpponent);
+	void setConsumeScore(std::function<void(Winner, std::shared_ptr<CPlayer>, std::shared_ptr<CPlayer>)> consumeScore);
 
 protected:
 	std::shared_ptr<CPlayer> _localPlayer;
@@ -34,6 +35,7 @@ protected:
 
 	std::function<void(SolutionData)> _onLocal;
 	std::function<void(SolutionData)> _onOpponent;
+	std::function<void(Winner, std::shared_ptr<CPlayer>, std::shared_ptr<CPlayer>)> _consumeScore;
 
 	virtual CSolutionHandler startRound() = 0;
 };
