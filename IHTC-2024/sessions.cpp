@@ -76,18 +76,19 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
     for (auto it = sessions.begin(); it != sessions.end(); it++)
     {
         std::string sessionInfo;
+        sessionInfo += "Game id: " ;
         sessionInfo += it->first;
-        sessionInfo += " ";
+        sessionInfo += " Player name : ";
         sessionInfo += it->second.name();
-        sessionInfo += " ";
-        sessionInfo += it->second.gameTime();
-        sessionInfo += " ";
+        sessionInfo += " Game time: ";
+        sessionInfo += std::to_string(it->second.gameTime());
+        sessionInfo += " Game level: ";
         sessionInfo += enumToString<GameLevel>(it->second.gameLevel());
-        sessionInfo += " ";
+        sessionInfo += " Winner type: ";
         sessionInfo += enumToString<WinnerJudgeType>(it->second.judgeType());
-        sessionInfo += " ";
-        sessionInfo += it->second.roundNumber();
-        sessionInfo += " ";
+        sessionInfo += " Round number: ";
+        sessionInfo += std::to_string(it->second.roundNumber());
+        sessionInfo += " Input parameters level: ";
         sessionInfo += enumToString<GameLevel>(it->second.inputParametersLevel());
 
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
