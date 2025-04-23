@@ -61,14 +61,14 @@ private:
 
 	std::unordered_map<std::string, CGameInfo> _foundSessions;
 
-	void cleaner();
-
 	CSessionReceiverPeerToPeer _sessionReceiver;
 	bool _searchForSessions{false};
 	std::thread _cleanerThread;
 	std::mutex _mtx;
 
 	const std::chrono::milliseconds TIMEOUT{ (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(TIMEOUT_SECONDS))) };
+
+	void cleaner();
 
 	StateController();
 };

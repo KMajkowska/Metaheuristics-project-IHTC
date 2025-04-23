@@ -11,9 +11,10 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QScrollArea>
 #include <qpushbutton.h>
-#include <consts.h>
 #include <qboxlayout.h>
 #include <QtWidgets/QApplication>
+
+#include "consts.h"
 #include "StateController.h"
 #include "enumOperations.h"
 #include "string"
@@ -22,7 +23,7 @@ class Ui_sessions : public QWidget
 {
 public:
     Ui_sessions(QWidget* parent = nullptr);
-    ~Ui_sessions() = default;
+    ~Ui_sessions();
 
     void updateSessionList(std::unordered_map<std::string, CGameInfo>& sessions);
 
@@ -31,14 +32,14 @@ protected:
     void hideEvent(QHideEvent* event) override;
 
 private:
-    QWidget *centralwidget;
-    QListWidget *listOfSessions;
-    QPushButton* createSessionButton;
-    QFont* font;
-    QVBoxLayout* layout;
-    QHBoxLayout* listLayout;
-    QHBoxLayout* buttonLayout;
-    QSet<std::string> addedItems;
+    QWidget* _centralwidget;
+    QListWidget* _listOfSessions;
+    QPushButton* _createSessionButton;
+    QFont* _font;
+    QVBoxLayout* _layout;
+    QHBoxLayout* _listLayout;
+    QHBoxLayout* _buttonLayout;
+    QSet<std::string> _addedItems;
 
     void setUpListOfSessions();
     void setUpCreateSessionButton();

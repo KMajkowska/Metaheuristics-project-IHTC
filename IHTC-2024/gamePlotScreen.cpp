@@ -1,80 +1,87 @@
 #include "gamePlotScreen.h"
 
-Ui_gamePlotScreen::Ui_gamePlotScreen(QWidget* parent) :
+Ui_gamePlotScreen::Ui_gamePlotScreen(QWidget* parent) :	
 	QWidget(parent)
 {
-	centralWidget = new QWidget(this);
-	infoLabel = new QLabel(centralWidget);
-	plot = new RealTimePlot(centralWidget);
-	layout = new QVBoxLayout(centralWidget);
-	plotLayout = new QHBoxLayout(centralWidget);
-	resultInfoLayout = new QHBoxLayout(centralWidget);
-	ourScoreLabel = new QLabel(centralWidget);
-	opponentScoreLabel = new QLabel(centralWidget);
-	separateResultLabel = new QLabel(centralWidget);
-	font = new QFont();
+	_centralWidget = new QWidget(this);
+	_infoLabel = new QLabel(_centralWidget);
+	_plot = new RealTimePlot(_centralWidget);
+	_layout = new QVBoxLayout(_centralWidget);
+	_plotLayout = new QHBoxLayout(_centralWidget);
+	_resultInfoLayout = new QHBoxLayout(_centralWidget);
+	_ourScoreLabel = new QLabel(_centralWidget);
+	_opponentScoreLabel = new QLabel(_centralWidget);
+	_separateResultLabel = new QLabel(_centralWidget);
+	_font = new QFont();
 
 	setupUi(this);
 }
+
+Ui_gamePlotScreen::~Ui_gamePlotScreen() = default;
 
 void Ui_gamePlotScreen::connectPlot(std::shared_ptr<ICGame> game)
 {
 	static int idx = 1;
 	static int opponnetIdx = 1;
 
-	if (game)
+	if (!game)
 	{
-		game->setOnLocal([this](SolutionData solutionData)
-			{
-				emit requestDrawSeries(idx++, solutionData.fitness());
-			});
-
-		game->setOnOpponent([this](SolutionData solutionData)
-			{
-				emit requestDrawOpponentSeries(opponnetIdx++, solutionData.fitness());
-			});
-
-		game->setConsumeScore([this](Winner result, std::shared_ptr<CPlayer> localPlayer, std::shared_ptr<CPlayer> opponentPlayer)
-			{
-				emit requestResetPlots();
-
-				idx = 0;
-				opponnetIdx = 0;
-
-				changeOurScoreLabel(localPlayer->score());
-				chaneOpponentScoreLabel(opponentPlayer->score());
-			});
+		return;
 	}
+
+	game->setOnLocal([this](SolutionData solutionData)
+		{
+			emit requestDrawSeries(idx++, solutionData.fitness());
+		});
+
+	game->setOnOpponent([this](SolutionData solutionData)
+		{
+			emit requestDrawOpponentSeries(opponnetIdx++, solutionData.fitness());
+		});
+
+	game->setConsumeScore([this](Winner result, std::shared_ptr<CPlayer> localPlayer, std::shared_ptr<CPlayer> opponentPlayer)
+		{
+			emit requestResetPlots();
+
+			idx = 0;
+			opponnetIdx = 0;
+
+			changeOurScoreLabel(localPlayer->score());
+			chaneOpponentScoreLabel(opponentPlayer->score());
+		});
+
 }
 
 void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
-    if (MainWindow->objectName().isEmpty())
-        MainWindow->setObjectName("MainWindow");
+	if (MainWindow->objectName().isEmpty())
+	{
+		MainWindow->setObjectName("MainWindow");
+	}
 
-	centralWidget->setParent(MainWindow);
-	centralWidget->setObjectName("centralwidget");
+	_centralWidget->setParent(MainWindow);
+	_centralWidget->setObjectName("centralwidget");
 
 	setUpInfoLabel();
-	
+
 	setUpOurResultLabel();
 
-	resultInfoLayout->addStretch(1);
+	_resultInfoLayout->addStretch(1);
 
-	separateResultLabel->setText(":");
-	resultInfoLayout->addWidget(separateResultLabel);
+	_separateResultLabel->setText(":");
+	_resultInfoLayout->addWidget(_separateResultLabel);
 
-	resultInfoLayout->addStretch(1);
+	_resultInfoLayout->addStretch(1);
 
 	setUpOpponentResultLabel();
 
 	setUpChart();
 
-	layout->addLayout(resultInfoLayout);
-	layout->addLayout(plotLayout);
+	_layout->addLayout(_resultInfoLayout);
+	_layout->addLayout(_plotLayout);
 
-	MainWindow->setLayout(layout);
-  
-    retranslateUi(this);
+	MainWindow->setLayout(_layout);
+
+	retranslateUi(this);
 
 	connect(this, &Ui_gamePlotScreen::requestDrawSeries,
 		this, &Ui_gamePlotScreen::handleDrawSeries,
@@ -87,72 +94,72 @@ void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
 		this, &Ui_gamePlotScreen::handleResetPlots,
 		Qt::QueuedConnection);
 
-    QMetaObject::connectSlotsByName(MainWindow);
+	QMetaObject::connectSlotsByName(MainWindow);
 }
 
 void Ui_gamePlotScreen::setUpInfoLabel()
 {
-	infoLabel->setObjectName("infoLabel");
-	infoLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-	layout->addWidget(infoLabel, 0, Qt::AlignHCenter);
+	_infoLabel->setObjectName("infoLabel");
+	_infoLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_layout->addWidget(_infoLabel, 0, Qt::AlignHCenter);
 }
 
 void Ui_gamePlotScreen::setUpChart()
 {
-	plot->setUpChart();
-	plotLayout->addWidget(plot);
+	_plot->setUpChart();
+	_plotLayout->addWidget(_plot);
 }
 
 void Ui_gamePlotScreen::retranslateUi(QWidget* MainWindow)
 {
-    MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Game!!", nullptr));
-	infoLabel->setText(QCoreApplication::translate("MainWindow", "Game plots:", nullptr));
-	ourScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
-	opponentScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
+	MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Game!!", nullptr));
+	_infoLabel->setText(QCoreApplication::translate("MainWindow", "Game plots:", nullptr));
+	_ourScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
+	_opponentScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
 }
 
 QFont Ui_gamePlotScreen::setUpFont(int points)
 {
-	font->setPointSize(points);
-	return *font;
+	_font->setPointSize(points);
+	return *_font;
 }
 
 void Ui_gamePlotScreen::setUpOurResultLabel()
 {
-	ourScoreLabel->setObjectName("ourScoreLabel");
-	ourScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-	resultInfoLayout->addWidget(ourScoreLabel, 0, Qt::AlignHCenter);
+	_ourScoreLabel->setObjectName("ourScoreLabel");
+	_ourScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_resultInfoLayout->addWidget(_ourScoreLabel, 0, Qt::AlignHCenter);
 }
 
 void Ui_gamePlotScreen::setUpOpponentResultLabel()
 {
-	opponentScoreLabel->setObjectName("opponentScoreLabel");
-	opponentScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-	resultInfoLayout->addWidget(opponentScoreLabel, 0, Qt::AlignHCenter);
+	_opponentScoreLabel->setObjectName("opponentScoreLabel");
+	_opponentScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_resultInfoLayout->addWidget(_opponentScoreLabel, 0, Qt::AlignHCenter);
 }
 
 void Ui_gamePlotScreen::changeOurScoreLabel(int score)
 {
-	ourScoreLabel->setText(QString::number(score));
+	_ourScoreLabel->setText(QString::number(score));
 }
 
 void Ui_gamePlotScreen::chaneOpponentScoreLabel(int score)
 {
-	opponentScoreLabel->setText(QString::number(score));
+	_opponentScoreLabel->setText(QString::number(score));
 }
 
 void Ui_gamePlotScreen::handleDrawSeries(double idx, double fitness)
 {
-	plot->drawSeriesOurResult(idx, fitness);
+	_plot->drawSeriesOurResult(idx, fitness);
 }
 
 void Ui_gamePlotScreen::handleOpponentDrawSeries(double idx, double fitness)
 {
-	plot->drawSeriesOpponentResult(idx, fitness);
+	_plot->drawSeriesOpponentResult(idx, fitness);
 }
 
 void Ui_gamePlotScreen::handleResetPlots()
 {
-	plot->clearOpponentPlot();
-	plot->clearOurPlot();
+	_plot->clearOpponentPlot();
+	_plot->clearOurPlot();
 }

@@ -1,426 +1,428 @@
 #include "metahParameters.h"
 
+Ui_metahParameters::Ui_metahParameters(QWidget* parent) :
+	QWidget(parent)
+{
+	_centralwidget = new QWidget();
+	_maxIterationSlider = new QSlider(_centralwidget);
+	_neighbourSizeDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+	_increaseTempItersDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+	_genderGroupIterDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+	_neighbourGeneratorCombobox = new QComboBox(_centralwidget);
+	_initSolverCombobox = new QComboBox(_centralwidget);
+	_startingTemperatureSlider = new QSlider(_centralwidget);
+	_simplexCoolingMulitplierDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+	_stopTemperatureSlider = new QSlider(_centralwidget);
+	_prizeSizeDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+	_maxIterationLabel = new QLabel(_centralwidget);
+	_neighbourSizeLabel = new QLabel(_centralwidget);
+	_prizeSizeLabel = new QLabel(_centralwidget);
+	_increaseTempIterLabel = new QLabel(_centralwidget);
+	_genderGroupLabel = new QLabel(_centralwidget);
+	_coolingMultiplier = new QLabel(_centralwidget);
+	_startingTemperatureLabel = new QLabel(_centralwidget);
+	_stopTemperatureLabel = new QLabel(_centralwidget);
+	_initSolverLabel = new QLabel(_centralwidget);
+	_neigbourGeneratorLabel = new QLabel(_centralwidget);
+	_startGameButton = new QPushButton(_centralwidget);
+	_minValueMaxIterationSliderLabel = new QLabel(_centralwidget);
+	_maxValueMaxIterationSliderLabel = new QLabel(_centralwidget);
+	_currentValueMaxIterationSliderLabel = new QLabel(_centralwidget);
+	_minValueStartingTemperatureSliderLabel = new QLabel(_centralwidget);
+	_maxValueStartingTemperatureSliderLabel = new QLabel(_centralwidget);
+	_currentValueStartingTemperatureSliderLabel = new QLabel(_centralwidget);
+	_minValueStopTemperatureSliderLabel = new QLabel(_centralwidget);
+	_maxValueStopTemperatureSliderLabel = new QLabel(_centralwidget);
+	_currentValueStopTemperatureSliderLabel = new QLabel(_centralwidget);
+	_gridLayout = new QGridLayout(_centralwidget);
+	_font = new QFont();
+
+	connect(_maxIterationSlider, &QSlider::valueChanged, [this](int value) {
+		_currentValueMaxIterationSliderLabel->setText(QString("Value: %1").arg(value));
+		});
+
+	connect(_startingTemperatureSlider, &QSlider::valueChanged, [this](int value) {
+		_currentValueStartingTemperatureSliderLabel->setText(QString("Value: %1").arg(value));
+		});
+
+	connect(_stopTemperatureSlider, &QSlider::valueChanged, [this](int value) {
+		_currentValueStopTemperatureSliderLabel->setText(QString("Value: %1").arg(value));
+		});
+
+	connect(_neighbourGeneratorCombobox, &QComboBox::currentTextChanged, this, &Ui_metahParameters::updatePrizeSizeDoubleSpinBox);
+
+	connect(_maxIterationSlider, &QSlider::valueChanged, this, &Ui_metahParameters::updateStopTemperatureSlider);
+	connect(_stopTemperatureSlider, &QSlider::valueChanged, this, &Ui_metahParameters::updateMaxIterationSlider);
+
+	connect(_startGameButton, &QPushButton::clicked, this, &Ui_metahParameters::onStartGameButtonClicked);
+
+	setupUi(this);
+}
+
+Ui_metahParameters::~Ui_metahParameters() = default;
+
 void Ui_metahParameters::setupUi(QWidget* MainWindow)
 {
 	if (MainWindow->objectName().isEmpty())
+	{
 		MainWindow->setObjectName("MainWindow");
-	centralwidget->setParent(MainWindow);
-	centralwidget->setObjectName("centralwidget");
+	}
 
-	gridLayout->setVerticalSpacing(10);
+	_centralwidget->setParent(MainWindow);
+	_centralwidget->setObjectName("centralwidget");
+
+	_gridLayout->setVerticalSpacing(10);
 	int row = 0;
 
 	// Max Iteration
 	setUpMaxIterationLabel();
 	setUpMaxIterationSlider();
-	gridLayout->addWidget(maxIterationLabel, row, 0);
-	gridLayout->addWidget(maxIterationSlider, row, 1);
+	_gridLayout->addWidget(_maxIterationLabel, row, 0);
+	_gridLayout->addWidget(_maxIterationSlider, row, 1);
 	row += 2;
 
 	// Neighbour Size
 	setUpNeighbourSizeLabel();
 	setUpNeighbourSizeDoubleSpinBox();
-	gridLayout->addWidget(neighbourSizeLabel, row, 0);
-	gridLayout->addWidget(neighbourSizeDoubleSpinBox, row, 1);
+	_gridLayout->addWidget(_neighbourSizeLabel, row, 0);
+	_gridLayout->addWidget(_neighbourSizeDoubleSpinBox, row, 1);
 	row++;
 
 	// Prize Size
 	setUpPrizeSizeLabel();
 	setUpPrizeSizeDoubleSpinBox();
-	gridLayout->addWidget(prizeSizeLabel, row, 0);
-	gridLayout->addWidget(prizeSizeDoubleSpinBox, row, 1);
+	_gridLayout->addWidget(_prizeSizeLabel, row, 0);
+	_gridLayout->addWidget(_prizeSizeDoubleSpinBox, row, 1);
 	row++;
 
 	// Increase Temp Iter
 	setUpIncreaseTempIterLabel();
 	setUpIncreaseTempItersDoubleSpinBox();
-	gridLayout->addWidget(increaseTempIterLabel, row, 0);
-	gridLayout->addWidget(increaseTempItersDoubleSpinBox, row, 1);
+	_gridLayout->addWidget(_increaseTempIterLabel, row, 0);
+	_gridLayout->addWidget(_increaseTempItersDoubleSpinBox, row, 1);
 	row++;
 
 	// Gender Group
 	setUpGenderGroupLabel();
 	setUpGenderGroupIterDoubleSpinBox();
-	gridLayout->addWidget(genderGroupLabel, row, 0);
-	gridLayout->addWidget(genderGroupIterDoubleSpinBox, row, 1);
+	_gridLayout->addWidget(_genderGroupLabel, row, 0);
+	_gridLayout->addWidget(_genderGroupIterDoubleSpinBox, row, 1);
 	row++;
 
 	// Cooling Multiplier
 	setUpCoolingMultiplierLabel();
 	setUpSimplexCoolingMultiplierDoubleSpinBox();
-	gridLayout->addWidget(coolingMultiplier, row, 0);
-	gridLayout->addWidget(simplexCoolingMulitplierDoubleSpinBox, row, 1);
+	_gridLayout->addWidget(_coolingMultiplier, row, 0);
+	_gridLayout->addWidget(_simplexCoolingMulitplierDoubleSpinBox, row, 1);
 	row++;
 
 	// Starting Temperature
 	setUpStartingTemperatureLabel();
 	setUpStartingTemperatureSlider();
-	gridLayout->addWidget(startingTemperatureLabel, row, 0);
-	gridLayout->addWidget(startingTemperatureSlider, row, 1);
+	_gridLayout->addWidget(_startingTemperatureLabel, row, 0);
+	_gridLayout->addWidget(_startingTemperatureSlider, row, 1);
 	row += 2;
 
 	// Stop Temperature
 	setUpStopTemperatureLabel();
 	setUpStopTemperatureSlider();
-	gridLayout->addWidget(stopTemperatureLabel, row, 0);
-	gridLayout->addWidget(stopTemperatureSlider, row, 1);
+	_gridLayout->addWidget(_stopTemperatureLabel, row, 0);
+	_gridLayout->addWidget(_stopTemperatureSlider, row, 1);
 	row += 2;
 
 	// Init Solver
 	setUpInitSolverLabel();
 	setUpInitSolverCombobox();
-	gridLayout->addWidget(initSolverLabel, row, 0);
-	gridLayout->addWidget(initSolverCombobox, row, 1);
+	_gridLayout->addWidget(_initSolverLabel, row, 0);
+	_gridLayout->addWidget(_initSolverCombobox, row, 1);
 	row++;
 
 	// Neighbour Generator
 	setUpNeighbourGeneratorLabel();
 	setUpNeighbourGeneratorCombobox();
-	gridLayout->addWidget(neigbourGeneratorLabel, row, 0);
-	gridLayout->addWidget(neighbourGeneratorCombobox, row, 1);
+	_gridLayout->addWidget(_neigbourGeneratorLabel, row, 0);
+	_gridLayout->addWidget(_neighbourGeneratorCombobox, row, 1);
 	row++;
 
 	// Przycisk Start Game
 	setUpStartGameButton();
-	gridLayout->addWidget(startGameButton, row, 0, 1, 2, Qt::AlignCenter); // Przycisk zajmuje ca³¹ szerokoœæ
+	_gridLayout->addWidget(_startGameButton, row, 0, 1, 2, Qt::AlignCenter); // Przycisk zajmuje ca³¹ szerokoœæ
 
-	MainWindow->setLayout(gridLayout);
+	MainWindow->setLayout(_gridLayout);
 
 	retranslateUi(MainWindow);
 
 	QMetaObject::connectSlotsByName(MainWindow);
 }
 
-//Parametry
 void Ui_metahParameters::setUpStartGameButton()
 {
-	startGameButton->setObjectName("startGameButton");
-	startGameButton->setStyleSheet("background-color: pink; color: black");
-	startGameButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_startGameButton->setObjectName("startGameButton");
+	_startGameButton->setStyleSheet("background-color: pink; color: black");
+	_startGameButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
 }
 
 void Ui_metahParameters::setUpMaxIterationSlider()
 {
-	maxIterationSlider->setObjectName("maxIterationCombobox");
-	maxIterationSlider->setOrientation(Qt::Horizontal);
-	maxIterationSlider->setRange(0, 2500);
-	maxIterationSlider->setTickInterval(10);
-	maxIterationSlider->setTracking(true);
+	_maxIterationSlider->setObjectName("maxIterationCombobox");
+	_maxIterationSlider->setOrientation(Qt::Horizontal);
+	_maxIterationSlider->setRange(0, 2500);
+	_maxIterationSlider->setTickInterval(10);
+	_maxIterationSlider->setTracking(true);
 
-	gridLayout->setVerticalSpacing(10);
+	_gridLayout->setVerticalSpacing(10);
 
-	maxIterationSlider->setEnabled(false);
-	minValueMaxIterationSliderLabel->setText("Min: 0");
-	minValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	maxValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	currentValueMaxIterationSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-	maxValueMaxIterationSliderLabel->setText("Max: 2500");
+	_maxIterationSlider->setEnabled(false);
+	_minValueMaxIterationSliderLabel->setText("Min: 0");
+	_minValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_maxValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_currentValueMaxIterationSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_maxValueMaxIterationSliderLabel->setText("Max: 25000");
 
-	gridLayout->addWidget(minValueMaxIterationSliderLabel, 1, 0);
-	gridLayout->addWidget(maxIterationSlider, 0, 2);
-	gridLayout->addWidget(maxValueMaxIterationSliderLabel, 0, 3);
-	gridLayout->addWidget(currentValueMaxIterationSliderLabel, 1, 1);
+	_gridLayout->addWidget(_minValueMaxIterationSliderLabel, 1, 0);
+	_gridLayout->addWidget(_maxIterationSlider, 0, 2);
+	_gridLayout->addWidget(_maxValueMaxIterationSliderLabel, 0, 3);
+	_gridLayout->addWidget(_currentValueMaxIterationSliderLabel, 1, 1);
 
-	currentValueMaxIterationSliderLabel->setText(QString("Value: %1").arg(maxIterationSlider->value()));
+	_currentValueMaxIterationSliderLabel->setText(QString("Value: %1").arg(_maxIterationSlider->value()));
 }
-
 
 void Ui_metahParameters::setUpNeighbourSizeDoubleSpinBox()
 {
-	neighbourSizeDoubleSpinBox->setObjectName("nieghbourSizeCombobox");
-	neighbourSizeDoubleSpinBox->setDecimals(0);
-	neighbourSizeDoubleSpinBox->setSingleStep(1);
-	neighbourSizeDoubleSpinBox->setRange(1, 50);
-	neighbourSizeDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_neighbourSizeDoubleSpinBox->setObjectName("nieghbourSizeCombobox");
+	_neighbourSizeDoubleSpinBox->setDecimals(0);
+	_neighbourSizeDoubleSpinBox->setSingleStep(1);
+	_neighbourSizeDoubleSpinBox->setRange(1, 50);
+	_neighbourSizeDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpPrizeSizeDoubleSpinBox()
 {
-	prizeSizeDoubleSpinBox->setObjectName("prizeSizeCombobox");
-	prizeSizeDoubleSpinBox->setDecimals(0);
-	prizeSizeDoubleSpinBox->setSingleStep(1);
-	prizeSizeDoubleSpinBox->setRange(1, 10);
-	prizeSizeDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-	prizeSizeDoubleSpinBox->setEnabled(false);
+	_prizeSizeDoubleSpinBox->setObjectName("prizeSizeCombobox");
+	_prizeSizeDoubleSpinBox->setDecimals(0);
+	_prizeSizeDoubleSpinBox->setSingleStep(1);
+	_prizeSizeDoubleSpinBox->setRange(1, 10);
+	_prizeSizeDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_prizeSizeDoubleSpinBox->setEnabled(false);
 }
 
 void Ui_metahParameters::setUpIncreaseTempItersDoubleSpinBox()
 {
-	increaseTempItersDoubleSpinBox->setObjectName("increaseTempItersCombobox");
-	increaseTempItersDoubleSpinBox->setDecimals(0);
-	increaseTempItersDoubleSpinBox->setSingleStep(1);
-	increaseTempItersDoubleSpinBox->setRange(1, 1000);
-	increaseTempItersDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_increaseTempItersDoubleSpinBox->setObjectName("increaseTempItersCombobox");
+	_increaseTempItersDoubleSpinBox->setDecimals(0);
+	_increaseTempItersDoubleSpinBox->setSingleStep(1);
+	_increaseTempItersDoubleSpinBox->setRange(1, 1000);
+	_increaseTempItersDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpGenderGroupIterDoubleSpinBox()
 {
-	genderGroupIterDoubleSpinBox->setObjectName("genderGroupIterCombobox");
-	genderGroupIterDoubleSpinBox->setDecimals(0);
-	genderGroupIterDoubleSpinBox->setSingleStep(1);
-	genderGroupIterDoubleSpinBox->setRange(1, 1000);
-	genderGroupIterDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_genderGroupIterDoubleSpinBox->setObjectName("genderGroupIterCombobox");
+	_genderGroupIterDoubleSpinBox->setDecimals(0);
+	_genderGroupIterDoubleSpinBox->setSingleStep(1);
+	_genderGroupIterDoubleSpinBox->setRange(1, 1000);
+	_genderGroupIterDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpSimplexCoolingMultiplierDoubleSpinBox()
 {
-	simplexCoolingMulitplierDoubleSpinBox->setObjectName("simplexCoolingMulitplierCombobox");
-	simplexCoolingMulitplierDoubleSpinBox->setDecimals(3);
-	simplexCoolingMulitplierDoubleSpinBox->setSingleStep(0.001);
-	simplexCoolingMulitplierDoubleSpinBox->setRange(0.900, 0.999);
-	simplexCoolingMulitplierDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_simplexCoolingMulitplierDoubleSpinBox->setObjectName("simplexCoolingMulitplierCombobox");
+	_simplexCoolingMulitplierDoubleSpinBox->setDecimals(3);
+	_simplexCoolingMulitplierDoubleSpinBox->setSingleStep(0.001);
+	_simplexCoolingMulitplierDoubleSpinBox->setRange(0.900, 0.999);
+	_simplexCoolingMulitplierDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpNeighbourGeneratorCombobox()
 {
-	neighbourGeneratorCombobox->setObjectName("neigbourGeneratorCombobox");
+	_neighbourGeneratorCombobox->setObjectName("neigbourGeneratorCombobox");
 	for (int i = 0; i <= static_cast<int>(NeighbourGeneratorType::TOURNAMENT); ++i) {
 		NeighbourGeneratorType mode = static_cast<NeighbourGeneratorType>(i);
-		neighbourGeneratorCombobox->addItem(QString::fromStdString(enumToString<NeighbourGeneratorType>(mode)), i);
+		_neighbourGeneratorCombobox->addItem(QString::fromStdString(enumToString<NeighbourGeneratorType>(mode)), i);
 	}
-	neighbourGeneratorCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_neighbourGeneratorCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpStartingTemperatureSlider()
 {
-	startingTemperatureSlider->setObjectName("startingTemperatureSlider");
-	startingTemperatureSlider->setOrientation(Qt::Horizontal);
-	startingTemperatureSlider->setRange(1, 100000);
-	startingTemperatureSlider->setTickInterval(1000);
-	startingTemperatureSlider->setTracking(true);
+	_startingTemperatureSlider->setObjectName("startingTemperatureSlider");
+	_startingTemperatureSlider->setOrientation(Qt::Horizontal);
+	_startingTemperatureSlider->setRange(1, 100000);
+	_startingTemperatureSlider->setTickInterval(1000);
+	_startingTemperatureSlider->setTracking(true);
 
-	minValueStartingTemperatureSliderLabel->setText("Min: 0");
-	minValueStartingTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	maxValueStartingTemperatureSliderLabel->setText("Max: 100000");
-	maxValueStartingTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	currentValueStartingTemperatureSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_minValueStartingTemperatureSliderLabel->setText("Min: 0");
+	_minValueStartingTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_maxValueStartingTemperatureSliderLabel->setText("Max: 100000");
+	_maxValueStartingTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_currentValueStartingTemperatureSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 
-	gridLayout->setVerticalSpacing(10);
+	_gridLayout->setVerticalSpacing(10);
 
-	gridLayout->addWidget(minValueStartingTemperatureSliderLabel, 8, 0);
-	gridLayout->addWidget(startingTemperatureSlider, 7, 2);
-	gridLayout->addWidget(maxValueStartingTemperatureSliderLabel, 7, 3);
-	gridLayout->addWidget(currentValueStartingTemperatureSliderLabel, 8, 1);
+	_gridLayout->addWidget(_minValueStartingTemperatureSliderLabel, 8, 0);
+	_gridLayout->addWidget(_startingTemperatureSlider, 7, 2);
+	_gridLayout->addWidget(_maxValueStartingTemperatureSliderLabel, 7, 3);
+	_gridLayout->addWidget(_currentValueStartingTemperatureSliderLabel, 8, 1);
 
-	currentValueStartingTemperatureSliderLabel->setText(QString("Value: %1").arg(stopTemperatureSlider->value()));
+	_currentValueStartingTemperatureSliderLabel->setText(QString("Value: %1").arg(_stopTemperatureSlider->value()));
 
 }
+
 void Ui_metahParameters::setUpStopTemperatureSlider()
 {
-	stopTemperatureSlider->setObjectName("stopTemperatureSlider");
-	stopTemperatureSlider->setOrientation(Qt::Horizontal);
-	stopTemperatureSlider->setRange(0, 10000);
-	stopTemperatureSlider->setTickInterval(100);
-	stopTemperatureSlider->setTracking(true);
-	stopTemperatureSlider->setEnabled(false);
+	_stopTemperatureSlider->setObjectName("stopTemperatureSlider");
+	_stopTemperatureSlider->setOrientation(Qt::Horizontal);
+	_stopTemperatureSlider->setRange(0, 10000);
+	_stopTemperatureSlider->setTickInterval(100);
+	_stopTemperatureSlider->setTracking(true);
+	_stopTemperatureSlider->setEnabled(false);
 
-	gridLayout->setVerticalSpacing(10);
+	_gridLayout->setVerticalSpacing(10);
 
-	minValueStopTemperatureSliderLabel->setText("Min: 0");
-	minValueStopTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	maxValueStopTemperatureSliderLabel->setText("Max: 10000");
-	maxValueStopTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
-	currentValueStopTemperatureSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_minValueStopTemperatureSliderLabel->setText("Min: 0");
+	_minValueStopTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_maxValueStopTemperatureSliderLabel->setText("Max: 10000");
+	_maxValueStopTemperatureSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
+	_currentValueStopTemperatureSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 
-	gridLayout->addWidget(minValueStopTemperatureSliderLabel, 10, 0);
-	gridLayout->addWidget(stopTemperatureSlider, 9, 2);
-	gridLayout->addWidget(maxValueStopTemperatureSliderLabel, 9, 3);
-	gridLayout->addWidget(currentValueStopTemperatureSliderLabel, 10, 1);
+	_gridLayout->addWidget(_minValueStopTemperatureSliderLabel, 10, 0);
+	_gridLayout->addWidget(_stopTemperatureSlider, 9, 2);
+	_gridLayout->addWidget(_maxValueStopTemperatureSliderLabel, 9, 3);
+	_gridLayout->addWidget(_currentValueStopTemperatureSliderLabel, 10, 1);
 
-	currentValueStopTemperatureSliderLabel->setText(QString("Value: %1").arg(stopTemperatureSlider->value()));
+	_currentValueStopTemperatureSliderLabel->setText(QString("Value: %1").arg(_stopTemperatureSlider->value()));
 }
-
 
 void Ui_metahParameters::setUpInitSolverCombobox()
 {
-	initSolverCombobox->setObjectName("initSolverCombobox");
+	_initSolverCombobox->setObjectName("initSolverCombobox");
 
-	initSolverCombobox->addItem(QString::fromStdString(enumToString<SolverType>(SolverType::GREEDY)), 0);
-	initSolverCombobox->addItem(QString::fromStdString(enumToString<SolverType>(SolverType::RAND)), 1);
+	_initSolverCombobox->addItem(QString::fromStdString(enumToString<SolverType>(SolverType::GREEDY)), 0);
+	_initSolverCombobox->addItem(QString::fromStdString(enumToString<SolverType>(SolverType::RAND)), 1);
 
-	initSolverCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+	_initSolverCombobox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
 }
 
-
-// Labelki
 void Ui_metahParameters::setUpMaxIterationLabel()
 {
-	maxIterationLabel->setObjectName("maxIterationLabel");
-	maxIterationLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_maxIterationLabel->setObjectName("maxIterationLabel");
+	_maxIterationLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpNeighbourSizeLabel()
 {
-	neighbourSizeLabel->setObjectName("neighbourSizeLabel");
-	neighbourSizeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_neighbourSizeLabel->setObjectName("neighbourSizeLabel");
+	_neighbourSizeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpPrizeSizeLabel()
 {
-	prizeSizeLabel->setObjectName("prizeSizeLabel");
-	prizeSizeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_prizeSizeLabel->setObjectName("prizeSizeLabel");
+	_prizeSizeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpIncreaseTempIterLabel()
 {
-	increaseTempIterLabel->setObjectName("increaseTempIterLabel");
-	increaseTempIterLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_increaseTempIterLabel->setObjectName("increaseTempIterLabel");
+	_increaseTempIterLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpGenderGroupLabel()
 {
-	genderGroupLabel->setObjectName("genderGroupLabel");
-	genderGroupLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_genderGroupLabel->setObjectName("genderGroupLabel");
+	_genderGroupLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpCoolingMultiplierLabel()
 {
-	coolingMultiplier->setObjectName("coolingMultiplier");
-	coolingMultiplier->setFont(setUpFont(LABEL_FONT_POINTS));
+	_coolingMultiplier->setObjectName("coolingMultiplier");
+	_coolingMultiplier->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpStartingTemperatureLabel()
 {
-	startingTemperatureLabel->setObjectName("startingTemperatureLabel");
-	startingTemperatureLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_startingTemperatureLabel->setObjectName("startingTemperatureLabel");
+	_startingTemperatureLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpStopTemperatureLabel()
 {
-	stopTemperatureLabel->setObjectName("stopTemperatureLabel");
-	stopTemperatureLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_stopTemperatureLabel->setObjectName("stopTemperatureLabel");
+	_stopTemperatureLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpInitSolverLabel()
 {
-	initSolverLabel->setObjectName("initSolverLabel");
-	initSolverLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_initSolverLabel->setObjectName("initSolverLabel");
+	_initSolverLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 void Ui_metahParameters::setUpNeighbourGeneratorLabel()
 {
-	neigbourGeneratorLabel->setObjectName("neigboutGeneratorLabel");
-	neigbourGeneratorLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+	_neigbourGeneratorLabel->setObjectName("neigboutGeneratorLabel");
+	_neigbourGeneratorLabel->setFont(setUpFont(LABEL_FONT_POINTS));
 }
 
 
 QFont Ui_metahParameters::setUpFont(int points)
 {
-	font->setPointSize(points);
-	return *font;
+	_font->setPointSize(points);
+	return *_font;
 }
 
 void Ui_metahParameters::retranslateUi(QWidget* MainWindow)
 {
 	MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Choose metaheuristic parameters", nullptr));
-	maxIterationLabel->setText(QCoreApplication::translate("MainWindow", "Max Number of iterations", nullptr));
-	neighbourSizeLabel->setText(QCoreApplication::translate("MainWindow", "Neigbourhood size", nullptr));
-	prizeSizeLabel->setText(QCoreApplication::translate("MainWindow", "Prize size", nullptr));
-	increaseTempIterLabel->setText(QCoreApplication::translate("MainWindow", "No Cooling iteration", nullptr));
-	genderGroupLabel->setText(QCoreApplication::translate("MainWindow", "Gender Grouper iteration", nullptr));
-	coolingMultiplier->setText(QCoreApplication::translate("MainWindow", "Cooling Multiplier", nullptr));
-	startingTemperatureLabel->setText(QCoreApplication::translate("MainWindow", "Starting Temperature", nullptr));
-	stopTemperatureLabel->setText(QCoreApplication::translate("MainWindow", "Stop Temperature", nullptr));
-	initSolverLabel->setText(QCoreApplication::translate("MainWindow", "Init Solver", nullptr));
-	neigbourGeneratorLabel->setText(QCoreApplication::translate("MainWindow", "Neighbour generator", nullptr));
-	startGameButton->setText(QCoreApplication::translate("MainWindow", "Start Game", nullptr));
-}
-
-Ui_metahParameters::Ui_metahParameters(QWidget* parent) : QWidget(parent)
-{
-	centralwidget = new QWidget();
-	maxIterationSlider = new QSlider(centralwidget);
-	neighbourSizeDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-	increaseTempItersDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-	genderGroupIterDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-	neighbourGeneratorCombobox = new QComboBox(centralwidget);
-	initSolverCombobox = new QComboBox(centralwidget);
-	startingTemperatureSlider = new QSlider(centralwidget);
-	simplexCoolingMulitplierDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-	stopTemperatureSlider = new QSlider(centralwidget);
-	prizeSizeDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-	maxIterationLabel = new QLabel(centralwidget);
-	neighbourSizeLabel = new QLabel(centralwidget);
-	prizeSizeLabel = new QLabel(centralwidget);
-	increaseTempIterLabel = new QLabel(centralwidget);
-	genderGroupLabel = new QLabel(centralwidget);
-	coolingMultiplier = new QLabel(centralwidget);
-	startingTemperatureLabel = new QLabel(centralwidget);
-	stopTemperatureLabel = new QLabel(centralwidget);
-	initSolverLabel = new QLabel(centralwidget);
-	neigbourGeneratorLabel = new QLabel(centralwidget);
-	startGameButton = new QPushButton(centralwidget);
-	minValueMaxIterationSliderLabel = new QLabel(centralwidget);
-	maxValueMaxIterationSliderLabel = new QLabel(centralwidget);
-	currentValueMaxIterationSliderLabel = new QLabel(centralwidget);
-	minValueStartingTemperatureSliderLabel = new QLabel(centralwidget);
-	maxValueStartingTemperatureSliderLabel = new QLabel(centralwidget);
-	currentValueStartingTemperatureSliderLabel = new QLabel(centralwidget);
-	minValueStopTemperatureSliderLabel = new QLabel(centralwidget);
-	maxValueStopTemperatureSliderLabel = new QLabel(centralwidget);
-	currentValueStopTemperatureSliderLabel = new QLabel(centralwidget);
-	gridLayout = new QGridLayout(centralwidget);
-	font = new QFont();
-
-	connect(maxIterationSlider, &QSlider::valueChanged, [this](int value) {
-		currentValueMaxIterationSliderLabel->setText(QString("Value: %1").arg(value));
-		});
-
-	connect(startingTemperatureSlider, &QSlider::valueChanged, [this](int value) {
-		currentValueStartingTemperatureSliderLabel->setText(QString("Value: %1").arg(value));
-		});
-
-	connect(stopTemperatureSlider, &QSlider::valueChanged, [this](int value) {
-		currentValueStopTemperatureSliderLabel->setText(QString("Value: %1").arg(value));
-		});
-
-	connect(neighbourGeneratorCombobox, &QComboBox::currentTextChanged, this, &Ui_metahParameters::updatePrizeSizeDoubleSpinBox);
-
-	connect(maxIterationSlider, &QSlider::valueChanged, this, &Ui_metahParameters::updateStopTemperatureSlider);
-	connect(stopTemperatureSlider, &QSlider::valueChanged, this, &Ui_metahParameters::updateMaxIterationSlider);
-
-	connect(startGameButton, &QPushButton::clicked, this, &Ui_metahParameters::onStartGameButtonClicked);
-
-	setupUi(this);
+	_maxIterationLabel->setText(QCoreApplication::translate("MainWindow", "Max Number of iterations", nullptr));
+	_neighbourSizeLabel->setText(QCoreApplication::translate("MainWindow", "Neigbourhood size", nullptr));
+	_prizeSizeLabel->setText(QCoreApplication::translate("MainWindow", "Prize size", nullptr));
+	_increaseTempIterLabel->setText(QCoreApplication::translate("MainWindow", "No Cooling iteration", nullptr));
+	_genderGroupLabel->setText(QCoreApplication::translate("MainWindow", "Gender Grouper iteration", nullptr));
+	_coolingMultiplier->setText(QCoreApplication::translate("MainWindow", "Cooling Multiplier", nullptr));
+	_startingTemperatureLabel->setText(QCoreApplication::translate("MainWindow", "Starting Temperature", nullptr));
+	_stopTemperatureLabel->setText(QCoreApplication::translate("MainWindow", "Stop Temperature", nullptr));
+	_initSolverLabel->setText(QCoreApplication::translate("MainWindow", "Init Solver", nullptr));
+	_neigbourGeneratorLabel->setText(QCoreApplication::translate("MainWindow", "Neighbour generator", nullptr));
+	_startGameButton->setText(QCoreApplication::translate("MainWindow", "Start Game", nullptr));
 }
 
 void Ui_metahParameters::updatePrizeSizeDoubleSpinBox()
 {
-	if (neighbourGeneratorCombobox->currentText() == enumToString<NeighbourGeneratorType>(NeighbourGeneratorType::PRIZE_BEST))
+	if (_neighbourGeneratorCombobox->currentText() == enumToString<NeighbourGeneratorType>(NeighbourGeneratorType::PRIZE_BEST))
 	{
-		prizeSizeDoubleSpinBox->setEnabled(true);
+		_prizeSizeDoubleSpinBox->setEnabled(true);
 	}
 	else
 	{
-		prizeSizeDoubleSpinBox->setEnabled(false);
+		_prizeSizeDoubleSpinBox->setEnabled(false);
 	}
 }
 
 void Ui_metahParameters::updateStopTemperatureSlider()
 {
-	if (maxIterationSlider->value() != 0)
+	if (_maxIterationSlider->value() != 0)
 	{
-		stopTemperatureSlider->setValue(0);
-		stopTemperatureSlider->setEnabled(false);
+		_stopTemperatureSlider->setValue(0);
+		_stopTemperatureSlider->setEnabled(false);
 	}
 	else
 	{
-		stopTemperatureSlider->setEnabled(true);
+		_stopTemperatureSlider->setEnabled(true);
 	}
 }
 
 void Ui_metahParameters::onStartGameButtonClicked()
 {
-	StateController::instance().allGameParameters().setGenderGroupIter(genderGroupIterDoubleSpinBox->value());
-	StateController::instance().allGameParameters().setMaxIteration(maxIterationSlider->value());
-	StateController::instance().allGameParameters().setStartingTemperature(startingTemperatureSlider->value());
-	StateController::instance().allGameParameters().setStopTemperature(stopTemperatureSlider->value());
-	StateController::instance().allGameParameters().setPrizeSize(prizeSizeDoubleSpinBox->value());
-	StateController::instance().allGameParameters().setCoolingMultiplier(simplexCoolingMulitplierDoubleSpinBox->value());
-	StateController::instance().allGameParameters().setIncreaseTempIters(increaseTempItersDoubleSpinBox->value());
-	StateController::instance().allGameParameters().setNeighbourSize(neighbourSizeDoubleSpinBox->value());
-	StateController::instance().allGameParameters().setInitSolver(stringToEnum<SolverType>(initSolverCombobox->currentText().toStdString()));
-	StateController::instance().allGameParameters().setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(neighbourGeneratorCombobox->currentText().toStdString()));
+	StateController::instance().allGameParameters().setGenderGroupIter(_genderGroupIterDoubleSpinBox->value());
+	StateController::instance().allGameParameters().setMaxIteration(_maxIterationSlider->value());
+	StateController::instance().allGameParameters().setStartingTemperature(_startingTemperatureSlider->value());
+	StateController::instance().allGameParameters().setStopTemperature(_stopTemperatureSlider->value());
+	StateController::instance().allGameParameters().setPrizeSize(_prizeSizeDoubleSpinBox->value());
+	StateController::instance().allGameParameters().setCoolingMultiplier(_simplexCoolingMulitplierDoubleSpinBox->value());
+	StateController::instance().allGameParameters().setIncreaseTempIters(_increaseTempItersDoubleSpinBox->value());
+	StateController::instance().allGameParameters().setNeighbourSize(_neighbourSizeDoubleSpinBox->value());
+	StateController::instance().allGameParameters().setInitSolver(stringToEnum<SolverType>(_initSolverCombobox->currentText().toStdString()));
+	StateController::instance().allGameParameters().setNeighbourGenerator(stringToEnum<NeighbourGeneratorType>(_neighbourGeneratorCombobox->currentText().toStdString()));
 
 	StateController::instance().startGame();
 }
@@ -429,20 +431,20 @@ void Ui_metahParameters::setSlidersEnabled(const QString& value)
 {
 	if (value == enumToString(GameTimeValues::UNKNOWN))
 	{
-		maxIterationSlider->setEnabled(true);
-		stopTemperatureSlider->setEnabled(true);
+		_maxIterationSlider->setEnabled(true);
+		_stopTemperatureSlider->setEnabled(true);
 	}
 }
 
 void Ui_metahParameters::updateMaxIterationSlider()
 {
-	if (stopTemperatureSlider->value() != 0)
+	if (_stopTemperatureSlider->value() != 0)
 	{
-		maxIterationSlider->setValue(0);
-		maxIterationSlider->setEnabled(false);
+		_maxIterationSlider->setValue(0);
+		_maxIterationSlider->setEnabled(false);
 	}
 	else
 	{
-		maxIterationSlider->setEnabled(true);
+		_maxIterationSlider->setEnabled(true);
 	}
 }

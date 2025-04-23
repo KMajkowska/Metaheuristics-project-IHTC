@@ -2,19 +2,19 @@
 
 RealTimePlot::RealTimePlot(QWidget* parent) : QChartView(parent)
 {
-    ourResultSeries = new QLineSeries();
-    ourResultChart = new QChart();
-    ourResultAxisX = new QValueAxis();
-    ourResultAxisY = new QValueAxis();
-    ourResultChartView = new QChartView(ourResultChart);
+    _ourResultSeries = new QLineSeries();
+    _ourResultChart = new QChart();
+    _ourResultAxisX = new QValueAxis();
+    _ourResultAxisY = new QValueAxis();
+    _ourResultChartView = new QChartView(_ourResultChart);
 
-    opponentSeries = new QLineSeries();
-    opponentChart = new QChart();
-    opponentAxisX = new QValueAxis();
-    opponentAxisY = new QValueAxis();
-    opponentChartView = new QChartView(opponentChart);
+    _opponentSeries = new QLineSeries();
+    _opponentChart = new QChart();
+    _opponentAxisX = new QValueAxis();
+    _opponentAxisY = new QValueAxis();
+    _opponentChartView = new QChartView(_opponentChart);
 
-    layout = new QHBoxLayout(this);
+    _layout = new QHBoxLayout(this);
 }
 
 void RealTimePlot::setUpChart()
@@ -26,90 +26,90 @@ void RealTimePlot::setUpChart()
 
     setUpYourOpponentPlot();
 
-    layout->addWidget(ourResultChartView);
-    layout->addWidget(opponentChartView);
+    _layout->addWidget(_ourResultChartView);
+    _layout->addWidget(_opponentChartView);
 
-    setLayout(layout);
+    setLayout(_layout);
 }
 
 void RealTimePlot::setUpYourOpponentPlot()
 {
-    opponentChart->addSeries(opponentSeries);
-    opponentChart->addAxis(opponentAxisX, Qt::AlignBottom);
-    opponentChart->addAxis(opponentAxisY, Qt::AlignLeft);
+    _opponentChart->addSeries(_opponentSeries);
+    _opponentChart->addAxis(_opponentAxisX, Qt::AlignBottom);
+    _opponentChart->addAxis(_opponentAxisY, Qt::AlignLeft);
 
-    opponentSeries->attachAxis(opponentAxisX);
-    opponentSeries->attachAxis(opponentAxisY);
+    _opponentSeries->attachAxis(_opponentAxisX);
+    _opponentSeries->attachAxis(_opponentAxisY);
 
     QPen pen(Qt::green); 
     pen.setWidth(2); 
-    opponentSeries->setPen(pen);
+    _opponentSeries->setPen(pen);
 
-    opponentChart->setTitle("Your opponent plot");
+    _opponentChart->setTitle("Your opponent plot");
 
-    opponentChartView->setRenderHint(QPainter::Antialiasing);
+    _opponentChartView->setRenderHint(QPainter::Antialiasing);
 }
 
 void RealTimePlot::setUpOurResultPlot()
 {
-    ourResultChart->addSeries(ourResultSeries);
-    ourResultChart->addAxis(ourResultAxisX, Qt::AlignBottom);
-    ourResultChart->addAxis(ourResultAxisY, Qt::AlignLeft);
+    _ourResultChart->addSeries(_ourResultSeries);
+    _ourResultChart->addAxis(_ourResultAxisX, Qt::AlignBottom);
+    _ourResultChart->addAxis(_ourResultAxisY, Qt::AlignLeft);
 
-    ourResultSeries->attachAxis(ourResultAxisX);
-    ourResultSeries->attachAxis(ourResultAxisY);
+    _ourResultSeries->attachAxis(_ourResultAxisX);
+    _ourResultSeries->attachAxis(_ourResultAxisY);
 
     QPen pen(Qt::magenta);
     pen.setWidth(2);
-    ourResultSeries->setPen(pen);
+    _ourResultSeries->setPen(pen);
 
-    ourResultChart->setTitle("Your result plot");
+    _ourResultChart->setTitle("Your result plot");
 
-    ourResultChartView->setRenderHint(QPainter::Antialiasing);
+    _ourResultChartView->setRenderHint(QPainter::Antialiasing);
 }
 
 void RealTimePlot::drawSeriesOurResult(double x, double y)
 {
-    drawPoint(ourResultSeries, ourResultAxisX, ourResultAxisY, x, y);
+    drawPoint(_ourResultSeries, _ourResultAxisX, _ourResultAxisY, x, y);
 }
 
 void RealTimePlot::drawSeriesOpponentResult(double x, double y)
 {
-    drawPoint(opponentSeries, opponentAxisX, opponentAxisY, x, y);
+    drawPoint(_opponentSeries, _opponentAxisX, _opponentAxisY, x, y);
 }
 
 void RealTimePlot::clearOurPlot()
 {
-    ourResultSeries->clear();
+    _ourResultSeries->clear();
 
-    ourResultAxisX->setRange(1, 1);
-    ourResultAxisY->setRange(1, 1);
+    _ourResultAxisX->setRange(1, 1);
+    _ourResultAxisY->setRange(1, 1);
 }
 
 void RealTimePlot::clearOpponentPlot()
 {
-    opponentSeries->clear();
+    _opponentSeries->clear();
 
-    opponentAxisX->setRange(1, 1);
-    opponentAxisY->setRange(1, 1);
+    _opponentAxisX->setRange(1, 1);
+    _opponentAxisY->setRange(1, 1);
 }
 
 void RealTimePlot::setUpAxisX()
 {
-    ourResultAxisX->setTitleText("X Axis");
-    ourResultAxisX->setLabelFormat("%.1f");
+    _ourResultAxisX->setTitleText("X Axis");
+    _ourResultAxisX->setLabelFormat("%.1f");
 
-    opponentAxisX->setTitleText("X Axis");
-    opponentAxisX->setLabelFormat("%.1f");
+    _opponentAxisX->setTitleText("X Axis");
+    _opponentAxisX->setLabelFormat("%.1f");
 }
 
 void RealTimePlot::setUpAxisY()
 {
-    ourResultAxisY->setTitleText("Y Axis");
-    ourResultAxisY->setLabelFormat("%.1f");
+    _ourResultAxisY->setTitleText("Y Axis");
+    _ourResultAxisY->setLabelFormat("%.1f");
 
-    opponentAxisX->setTitleText("X Axis");
-    opponentAxisX->setLabelFormat("%.1f");
+    _opponentAxisX->setTitleText("X Axis");
+    _opponentAxisX->setLabelFormat("%.1f");
 }
 
 void RealTimePlot::drawPoint(QLineSeries* series, QValueAxis* xAxis, QValueAxis* yAxis, double x, double y)

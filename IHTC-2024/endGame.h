@@ -18,22 +18,23 @@
 #include "StateController.h"
 #include "ScreensNumber.h"
 
+// TODO: Add 'YOU WIN/YOU LOSE'
 class Ui_endGameScreen : public QWidget
 {
     Q_OBJECT
 
 public:
     Ui_endGameScreen(QWidget* parent = nullptr);
-    ~Ui_endGameScreen() = default;
+    ~Ui_endGameScreen();
 
 private:
-    QWidget* centralWidget;
-    QFont* font;
-    QPushButton* endButton;
-    QPushButton* returnButton;
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* buttonLayout;
-    QLabel* gameResultLabel;
+    QWidget* _centralWidget;
+    QFont* _font;
+    QPushButton* _endButton;
+    QPushButton* _returnButton;
+    QVBoxLayout* _mainLayout;
+    QHBoxLayout* _buttonLayout;
+    QLabel* _gameResultLabel;
 
     void setupUi(QWidget* mainWindow);
     void retranslateUi(QWidget* mainWindow);

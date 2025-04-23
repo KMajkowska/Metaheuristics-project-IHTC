@@ -28,17 +28,17 @@ public:
     void clearOpponentPlot();
 
 private:
-    QLineSeries* ourResultSeries;
-    QChart* ourResultChart;
-    QLineSeries* opponentSeries;
-    QChart* opponentChart;
-    QValueAxis* ourResultAxisX;
-    QValueAxis* ourResultAxisY;
-    QValueAxis* opponentAxisX;
-    QValueAxis* opponentAxisY;
-    QChartView* ourResultChartView;
-    QChartView* opponentChartView;
-    QHBoxLayout* layout;
+    QLineSeries* _ourResultSeries;
+    QChart* _ourResultChart;
+    QLineSeries* _opponentSeries;
+    QChart* _opponentChart;
+    QValueAxis* _ourResultAxisX;
+    QValueAxis* _ourResultAxisY;
+    QValueAxis* _opponentAxisX;
+    QValueAxis* _opponentAxisY;
+    QChartView* _ourResultChartView;
+    QChartView* _opponentChartView;
+    QHBoxLayout* _layout;
 
     void setUpAxisX();
     void setUpAxisY();

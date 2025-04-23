@@ -189,7 +189,7 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 
 			poster->stopBroadcast();
 
-			std::thread([networkGame, onFinish]()
+			std::thread([networkGame, onFinish, peer]()
 			{
 				networkGame->startGame();
 
@@ -197,6 +197,8 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 				{
 					onFinish();
 				}
+
+				peer->disconnect();
 			}).detach();
 		});
 	
@@ -224,9 +226,9 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), getWinnerJudge(chosenGame), problemData, Params(parameters)) };
 
 
-	peer->setOnConnect([networkGame, onStart, onFinish]()
+	peer->setOnConnect([networkGame, onStart, onFinish, peer]()
 		{
-			std::thread([networkGame, onStart, onFinish]()
+			std::thread([networkGame, onStart, onFinish, peer]()
 				{
 					if (onStart)
 					{
@@ -240,6 +242,8 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 					{
 						onFinish();
 					}
+
+					peer->disconnect();
 				}).detach();
 		});
 

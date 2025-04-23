@@ -25,21 +25,21 @@ class Ui_gamePlotScreen : public QWidget
 
 public:
     Ui_gamePlotScreen(QWidget* parent = nullptr);
-    ~Ui_gamePlotScreen() = default;
+    ~Ui_gamePlotScreen();
 
     void connectPlot(std::shared_ptr<ICGame> game);
 
 private:
-    QWidget* centralWidget;
-    QLabel* infoLabel;
-    RealTimePlot* plot;
-    QFont* font;
-    QVBoxLayout* layout;
-    QHBoxLayout* plotLayout;
-    QHBoxLayout* resultInfoLayout;
-    QLabel* ourScoreLabel;
-    QLabel* opponentScoreLabel;
-    QLabel* separateResultLabel;
+    QWidget* _centralWidget;
+    QLabel* _infoLabel;
+    RealTimePlot* _plot;
+    QFont* _font;
+    QVBoxLayout* _layout;
+    QHBoxLayout* _plotLayout;
+    QHBoxLayout* _resultInfoLayout;
+    QLabel* _ourScoreLabel;
+    QLabel* _opponentScoreLabel;
+    QLabel* _separateResultLabel;
 
     void setupUi(QWidget* mainWindow);
     void retranslateUi(QWidget* MainWindow);

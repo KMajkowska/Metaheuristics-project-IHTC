@@ -1,69 +1,74 @@
 #include "sessions.h"
 #include <gamePlotScreen.h>
 
-Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
+Ui_sessions::Ui_sessions(QWidget* parent) : 
+    QWidget(parent)
 {
-    centralwidget = new QWidget(this);
-    listOfSessions = new QListWidget(centralwidget);
-    createSessionButton = new QPushButton(centralwidget);
-    font = new QFont();
-    layout = new QVBoxLayout(centralwidget);
-    buttonLayout = new QHBoxLayout(centralwidget);
-    listLayout = new QHBoxLayout(centralwidget);
+    _centralwidget = new QWidget(this);
+    _listOfSessions = new QListWidget(_centralwidget);
+    _createSessionButton = new QPushButton(_centralwidget);
+    _font = new QFont();
+    _layout = new QVBoxLayout(_centralwidget);
+    _buttonLayout = new QHBoxLayout(_centralwidget);
+    _listLayout = new QHBoxLayout(_centralwidget);
 
     setupUi(this);
 }
 
+Ui_sessions::~Ui_sessions() = default;
+
 void Ui_sessions::setupUi(QWidget* MainWindow)
 {
     if (MainWindow->objectName().isEmpty())
+    {
         MainWindow->setObjectName("MainWindow");
+    }
 
-    centralwidget->setParent(MainWindow);
+    _centralwidget->setParent(MainWindow);
 
     setUpListOfSessions();
     setUpCreateSessionButton();
 
-    connect(createSessionButton, &QPushButton::clicked, this, &Ui_sessions::onCreateSessionButtonClicked);
+    connect(_createSessionButton, &QPushButton::clicked, this, &Ui_sessions::onCreateSessionButtonClicked);
 
-    layout->addLayout(listLayout);
-    layout->addLayout(buttonLayout);
+    _layout->addLayout(_listLayout);
+    _layout->addLayout(_buttonLayout);
 
-    MainWindow->setLayout(layout);
+    MainWindow->setLayout(_layout);
 
     retranslateUi(MainWindow);
 
-    connect(listOfSessions, &QListWidget::itemClicked, this, &Ui_sessions::onItemClicked);
+    connect(_listOfSessions, &QListWidget::itemClicked, this, &Ui_sessions::onItemClicked);
 
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
 void Ui_sessions::setUpListOfSessions()
 {
-    listOfSessions->setObjectName("listWidget");
-    listOfSessions->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    listOfSessions->setMinimumHeight(700);
-    listLayout->addWidget(listOfSessions, 0, Qt::AlignVCenter);
+    _listOfSessions->setObjectName("listWidget");
+    _listOfSessions->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    _listOfSessions->setMinimumHeight(700);
+    _listLayout->addWidget(_listOfSessions, 0, Qt::AlignVCenter);
 }
 
 void Ui_sessions::setUpCreateSessionButton()
 {
-    createSessionButton->setObjectName("startGameButton");
-    createSessionButton->setStyleSheet("background-color: pink; color: black");
-    createSessionButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-    buttonLayout->addWidget(createSessionButton, 0, Qt::AlignHCenter);
+    _createSessionButton->setObjectName("startGameButton");
+    _createSessionButton->setStyleSheet("background-color: pink; color: black");
+    _createSessionButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+    _buttonLayout->addWidget(_createSessionButton, 0, Qt::AlignHCenter);
 }
 
 QFont Ui_sessions::setUpFont(int points)
 {
-    font->setPointSize(points);
-    return *font;
+    _font->setPointSize(points);
+    return *_font;
 }
 
 void Ui_sessions::retranslateUi(QWidget* MainWindow)
 {
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Choose session", nullptr));
-    createSessionButton->setText(QCoreApplication::translate("MainWindow", "Create own session", nullptr));
+    _createSessionButton->setText(QCoreApplication::translate("MainWindow", "Create own session", nullptr));
 }
 
 void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& sessions)
@@ -89,10 +94,10 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
         QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(sessionInfo));
         item->setData(Qt::UserRole, QVariant::fromValue(QString::fromStdString(it->first)));
 
-        if (!addedItems.contains(item->text().toStdString()))
+        if (!_addedItems.contains(item->text().toStdString()))
         {
-            listOfSessions->addItem(item);
-            addedItems.insert(item->text().toStdString());
+            _listOfSessions->addItem(item);
+            _addedItems.insert(item->text().toStdString());
         }
 
     }

@@ -8,7 +8,9 @@
 
 #include "INetworkExchanger.h"
 
-static std::string END_OF_TRANSMISSION = "EOT";
+static const std::string END_OF_TRANSMISSION{ "EOT" };
+static const int MAX_RETRY_DELAY{ 2000 };
+static const int MAX_ATTEMPTS{ 10 };
 
 /**
  * @brief Allow connection of two computers in the same NAT/LAN
@@ -26,6 +28,8 @@ public:
 
 	void sendMessage(std::string message) override;
 	void receiveMessage() override;
+
+	void disconnect() override;
 
 	void tellEndOfTransmission() override;
 
@@ -46,13 +50,11 @@ private:
 	int _currentRetryDelay{ 100 };
 	int _attemptCount{ 0 };
 
+	std::deque<std::string> _sendQueue;
+	bool _writeInProgress = false;
+
 	void listenForConnections();
 	void tryConnect();
 
-	const int MAX_RETRY_DELAY{ 2000 };
-	const int MAX_ATTEMPTS{ 10 };
-
-	std::deque<std::string> _sendQueue;
-	bool _writeInProgress = false;
 	void onSuccesfullConnect();
 };

@@ -27,14 +27,14 @@ public:
     ~Ui_chooseOpponent();
 
 private:
-    QWidget *centralwidget;
-    QLabel *chooseOpponentLabel;
-    QPushButton *computerButton;
-    QPushButton *playerButton;
-    QFont* font;
+    QWidget* _centralwidget;
+    QLabel* _chooseOpponentLabel;
+    QPushButton* _computerButton;
+    QPushButton* _playerButton;
+    QFont* _font;
     QFont setUpFont(int points);
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* buttonLayout;
+    QVBoxLayout* _mainLayout;
+    QHBoxLayout* _buttonLayout;
 
     void setUpPlayerButton();
     void setUpCompterButton();
