@@ -50,13 +50,11 @@ private:
 	int _currentRetryDelay{ 100 };
 	int _attemptCount{ 0 };
 
-	void listenForConnections();
-	void tryConnect();
-
-
-
 	std::deque<std::string> _sendQueue;
 	bool _writeInProgress = false;
+
+	void listenForConnections();
+	void tryConnect();
 
 	void onSuccesfullConnect();
 };

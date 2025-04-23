@@ -53,6 +53,7 @@ void CSessionReceiverPeerToPeer::receiveBroadcast()
 	if (!_socketInitialized)
 	{
 		initializeSocket();
+
 		if (!_socketInitialized) 
 		{
 			return;

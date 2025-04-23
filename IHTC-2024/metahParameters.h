@@ -13,52 +13,54 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QDoubleSpinBox>
-#include "consts.h"
 #include <qgridlayout.h>
-#include "enumOperations.h"
 #include <QtWidgets/QApplication>
+
+#include "consts.h"
+#include "enumOperations.h"
 #include "StateController.h"
 
 class Ui_metahParameters : public QWidget
 {
 public: 
     Ui_metahParameters(QWidget* parent = nullptr);
-    ~Ui_metahParameters() = default;
-private:
-    QWidget *centralwidget;
-    QSlider* maxIterationSlider;
-    QDoubleSpinBox* neighbourSizeDoubleSpinBox;
-    QDoubleSpinBox* increaseTempItersDoubleSpinBox;
-    QDoubleSpinBox* genderGroupIterDoubleSpinBox;
-    QComboBox *neighbourGeneratorCombobox;
-    QComboBox *initSolverCombobox;
-    QSlider* startingTemperatureSlider;
-    QDoubleSpinBox* simplexCoolingMulitplierDoubleSpinBox;
-    QSlider *stopTemperatureSlider;
-    QDoubleSpinBox* prizeSizeDoubleSpinBox;
-    QLabel *maxIterationLabel;
-    QLabel *neighbourSizeLabel;
-    QLabel *prizeSizeLabel;
-    QLabel *increaseTempIterLabel;
-    QLabel *genderGroupLabel;
-    QLabel *coolingMultiplier;
-    QLabel *startingTemperatureLabel;
-    QLabel *stopTemperatureLabel;
-    QLabel *initSolverLabel;
-    QLabel *neigbourGeneratorLabel;
-    QPushButton* startGameButton;;
-    QLabel* minValueMaxIterationSliderLabel;
-    QLabel* maxValueMaxIterationSliderLabel;
-    QLabel* currentValueMaxIterationSliderLabel;
-    QLabel* minValueStartingTemperatureSliderLabel;
-    QLabel* maxValueStartingTemperatureSliderLabel;
-    QLabel* currentValueStartingTemperatureSliderLabel;
-    QLabel* minValueStopTemperatureSliderLabel;
-    QLabel* maxValueStopTemperatureSliderLabel;
-    QLabel* currentValueStopTemperatureSliderLabel;
-    QGridLayout* gridLayout;
+    ~Ui_metahParameters();
 
-    QFont* font;
+private:
+    QWidget* _centralwidget;
+    QSlider* _maxIterationSlider;
+    QDoubleSpinBox* _neighbourSizeDoubleSpinBox;
+    QDoubleSpinBox* _increaseTempItersDoubleSpinBox;
+    QDoubleSpinBox* _genderGroupIterDoubleSpinBox;
+    QComboBox* _neighbourGeneratorCombobox;
+    QComboBox* _initSolverCombobox;
+    QSlider* _startingTemperatureSlider;
+    QDoubleSpinBox* _simplexCoolingMulitplierDoubleSpinBox;
+    QSlider* _stopTemperatureSlider;
+    QDoubleSpinBox* _prizeSizeDoubleSpinBox;
+    QLabel* _maxIterationLabel;
+    QLabel* _neighbourSizeLabel;
+    QLabel* _prizeSizeLabel;
+    QLabel* _increaseTempIterLabel;
+    QLabel* _genderGroupLabel;
+    QLabel* _coolingMultiplier;
+    QLabel* _startingTemperatureLabel;
+    QLabel* _stopTemperatureLabel;
+    QLabel* _initSolverLabel;
+    QLabel* _neigbourGeneratorLabel;
+    QPushButton* _startGameButton;
+    QLabel* _minValueMaxIterationSliderLabel;
+    QLabel* _maxValueMaxIterationSliderLabel;
+    QLabel* _currentValueMaxIterationSliderLabel;
+    QLabel* _minValueStartingTemperatureSliderLabel;
+    QLabel* _maxValueStartingTemperatureSliderLabel;
+    QLabel* _currentValueStartingTemperatureSliderLabel;
+    QLabel* _minValueStopTemperatureSliderLabel;
+    QLabel* _maxValueStopTemperatureSliderLabel;
+    QLabel* _currentValueStopTemperatureSliderLabel;
+    QGridLayout* _gridLayout;
+
+    QFont* _font;
 
     void setUpStartGameButton();
     QFont setUpFont(int points);

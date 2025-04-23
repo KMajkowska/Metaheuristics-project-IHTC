@@ -12,40 +12,41 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
-#include "consts.h"
 #include <qboxlayout.h>
 #include <qspinbox.h>
 #include <QtWidgets/QApplication>
+
+#include "consts.h"
 #include "StateController.h"
-#include <enumOperations.h>
-#include <metahParameters.h>
+#include "enumOperations.h"
+#include "metahParameters.h"
 
 class Ui_gameParameters : public QWidget
 {
 public:
     Ui_gameParameters(QWidget* parent = nullptr);
-    ~Ui_gameParameters() = default;
+    ~Ui_gameParameters();
 
 private:
-    QWidget *centralwidget;
-    QComboBox *gameTimeComboBox;
-    QComboBox *gameLevelComboBox;
-    QComboBox *winningModeComboBox;
-    QComboBox* inputParametersLevelComboBox;
-    QDoubleSpinBox* roudNumberDoubleSpinBox;
-    QLabel *timeLabel;
-    QLabel *gameLevelLabel;
-    QLabel *winningModeLabel;
-    QLabel* inputParametersLevelLabel;
-    QLabel *roundNumberLabel;
-    QPushButton *readyButton;
-    QFont* font;
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* gameTimeLayout;
-    QHBoxLayout* gameWinningModeLayout;
-    QHBoxLayout* gameLevelLayout;
-    QHBoxLayout* inputParametersLevelLayout;
-    QHBoxLayout* roundNumberLayout;
+    QWidget* _centralwidget;
+    QComboBox* _gameTimeComboBox;
+    QComboBox* _gameLevelComboBox;
+    QComboBox* _winningModeComboBox;
+    QComboBox* _inputParametersLevelComboBox;
+    QDoubleSpinBox* _roundNumberDoubleSpinBox;
+    QLabel* _timeLabel;
+    QLabel* _gameLevelLabel;
+    QLabel* _winningModeLabel;
+    QLabel* _inputParametersLevelLabel;
+    QLabel* _roundNumberLabel;
+    QPushButton* _readyButton;
+    QFont* _font;
+    QVBoxLayout* _mainLayout;
+    QHBoxLayout* _gameTimeLayout;
+    QHBoxLayout* _gameWinningModeLayout;
+    QHBoxLayout* _gameLevelLayout;
+    QHBoxLayout* _inputParametersLevelLayout;
+    QHBoxLayout* _roundNumberLayout;
 
     void setUpTimeLabel();
     void setUpInputParametersLevelLabel();

@@ -11,9 +11,10 @@
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QLineEdit>
 #include <QPushButton>
-#include "consts.h"
 #include <qboxlayout.h>
 #include <QtWidgets/QApplication>
+
+#include "consts.h"
 #include "StateController.h"
 
 class Ui_welcomeScreen : public QWidget {
@@ -26,12 +27,12 @@ public:
     ~Ui_welcomeScreen();
     
 private:
-    QWidget* centralwidget;
-    QLineEdit* nameTextfield;
-    QLabel* welcomeText;
-    QFont* font;
-    QPushButton* startGameButton;
-    QVBoxLayout* mainLayout;
+    QWidget* _centralwidget;
+    QLineEdit* _nameTextfield;
+    QLabel* _welcomeText;
+    QFont* _font;
+    QPushButton* _startGameButton;
+    QVBoxLayout* _mainLayout;
 
     void setUpNameTextfield();
     void setUpWelcomeText();

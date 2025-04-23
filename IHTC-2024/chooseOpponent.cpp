@@ -4,38 +4,36 @@
 Ui_chooseOpponent::Ui_chooseOpponent(QWidget* parent) :
 	QWidget(parent)
 {
-	centralwidget = new QWidget(this);
-	chooseOpponentLabel = new QLabel(centralwidget);
-	computerButton = new QPushButton(centralwidget);
-	playerButton = new QPushButton(centralwidget);
-	font = new QFont();
-	mainLayout = new QVBoxLayout(centralwidget);
-	buttonLayout = new QHBoxLayout(centralwidget);
+	_centralwidget = new QWidget(this);
+	_chooseOpponentLabel = new QLabel(_centralwidget);
+	_computerButton = new QPushButton(_centralwidget);
+	_playerButton = new QPushButton(_centralwidget);
+	_font = new QFont();
+	_mainLayout = new QVBoxLayout(_centralwidget);
+	_buttonLayout = new QHBoxLayout(_centralwidget);
 
-	connect(computerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onComputerButtonClicked);
-	connect(playerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onPlayerButtonClicked);
+	connect(_computerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onComputerButtonClicked);
+	connect(_playerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onPlayerButtonClicked);
 
 	setupUi(this);
 }
 
-Ui_chooseOpponent::~Ui_chooseOpponent() {
-
-}
+Ui_chooseOpponent::~Ui_chooseOpponent() = default;
 
 void Ui_chooseOpponent::setupUi(QWidget* MainWindow)
 {
 	if (MainWindow->objectName().isEmpty())
 		MainWindow->setObjectName("MainWindow");
 
-	centralwidget->setObjectName("centralwidget");
+	_centralwidget->setObjectName("centralwidget");
 
 	setUpChooseOpponentLabel();
 	setUpCompterButton();
 	setUpPlayerButton();
 
-	mainLayout->addLayout(buttonLayout);
+	_mainLayout->addLayout(_buttonLayout);
 
-	MainWindow->setLayout(mainLayout);
+	MainWindow->setLayout(_mainLayout);
 	retranslateUi(MainWindow);
 
 	QMetaObject::connectSlotsByName(MainWindow);
@@ -43,41 +41,41 @@ void Ui_chooseOpponent::setupUi(QWidget* MainWindow)
 
 void Ui_chooseOpponent::setUpChooseOpponentLabel()
 {
-	chooseOpponentLabel->setObjectName("chooseOpponentLabel");
-	chooseOpponentLabel->setFont(setUpFont(MAIN_TEXT_FONT));
-	mainLayout->addWidget(chooseOpponentLabel, 0, Qt::AlignHCenter);
+	_chooseOpponentLabel->setObjectName("chooseOpponentLabel");
+	_chooseOpponentLabel->setFont(setUpFont(MAIN_TEXT_FONT));
+	_mainLayout->addWidget(_chooseOpponentLabel, 0, Qt::AlignHCenter);
 }
 
 void Ui_chooseOpponent::setUpCompterButton()
 {
-	computerButton->setObjectName("computerButton");
-	computerButton->setFixedSize(171, 81);
-	computerButton->setStyleSheet("background-color: pink; color: black");
-	computerButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-	buttonLayout->addWidget(computerButton, 0, Qt::AlignCenter);
+	_computerButton->setObjectName("computerButton");
+	_computerButton->setFixedSize(171, 81);
+	_computerButton->setStyleSheet("background-color: pink; color: black");
+	_computerButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_buttonLayout->addWidget(_computerButton, 0, Qt::AlignCenter);
 }
 
 void Ui_chooseOpponent::setUpPlayerButton()
 {
-	playerButton->setObjectName("playerButton");
-	playerButton->setFixedSize(171, 81);
-	playerButton->setStyleSheet("background-color: pink; color: black");
-	playerButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-	buttonLayout->addWidget(playerButton, 0, Qt::AlignCenter);
+	_playerButton->setObjectName("playerButton");
+	_playerButton->setFixedSize(171, 81);
+	_playerButton->setStyleSheet("background-color: pink; color: black");
+	_playerButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_buttonLayout->addWidget(_playerButton, 0, Qt::AlignCenter);
 }
 
 QFont Ui_chooseOpponent::setUpFont(int points)
 {
-	font->setPointSize(points);
-	return *font;
+	_font->setPointSize(points);
+	return *_font;
 }
 
 void Ui_chooseOpponent::retranslateUi(QWidget* MainWindow)
 {
 	MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Choose opponent", nullptr));
-	chooseOpponentLabel->setText(QCoreApplication::translate("MainWindow", "Choose your opponent", nullptr));
-	computerButton->setText(QCoreApplication::translate("MainWindow", "Computer", nullptr));
-	playerButton->setText(QCoreApplication::translate("MainWindow", "Player", nullptr));
+	_chooseOpponentLabel->setText(QCoreApplication::translate("MainWindow", "Choose your opponent", nullptr));
+	_computerButton->setText(QCoreApplication::translate("MainWindow", "Computer", nullptr));
+	_playerButton->setText(QCoreApplication::translate("MainWindow", "Player", nullptr));
 }
 
 void Ui_chooseOpponent::onComputerButtonClicked()

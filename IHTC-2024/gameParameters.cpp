@@ -1,12 +1,52 @@
 #include "gameParameters.h"
 
-void Ui_gameParameters::setupUi(QWidget* MainWindow) {
-    if (MainWindow->objectName().isEmpty())
-        MainWindow->setObjectName("MainWindow");
+Ui_gameParameters::Ui_gameParameters(QWidget* parent) : 
+    QWidget(parent)
+{
+    _centralwidget = new QWidget();
+    _timeLabel = new QLabel(_centralwidget);
+    _gameLevelLabel = new QLabel(_centralwidget);
+    _winningModeLabel = new QLabel(_centralwidget);
+    _inputParametersLevelLabel = new QLabel(_centralwidget);
+    _roundNumberLabel = new QLabel(_centralwidget);
 
-    centralwidget->setParent(MainWindow);
-    centralwidget->setObjectName("centralwidget");
-    
+    _gameLevelComboBox = new QComboBox(_centralwidget);
+    _winningModeComboBox = new QComboBox(_centralwidget);
+    _gameTimeComboBox = new QComboBox(_centralwidget);
+    _inputParametersLevelComboBox = new QComboBox(_centralwidget);
+    _roundNumberDoubleSpinBox = new QDoubleSpinBox(_centralwidget);
+
+    _readyButton = new QPushButton(_centralwidget);
+
+    _font = new QFont();
+
+    _mainLayout = new QVBoxLayout(_centralwidget);
+    _gameTimeLayout = new QHBoxLayout(_centralwidget);
+    _gameWinningModeLayout = new QHBoxLayout(_centralwidget);
+    _gameLevelLayout = new QHBoxLayout(_centralwidget);
+    _inputParametersLevelLayout = new QHBoxLayout(_centralwidget);
+    _roundNumberLayout = new QHBoxLayout(_centralwidget);
+
+    connect(_readyButton, &QPushButton::clicked, this, &Ui_gameParameters::onReadyButtonClicked);
+    connect(_gameLevelComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
+    connect(_winningModeComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
+    connect(_inputParametersLevelComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
+
+    setupUi(this);
+}
+
+Ui_gameParameters::~Ui_gameParameters() = default;
+
+void Ui_gameParameters::setupUi(QWidget* MainWindow)
+{
+    if (MainWindow->objectName().isEmpty())
+    {
+        MainWindow->setObjectName("MainWindow");
+    }
+
+    _centralwidget->setParent(MainWindow);
+    _centralwidget->setObjectName("centralwidget");
+
     setUpTimeLabel();
     setUpGameLevelLabel();
     setUpWinningModeLabel();
@@ -19,201 +59,165 @@ void Ui_gameParameters::setupUi(QWidget* MainWindow) {
     setUpRoundNumberDoubleSpinBox();
     setUpReadyButton();
 
-    mainLayout->addLayout(gameTimeLayout);
-    mainLayout->addLayout(gameLevelLayout);
-    mainLayout->addLayout(gameWinningModeLayout);
-    mainLayout->addLayout(inputParametersLevelLayout);
-    mainLayout->addLayout(roundNumberLayout);
+    _mainLayout->addLayout(_gameTimeLayout);
+    _mainLayout->addLayout(_gameLevelLayout);
+    _mainLayout->addLayout(_gameWinningModeLayout);
+    _mainLayout->addLayout(_inputParametersLevelLayout);
+    _mainLayout->addLayout(_roundNumberLayout);
 
-    mainLayout->addWidget(readyButton, 0, Qt::AlignHCenter);
+    _mainLayout->addWidget(_readyButton, 0, Qt::AlignHCenter);
 
-    MainWindow->setLayout(mainLayout);
+    MainWindow->setLayout(_mainLayout);
 
     retranslateUi(this);
 
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
-Ui_gameParameters::Ui_gameParameters(QWidget* parent) : 
-    QWidget(parent)
-{
-    centralwidget = new QWidget();
-    timeLabel = new QLabel(centralwidget);
-    gameLevelLabel = new QLabel(centralwidget);
-    winningModeLabel = new QLabel(centralwidget);
-    inputParametersLevelLabel = new QLabel(centralwidget);
-    roundNumberLabel = new QLabel(centralwidget);
-
-    gameLevelComboBox = new QComboBox(centralwidget);
-    winningModeComboBox = new QComboBox(centralwidget);
-    gameTimeComboBox = new QComboBox(centralwidget);
-    inputParametersLevelComboBox = new QComboBox(centralwidget);
-    roudNumberDoubleSpinBox = new QDoubleSpinBox(centralwidget);
-
-    readyButton = new QPushButton(centralwidget);
-
-    font = new QFont();
-
-    mainLayout = new QVBoxLayout(centralwidget);
-    gameTimeLayout = new QHBoxLayout(centralwidget);
-    gameWinningModeLayout = new QHBoxLayout(centralwidget);
-    gameLevelLayout = new QHBoxLayout(centralwidget);
-    inputParametersLevelLayout = new QHBoxLayout(centralwidget);
-    roundNumberLayout = new QHBoxLayout(centralwidget);
-
-    connect(readyButton, &QPushButton::clicked, this, &Ui_gameParameters::onReadyButtonClicked);
-    connect(gameLevelComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
-    connect(winningModeComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
-    connect(inputParametersLevelComboBox, &QComboBox::currentTextChanged, this, &Ui_gameParameters::updateButtonState);
-
-    setupUi(this);
-
-}
-
 void Ui_gameParameters::setUpRoundNumberDoubleSpinBox()
 {
-    roudNumberDoubleSpinBox->setObjectName("roudNumberDoubleSpinBox");
-    roudNumberDoubleSpinBox->setDecimals(0);
-    roudNumberDoubleSpinBox->setFixedWidth(261);
-    roudNumberDoubleSpinBox->setSingleStep(1);
-    roudNumberDoubleSpinBox->setRange(1, 15);
-    roudNumberDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-    roundNumberLayout->addWidget(roudNumberDoubleSpinBox, 0, Qt::AlignCenter);
+    _roundNumberDoubleSpinBox->setObjectName("roudNumberDoubleSpinBox");
+    _roundNumberDoubleSpinBox->setDecimals(0);
+    _roundNumberDoubleSpinBox->setFixedWidth(261);
+    _roundNumberDoubleSpinBox->setSingleStep(1);
+    _roundNumberDoubleSpinBox->setRange(1, 15);
+    _roundNumberDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    _roundNumberLayout->addWidget(_roundNumberDoubleSpinBox, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpInputParametersLevelLabel()
 {
-    inputParametersLevelLabel->setObjectName("inputParametersLevelLabel");
-    inputParametersLevelLabel->setFont(setUpFont(LABEL_FONT_POINTS));
-    inputParametersLevelLayout->addWidget(inputParametersLevelLabel, 0, Qt::AlignCenter);
+    _inputParametersLevelLabel->setObjectName("inputParametersLevelLabel");
+    _inputParametersLevelLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    _inputParametersLevelLayout->addWidget(_inputParametersLevelLabel, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpRoundNumberLabel()
 {
-    roundNumberLabel->setObjectName("roundNumberLabel");
-    roundNumberLabel->setFont(setUpFont(LABEL_FONT_POINTS));
-    roundNumberLayout->addWidget(roundNumberLabel, 0, Qt::AlignCenter);
+    _roundNumberLabel->setObjectName("roundNumberLabel");
+    _roundNumberLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    _roundNumberLayout->addWidget(_roundNumberLabel, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpTimeLabel()
 {
-    timeLabel->setObjectName("timeLabel");
-    timeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
-    gameTimeLayout->addWidget(timeLabel, 0, Qt::AlignCenter);
+    _timeLabel->setObjectName("timeLabel");
+    _timeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    _gameTimeLayout->addWidget(_timeLabel, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpGameLevelLabel()
 {
-    gameLevelLabel->setObjectName("gameLevelLabel");
-    gameLevelLabel->setFont(setUpFont(LABEL_FONT_POINTS));
-    gameLevelLayout->addWidget(gameLevelLabel, 0, Qt::AlignCenter);
+    _gameLevelLabel->setObjectName("gameLevelLabel");
+    _gameLevelLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    _gameLevelLayout->addWidget(_gameLevelLabel, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpWinningModeLabel()
 {
-    winningModeLabel->setObjectName("winningModeLabel");
-    winningModeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
-    gameWinningModeLayout->addWidget(winningModeLabel, 0, Qt::AlignCenter);
+    _winningModeLabel->setObjectName("winningModeLabel");
+    _winningModeLabel->setFont(setUpFont(LABEL_FONT_POINTS));
+    _gameWinningModeLayout->addWidget(_winningModeLabel, 0, Qt::AlignCenter);
 }
 
 
 void Ui_gameParameters::setUpReadyButton()
 {
-    readyButton->setObjectName("readyButton");
-    readyButton->setFixedSize(150, 100);
-    readyButton->setStyleSheet("background-color: pink; color: black");
-    readyButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-    readyButton->setEnabled(false);
+    _readyButton->setObjectName("readyButton");
+    _readyButton->setFixedSize(150, 100);
+    _readyButton->setStyleSheet("background-color: pink; color: black");
+    _readyButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+    _readyButton->setEnabled(false);
 }
 
 void Ui_gameParameters::setUpGameLevelCombobox()
 {
-    gameLevelComboBox->setObjectName("gameLevelComboBox");
-    gameLevelComboBox->setFixedWidth(261);
+    _gameLevelComboBox->setObjectName("gameLevelComboBox");
+    _gameLevelComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(GameLevel::HARD); ++i) {
         GameLevel level = static_cast<GameLevel>(i);
-        gameLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
+        _gameLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
     }
-    gameLevelComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-    gameLevelLayout->addWidget(gameLevelComboBox, 0, Qt::AlignCenter);
+    _gameLevelComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    _gameLevelLayout->addWidget(_gameLevelComboBox, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpInputParametersLevelCombobox()
 {
-    inputParametersLevelComboBox->setObjectName("inputParametersLevelComboBox");
-    inputParametersLevelComboBox->setFixedWidth(261);
+    _inputParametersLevelComboBox->setObjectName("inputParametersLevelComboBox");
+    _inputParametersLevelComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(GameLevel::HARD); ++i) {
         GameLevel level = static_cast<GameLevel>(i);
-        inputParametersLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
+        _inputParametersLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
     }
-    inputParametersLevelComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-    inputParametersLevelLayout->addWidget(inputParametersLevelComboBox, 0, Qt::AlignCenter);
+    _inputParametersLevelComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    _inputParametersLevelLayout->addWidget(_inputParametersLevelComboBox, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpWinningModeCombobox()
 {
-    winningModeComboBox->setObjectName("winningModeComboBox");
-    winningModeComboBox->setFixedWidth(261);
+    _winningModeComboBox->setObjectName("winningModeComboBox");
+    _winningModeComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(WinnerJudgeType::BEST_OF_N); ++i) {
         WinnerJudgeType mode = static_cast<WinnerJudgeType>(i);
-        winningModeComboBox->addItem(QString::fromStdString(enumToString<WinnerJudgeType>(mode)), i);
+        _winningModeComboBox->addItem(QString::fromStdString(enumToString<WinnerJudgeType>(mode)), i);
     }
-    winningModeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-    gameWinningModeLayout->addWidget(winningModeComboBox, 0, Qt::AlignCenter);
+    _winningModeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    _gameWinningModeLayout->addWidget(_winningModeComboBox, 0, Qt::AlignCenter);
 }
 
 void Ui_gameParameters::setUpGameTimeCombobox()
 {
-    gameTimeComboBox->setObjectName("gameTimeComboBox");
-    gameTimeComboBox->setFixedWidth(261);
+    _gameTimeComboBox->setObjectName("gameTimeComboBox");
+    _gameTimeComboBox->setFixedWidth(261);
     for (int i = 0; i <= static_cast<int>(GameTimeValues::_180); ++i) {
         GameTimeValues time = static_cast<GameTimeValues>(i);
-        gameTimeComboBox->addItem(QString::fromStdString(enumToString(time)), i);
+        _gameTimeComboBox->addItem(QString::fromStdString(enumToString(time)), i);
     }
-    gameTimeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-    gameTimeLayout->addWidget(gameTimeComboBox, 0, Qt::AlignCenter);
+    _gameTimeComboBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
+    _gameTimeLayout->addWidget(_gameTimeComboBox, 0, Qt::AlignCenter);
 }
 
 
 void Ui_gameParameters::retranslateUi(QWidget* MainWindow)
 {
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Choose game parameters", nullptr));
-    timeLabel->setText(QCoreApplication::translate("MainWindow", "Time of the game", nullptr));
-    gameLevelLabel->setText(QCoreApplication::translate("MainWindow", "Difficulty of the input data", nullptr));
-    winningModeLabel->setText(QCoreApplication::translate("MainWindow", "Winning mode", nullptr));
-    inputParametersLevelLabel->setText(QCoreApplication::translate("MainWindow", "Input parameters level", nullptr));
-    roundNumberLabel->setText(QCoreApplication::translate("MainWindow", "Round number", nullptr));
-    readyButton->setText(QCoreApplication::translate("MainWindow", "Ready!", nullptr));
+    _timeLabel->setText(QCoreApplication::translate("MainWindow", "Time of the game", nullptr));
+    _gameLevelLabel->setText(QCoreApplication::translate("MainWindow", "Difficulty of the input data", nullptr));
+    _winningModeLabel->setText(QCoreApplication::translate("MainWindow", "Winning mode", nullptr));
+    _inputParametersLevelLabel->setText(QCoreApplication::translate("MainWindow", "Input parameters level", nullptr));
+    _roundNumberLabel->setText(QCoreApplication::translate("MainWindow", "Round number", nullptr));
+    _readyButton->setText(QCoreApplication::translate("MainWindow", "Ready!", nullptr));
 } 
 
 QFont Ui_gameParameters::setUpFont(int points)
 {
-    font->setPointSize(points);
-    return *font;
+    _font->setPointSize(points);
+    return *_font;
 };
 
 void Ui_gameParameters::onReadyButtonClicked()
 {
-    static_cast<Ui_metahParameters*>(StateController::instance().screens()[ScreensNumber::METAH_PARAMETERS])->setSlidersEnabled(gameTimeComboBox->currentText());
-    StateController::instance().allGameParameters().setGameLevel(stringToEnum<GameLevel>(gameLevelComboBox->currentText()));
-    StateController::instance().allGameParameters().setGameTime(toInt(gameTimeComboBox->currentText()));
-    StateController::instance().allGameParameters().setJudgeType(stringToEnum<WinnerJudgeType>(winningModeComboBox->currentText()));
-    StateController::instance().allGameParameters().setRoundNumber(roudNumberDoubleSpinBox->value());
-    StateController::instance().allGameParameters().setInputParametersLevel(stringToEnum<GameLevel>(inputParametersLevelComboBox->currentText()));
+    static_cast<Ui_metahParameters*>(StateController::instance().screens()[ScreensNumber::METAH_PARAMETERS])->setSlidersEnabled(_gameTimeComboBox->currentText());
+    StateController::instance().allGameParameters().setGameLevel(stringToEnum<GameLevel>(_gameLevelComboBox->currentText()));
+    StateController::instance().allGameParameters().setGameTime(toInt(_gameTimeComboBox->currentText()));
+    StateController::instance().allGameParameters().setJudgeType(stringToEnum<WinnerJudgeType>(_winningModeComboBox->currentText()));
+    StateController::instance().allGameParameters().setRoundNumber(_roundNumberDoubleSpinBox->value());
+    StateController::instance().allGameParameters().setInputParametersLevel(stringToEnum<GameLevel>(_inputParametersLevelComboBox->currentText()));
 
     StateController::instance().navigate(ScreensNumber::METAH_PARAMETERS);
 }
 
 void Ui_gameParameters::updateButtonState()
 {
-    if (winningModeComboBox->currentText() != QString::fromStdString(enumToString(GameTimeValues::UNKNOWN)) && 
-        gameLevelComboBox->currentText() != QString::fromStdString(enumToString(GameLevel::UNKNOWN)) &&
-        inputParametersLevelComboBox->currentText() != QString::fromStdString(enumToString(GameLevel::UNKNOWN)))
+    if (_winningModeComboBox->currentText() != QString::fromStdString(enumToString(GameTimeValues::UNKNOWN)) && 
+        _gameLevelComboBox->currentText() != QString::fromStdString(enumToString(GameLevel::UNKNOWN)) &&
+        _inputParametersLevelComboBox->currentText() != QString::fromStdString(enumToString(GameLevel::UNKNOWN)))
     {
-        readyButton->setEnabled(true); 
+        _readyButton->setEnabled(true); 
     }
     else 
     {
-        readyButton->setEnabled(false);  
+        _readyButton->setEnabled(false);  
     }
 }

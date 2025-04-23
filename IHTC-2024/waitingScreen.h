@@ -9,10 +9,11 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QLabel>
-#include "consts.h"
-#include "qmovie.h"
+#include <qmovie.h>
 #include <QVBoxLayout>
 #include <QtWidgets/QApplication>
+
+#include "consts.h"
 #include "StateController.h"
 
 class Ui_waitingScreen : public QWidget
@@ -20,13 +21,14 @@ class Ui_waitingScreen : public QWidget
 public:
     Ui_waitingScreen(QWidget* parent);
     ~Ui_waitingScreen();
+
 private:
-    QWidget *centralwidget;
-    QLabel *waitingForPlayerLabel;
-    QFont* font;
-    QLabel* loadingCircleLabel;
-    QMovie* loadingCircleMovie;
-    QVBoxLayout* layout;
+    QWidget* _centralwidget;
+    QLabel* _waitingForPlayerLabel;
+    QFont* _font;
+    QLabel* _loadingCircleLabel;
+    QMovie* _loadingCircleMovie;
+    QVBoxLayout* _layout;
 
     QFont setUpFont(int points);
     void setUpWaitingForPlayerLabel();

@@ -12,6 +12,7 @@ PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, 
 
 PeerToPeer::~PeerToPeer()
 {
+	tellEndOfTransmission();
 	disconnect();
 }
 
@@ -129,6 +130,11 @@ void PeerToPeer::sendMessage(std::string message)
 
 void PeerToPeer::receiveMessage()
 {
+	if (!_connected)
+	{
+		return;
+	}
+
 	boost::asio::async_read_until(
 		_socket,
 		_receiveBuffer,
