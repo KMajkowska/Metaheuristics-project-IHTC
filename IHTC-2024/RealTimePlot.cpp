@@ -41,6 +41,10 @@ void RealTimePlot::setUpYourOpponentPlot()
     opponentSeries->attachAxis(opponentAxisX);
     opponentSeries->attachAxis(opponentAxisY);
 
+    QPen pen(Qt::green); 
+    pen.setWidth(2); 
+    opponentSeries->setPen(pen);
+
     opponentChart->setTitle("Your opponent plot");
 
     opponentChartView->setRenderHint(QPainter::Antialiasing);
@@ -54,6 +58,10 @@ void RealTimePlot::setUpOurResultPlot()
 
     ourResultSeries->attachAxis(ourResultAxisX);
     ourResultSeries->attachAxis(ourResultAxisY);
+
+    QPen pen(Qt::magenta);
+    pen.setWidth(2);
+    ourResultSeries->setPen(pen);
 
     ourResultChart->setTitle("Your result plot");
 

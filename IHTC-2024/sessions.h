@@ -16,6 +16,7 @@
 #include <QtWidgets/QApplication>
 #include "StateController.h"
 #include "enumOperations.h"
+#include "string"
 
 class Ui_sessions : public QWidget
 {

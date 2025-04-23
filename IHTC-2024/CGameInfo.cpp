@@ -62,7 +62,8 @@ void to_json(nlohmann::json& j, const CGameInfo& obj)
 		{"stopTemperature", obj.stopTemperature()},
 		{"prizeSize", obj.prizeSize()},
 		{"coolingMultiplier", obj.coolingMultiplier()},
-		{"roundNumber", obj.roundNumber()}
+		{"roundNumber", obj.roundNumber()},
+		{"inputParametersLevel", enumToString<GameLevel>(obj.inputParametersLevel())},
 	};
 }
 
@@ -86,4 +87,5 @@ void from_json(const nlohmann::json& j, CGameInfo& obj)
 	obj.setPrizeSize(j.at("prizeSize").get<int>());
 	obj.setCoolingMultiplier(j.at("coolingMultiplier").get<int>());
 	obj.setRoundNumber(j.at("roundNumber").get<int>());
+	obj.setInputParametersLevel(stringToEnum<GameLevel>(j.at("inputParametersLevel").get<std::string>()));
 }
