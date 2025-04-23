@@ -203,6 +203,7 @@
     <ClCompile Include="SurgeonOTInfo.cpp" />
     <ClCompile Include="SurgeonsTime.cpp" />
     <ClCompile Include="TemperatureOperator.cpp" />
+    <ClCompile Include="UpToN.cpp" />
     <ClCompile Include="VariableCoolingScheme.cpp" />
     <ClCompile Include="ViolatedRestrictions.cpp" />
     <ClCompile Include="waitingScreen.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="SurgeonsTime.h" />
     <ClInclude Include="TemperatureOperator.h" />
     <QtMoc Include="gamePlotScreen.h" />
+    <ClInclude Include="UpToN.h" />
     <ClInclude Include="VariableCoolingScheme.h" />
     <ClInclude Include="waitingScreen.h" />
     <ClInclude Include="WeightsDTO.h" />

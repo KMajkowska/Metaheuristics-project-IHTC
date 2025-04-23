@@ -114,7 +114,7 @@ void Ui_metahParameters::setUpMaxIterationSlider()
 	minValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
 	maxValueMaxIterationSliderLabel->setFont(setUpFont(SLIDER_LABELS_FONT));
 	currentValueMaxIterationSliderLabel->setFont(setUpFont(PARAMETERS_FONT_POINTS));
-	maxValueMaxIterationSliderLabel->setText("Max: 25000");
+	maxValueMaxIterationSliderLabel->setText("Max: 2500");
 
 	gridLayout->addWidget(minValueMaxIterationSliderLabel, 1, 0);
 	gridLayout->addWidget(maxIterationSlider, 0, 2);

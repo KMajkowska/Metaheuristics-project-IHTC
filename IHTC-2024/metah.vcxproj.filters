@@ -550,6 +550,9 @@
     <ClCompile Include="endGame.cpp">
       <Filter>Source Files\GUI\screens</Filter>
     </ClCompile>
+    <ClCompile Include="UpToN.cpp">
+      <Filter>Source Files\game\winnerJudge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NurseWrapper.h">
@@ -896,6 +899,9 @@
     </ClInclude>
     <ClInclude Include="gameUtils.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="UpToN.h">
+      <Filter>Header Files\game\winnerJudge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

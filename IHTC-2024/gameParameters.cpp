@@ -154,7 +154,7 @@ void Ui_gameParameters::setUpWinningModeCombobox()
 {
     winningModeComboBox->setObjectName("winningModeComboBox");
     winningModeComboBox->setFixedWidth(261);
-    for (int i = 0; i <= static_cast<int>(WinnerJudgeType::BEST_OF_N); ++i) {
+    for (int i = 0; i <= static_cast<int>(WinnerJudgeType::UP_TO_N); ++i) {
         WinnerJudgeType mode = static_cast<WinnerJudgeType>(i);
         winningModeComboBox->addItem(QString::fromStdString(enumToString<WinnerJudgeType>(mode)), i);
     }

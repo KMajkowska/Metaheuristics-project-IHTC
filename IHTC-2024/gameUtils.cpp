@@ -6,6 +6,8 @@ std::shared_ptr<IWinnerJudge> getWinnerJudge(const AllGameParameters& params)
 	{
 	case WinnerJudgeType::BEST_OF_N:
 		return std::make_shared<BestOfN>(params.roundNumber());
+	case WinnerJudgeType::UP_TO_N:
+		return std::make_shared<UpToN>(params.roundNumber());
 	default:
 		throw std::invalid_argument("Incorrect stop criterium");
 	}

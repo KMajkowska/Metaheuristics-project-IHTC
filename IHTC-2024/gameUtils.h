@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "BestOfN.h"
+#include "UpToN.h"
 #include "IWinnerJudge.h"
 #include "AllGameParameters.h"
 #include "constants.h"
