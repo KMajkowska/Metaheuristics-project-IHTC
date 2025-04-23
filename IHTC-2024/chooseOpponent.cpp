@@ -1,4 +1,5 @@
 #include "chooseOpponent.h"
+#include <gamePlotScreen.h>
 
 Ui_chooseOpponent::Ui_chooseOpponent(QWidget* parent) :
 	QWidget(parent)
@@ -84,7 +85,13 @@ void Ui_chooseOpponent::onComputerButtonClicked()
 	StateController::instance().setStartGame([]() 
 		{
 			StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
-			StateController::instance().runComputer([]()
+			StateController::instance().runComputer(
+				[](std::shared_ptr<ICGame> game)
+				{
+					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
+					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
+				},
+				[]()
 				{
 					// TODO: Przekierowanie na ekran z wynikiem
 				},
@@ -99,8 +106,14 @@ void Ui_chooseOpponent::onPlayerButtonClicked()
 {
 	StateController::instance().setStartGame([]()
 		{
-			StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
-			StateController::instance().createSession([]() 
+			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
+			StateController::instance().createSession(
+				[](std::shared_ptr<ICGame> game)
+				{
+					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
+					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
+				},
+				[]() 
 				{
 					// TODO: Przekierowanie na ekran z wynikiem
 				},

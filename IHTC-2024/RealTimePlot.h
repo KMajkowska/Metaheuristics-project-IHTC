@@ -23,8 +23,10 @@ private:
     QChart* ourResultChart;
     QLineSeries* opponentSeries;
     QChart* opponentChart;
-    QValueAxis* axisX;
-    QValueAxis* axisY;
+    QValueAxis* ourResultAxisX;
+    QValueAxis* ourResultAxisY;
+    QValueAxis* opponentAxisX;
+    QValueAxis* opponentAxisY;
     QChartView* ourResultChartView;
     QChartView* opponentChartView;
     QHBoxLayout* layout;

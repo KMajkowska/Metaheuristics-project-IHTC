@@ -1,4 +1,5 @@
 #include "sessions.h"
+#include <gamePlotScreen.h>
 
 Ui_sessions::Ui_sessions(QWidget* parent) : QWidget(parent)
 {
@@ -130,7 +131,12 @@ void Ui_sessions::onItemClicked(QListWidgetItem* item)
             StateController::instance().setAllGameParametersFromJoined(foundGame->second);
 
             StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
-            StateController::instance().joinSession([]()
+            StateController::instance().joinSession(
+                [](std::shared_ptr<ICGame> game) 
+                {
+                    static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
+                },
+                []()
                 {
                     // TODO: przekierowanie na ekran z wynikiem
                 },
