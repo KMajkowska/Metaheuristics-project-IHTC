@@ -11,9 +11,7 @@
 #include "FitnessCalculator.h"
 
 /*
-macierz timeslot/pacjent
-poczatkowo bedzie jakas lista kiedy jaki pacjent przyjety (miedzy release day i opcjonalnym due date)
-potem bedzie heurystycznie sprawdzane, czy da siê go w ten dany dzien przypisac w odpowiedni dzien
+	* @brief It is problem, which exactly we are solving in this game - IHTC problem. It inhertis from iproblem, to provide polymorhipsm of problems
  */
 
 class IHTCProblem : public IProblem

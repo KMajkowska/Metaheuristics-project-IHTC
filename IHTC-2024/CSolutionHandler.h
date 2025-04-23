@@ -2,6 +2,9 @@
 #include <vector>
 #include "SolutionData.h"
 
+/**
+ * @brief Class which allows us to handle solution. Can be send locally or remotely
+*/
 class CSolutionHandler
 {
 public:

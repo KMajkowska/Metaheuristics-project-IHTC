@@ -5,6 +5,9 @@
 #include "CPlayer.h"
 #include "Winner.h"
 
+/**
+ * @brief Class used as an interface
+*/
 class IWinnerJudge
 {
 public:

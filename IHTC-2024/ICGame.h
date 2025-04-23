@@ -7,6 +7,9 @@
 #include "ProblemData.h"
 #include "CSolutionHandler.h"
 
+/**
+ * @brief Class used as an interface to provide polymorphism of game with player and computer
+*/
 class ICGame
 {
 public:	

@@ -9,6 +9,9 @@
 #include "IHTCProblem.h"
 #include "solverBuilderUtils.h"
 
+/**
+ * @brief Class to provide game with playr
+*/
 class CGameNetwork : public ICGame
 {
 public:

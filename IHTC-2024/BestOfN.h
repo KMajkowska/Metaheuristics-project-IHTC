@@ -5,6 +5,9 @@
 
 #include "IWinnerJudge.h"
 
+/**
+ * @brief Class which represents one of the winnig solution
+*/
 class BestOfN : public IWinnerJudge
 {
 public:

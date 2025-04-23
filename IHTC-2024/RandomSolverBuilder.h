@@ -3,6 +3,9 @@
 #include "IHTCSolverBuilder.h"
 #include "RandomSolver.h"
 
+/**
+ * @brief Builder of random solver
+*/
 class RandomSolverBuilder : public IHTCSolverBuilder
 {
 public:

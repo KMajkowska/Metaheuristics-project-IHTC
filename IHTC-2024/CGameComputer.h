@@ -8,6 +8,9 @@
 #include "IHTCProblem.h"
 #include "solverBuilderUtils.h"
 
+/**
+ * @brief Class to provide a game against computer
+*/
 class CGameComputer : public ICGame
 {
 public:
