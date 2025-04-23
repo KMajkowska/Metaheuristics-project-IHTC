@@ -8,6 +8,10 @@ Ui_gamePlotScreen::Ui_gamePlotScreen(QWidget* parent) :
 	plot = new RealTimePlot(centralWidget);
 	layout = new QVBoxLayout(centralWidget);
 	plotLayout = new QHBoxLayout(centralWidget);
+	resultInfoLayout = new QHBoxLayout(centralWidget);
+	ourScoreLabel = new QLabel(centralWidget);
+	opponentScoreLabel = new QLabel(centralWidget);
+	separateResultLabel = new QLabel(centralWidget);
 	font = new QFont();
 
 	setupUi(this);
@@ -40,8 +44,17 @@ void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
 	centralWidget->setObjectName("centralwidget");
 
 	setUpInfoLabel();
+	
+	setUpOurResultLabel();
+
+	separateResultLabel->setText(":");
+	resultInfoLayout->addWidget(separateResultLabel);
+
+	setUpOpponentResultLabel();
+
 	setUpChart();
 
+	layout->addLayout(resultInfoLayout);
 	layout->addLayout(plotLayout);
 
 	MainWindow->setLayout(layout);
@@ -82,6 +95,20 @@ QFont Ui_gamePlotScreen::setUpFont(int points)
 {
 	font->setPointSize(points);
 	return *font;
+}
+
+void Ui_gamePlotScreen::setUpOurResultLabel()
+{
+	ourScoreLabel->setObjectName("ourScoreLabel");
+	ourScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	resultInfoLayout->addWidget(ourScoreLabel, 0, Qt::AlignHCenter);
+}
+
+void Ui_gamePlotScreen::setUpOpponentResultLabel()
+{
+	opponentScoreLabel->setObjectName("opponentScoreLabel");
+	opponentScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	resultInfoLayout->addWidget(opponentScoreLabel, 0, Qt::AlignHCenter);
 }
 
 void Ui_gamePlotScreen::handleDrawSeries(int idx, double fitness)

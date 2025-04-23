@@ -36,6 +36,10 @@ private:
     QFont* font;
     QVBoxLayout* layout;
     QHBoxLayout* plotLayout;
+    QHBoxLayout* resultInfoLayout;
+    QLabel* ourScoreLabel;
+    QLabel* opponentScoreLabel;
+    QLabel* separateResultLabel;
 
     void setupUi(QWidget* mainWindow);
     void retranslateUi(QWidget* MainWindow);
@@ -43,6 +47,10 @@ private:
     void setUpInfoLabel();
     void setUpChart();
     QFont setUpFont(int points);
+
+    void setUpOurResultLabel();
+    void setUpOpponentResultLabel();
+
 
 private slots:
     void handleDrawSeries(int idx, double fitness);

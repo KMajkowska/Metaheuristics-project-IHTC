@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
 	setCentralWidget(_stackedWidget);
 	_stackedWidget->showMaximized();
-	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
+	StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 }
 
 MainWindow::~MainWindow()
