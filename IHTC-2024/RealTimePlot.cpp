@@ -3,11 +3,11 @@
 RealTimePlot::RealTimePlot(QWidget* parent) : QChartView(parent)
 {
 	series = new QLineSeries();
-	chart = new QChart();
+	ourResultChart = new QChart();
 	axisX = new QValueAxis();
 	axisY = new QValueAxis();
-	chartView = new QChartView(chart);
-	layout = new QVBoxLayout(this);
+	ourResultChartView = new QChartView(ourResultChart);
+	layout = new QHBoxLayout(this);
 }
 
 void RealTimePlot::setUpChart()
@@ -15,19 +15,19 @@ void RealTimePlot::setUpChart()
 	setUpAxisX();
 	setUpAxisY();
 
-	chart->addAxis(axisX, Qt::AlignBottom);
-	chart->addAxis(axisY, Qt::AlignLeft);
+	ourResultChart->addAxis(axisX, Qt::AlignBottom);
+	ourResultChart->addAxis(axisY, Qt::AlignLeft);
 
-	chartView->setRenderHint(QPainter::Antialiasing);
+	ourResultChartView->setRenderHint(QPainter::Antialiasing);
 
-	layout->addWidget(chartView);
+	layout->addWidget(ourResultChartView);
 	setLayout(layout);
 }
 
 void RealTimePlot::drawSeries(double x, double y)
 {
 	series->append(x, y);
-	chart->addSeries(series);
+	ourResultChart->addSeries(series);
 }
 
 void RealTimePlot::setUpAxisX()

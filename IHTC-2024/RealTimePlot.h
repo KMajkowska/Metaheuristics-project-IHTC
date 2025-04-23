@@ -19,12 +19,15 @@ public:
 private slots:
 
 private:
-    QLineSeries* series;
-    QChart* chart;
+    QLineSeries* ourResultSeries;
+    QChart* ourResultChart;
+    QLineSeries* opponentSeries;
+    QChart* opponentChart;
     QValueAxis* axisX;
     QValueAxis* axisY;
-    QChartView* chartView;
-    QVBoxLayout* layout;
+    QChartView* ourResultChartView;
+    QChartView* opponentChartView;
+    QHBoxLayout* layout;
 
     void setUpAxisX();
     void setUpAxisY();
