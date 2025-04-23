@@ -41,7 +41,8 @@ void Ui_gamePlotScreen::connectPlot(std::shared_ptr<ICGame> game)
 				idx = 0;
 				opponnetIdx = 0;
 
-				// TODO: settings score
+				changeOurScoreLabel(localPlayer->score());
+				chaneOpponentScoreLabel(opponentPlayer->score());
 			});
 	}
 }
@@ -57,8 +58,12 @@ void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
 	
 	setUpOurResultLabel();
 
+	resultInfoLayout->addStretch(1);
+
 	separateResultLabel->setText(":");
 	resultInfoLayout->addWidget(separateResultLabel);
+
+	resultInfoLayout->addStretch(1);
 
 	setUpOpponentResultLabel();
 
@@ -102,6 +107,8 @@ void Ui_gamePlotScreen::retranslateUi(QWidget* MainWindow)
 {
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Game!!", nullptr));
 	infoLabel->setText(QCoreApplication::translate("MainWindow", "Game plots:", nullptr));
+	ourScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
+	opponentScoreLabel->setText(QCoreApplication::translate("Main Window", "0", nullptr));
 }
 
 QFont Ui_gamePlotScreen::setUpFont(int points)
@@ -122,6 +129,16 @@ void Ui_gamePlotScreen::setUpOpponentResultLabel()
 	opponentScoreLabel->setObjectName("opponentScoreLabel");
 	opponentScoreLabel->setFont(setUpFont(OTHER_COMPONENTS_FONT));
 	resultInfoLayout->addWidget(opponentScoreLabel, 0, Qt::AlignHCenter);
+}
+
+void Ui_gamePlotScreen::changeOurScoreLabel(int score)
+{
+	ourScoreLabel->setText(QString::number(score));
+}
+
+void Ui_gamePlotScreen::chaneOpponentScoreLabel(int score)
+{
+	opponentScoreLabel->setText(QString::number(score));
 }
 
 void Ui_gamePlotScreen::handleDrawSeries(double idx, double fitness)
