@@ -14,7 +14,13 @@ public:
     RealTimePlot(QWidget* parent = nullptr);
     void setUpChart();
 
-    void drawSeries(double x, double y);
+    void setUpYourOpponentPlot();
+
+    void setUpOurResultPlot();
+
+    void drawSeriesOurResult(double x, double y);
+
+    void drawSeriesOpponentResult(double x, double y);
 
 private slots:
 

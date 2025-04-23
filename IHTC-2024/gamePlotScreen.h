@@ -46,7 +46,11 @@ private:
 
 private slots:
     void handleDrawSeries(int idx, double fitness);
+    void handleOpponentDrawSeries(int idx, double fitness);
 
 signals:
     void requestDrawSeries(int idx, double fitness);
+
+signals:
+    void requestDrawOpponentSeries(int idx, double fitness);
 };

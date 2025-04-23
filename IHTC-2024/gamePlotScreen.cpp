@@ -16,16 +16,17 @@ Ui_gamePlotScreen::Ui_gamePlotScreen(QWidget* parent) :
 void Ui_gamePlotScreen::connectPlot(std::shared_ptr<ICGame> game)
 {
 	static int idx = 1;
-
-	connect(this, &Ui_gamePlotScreen::requestDrawSeries,
-		this, &Ui_gamePlotScreen::handleDrawSeries,
-		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+	static int opponnetIdx = 1;
 
 	if (game)
 	{
 		game->setOnLocal([this](SolutionData solutionData)
 			{
 				emit requestDrawSeries(idx++, solutionData.fitness());
+			});
+		game->setOnOpponent([this](SolutionData solutionData)
+			{
+				emit requestDrawOpponentSeries(opponnetIdx++, solutionData.fitness());
 			});
 	}
 }
@@ -47,6 +48,13 @@ void Ui_gamePlotScreen::setupUi(QWidget* MainWindow) {
   
     retranslateUi(this);
 
+	connect(this, &Ui_gamePlotScreen::requestDrawSeries,
+		this, &Ui_gamePlotScreen::handleDrawSeries,
+		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+	connect(this, &Ui_gamePlotScreen::requestDrawOpponentSeries,
+		this, &Ui_gamePlotScreen::handleOpponentDrawSeries,
+		Qt::QueuedConnection); // Ensures the slot runs in the GUI thread
+
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
@@ -67,7 +75,7 @@ void Ui_gamePlotScreen::setUpChart()
 void Ui_gamePlotScreen::retranslateUi(QWidget* MainWindow)
 {
     MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Game!!", nullptr));
-	infoLabel->setText(QCoreApplication::translate("MainWindow", "Your game plot:", nullptr));
+	infoLabel->setText(QCoreApplication::translate("MainWindow", "Game plots:", nullptr));
 }
 
 QFont Ui_gamePlotScreen::setUpFont(int points)
@@ -78,5 +86,10 @@ QFont Ui_gamePlotScreen::setUpFont(int points)
 
 void Ui_gamePlotScreen::handleDrawSeries(int idx, double fitness)
 {
-	plot->drawSeries(idx, fitness);
+	plot->drawSeriesOurResult(idx, fitness);
+}
+
+void Ui_gamePlotScreen::handleOpponentDrawSeries(int idx, double fitness)
+{
+	plot->drawSeriesOpponentResult(idx, fitness);
 }

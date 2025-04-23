@@ -194,7 +194,7 @@ QFont Ui_gameParameters::setUpFont(int points)
 
 void Ui_gameParameters::onReadyButtonClicked()
 {
-    static_cast<Ui_metahParameters*>( StateController::instance().screens()[ScreensNumber::METAH_PARAMETERS])->setSlidersEnabled(gameTimeComboBox->currentText());
+    static_cast<Ui_metahParameters*>(StateController::instance().screens()[ScreensNumber::METAH_PARAMETERS])->setSlidersEnabled(gameTimeComboBox->currentText());
     StateController::instance().allGameParameters().setGameLevel(stringToEnum<GameLevel>(gameLevelComboBox->currentText()));
     StateController::instance().allGameParameters().setGameTime(toInt(gameTimeComboBox->currentText()));
     StateController::instance().allGameParameters().setJudgeType(stringToEnum<WinnerJudgeType>(winningModeComboBox->currentText()));

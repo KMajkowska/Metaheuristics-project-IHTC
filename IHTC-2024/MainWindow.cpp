@@ -34,10 +34,17 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	StateController::instance().addScreen(ScreensNumber::END_GAME_SCREEN, endGameScreen);
 
 
-	StateController::instance().setNavigate([&](ScreensNumber screen)
+	StateController::instance().setNavigate([=](ScreensNumber screen)
 		{
-			_stackedWidget->setCurrentIndex(static_cast<int>(screen));
+			QMetaObject::invokeMethod(
+				_stackedWidget, 
+				[=]() 
+				{
+					_stackedWidget->setCurrentIndex(static_cast<int>(screen));
+				},
+				Qt::QueuedConnection);
 		});
+
 
 	setCentralWidget(_stackedWidget);
 	_stackedWidget->showMaximized();
