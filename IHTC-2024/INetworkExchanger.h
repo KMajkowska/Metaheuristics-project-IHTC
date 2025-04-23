@@ -21,6 +21,8 @@ public:
 
 	virtual void tellEndOfTransmission() = 0;
 
+	virtual void disconnect() = 0;
+
 	void setOnEndTransmission(std::function<void()> callback);
 	void setOnConnect(std::function<void()> callback);
 

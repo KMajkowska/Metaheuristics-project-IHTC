@@ -12,12 +12,7 @@ PeerToPeer::PeerToPeer(boost::asio::io_context& context, const std::string& ip, 
 
 PeerToPeer::~PeerToPeer()
 {
-	if (_connected)
-	{
-		tellEndOfTransmission();
-	}
-
-	_socket.close();
+	disconnect();
 }
 
 void PeerToPeer::start()
@@ -37,6 +32,7 @@ void PeerToPeer::start()
 void PeerToPeer::listenForConnections()
 {
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::make_address(_ip), _port);
+
 	_acceptor.open(endpoint.protocol());
 	_acceptor.set_option(boost::asio::socket_base::reuse_address(true));
 	_acceptor.bind(endpoint);
@@ -46,14 +42,14 @@ void PeerToPeer::listenForConnections()
 		_socket,
 		[this](const boost::system::error_code& error)
 		{
-			if (!error)
-			{
-				onSuccesfullConnect();
-			}
-			else
+			if (error)
 			{
 				std::cerr << "Failed to accept connection: " << error.message() << std::endl;
+				return;
 			}
+
+			onSuccesfullConnect();
+
 		});
 }
 
@@ -72,25 +68,25 @@ void PeerToPeer::tryConnect()
 	_socket.open(endpoint.protocol());
 
 	_socket.async_connect(
-		endpoint, 
+		endpoint,
 		[this](const boost::system::error_code& error)
 		{
 			if (!error)
 			{
 				onSuccesfullConnect();
+				return;
 			}
-			else
-			{
-				_retryTimer.expires_after(std::chrono::milliseconds(_currentRetryDelay));
-				_retryTimer.async_wait([this](const boost::system::error_code& timer_error)
+
+			_retryTimer.expires_after(std::chrono::milliseconds(_currentRetryDelay));
+			_retryTimer.async_wait([this](const boost::system::error_code& timer_error)
+				{
+					if (!timer_error && !_connected)
 					{
-						if (!timer_error && !_connected)
-						{
-							_currentRetryDelay = std::min(_currentRetryDelay * 2, MAX_RETRY_DELAY);
-							tryConnect();
-						}
-					});
-			}
+						_currentRetryDelay = std::min(_currentRetryDelay * 2, MAX_RETRY_DELAY);
+						tryConnect();
+					}
+				});
+
 		});
 }
 
@@ -139,41 +135,52 @@ void PeerToPeer::receiveMessage()
 		'\n',
 		[this](boost::system::error_code error, std::size_t bytes_transferred)
 		{
-			if (!error)
+			if (error)
 			{
-				std::istream is(&_receiveBuffer);
-				std::string message;
-				std::getline(is, message);
+				disconnect();
+				return;
+			}
 
-				if (message == END_OF_TRANSMISSION)
-				{
-					if (_onEndTransmission)
-					{
-						_onEndTransmission();
-					}
-				}
-				else
-				{
-					notify(message);
-				}
+			std::istream is(&_receiveBuffer);
+			std::string message;
+			std::getline(is, message);
 
-				if (_connected)
+			if (message == END_OF_TRANSMISSION)
+			{
+				if (_onEndTransmission)
 				{
-					receiveMessage();
+					_onEndTransmission();
 				}
 			}
 			else
 			{
-				if (error == boost::asio::error::eof) 
-				{
-					return;
-				}
-				else if (error)
-				{
-					throw boost::system::system_error(error);
-				}
+				notify(message);
+			}
+
+			if (_connected)
+			{
+				receiveMessage();
 			}
 		});
+}
+
+void PeerToPeer::disconnect()
+{
+	if (_connected)
+	{
+		return;
+	}
+
+	_connected = false;
+
+	boost::system::error_code error;
+	_socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
+	_socket.close(error);
+
+	if (error)
+	{
+		std::cerr << "Error during disconnect: " << error.message() << std::endl;
+	}
 }
 
 void PeerToPeer::tellEndOfTransmission()
