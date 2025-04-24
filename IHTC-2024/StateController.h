@@ -44,9 +44,9 @@ public:
 	void stopUpdatingSessionList();
 	std::unordered_map<std::string, CGameInfo>& foundSessions();
 
-	void runComputer(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameter) const;
-	void createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters);
-	void joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
+	void runComputer(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameter) const;
+	void createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters);
+	void joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
 
 private:
 	std::function<void(ScreensNumber)> _navigateCallback;

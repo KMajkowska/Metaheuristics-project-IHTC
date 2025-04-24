@@ -90,7 +90,7 @@ std::unordered_map<std::string, CGameInfo>& StateController::foundSessions()
 
 void StateController::runComputer(
 	std::function<void(std::shared_ptr<ICGame>)> onStart,
-	std::function<void()> onFinish, 
+	std::function<void(Winner)> onFinish,
 	AllGameParameters parameters
 ) const
 {
@@ -112,11 +112,11 @@ void StateController::runComputer(
 				onStart(game);
 			}
 
-			game->startGame();
+			Winner winner = game->startGame();
 
 			if (onFinish)
 			{
-				onFinish();
+				onFinish(winner);
 			}
 		}).detach();
 
@@ -149,7 +149,7 @@ void StateController::stopUpdatingSessionList()
 	_sessionReceiver.removeObservers();
 }
 
-void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters)
+void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters)
 {
 	std::string problemFile{ getProblemFilePath(parameters.inputParametersLevel()) };
 
@@ -174,9 +174,11 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 		{
 			peer->tellEndOfTransmission();
 
+			Winner winner;
+
 			if (onFinish)
 			{
-				onFinish();
+				onFinish(winner);
 			}
 		});
 
@@ -191,11 +193,11 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 
 			std::thread([networkGame, onFinish, peer]()
 			{
-				networkGame->startGame();
+				Winner winner = networkGame->startGame();
 
 				if (onFinish)
 				{
-					onFinish();
+					onFinish(winner);
 				}
 
 				peer->disconnect();
@@ -207,7 +209,7 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 	poster->postSession();
 }
 
-void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void()> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
+void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters, CGameInfo chosenGame)
 {
 	std::string problemFile{ getProblemFilePath(parameters.inputParametersLevel())};
 
@@ -235,12 +237,12 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 						onStart(networkGame);
 					}
 
-					networkGame->startGame();
+					Winner winner = networkGame->startGame();
 
 
 					if (onFinish)
 					{
-						onFinish();
+						onFinish(winner);
 					}
 
 					peer->disconnect();

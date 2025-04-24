@@ -142,7 +142,7 @@ void Ui_sessions::onItemClicked(QListWidgetItem* item)
                 {
                     static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
                 },
-                []()
+                [](Winner winer)
                 {
                     StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
                 },

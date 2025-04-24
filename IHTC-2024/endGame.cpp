@@ -43,7 +43,6 @@ void Ui_endGameScreen::setupUi(QWidget* mainWindow)
 void Ui_endGameScreen::retranslateUi(QWidget* mainWindow)
 {
     mainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Your result", nullptr));
-    _gameResultLabel->setText(QCoreApplication::translate("MainWindow", "You", nullptr));
     _endButton->setText(QCoreApplication::translate("MainWindow", "End game and close app", nullptr));
     _returnButton->setText(QCoreApplication::translate("MainWindow", "Return to choose opponent", nullptr));
 }
@@ -77,6 +76,18 @@ void Ui_endGameScreen::setUpGameResultLabel()
     _gameResultLabel->setObjectName("gameResultLabel");
     _gameResultLabel->setFont(setUpFont(MAIN_TEXT_FONT));
     _mainLayout->addWidget(_gameResultLabel, 0, Qt::AlignCenter);
+}
+
+void Ui_endGameScreen::changeGameResultLabel(Winner winner)
+{
+    if (winner == Winner::LOCAL)
+    {
+        _gameResultLabel->setText("YOU WIN! CONRATULATIONS!");
+    }
+    else
+    {
+        _gameResultLabel->setText("YOU LOSE! WE ARE SORRY!");
+    }
 }
 
 void Ui_endGameScreen::onReturnButtonClicked()

@@ -89,9 +89,11 @@ void Ui_chooseOpponent::onComputerButtonClicked()
 					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
 					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 				},
-				[]()
+				[](Winner winner)
 				{
+
 					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
+					
 				},
 				StateController::instance().allGameParameters());
 		});
@@ -111,7 +113,7 @@ void Ui_chooseOpponent::onPlayerButtonClicked()
 					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
 					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 				},
-				[]() 
+				[](Winner winner) 
 				{
 					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
 				},
