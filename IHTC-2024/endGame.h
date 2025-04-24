@@ -19,7 +19,6 @@
 #include "ScreensNumber.h"
 #include "Winner.h"
 
-// TODO: Add 'YOU WIN/YOU LOSE'
 class Ui_endGameScreen : public QWidget
 {
     Q_OBJECT
@@ -27,6 +26,8 @@ class Ui_endGameScreen : public QWidget
 public:
     Ui_endGameScreen(QWidget* parent = nullptr);
     ~Ui_endGameScreen();
+
+    void changeGameResultLabel(Winner winner);
 
 private:
     QWidget* _centralWidget;
@@ -44,8 +45,6 @@ private:
     QFont setUpFont(int points);
     void setUpReturnButton();
     void setUpGameResultLabel();
-
-    void changeGameResultLabel(Winner winner);
 
 private slots:
     void onReturnButtonClicked();

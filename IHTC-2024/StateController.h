@@ -1,5 +1,10 @@
 #pragma once
 
+#include <unordered_map>
+#include <chrono>
+#include <thread>
+#include <mutex>
+#include <string>
 #include <qwidget.h>
 
 #include "ScreensNumber.h"
@@ -10,12 +15,7 @@
 #include "JSONOperations.h"
 #include "CSessionReceiverPeerToPeer.h"
 #include "CSessionPosterPeerToPeer.h"
-#include <unordered_map>
-#include <chrono>
-#include <thread>
-#include <mutex>
-#include <string>
-#include <consts.h>
+#include "consts.h"
 #include "PeerToPeer.h"
 #include "CGameNetwork.h"
 
@@ -37,6 +37,8 @@ public:
 	void setNavigate(std::function<void(ScreensNumber)> navigateCallback);
 	void navigate(ScreensNumber screen);
 
+	void setReset(std::function<void()> screensRestartCallback);
+
 	void setStartGame(std::function<void()> startGameCallback);
 	void startGame();
 
@@ -48,9 +50,12 @@ public:
 	void createSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters);
 	void joinSession(std::function<void(std::shared_ptr<ICGame>)> onStart, std::function<void(Winner)> onFinish, AllGameParameters parameters, CGameInfo chosenGame);
 
+	void resetState();
+
 private:
 	std::function<void(ScreensNumber)> _navigateCallback;
 	std::function<void()> _startGameCallback;
+	std::function<void()> _screensRestartCallback;
 
 	std::unordered_map<ScreensNumber, QWidget*> _screens;
 	AllGameParameters _allGameParameters;

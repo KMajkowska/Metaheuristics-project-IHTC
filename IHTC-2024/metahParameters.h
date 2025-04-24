@@ -22,6 +22,9 @@
 
 class Ui_metahParameters : public QWidget
 {
+
+    Q_OBJECT
+
 public: 
     Ui_metahParameters(QWidget* parent = nullptr);
     ~Ui_metahParameters();

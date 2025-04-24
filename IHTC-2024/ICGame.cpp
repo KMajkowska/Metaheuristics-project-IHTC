@@ -37,6 +37,8 @@ Winner ICGame::startGame()
 		}
 	}
 
+	result = _judge->checkWinner(*_localPlayer, *_opponentPlayer);
+
 	return result;
 }
 

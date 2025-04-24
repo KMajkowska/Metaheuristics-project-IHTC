@@ -18,6 +18,9 @@
 
 class Ui_waitingScreen : public QWidget
 {
+
+    Q_OBJECT
+
 public:
     Ui_waitingScreen(QWidget* parent);
     ~Ui_waitingScreen();

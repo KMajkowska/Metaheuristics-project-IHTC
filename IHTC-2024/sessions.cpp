@@ -1,5 +1,4 @@
 #include "sessions.h"
-#include <gamePlotScreen.h>
 
 Ui_sessions::Ui_sessions(QWidget* parent) : 
     QWidget(parent)
@@ -48,6 +47,7 @@ void Ui_sessions::setUpListOfSessions()
     _listOfSessions->setObjectName("listWidget");
     _listOfSessions->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     _listOfSessions->setMinimumHeight(700);
+    _listOfSessions->clear();
     _listLayout->addWidget(_listOfSessions, 0, Qt::AlignVCenter);
 }
 
@@ -99,7 +99,6 @@ void Ui_sessions::updateSessionList(std::unordered_map<std::string, CGameInfo>& 
             _listOfSessions->addItem(item);
             _addedItems.insert(item->text().toStdString());
         }
-
     }
 }
 
@@ -138,14 +137,8 @@ void Ui_sessions::onItemClicked(QListWidgetItem* item)
 
             StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
             StateController::instance().joinSession(
-                [](std::shared_ptr<ICGame> game) 
-                {
-                    static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
-                },
-                [](Winner winer)
-                {
-                    StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
-                },
+                showPlot,
+                showWinner,
                 StateController::instance().allGameParameters(),
                 foundGame->second);
         });

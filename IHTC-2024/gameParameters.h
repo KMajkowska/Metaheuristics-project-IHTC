@@ -23,6 +23,9 @@
 
 class Ui_gameParameters : public QWidget
 {
+
+    Q_OBJECT
+
 public:
     Ui_gameParameters(QWidget* parent = nullptr);
     ~Ui_gameParameters();

@@ -17,12 +17,12 @@
 #include "consts.h"
 #include "StateController.h"
 
-class Ui_welcomeScreen : public QWidget {
+class Ui_welcomeScreen : public QWidget
+{
 
     Q_OBJECT
 
 public:
-
     explicit Ui_welcomeScreen(QWidget* parent = nullptr);
     ~Ui_welcomeScreen();
     

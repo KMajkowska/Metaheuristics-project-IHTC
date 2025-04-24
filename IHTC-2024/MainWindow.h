@@ -20,7 +20,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+
+    void resetParameters();
     
 private:
     QStackedWidget* _stackedWidget; 
+
+    void setUpScreens();
 };

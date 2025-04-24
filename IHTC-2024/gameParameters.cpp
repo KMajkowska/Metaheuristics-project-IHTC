@@ -81,6 +81,7 @@ void Ui_gameParameters::setUpRoundNumberDoubleSpinBox()
     _roundNumberDoubleSpinBox->setFixedWidth(261);
     _roundNumberDoubleSpinBox->setSingleStep(1);
     _roundNumberDoubleSpinBox->setRange(1, 15);
+    _roundNumberDoubleSpinBox->setValue(1);
     _roundNumberDoubleSpinBox->setFont(setUpFont(PARAMETERS_FONT_POINTS));
     _roundNumberLayout->addWidget(_roundNumberDoubleSpinBox, 0, Qt::AlignCenter);
 }
@@ -134,6 +135,7 @@ void Ui_gameParameters::setUpGameLevelCombobox()
 {
     _gameLevelComboBox->setObjectName("gameLevelComboBox");
     _gameLevelComboBox->setFixedWidth(261);
+    _gameLevelComboBox->setCurrentText(QString::fromStdString(enumToString(GameLevel::UNKNOWN)));
     for (int i = 0; i <= static_cast<int>(GameLevel::HARD); ++i) {
         GameLevel level = static_cast<GameLevel>(i);
         _gameLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
@@ -146,6 +148,7 @@ void Ui_gameParameters::setUpInputParametersLevelCombobox()
 {
     _inputParametersLevelComboBox->setObjectName("inputParametersLevelComboBox");
     _inputParametersLevelComboBox->setFixedWidth(261);
+    _inputParametersLevelComboBox->setCurrentText(QString::fromStdString(enumToString(GameLevel::UNKNOWN)));
     for (int i = 0; i <= static_cast<int>(GameLevel::HARD); ++i) {
         GameLevel level = static_cast<GameLevel>(i);
         _inputParametersLevelComboBox->addItem(QString::fromStdString(enumToString(level)), i);
@@ -158,7 +161,8 @@ void Ui_gameParameters::setUpWinningModeCombobox()
 {
     _winningModeComboBox->setObjectName("winningModeComboBox");
     _winningModeComboBox->setFixedWidth(261);
-    for (int i = 0; i <= static_cast<int>(WinnerJudgeType::BEST_OF_N); ++i) {
+    _winningModeComboBox->setCurrentText(QString::fromStdString(enumToString<WinnerJudgeType>(WinnerJudgeType::UNKNOWN)));
+    for (int i = 0; i <= static_cast<int>(WinnerJudgeType::UP_TO_N); ++i) {
         WinnerJudgeType mode = static_cast<WinnerJudgeType>(i);
         _winningModeComboBox->addItem(QString::fromStdString(enumToString<WinnerJudgeType>(mode)), i);
     }
@@ -170,6 +174,7 @@ void Ui_gameParameters::setUpGameTimeCombobox()
 {
     _gameTimeComboBox->setObjectName("gameTimeComboBox");
     _gameTimeComboBox->setFixedWidth(261);
+    _gameTimeComboBox->setCurrentText(QString::fromStdString(enumToString<GameTimeValues>(GameTimeValues::UNKNOWN)));
     for (int i = 0; i <= static_cast<int>(GameTimeValues::_180); ++i) {
         GameTimeValues time = static_cast<GameTimeValues>(i);
         _gameTimeComboBox->addItem(QString::fromStdString(enumToString(time)), i);

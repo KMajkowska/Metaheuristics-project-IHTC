@@ -1,11 +1,48 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : 
+	QMainWindow(parent)
 {
     setWindowIcon(QIcon("uniqrn.png"));
 
     _stackedWidget = new QStackedWidget(this);
 
+	setUpScreens();
+
+	StateController::instance().setNavigate([=](ScreensNumber screen)
+		{
+			QMetaObject::invokeMethod(
+				_stackedWidget, 
+				[=]() 
+				{
+					_stackedWidget->setCurrentIndex(static_cast<int>(screen));
+				},
+				Qt::QueuedConnection);
+		});
+
+	StateController::instance().setReset([=]()
+		{
+			QMetaObject::invokeMethod(
+				this,
+				[this]()
+				{
+					resetParameters();
+				},
+				Qt::QueuedConnection);
+		});
+
+	setCentralWidget(_stackedWidget);
+	_stackedWidget->showMaximized();
+	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
+}
+
+MainWindow::~MainWindow()
+{
+    delete _stackedWidget;
+}
+
+void MainWindow::setUpScreens()
+{
 	auto welcomeScreen = new Ui_welcomeScreen(this);
 	auto chooseOpponentScreen = new Ui_chooseOpponent(this);
 	auto metahParameters = new Ui_metahParameters(this);
@@ -33,25 +70,17 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 	StateController::instance().addScreen(ScreensNumber::PLOT_SCREEN, plotScreen);
 	StateController::instance().addScreen(ScreensNumber::END_GAME_SCREEN, endGameScreen);
 
-
-	StateController::instance().setNavigate([=](ScreensNumber screen)
-		{
-			QMetaObject::invokeMethod(
-				_stackedWidget, 
-				[=]() 
-				{
-					_stackedWidget->setCurrentIndex(static_cast<int>(screen));
-				},
-				Qt::QueuedConnection);
-		});
-
-
-	setCentralWidget(_stackedWidget);
-	_stackedWidget->showMaximized();
-	StateController::instance().navigate(ScreensNumber::WELCOME_SCREEN);
 }
 
-MainWindow::~MainWindow()
+void MainWindow::resetParameters()
 {
-    delete _stackedWidget;
+	while (_stackedWidget->count() > 0) {
+		QWidget* widget = _stackedWidget->widget(0);
+		_stackedWidget->removeWidget(widget);
+		widget->deleteLater();
+
+	}
+
+	setUpScreens();
+
 }

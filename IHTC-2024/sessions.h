@@ -18,9 +18,15 @@
 #include "StateController.h"
 #include "enumOperations.h"
 #include "string"
+#include "gamePlotScreen.h"
+#include "endGame.h"
+#include "gameStateHandlers.h" 
 
 class Ui_sessions : public QWidget
 {
+
+    Q_OBJECT
+
 public:
     Ui_sessions(QWidget* parent = nullptr);
     ~Ui_sessions();

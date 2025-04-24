@@ -17,6 +17,7 @@
 #include "consts.h"
 #include "StateController.h"
 #include "ScreensNumber.h"
+#include "gameStateHandlers.h" 
 
 class Ui_chooseOpponent : public QWidget
 {
@@ -25,6 +26,7 @@ class Ui_chooseOpponent : public QWidget
 public:
     Ui_chooseOpponent(QWidget* parent = nullptr);
     ~Ui_chooseOpponent();
+
 
 private:
     QWidget* _centralwidget;

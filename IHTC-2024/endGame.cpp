@@ -1,96 +1,91 @@
 #include "endGame.h"
 
-Ui_endGameScreen::Ui_endGameScreen(QWidget* parent) : 
-    QWidget(parent)
+Ui_endGameScreen::Ui_endGameScreen(QWidget* parent) :
+	QWidget(parent)
 {
 	_centralWidget = new QWidget(this);
-    _font = new QFont();
-    _endButton = new QPushButton(_centralWidget);
-    _returnButton = new QPushButton(_centralWidget);
-    _mainLayout = new QVBoxLayout(_centralWidget);
-    _gameResultLabel = new QLabel(_centralWidget);
-    _buttonLayout = new QHBoxLayout(_centralWidget);
+	_font = new QFont();
+	_endButton = new QPushButton(_centralWidget);
+	_returnButton = new QPushButton(_centralWidget);
+	_mainLayout = new QVBoxLayout(_centralWidget);
+	_gameResultLabel = new QLabel(_centralWidget);
+	_buttonLayout = new QHBoxLayout(_centralWidget);
 
-    setupUi(this);
+	setupUi(this);
 }
 
 Ui_endGameScreen::~Ui_endGameScreen() = default;
 
+
 void Ui_endGameScreen::setupUi(QWidget* mainWindow)
 {
-    if (mainWindow->objectName().isEmpty())
-    {
-        mainWindow->setObjectName("MainWindow");
-    }
+	if (mainWindow->objectName().isEmpty())
+	{
+		mainWindow->setObjectName("MainWindow");
+	}
 
-    _centralWidget->setParent(mainWindow);
-    _centralWidget->setObjectName("centralwidget");
+	_centralWidget->setParent(mainWindow);
+	_centralWidget->setObjectName("centralwidget");
 
-    setUpGameResultLabel();
-    setUpReturnButton();
-    setUpEndButton();
+	setUpGameResultLabel();
+	setUpReturnButton();
+	setUpEndButton();
 
-    _mainLayout->addLayout(_buttonLayout);
+	_mainLayout->addLayout(_buttonLayout);
 
-    mainWindow->setLayout(_mainLayout);
+	mainWindow->setLayout(_mainLayout);
 
-    connect(_returnButton, &QPushButton::clicked, this, &Ui_endGameScreen::onReturnButtonClicked);
-    connect(_endButton, &QPushButton::clicked, this, &QApplication::quit);
+	connect(_returnButton, &QPushButton::clicked, this, &Ui_endGameScreen::onReturnButtonClicked);
+	connect(_endButton, &QPushButton::clicked, this, &QApplication::quit);
 
-    retranslateUi(this);
+	retranslateUi(this);
 }
 
 void Ui_endGameScreen::retranslateUi(QWidget* mainWindow)
 {
-    mainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Your result", nullptr));
-    _endButton->setText(QCoreApplication::translate("MainWindow", "End game and close app", nullptr));
-    _returnButton->setText(QCoreApplication::translate("MainWindow", "Return to choose opponent", nullptr));
+	mainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Your result", nullptr));
+	_endButton->setText(QCoreApplication::translate("MainWindow", "End game and close app", nullptr));
+	_returnButton->setText(QCoreApplication::translate("MainWindow", "Return to choose opponent", nullptr));
 }
 
 void Ui_endGameScreen::setUpEndButton()
 {
-    _endButton->setObjectName("endButton");
-    _endButton->setFixedSize(400, 100);
-    _endButton->setStyleSheet("background-color: pink; color: black");
-    _endButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-    _buttonLayout->addWidget(_endButton, 0, Qt::AlignHCenter);
+	_endButton->setObjectName("endButton");
+	_endButton->setFixedSize(400, 100);
+	_endButton->setStyleSheet("background-color: pink; color: black");
+	_endButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_buttonLayout->addWidget(_endButton, 0, Qt::AlignHCenter);
 }
 
 QFont Ui_endGameScreen::setUpFont(int points)
 {
-    _font->setPointSize(points);
-    return *_font;
+	_font->setPointSize(points);
+	return *_font;
 }
 
 void Ui_endGameScreen::setUpReturnButton()
 {
-    _returnButton->setObjectName("returnButton");
-    _returnButton->setFixedSize(400, 100);
-    _returnButton->setStyleSheet("background-color: pink; color: black");
-    _returnButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
-    _buttonLayout->addWidget(_returnButton, 0, Qt::AlignHCenter);
+	_returnButton->setObjectName("returnButton");
+	_returnButton->setFixedSize(400, 100);
+	_returnButton->setStyleSheet("background-color: pink; color: black");
+	_returnButton->setFont(setUpFont(OTHER_COMPONENTS_FONT));
+	_buttonLayout->addWidget(_returnButton, 0, Qt::AlignHCenter);
 }
 
 void Ui_endGameScreen::setUpGameResultLabel()
 {
-    _gameResultLabel->setObjectName("gameResultLabel");
-    _gameResultLabel->setFont(setUpFont(MAIN_TEXT_FONT));
-    _mainLayout->addWidget(_gameResultLabel, 0, Qt::AlignCenter);
+	_gameResultLabel->setObjectName("gameResultLabel");
+	_gameResultLabel->setFont(setUpFont(MAIN_TEXT_FONT));
+	_mainLayout->addWidget(_gameResultLabel, 0, Qt::AlignCenter);
 }
 
 void Ui_endGameScreen::changeGameResultLabel(Winner winner)
 {
-    if (winner == Winner::LOCAL)
-    {
-        _gameResultLabel->setText("YOU WIN! CONRATULATIONS!");
-    }
-    else
-    {
-        _gameResultLabel->setText("YOU LOSE! WE ARE SORRY!");
-    }
+	_gameResultLabel->setText(winner == Winner::LOCAL ? "YOU WIN! CONRATULATIONS!" : "YOU LOSE! WE ARE SORRY!");
 }
 
 void Ui_endGameScreen::onReturnButtonClicked()
 {
-    StateController::instance().navigate(ScreensNumber::CHOOSE_OPPONENT);
+	StateController::instance().resetState();
+	StateController::instance().navigate(ScreensNumber::CHOOSE_OPPONENT);
 }

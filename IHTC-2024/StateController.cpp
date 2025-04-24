@@ -4,7 +4,8 @@ StateController::StateController() :
 	_workGuard(boost::asio::make_work_guard(_ioContext)),
 	_sessionReceiver(_ioContext)
 {
-	_ioContextThread = std::thread([this]()
+	_ioContextThread = std::thread(
+		[this]()
 		{
 			_ioContext.run();
 		});
@@ -51,15 +52,19 @@ std::unordered_map<ScreensNumber, QWidget*>& StateController::screens()
 
 void StateController::addScreen(const ScreensNumber screenNumber, QWidget* widget)
 {
-	if (!_screens.contains(screenNumber))
-	{
-		_screens[screenNumber] = widget;
-	}
+
+	_screens[screenNumber] = widget;
+
 }
 
 void StateController::setNavigate(std::function<void(ScreensNumber)> navigateCallback)
 {
 	_navigateCallback = navigateCallback;
+}
+
+void StateController::setReset(std::function<void()> screensRestartCallback)
+{
+	_screensRestartCallback = screensRestartCallback;
 }
 
 void StateController::navigate(ScreensNumber screen)
@@ -169,18 +174,6 @@ void StateController::createSession(std::function<void(std::shared_ptr<ICGame>)>
 	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, gameInfo.port(), true) };
 
 	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(_allGameParameters.name()), std::make_shared<CPlayer>("enemy"), getWinnerJudge(gameInfo), std::move(problemData), Params(gameInfo))};
-	
-	peer->setOnEndTransmission([onFinish, peer]()
-		{
-			peer->tellEndOfTransmission();
-
-			Winner winner;
-
-			if (onFinish)
-			{
-				onFinish(winner);
-			}
-		});
 
 	peer->setOnConnect([poster, networkGame, peer, onStart, onFinish]()
 		{
@@ -222,11 +215,9 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 
 	auto problemData(std::move(problemDataOpt.value()));
 
-
 	auto peer{ std::make_shared<PeerToPeer>(_ioContext, IP, chosenGame.port(), false)};
 
 	auto networkGame{ std::make_shared<CGameNetwork>(peer, std::make_shared<CPlayer>(parameters.name()), std::make_shared<CPlayer>(chosenGame.name()), getWinnerJudge(chosenGame), problemData, Params(parameters)) };
-
 
 	peer->setOnConnect([networkGame, onStart, onFinish, peer]()
 		{
@@ -250,6 +241,27 @@ void StateController::joinSession(std::function<void(std::shared_ptr<ICGame>)> o
 		});
 
 	peer->start();
+}
+
+void StateController::resetState()
+{
+	 _startGameCallback = nullptr;
+
+	_allGameParameters = AllGameParameters();
+
+	_foundSessions.clear();
+
+	_searchForSessions = false;
+
+	if (_cleanerThread.joinable())
+	{
+		_cleanerThread.join();
+	}
+
+	if (_screensRestartCallback)
+	{
+		_screensRestartCallback();
+	}
 }
 
 void StateController::cleaner()

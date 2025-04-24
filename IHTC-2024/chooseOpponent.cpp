@@ -1,5 +1,4 @@
 #include "chooseOpponent.h"
-#include <gamePlotScreen.h>
 
 Ui_chooseOpponent::Ui_chooseOpponent(QWidget* parent) :
 	QWidget(parent)
@@ -11,9 +10,6 @@ Ui_chooseOpponent::Ui_chooseOpponent(QWidget* parent) :
 	_font = new QFont();
 	_mainLayout = new QVBoxLayout(_centralwidget);
 	_buttonLayout = new QHBoxLayout(_centralwidget);
-
-	connect(_computerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onComputerButtonClicked);
-	connect(_playerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onPlayerButtonClicked);
 
 	setupUi(this);
 }
@@ -35,6 +31,9 @@ void Ui_chooseOpponent::setupUi(QWidget* MainWindow)
 
 	MainWindow->setLayout(_mainLayout);
 	retranslateUi(MainWindow);
+
+	connect(_computerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onComputerButtonClicked);
+	connect(_playerButton, &QPushButton::clicked, this, &Ui_chooseOpponent::onPlayerButtonClicked);
 
 	QMetaObject::connectSlotsByName(MainWindow);
 }
@@ -84,17 +83,8 @@ void Ui_chooseOpponent::onComputerButtonClicked()
 		{
 			StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
 			StateController::instance().runComputer(
-				[](std::shared_ptr<ICGame> game)
-				{
-					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
-					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
-				},
-				[](Winner winner)
-				{
-
-					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
-					
-				},
+				showPlot,
+				showWinner,
 				StateController::instance().allGameParameters());
 		});
 
@@ -108,15 +98,8 @@ void Ui_chooseOpponent::onPlayerButtonClicked()
 		{
 			StateController::instance().navigate(ScreensNumber::WAITING_SCREEN);
 			StateController::instance().createSession(
-				[](std::shared_ptr<ICGame> game)
-				{
-					static_cast<Ui_gamePlotScreen*>(StateController::instance().screens()[ScreensNumber::PLOT_SCREEN])->connectPlot(game);
-					StateController::instance().navigate(ScreensNumber::PLOT_SCREEN);
-				},
-				[](Winner winner) 
-				{
-					StateController::instance().navigate(ScreensNumber::END_GAME_SCREEN);
-				},
+				showPlot,
+				showWinner,
 				StateController::instance().allGameParameters());
 		});
 

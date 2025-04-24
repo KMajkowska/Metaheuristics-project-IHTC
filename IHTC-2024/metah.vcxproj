@@ -124,6 +124,7 @@
     <ClCompile Include="FitnessCalculator.cpp" />
     <ClCompile Include="gameParameters.cpp" />
     <ClCompile Include="gamePlotScreen.cpp" />
+    <ClCompile Include="gameStateHandlers.cpp" />
     <ClCompile Include="gameUtils.cpp" />
     <ClCompile Include="GemanAndGemanCoolingScheme.cpp" />
     <ClCompile Include="GenderGrouper.cpp" />
@@ -237,12 +238,13 @@
     <ClInclude Include="CSolutionHandler.h" />
     <QtMoc Include="endGame.h" />
     <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="gameStateHandlers.h" />
     <ClInclude Include="GameTimeValues.h" />
     <ClInclude Include="CoolingSchemeType.h" />
     <ClInclude Include="EASolver.h" />
     <ClInclude Include="enumOperations.h" />
     <ClInclude Include="FitnessCalculator.h" />
-    <ClInclude Include="gameParameters.h" />
+    <QtMoc Include="gameParameters.h" />
     <ClInclude Include="gameUtils.h" />
     <ClInclude Include="GemanAndGemanCoolingScheme.h" />
     <ClInclude Include="GenderGrouper.h" />
@@ -276,7 +278,7 @@
     <ClInclude Include="JSONSerializableExchanger.h" />
     <ClInclude Include="Logger.h" />
     <QtMoc Include="MainWindow.h" />
-    <ClInclude Include="metahParameters.h" />
+    <QtMoc Include="metahParameters.h" />
     <ClInclude Include="MockProblem.h" />
     <ClInclude Include="NeighbourGeneratorPrizeBest.h" />
     <ClInclude Include="NeighbourGeneratorQueue.h" />
@@ -310,7 +312,7 @@
     <ClInclude Include="SASolver.h" />
     <ClInclude Include="SASolverBuilder.h" />
     <ClInclude Include="ScreensNumber.h" />
-    <ClInclude Include="sessions.h" />
+    <QtMoc Include="sessions.h" />
     <ClInclude Include="ShiftDTO.h" />
     <ClInclude Include="ShiftNurses.h" />
     <ClInclude Include="SimplexCoolingScheme.h" />
@@ -330,7 +332,7 @@
     <QtMoc Include="gamePlotScreen.h" />
     <ClInclude Include="UpToN.h" />
     <ClInclude Include="VariableCoolingScheme.h" />
-    <ClInclude Include="waitingScreen.h" />
+    <QtMoc Include="waitingScreen.h" />
     <ClInclude Include="WeightsDTO.h" />
     <QtMoc Include="welcomeScreen.h" />
     <ClInclude Include="Winner.h" />

@@ -553,6 +553,9 @@
     <ClCompile Include="UpToN.cpp">
       <Filter>Source Files\game\winnerJudge</Filter>
     </ClCompile>
+    <ClCompile Include="gameStateHandlers.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NurseWrapper.h">
@@ -795,12 +798,6 @@
     <ClInclude Include="..\..\Metaheuristics-project-IHTC\IHTC-2024\ViolatedRestrictions.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="gameParameters.h">
-      <Filter>Header Files\GUI\screens</Filter>
-    </ClInclude>
-    <ClInclude Include="metahParameters.h">
-      <Filter>Header Files\GUI\screens</Filter>
-    </ClInclude>
     <ClInclude Include="ScreensNumber.h">
       <Filter>Header Files\GUI\utils</Filter>
     </ClInclude>
@@ -812,12 +809,6 @@
     </ClInclude>
     <ClInclude Include="consts.h">
       <Filter>Header Files\GUI\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sessions.h">
-      <Filter>Header Files\GUI\screens</Filter>
-    </ClInclude>
-    <ClInclude Include="waitingScreen.h">
-      <Filter>Header Files\GUI\screens</Filter>
     </ClInclude>
     <ClInclude Include="AllGameParameters.h">
       <Filter>Header Files\GUI\communication</Filter>
@@ -903,6 +894,9 @@
     <ClInclude Include="UpToN.h">
       <Filter>Header Files\game\winnerJudge</Filter>
     </ClInclude>
+    <ClInclude Include="gameStateHandlers.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -918,6 +912,18 @@
       <Filter>Header Files\GUI\plot</Filter>
     </QtMoc>
     <QtMoc Include="gamePlotScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="waitingScreen.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="metahParameters.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="gameParameters.h">
+      <Filter>Header Files\GUI\screens</Filter>
+    </QtMoc>
+    <QtMoc Include="sessions.h">
       <Filter>Header Files\GUI\screens</Filter>
     </QtMoc>
     <QtMoc Include="endGame.h">
